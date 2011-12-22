@@ -1,0 +1,200 @@
+// !$*UTF8*$!
+{
+	29B97313FDCFA39411CA2CEA /* Project object */ = {
+		activeBuildConfigurationName = Debug;
+		activeExecutable = C30A002912920CCC00DEABBC /* Plot Gallery-Mac */;
+		activeTarget = 8D1107260486CEB800E47090 /* Plot Gallery-Mac */;
+		addToTargets = (
+			8D1107260486CEB800E47090 /* Plot Gallery-Mac */,
+		);
+		codeSenseManager = C30A003F12920CEC00DEABBC /* Code sense */;
+		executables = (
+			C30A002912920CCC00DEABBC /* Plot Gallery-Mac */,
+		);
+		perUserDictionary = {
+			PBXConfiguration.PBXFileTableDataSource3.PBXFileTableDataSource = {
+				PBXFileTableDataSourceColumnSortingDirectionKey = "-1";
+				PBXFileTableDataSourceColumnSortingKey = PBXFileDataSource_Filename_ColumnID;
+				PBXFileTableDataSourceColumnWidthsKey = (
+					20,
+					678,
+					20,
+					48,
+					43,
+					43,
+					20,
+				);
+				PBXFileTableDataSourceColumnsKey = (
+					PBXFileDataSource_FiletypeID,
+					PBXFileDataSource_Filename_ColumnID,
+					PBXFileDataSource_Built_ColumnID,
+					PBXFileDataSource_ObjectSize_ColumnID,
+					PBXFileDataSource_Errors_ColumnID,
+					PBXFileDataSource_Warnings_ColumnID,
+					PBXFileDataSource_Target_ColumnID,
+				);
+			};
+			PBXPerProjectTemplateStateSaveDate = 320431882;
+			PBXWorkspaceStateSaveDate = 320431882;
+		};
+		perUserProjectItems = {
+			C30D221F131967D900CD5196 /* PBXTextBookmark */ = C30D221F131967D900CD5196 /* PBXTextBookmark */;
+			C37B6C1F12ADE5A5006073A4 /* PBXTextBookmark */ = C37B6C1F12ADE5A5006073A4 /* PBXTextBookmark */;
+			C3E96810131091C600B44D42 /* PBXTextBookmark */ = C3E96810131091C600B44D42 /* PBXTextBookmark */;
+		};
+		sourceControlManager = C30A003E12920CEC00DEABBC /* Source Control */;
+		userBuildSettings = {
+		};
+	};
+	4F22FF9A12342D7C006BF615 /* CompositePlot.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {856, 935}}";
+			sepNavSelRange = "{562, 0}";
+			sepNavVisRange = "{0, 1084}";
+		};
+	};
+	4F22FF9B12342D7C006BF615 /* CompositePlot.m */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {986, 6799}}";
+			sepNavSelRange = "{15558, 0}";
+			sepNavVisRange = "{15461, 910}";
+			sepNavWindowFrame = "{{1935, 69}, {1211, 1126}}";
+		};
+	};
+	4F22FF9E12342D7C006BF615 /* SimplePieChart.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {856, 935}}";
+			sepNavSelRange = "{305, 0}";
+			sepNavVisRange = "{0, 305}";
+		};
+	};
+	4F22FFA112342D7C006BF615 /* SimpleScatterPlot.m */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {856, 3549}}";
+			sepNavSelRange = "{0, 0}";
+			sepNavVisRange = "{0, 1842}";
+		};
+	};
+	4F22FFA312342D7C006BF615 /* VerticalBarChart.m */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {856, 2119}}";
+			sepNavSelRange = "{2139, 0}";
+			sepNavVisRange = "{1405, 2637}";
+		};
+	};
+	4F22FFAC12342DB1006BF615 /* PlotGallery.m */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {986, 1066}}";
+			sepNavSelRange = "{371, 0}";
+			sepNavVisRange = "{0, 899}";
+		};
+	};
+	4F8E1C13129077C200D2035F /* DatePlot.m */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {986, 1820}}";
+			sepNavSelRange = "{1671, 0}";
+			sepNavVisRange = "{909, 1809}";
+		};
+	};
+	8D1107260486CEB800E47090 /* Plot Gallery-Mac */ = {
+		activeExec = 0;
+		executables = (
+			C30A002912920CCC00DEABBC /* Plot Gallery-Mac */,
+		);
+	};
+	C30A002912920CCC00DEABBC /* Plot Gallery-Mac */ = {
+		isa = PBXExecutable;
+		activeArgIndices = (
+		);
+		argumentStrings = (
+		);
+		autoAttachOnCrash = 1;
+		breakpointsEnabled = 0;
+		configStateDict = {
+		};
+		customDataFormattersEnabled = 1;
+		dataTipCustomDataFormattersEnabled = 1;
+		dataTipShowTypeColumn = 1;
+		dataTipSortType = 0;
+		debuggerPlugin = GDBDebugging;
+		disassemblyDisplayState = 0;
+		dylibVariantSuffix = "";
+		enableDebugStr = 1;
+		environmentEntries = (
+		);
+		executableSystemSymbolLevel = 0;
+		executableUserSymbolLevel = 0;
+		libgmallocEnabled = 0;
+		name = "Plot Gallery-Mac";
+		savedGlobals = {
+		};
+		showTypeColumn = 0;
+		sourceDirectories = (
+		);
+	};
+	C30A003E12920CEC00DEABBC /* Source Control */ = {
+		isa = PBXSourceControlManager;
+		fallbackIsa = XCSourceControlManager;
+		isSCMEnabled = 0;
+		scmConfiguration = {
+			repositoryNamesForRoots = {
+				"" = "";
+			};
+		};
+	};
+	C30A003F12920CEC00DEABBC /* Code sense */ = {
+		isa = PBXCodeSenseManager;
+		indexTemplatePath = "";
+	};
+	C30D221F131967D900CD5196 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = C3F34F1412AB2598008FBDC3 /* DonutChart.m */;
+		name = "DonutChart.m: 75";
+		rLen = 0;
+		rLoc = 1949;
+		rType = 0;
+		vrLen = 2527;
+		vrLoc = 975;
+	};
+	C37B6C1F12ADE5A5006073A4 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = C3F5AF7A12ADBFB800058393 /* CPTradingRangePlot.h */;
+		name = "CPTradingRangePlot.h: 30";
+		rLen = 0;
+		rLoc = 834;
+		rType = 0;
+		vrLen = 1918;
+		vrLoc = 0;
+	};
+	C3E96810131091C600B44D42 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = C3F34F1412AB2598008FBDC3 /* DonutChart.m */;
+		name = "DonutChart.m: 75";
+		rLen = 0;
+		rLoc = 1949;
+		rType = 0;
+		vrLen = 2527;
+		vrLoc = 975;
+	};
+	C3F34F1312AB2598008FBDC3 /* DonutChart.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {856, 935}}";
+			sepNavSelRange = "{152, 0}";
+			sepNavVisRange = "{0, 152}";
+		};
+	};
+	C3F34F1412AB2598008FBDC3 /* DonutChart.m */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {856, 2106}}";
+			sepNavSelRange = "{1949, 0}";
+			sepNavVisRange = "{975, 2527}";
+		};
+	};
+	C3F5AF7A12ADBFB800058393 /* CPTradingRangePlot.h */ = {
+		isa = PBXFileReference;
+		lastKnownFileType = sourcecode.c.h;
+		name = CPTradingRangePlot.h;
+		path = "/Users/eskroch/Projects/Core Plot/build/Debug/CorePlot.framework/Versions/A/Headers/CPTradingRangePlot.h";
+		sourceTree = "<absolute>";
+	};
+}

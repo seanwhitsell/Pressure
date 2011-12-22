@@ -1,0 +1,441 @@
+// !$*UTF8*$!
+{
+	1D6058900D05DD3D006BFB54 /* Plot Gallery-iOS */ = {
+		activeExec = 0;
+		executables = (
+			C3C42EE712920E6000916908 /* Plot Gallery-iOS */,
+		);
+	};
+	29B97313FDCFA39411CA2CEA /* Project object */ = {
+		activeBuildConfigurationName = Debug;
+		activeExecutable = C3C42EE712920E6000916908 /* Plot Gallery-iOS */;
+		activeSDKPreference = iphonesimulator4.2;
+		activeTarget = 1D6058900D05DD3D006BFB54 /* Plot Gallery-iOS */;
+		addToTargets = (
+			1D6058900D05DD3D006BFB54 /* Plot Gallery-iOS */,
+		);
+		codeSenseManager = C3C42EF212920EA600916908 /* Code sense */;
+		executables = (
+			C3C42EE712920E6000916908 /* Plot Gallery-iOS */,
+		);
+		perUserDictionary = {
+			PBXConfiguration.PBXFileTableDataSource3.PBXFileTableDataSource = {
+				PBXFileTableDataSourceColumnSortingDirectionKey = "-1";
+				PBXFileTableDataSourceColumnSortingKey = PBXFileDataSource_Filename_ColumnID;
+				PBXFileTableDataSourceColumnWidthsKey = (
+					20,
+					914,
+					20,
+					48,
+					43,
+					43,
+					20,
+				);
+				PBXFileTableDataSourceColumnsKey = (
+					PBXFileDataSource_FiletypeID,
+					PBXFileDataSource_Filename_ColumnID,
+					PBXFileDataSource_Built_ColumnID,
+					PBXFileDataSource_ObjectSize_ColumnID,
+					PBXFileDataSource_Errors_ColumnID,
+					PBXFileDataSource_Warnings_ColumnID,
+					PBXFileDataSource_Target_ColumnID,
+				);
+			};
+			PBXConfiguration.PBXTargetDataSource.PBXTargetDataSource = {
+				PBXFileTableDataSourceColumnSortingDirectionKey = "-1";
+				PBXFileTableDataSourceColumnSortingKey = PBXFileDataSource_Filename_ColumnID;
+				PBXFileTableDataSourceColumnWidthsKey = (
+					20,
+					874,
+					60,
+					20,
+					48.16259765625,
+					43,
+					43,
+				);
+				PBXFileTableDataSourceColumnsKey = (
+					PBXFileDataSource_FiletypeID,
+					PBXFileDataSource_Filename_ColumnID,
+					PBXTargetDataSource_PrimaryAttribute,
+					PBXFileDataSource_Built_ColumnID,
+					PBXFileDataSource_ObjectSize_ColumnID,
+					PBXFileDataSource_Errors_ColumnID,
+					PBXFileDataSource_Warnings_ColumnID,
+				);
+			};
+			PBXPerProjectTemplateStateSaveDate = 319852775;
+			PBXWorkspaceStateSaveDate = 319852775;
+		};
+		perUserProjectItems = {
+			C30DD0711303686400702211 /* PBXTextBookmark */ = C30DD0711303686400702211 /* PBXTextBookmark */;
+			C3C42F6E129218E500916908 /* PBXTextBookmark */ = C3C42F6E129218E500916908 /* PBXTextBookmark */;
+			C3C42F6F129218E500916908 /* PBXTextBookmark */ = C3C42F6F129218E500916908 /* PBXTextBookmark */;
+			C3C42F70129218E500916908 /* PBXTextBookmark */ = C3C42F70129218E500916908 /* PBXTextBookmark */;
+			C3C42F71129218E500916908 /* PBXTextBookmark */ = C3C42F71129218E500916908 /* PBXTextBookmark */;
+			C3C42F75129218E500916908 /* PBXTextBookmark */ = C3C42F75129218E500916908 /* PBXTextBookmark */;
+			C3C42F76129218E500916908 /* PBXTextBookmark */ = C3C42F76129218E500916908 /* PBXTextBookmark */;
+			C3C42F77129218E500916908 /* PBXTextBookmark */ = C3C42F77129218E500916908 /* PBXTextBookmark */;
+			C3C42F78129218E500916908 /* PBXTextBookmark */ = C3C42F78129218E500916908 /* PBXTextBookmark */;
+			C3C42FC9129224E700916908 /* PBXTextBookmark */ = C3C42FC9129224E700916908 /* PBXTextBookmark */;
+			C3C42FCA129224E700916908 /* PBXTextBookmark */ = C3C42FCA129224E700916908 /* PBXTextBookmark */;
+			C3C42FCB129224E700916908 /* PBXTextBookmark */ = C3C42FCB129224E700916908 /* PBXTextBookmark */;
+			C3C42FCC129224E700916908 /* PBXTextBookmark */ = C3C42FCC129224E700916908 /* PBXTextBookmark */;
+			C3C42FCD129224E700916908 /* PBXTextBookmark */ = C3C42FCD129224E700916908 /* PBXTextBookmark */;
+			C3C42FCE129224E700916908 /* PBXTextBookmark */ = C3C42FCE129224E700916908 /* PBXTextBookmark */;
+			C3C42FCF129224E700916908 /* PBXTextBookmark */ = C3C42FCF129224E700916908 /* PBXTextBookmark */;
+			C3C42FD0129224E700916908 /* PBXTextBookmark */ = C3C42FD0129224E700916908 /* PBXTextBookmark */;
+			C3E968071310918100B44D42 /* PBXTextBookmark */ = C3E968071310918100B44D42 /* PBXTextBookmark */;
+		};
+		sourceControlManager = C3C42EF112920EA600916908 /* Source Control */;
+		userBuildSettings = {
+		};
+	};
+	4F22FE3612340464006BF615 /* PlotGallery.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1092, 791}}";
+			sepNavSelRange = "{0, 0}";
+			sepNavVisRange = "{0, 389}";
+		};
+	};
+	4F22FE3712340464006BF615 /* PlotGallery.m */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1092, 1235}}";
+			sepNavSelRange = "{0, 0}";
+			sepNavVisRange = "{0, 1062}";
+		};
+	};
+	4F22FE3812340464006BF615 /* PlotItem.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1287, 1014}}";
+			sepNavSelRange = "{199, 16}";
+			sepNavVisRange = "{0, 1347}";
+		};
+	};
+	4F22FE3912340464006BF615 /* PlotItem.m */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1287, 4212}}";
+			sepNavSelRange = "{8444, 0}";
+			sepNavVisRange = "{7621, 1125}";
+		};
+	};
+	4F22FE3C123404C2006BF615 /* CompositePlot.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1092, 791}}";
+			sepNavSelRange = "{0, 0}";
+			sepNavVisRange = "{0, 1084}";
+		};
+	};
+	4F22FE3D123404C2006BF615 /* CompositePlot.m */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1092, 6734}}";
+			sepNavSelRange = "{14956, 0}";
+			sepNavVisRange = "{5649, 3340}";
+		};
+	};
+	4F22FE3E123404C2006BF615 /* GradientScatterPlot.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1092, 791}}";
+			sepNavSelRange = "{0, 0}";
+			sepNavVisRange = "{0, 580}";
+		};
+	};
+	4F22FE3F123404C2006BF615 /* GradientScatterPlot.m */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1092, 3952}}";
+			sepNavSelRange = "{1644, 0}";
+			sepNavVisRange = "{742, 2587}";
+		};
+	};
+	4F22FE41123404C2006BF615 /* SimplePieChart.m */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1092, 1911}}";
+			sepNavSelRange = "{913, 0}";
+			sepNavVisRange = "{24, 1387}";
+		};
+	};
+	4F22FE42123404C2006BF615 /* SimpleScatterPlot.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1092, 791}}";
+			sepNavSelRange = "{230, 19}";
+			sepNavVisRange = "{0, 573}";
+		};
+	};
+	4F22FE43123404C2006BF615 /* SimpleScatterPlot.m */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1092, 3380}}";
+			sepNavSelRange = "{1990, 0}";
+			sepNavVisRange = "{0, 1461}";
+		};
+	};
+	4F22FE44123404C2006BF615 /* VerticalBarChart.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1092, 816}}";
+			sepNavSelRange = "{0, 0}";
+			sepNavVisRange = "{0, 561}";
+		};
+	};
+	4F22FE45123404C2006BF615 /* VerticalBarChart.m */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1092, 2184}}";
+			sepNavSelRange = "{870, 0}";
+			sepNavVisRange = "{626, 2083}";
+		};
+	};
+	4F7541C3126B56EB00313026 /* PlotGalleryAppDelegate-iPhone.m */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1287, 766}}";
+			sepNavSelRange = "{223, 46}";
+			sepNavVisRange = "{0, 748}";
+		};
+	};
+	4F8E1C5F12907C1800D2035F /* DatePlot.m */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1223, 1911}}";
+			sepNavSelRange = "{1200, 0}";
+			sepNavVisRange = "{478, 975}";
+		};
+	};
+	4F8E1C9E129089D600D2035F /* SteppedScatterPlot.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1092, 791}}";
+			sepNavSelRange = "{0, 0}";
+			sepNavVisRange = "{0, 505}";
+		};
+	};
+	4F8E1C9F129089D600D2035F /* SteppedScatterPlot.m */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1092, 1625}}";
+			sepNavSelRange = "{1010, 0}";
+			sepNavVisRange = "{277, 2480}";
+		};
+	};
+	C30DD0711303686400702211 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 4F22FE3F123404C2006BF615 /* GradientScatterPlot.m */;
+		name = "GradientScatterPlot.m: 73";
+		rLen = 0;
+		rLoc = 2015;
+		rType = 0;
+		vrLen = 2587;
+		vrLoc = 742;
+	};
+	C3C42EE712920E6000916908 /* Plot Gallery-iOS */ = {
+		isa = PBXExecutable;
+		activeArgIndices = (
+		);
+		argumentStrings = (
+		);
+		autoAttachOnCrash = 1;
+		breakpointsEnabled = 0;
+		configStateDict = {
+		};
+		customDataFormattersEnabled = 1;
+		dataTipCustomDataFormattersEnabled = 1;
+		dataTipShowTypeColumn = 1;
+		dataTipSortType = 0;
+		debuggerPlugin = GDBDebugging;
+		disassemblyDisplayState = 0;
+		dylibVariantSuffix = "";
+		enableDebugStr = 1;
+		environmentEntries = (
+		);
+		executableSystemSymbolLevel = 0;
+		executableUserSymbolLevel = 0;
+		libgmallocEnabled = 0;
+		name = "Plot Gallery-iOS";
+		showTypeColumn = 0;
+		sourceDirectories = (
+		);
+	};
+	C3C42EF112920EA600916908 /* Source Control */ = {
+		isa = PBXSourceControlManager;
+		fallbackIsa = XCSourceControlManager;
+		isSCMEnabled = 0;
+		scmConfiguration = {
+			repositoryNamesForRoots = {
+				"" = "";
+			};
+		};
+	};
+	C3C42EF212920EA600916908 /* Code sense */ = {
+		isa = PBXCodeSenseManager;
+		indexTemplatePath = "";
+	};
+	C3C42F6E129218E500916908 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 4F22FE3912340464006BF615 /* PlotItem.m */;
+		name = "PlotItem.m: 1";
+		rLen = 0;
+		rLoc = 0;
+		rType = 0;
+		vrLen = 1238;
+		vrLoc = 0;
+	};
+	C3C42F6F129218E500916908 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 4F22FE44123404C2006BF615 /* VerticalBarChart.h */;
+		name = "VerticalBarChart.h: 1";
+		rLen = 0;
+		rLoc = 0;
+		rType = 0;
+		vrLen = 561;
+		vrLoc = 0;
+	};
+	C3C42F70129218E500916908 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 4F22FE45123404C2006BF615 /* VerticalBarChart.m */;
+		name = "VerticalBarChart.m: 50";
+		rLen = 0;
+		rLoc = 870;
+		rType = 0;
+		vrLen = 2083;
+		vrLoc = 626;
+	};
+	C3C42F71129218E500916908 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 4F22FE41123404C2006BF615 /* SimplePieChart.m */;
+		name = "SimplePieChart.m: 52";
+		rLen = 0;
+		rLoc = 913;
+		rType = 0;
+		vrLen = 1387;
+		vrLoc = 24;
+	};
+	C3C42F75129218E500916908 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 4F22FE3C123404C2006BF615 /* CompositePlot.h */;
+		name = "CompositePlot.h: 1";
+		rLen = 0;
+		rLoc = 0;
+		rType = 0;
+		vrLen = 1084;
+		vrLoc = 0;
+	};
+	C3C42F76129218E500916908 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 4F22FE3D123404C2006BF615 /* CompositePlot.m */;
+		name = "CompositePlot.m: 353";
+		rLen = 0;
+		rLoc = 14956;
+		rType = 0;
+		vrLen = 3340;
+		vrLoc = 5649;
+	};
+	C3C42F77129218E500916908 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 4F22FE3E123404C2006BF615 /* GradientScatterPlot.h */;
+		name = "GradientScatterPlot.h: 1";
+		rLen = 0;
+		rLoc = 0;
+		rType = 0;
+		vrLen = 580;
+		vrLoc = 0;
+	};
+	C3C42F78129218E500916908 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 4F8E1C9E129089D600D2035F /* SteppedScatterPlot.h */;
+		name = "SteppedScatterPlot.h: 1";
+		rLen = 0;
+		rLoc = 0;
+		rType = 0;
+		vrLen = 505;
+		vrLoc = 0;
+	};
+	C3C42F7A129218E500916908 /* CPPlotSpace.h */ = {
+		isa = PBXFileReference;
+		lastKnownFileType = sourcecode.c.h;
+		name = CPPlotSpace.h;
+		path = "/Users/eskroch/Projects/Core Plot/build/Debug-iphonesimulator/usr/local/include/CPPlotSpace.h";
+		sourceTree = "<absolute>";
+	};
+	C3C42FC9129224E700916908 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 4F8E1C5F12907C1800D2035F /* DatePlot.m */;
+		name = "DatePlot.m: 53";
+		rLen = 0;
+		rLoc = 1200;
+		rType = 0;
+		vrLen = 2610;
+		vrLoc = 859;
+	};
+	C3C42FCA129224E700916908 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 4F22FE3812340464006BF615 /* PlotItem.h */;
+		name = "PlotItem.h: 53";
+		rLen = 0;
+		rLoc = 1187;
+		rType = 0;
+		vrLen = 1586;
+		vrLoc = 240;
+	};
+	C3C42FCB129224E700916908 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 4F22FE3612340464006BF615 /* PlotGallery.h */;
+		name = "PlotGallery.h: 1";
+		rLen = 0;
+		rLoc = 0;
+		rType = 0;
+		vrLen = 389;
+		vrLoc = 0;
+	};
+	C3C42FCC129224E700916908 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 4F22FE3712340464006BF615 /* PlotGallery.m */;
+		name = "PlotGallery.m: 1";
+		rLen = 0;
+		rLoc = 0;
+		rType = 0;
+		vrLen = 1062;
+		vrLoc = 0;
+	};
+	C3C42FCD129224E700916908 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = C3C42F7A129218E500916908 /* CPPlotSpace.h */;
+		name = "CPPlotSpace.h: 83";
+		rLen = 32;
+		rLoc = 2906;
+		rType = 0;
+		vrLen = 2210;
+		vrLoc = 1750;
+	};
+	C3C42FCE129224E700916908 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 4F8E1C9F129089D600D2035F /* SteppedScatterPlot.m */;
+		name = "SteppedScatterPlot.m: 44";
+		rLen = 0;
+		rLoc = 1010;
+		rType = 0;
+		vrLen = 2480;
+		vrLoc = 277;
+	};
+	C3C42FCF129224E700916908 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 4F22FE43123404C2006BF615 /* SimpleScatterPlot.m */;
+		name = "SimpleScatterPlot.m: 73";
+		rLen = 0;
+		rLoc = 1990;
+		rType = 0;
+		vrLen = 1461;
+		vrLoc = 0;
+	};
+	C3C42FD0129224E700916908 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 4F22FE42123404C2006BF615 /* SimpleScatterPlot.h */;
+		name = "SimpleScatterPlot.h: 12";
+		rLen = 19;
+		rLoc = 230;
+		rType = 0;
+		vrLen = 573;
+		vrLoc = 0;
+	};
+	C3E968071310918100B44D42 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 4F22FE3F123404C2006BF615 /* GradientScatterPlot.m */;
+		name = "GradientScatterPlot.m: 64";
+		rLen = 0;
+		rLoc = 1644;
+		rType = 0;
+		vrLen = 2587;
+		vrLoc = 742;
+	};
+}

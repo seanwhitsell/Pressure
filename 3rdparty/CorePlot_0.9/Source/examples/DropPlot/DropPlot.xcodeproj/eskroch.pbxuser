@@ -1,0 +1,218 @@
+// !$*UTF8*$!
+{
+	2A37F4A9FDCFA73011CA2CEA /* Project object */ = {
+		activeArchitecturePreference = x86_64;
+		activeBuildConfigurationName = Release;
+		activeExecutable = C3DB7918116ADC6C006404C5 /* DropPlot */;
+		activeTarget = 8D15AC270486D014006FF6A4 /* DropPlot */;
+		codeSenseManager = C3DB7926116ADC81006404C5 /* Code sense */;
+		executables = (
+			C3DB7918116ADC6C006404C5 /* DropPlot */,
+		);
+		perUserDictionary = {
+			PBXConfiguration.PBXFileTableDataSource3.PBXExecutablesDataSource = {
+				PBXFileTableDataSourceColumnSortingDirectionKey = "-1";
+				PBXFileTableDataSourceColumnSortingKey = PBXExecutablesDataSource_NameID;
+				PBXFileTableDataSourceColumnWidthsKey = (
+					22,
+					300,
+					574,
+				);
+				PBXFileTableDataSourceColumnsKey = (
+					PBXExecutablesDataSource_ActiveFlagID,
+					PBXExecutablesDataSource_NameID,
+					PBXExecutablesDataSource_CommentsID,
+				);
+			};
+			PBXConfiguration.PBXFileTableDataSource3.PBXFileTableDataSource = {
+				PBXFileTableDataSourceColumnSortingDirectionKey = "-1";
+				PBXFileTableDataSourceColumnSortingKey = PBXFileDataSource_Filename_ColumnID;
+				PBXFileTableDataSourceColumnWidthsKey = (
+					20,
+					686,
+					20,
+					48,
+					43,
+					43,
+					20,
+				);
+				PBXFileTableDataSourceColumnsKey = (
+					PBXFileDataSource_FiletypeID,
+					PBXFileDataSource_Filename_ColumnID,
+					PBXFileDataSource_Built_ColumnID,
+					PBXFileDataSource_ObjectSize_ColumnID,
+					PBXFileDataSource_Errors_ColumnID,
+					PBXFileDataSource_Warnings_ColumnID,
+					PBXFileDataSource_Target_ColumnID,
+				);
+			};
+			PBXConfiguration.PBXTargetDataSource.PBXTargetDataSource = {
+				PBXFileTableDataSourceColumnSortingDirectionKey = "-1";
+				PBXFileTableDataSourceColumnSortingKey = PBXFileDataSource_Filename_ColumnID;
+				PBXFileTableDataSourceColumnWidthsKey = (
+					20,
+					646,
+					60,
+					20,
+					48,
+					43,
+					43,
+				);
+				PBXFileTableDataSourceColumnsKey = (
+					PBXFileDataSource_FiletypeID,
+					PBXFileDataSource_Filename_ColumnID,
+					PBXTargetDataSource_PrimaryAttribute,
+					PBXFileDataSource_Built_ColumnID,
+					PBXFileDataSource_ObjectSize_ColumnID,
+					PBXFileDataSource_Errors_ColumnID,
+					PBXFileDataSource_Warnings_ColumnID,
+				);
+			};
+			PBXPerProjectTemplateStateSaveDate = 309146178;
+			PBXWorkspaceStateSaveDate = 309146178;
+		};
+		perUserProjectItems = {
+			C31B84E5116C23D300F97EF1 /* PBXBookmark */ = C31B84E5116C23D300F97EF1 /* PBXBookmark */;
+			C31B85D1116C2C8100F97EF1 /* PBXTextBookmark */ = C31B85D1116C2C8100F97EF1 /* PBXTextBookmark */;
+			C31B85D2116C2C8100F97EF1 /* PBXTextBookmark */ = C31B85D2116C2C8100F97EF1 /* PBXTextBookmark */;
+			C3541AB712693BA70032D31A /* PBXTextBookmark */ = C3541AB712693BA70032D31A /* PBXTextBookmark */;
+			C37CBA2F126D326F00537066 /* PBXTextBookmark */ = C37CBA2F126D326F00537066 /* PBXTextBookmark */;
+			C39041F1123DC5310061DB4A /* PBXTextBookmark */ = C39041F1123DC5310061DB4A /* PBXTextBookmark */;
+		};
+		sourceControlManager = C3DB7925116ADC81006404C5 /* Source Control */;
+		userBuildSettings = {
+		};
+	};
+	2A37F4ACFDCFA73011CA2CEA /* CPPlotDocument.m */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {864, 2925}}";
+			sepNavSelRange = "{2273, 0}";
+			sepNavVisRange = "{1831, 1212}";
+		};
+	};
+	2A37F4AEFDCFA73011CA2CEA /* CPPlotDocument.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {864, 536}}";
+			sepNavSelRange = "{0, 0}";
+			sepNavVisRange = "{0, 464}";
+		};
+	};
+	2A37F4B0FDCFA73011CA2CEA /* main.m */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {864, 432}}";
+			sepNavSelRange = "{251, 0}";
+			sepNavVisRange = "{0, 251}";
+		};
+	};
+	32DBCF750370BD2300C91783 /* DropPlot_Prefix.pch */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {864, 536}}";
+			sepNavSelRange = "{0, 0}";
+			sepNavVisRange = "{0, 147}";
+		};
+	};
+	8D15AC270486D014006FF6A4 /* DropPlot */ = {
+		activeExec = 0;
+		executables = (
+			C3DB7918116ADC6C006404C5 /* DropPlot */,
+		);
+	};
+	C31B84E5116C23D300F97EF1 /* PBXBookmark */ = {
+		isa = PBXBookmark;
+		fRef = BCFD32AD0FEF08EA00A5B71C /* CorePlotIcon.icns */;
+	};
+	C31B85D1116C2C8100F97EF1 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 2A37F4AEFDCFA73011CA2CEA /* CPPlotDocument.h */;
+		name = "CPPlotDocument.h: 1";
+		rLen = 0;
+		rLoc = 0;
+		rType = 0;
+		vrLen = 464;
+		vrLoc = 0;
+	};
+	C31B85D2116C2C8100F97EF1 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 32DBCF750370BD2300C91783 /* DropPlot_Prefix.pch */;
+		name = "DropPlot_Prefix.pch: 1";
+		rLen = 0;
+		rLoc = 0;
+		rType = 0;
+		vrLen = 147;
+		vrLoc = 0;
+	};
+	C3541AB712693BA70032D31A /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 2A37F4ACFDCFA73011CA2CEA /* CPPlotDocument.m */;
+		name = "CPPlotDocument.m: 71";
+		rLen = 0;
+		rLoc = 2273;
+		rType = 0;
+		vrLen = 1246;
+		vrLoc = 1831;
+	};
+	C37CBA2F126D326F00537066 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 2A37F4ACFDCFA73011CA2CEA /* CPPlotDocument.m */;
+		name = "CPPlotDocument.m: 71";
+		rLen = 0;
+		rLoc = 2273;
+		rType = 0;
+		vrLen = 1212;
+		vrLoc = 1831;
+	};
+	C39041F1123DC5310061DB4A /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 2A37F4B0FDCFA73011CA2CEA /* main.m */;
+		name = "main.m: 15";
+		rLen = 0;
+		rLoc = 251;
+		rType = 0;
+		vrLen = 251;
+		vrLoc = 0;
+	};
+	C3DB7918116ADC6C006404C5 /* DropPlot */ = {
+		isa = PBXExecutable;
+		activeArgIndices = (
+		);
+		argumentStrings = (
+		);
+		autoAttachOnCrash = 1;
+		breakpointsEnabled = 0;
+		configStateDict = {
+		};
+		customDataFormattersEnabled = 1;
+		dataTipCustomDataFormattersEnabled = 1;
+		dataTipShowTypeColumn = 1;
+		dataTipSortType = 0;
+		debuggerPlugin = GDBDebugging;
+		disassemblyDisplayState = 0;
+		dylibVariantSuffix = "";
+		enableDebugStr = 1;
+		environmentEntries = (
+		);
+		executableSystemSymbolLevel = 0;
+		executableUserSymbolLevel = 0;
+		libgmallocEnabled = 0;
+		name = DropPlot;
+		savedGlobals = {
+		};
+		showTypeColumn = 0;
+		sourceDirectories = (
+		);
+	};
+	C3DB7925116ADC81006404C5 /* Source Control */ = {
+		isa = PBXSourceControlManager;
+		fallbackIsa = XCSourceControlManager;
+		isSCMEnabled = 0;
+		scmConfiguration = {
+			repositoryNamesForRoots = {
+				"" = "";
+			};
+		};
+	};
+	C3DB7926116ADC81006404C5 /* Code sense */ = {
+		isa = PBXCodeSenseManager;
+		indexTemplatePath = "";
+	};
+}

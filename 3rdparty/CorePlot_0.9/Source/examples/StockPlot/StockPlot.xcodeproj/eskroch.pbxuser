@@ -1,0 +1,233 @@
+// !$*UTF8*$!
+{
+	1D3623240D0F684500981E51 /* StockPlotAppDelegate.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {739, 528}}";
+			sepNavSelRange = "{0, 0}";
+			sepNavVisRange = "{0, 451}";
+		};
+	};
+	1D3623250D0F684500981E51 /* StockPlotAppDelegate.m */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1001, 658}}";
+			sepNavSelRange = "{0, 0}";
+			sepNavVisRange = "{0, 909}";
+		};
+	};
+	1D6058900D05DD3D006BFB54 /* StockPlot */ = {
+		activeExec = 0;
+		executables = (
+			C36CD12B115474FB009428C2 /* StockPlot */,
+		);
+	};
+	28C286DF0D94DF7D0034E888 /* RootViewController.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {935, 614}}";
+			sepNavSelRange = "{350, 21}";
+			sepNavVisRange = "{0, 580}";
+		};
+	};
+	28C286E00D94DF7D0034E888 /* RootViewController.m */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {935, 4615}}";
+			sepNavSelRange = "{1962, 4}";
+			sepNavVisRange = "{1501, 1751}";
+		};
+	};
+	29B97313FDCFA39411CA2CEA /* Project object */ = {
+		activeBuildConfigurationName = Debug;
+		activeExecutable = C36CD12B115474FB009428C2 /* StockPlot */;
+		activeSDKPreference = iphonesimulator4.1;
+		activeTarget = 1D6058900D05DD3D006BFB54 /* StockPlot */;
+		codeSenseManager = C36CD14711547504009428C2 /* Code sense */;
+		executables = (
+			C36CD12B115474FB009428C2 /* StockPlot */,
+		);
+		perUserDictionary = {
+			PBXConfiguration.PBXFileTableDataSource3.PBXFileTableDataSource = {
+				PBXFileTableDataSourceColumnSortingDirectionKey = "-1";
+				PBXFileTableDataSourceColumnSortingKey = PBXFileDataSource_Filename_ColumnID;
+				PBXFileTableDataSourceColumnWidthsKey = (
+					20,
+					757,
+					20,
+					48,
+					43,
+					43,
+					20,
+				);
+				PBXFileTableDataSourceColumnsKey = (
+					PBXFileDataSource_FiletypeID,
+					PBXFileDataSource_Filename_ColumnID,
+					PBXFileDataSource_Built_ColumnID,
+					PBXFileDataSource_ObjectSize_ColumnID,
+					PBXFileDataSource_Errors_ColumnID,
+					PBXFileDataSource_Warnings_ColumnID,
+					PBXFileDataSource_Target_ColumnID,
+				);
+			};
+			PBXConfiguration.PBXTargetDataSource.PBXTargetDataSource = {
+				PBXFileTableDataSourceColumnSortingDirectionKey = "-1";
+				PBXFileTableDataSourceColumnSortingKey = PBXFileDataSource_Filename_ColumnID;
+				PBXFileTableDataSourceColumnWidthsKey = (
+					20,
+					783,
+					60,
+					20,
+					48,
+					43,
+					43,
+				);
+				PBXFileTableDataSourceColumnsKey = (
+					PBXFileDataSource_FiletypeID,
+					PBXFileDataSource_Filename_ColumnID,
+					PBXTargetDataSource_PrimaryAttribute,
+					PBXFileDataSource_Built_ColumnID,
+					PBXFileDataSource_ObjectSize_ColumnID,
+					PBXFileDataSource_Errors_ColumnID,
+					PBXFileDataSource_Warnings_ColumnID,
+				);
+			};
+			PBXPerProjectTemplateStateSaveDate = 311560406;
+			PBXWorkspaceStateSaveDate = 311560406;
+		};
+		perUserProjectItems = {
+			C329D16A12920C4900505524 /* PBXTextBookmark */ = C329D16A12920C4900505524 /* PBXTextBookmark */;
+			C329D16B12920C4900505524 /* PBXTextBookmark */ = C329D16B12920C4900505524 /* PBXTextBookmark */;
+			C329D16C12920C4900505524 /* PBXTextBookmark */ = C329D16C12920C4900505524 /* PBXTextBookmark */;
+			C345AE52119CE10A001BA616 /* PBXTextBookmark */ = C345AE52119CE10A001BA616 /* PBXTextBookmark */;
+			C3541B0412693EE50032D31A /* PBXTextBookmark */ = C3541B0412693EE50032D31A /* PBXTextBookmark */;
+			C3541B0612693EE50032D31A /* PBXTextBookmark */ = C3541B0612693EE50032D31A /* PBXTextBookmark */;
+			C3541B0712693EE50032D31A /* PBXTextBookmark */ = C3541B0712693EE50032D31A /* PBXTextBookmark */;
+		};
+		sourceControlManager = C36CD14611547504009428C2 /* Source Control */;
+		userBuildSettings = {
+		};
+	};
+	AB6FA5560FEB6235008DB04A /* APYahooDataPullerGraph.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {935, 639}}";
+			sepNavSelRange = "{209, 0}";
+			sepNavVisRange = "{0, 585}";
+		};
+	};
+	AB6FA5570FEB6235008DB04A /* APYahooDataPullerGraph.m */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1001, 2314}}";
+			sepNavSelRange = "{4838, 9}";
+			sepNavVisRange = "{4043, 1530}";
+		};
+	};
+	C329D16A12920C4900505524 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = AB6FA5560FEB6235008DB04A /* APYahooDataPullerGraph.h */;
+		name = "APYahooDataPullerGraph.h: 11";
+		rLen = 0;
+		rLoc = 209;
+		rType = 0;
+		vrLen = 585;
+		vrLoc = 0;
+	};
+	C329D16B12920C4900505524 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 28C286E00D94DF7D0034E888 /* RootViewController.m */;
+		name = "RootViewController.m: 70";
+		rLen = 4;
+		rLoc = 1962;
+		rType = 0;
+		vrLen = 1751;
+		vrLoc = 1501;
+	};
+	C329D16C12920C4900505524 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 28C286DF0D94DF7D0034E888 /* RootViewController.h */;
+		name = "RootViewController.h: 15";
+		rLen = 21;
+		rLoc = 350;
+		rType = 0;
+		vrLen = 580;
+		vrLoc = 0;
+	};
+	C345AE52119CE10A001BA616 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 1D3623240D0F684500981E51 /* StockPlotAppDelegate.h */;
+		name = "StockPlotAppDelegate.h: 1";
+		rLen = 0;
+		rLoc = 0;
+		rType = 0;
+		vrLen = 451;
+		vrLoc = 0;
+	};
+	C3541B0412693EE50032D31A /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 1D3623250D0F684500981E51 /* StockPlotAppDelegate.m */;
+		name = "StockPlotAppDelegate.m: 1";
+		rLen = 0;
+		rLoc = 0;
+		rType = 0;
+		vrLen = 909;
+		vrLoc = 0;
+	};
+	C3541B0612693EE50032D31A /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 28C286DF0D94DF7D0034E888 /* RootViewController.h */;
+		name = "RootViewController.h: 1";
+		rLen = 0;
+		rLoc = 0;
+		rType = 0;
+		vrLen = 580;
+		vrLoc = 0;
+	};
+	C3541B0712693EE50032D31A /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = AB6FA5570FEB6235008DB04A /* APYahooDataPullerGraph.m */;
+		name = "APYahooDataPullerGraph.m: 143";
+		rLen = 9;
+		rLoc = 4838;
+		rType = 0;
+		vrLen = 1530;
+		vrLoc = 4043;
+	};
+	C36CD12B115474FB009428C2 /* StockPlot */ = {
+		isa = PBXExecutable;
+		activeArgIndices = (
+		);
+		argumentStrings = (
+		);
+		autoAttachOnCrash = 1;
+		breakpointsEnabled = 0;
+		configStateDict = {
+		};
+		customDataFormattersEnabled = 1;
+		dataTipCustomDataFormattersEnabled = 1;
+		dataTipShowTypeColumn = 1;
+		dataTipSortType = 0;
+		debuggerPlugin = GDBDebugging;
+		disassemblyDisplayState = 0;
+		dylibVariantSuffix = "";
+		enableDebugStr = 1;
+		environmentEntries = (
+		);
+		executableSystemSymbolLevel = 0;
+		executableUserSymbolLevel = 0;
+		libgmallocEnabled = 0;
+		name = StockPlot;
+		showTypeColumn = 0;
+		sourceDirectories = (
+		);
+	};
+	C36CD14611547504009428C2 /* Source Control */ = {
+		isa = PBXSourceControlManager;
+		fallbackIsa = XCSourceControlManager;
+		isSCMEnabled = 0;
+		scmConfiguration = {
+			repositoryNamesForRoots = {
+				"" = "";
+			};
+		};
+	};
+	C36CD14711547504009428C2 /* Code sense */ = {
+		isa = PBXCodeSenseManager;
+		indexTemplatePath = "";
+	};
+}
