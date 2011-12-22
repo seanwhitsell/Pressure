@@ -1,0 +1,11 @@
+#=================
+# build libusb
+
+cd 3rdparty/libusb-0.1.12
+CFLAGS=-Wno-error ./configure -enable-static
+make
+cp .libs/libusb.a ../../lib/
+
+cd ../..
+#================
+cd 3rdparty/libomron-0.9.0/
