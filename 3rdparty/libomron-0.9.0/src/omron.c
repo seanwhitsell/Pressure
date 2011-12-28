@@ -149,7 +149,7 @@ int omron_get_command_return(omron_device* dev, int size, unsigned char* data)
 	while(total_read_size < size)
 	{
 		read_result = omron_read_data(dev, input_report);
-		DPRINTF("AJR read result=%d.\n", read_result);
+		DPRINTF("AJR read result=%x\n", read_result);
 		if (read_result < 0) {
 			fprintf(stderr, "omron_get_command_return: read_result_result %d < zero\n", read_result);
 			return read_result;
@@ -256,7 +256,7 @@ omron_dev_info_command(omron_device* dev,
 {
 	unsigned char* tmp = (unsigned char*)malloc(result_max_len+3);
 
-	omron_exchange_cmd(dev, PEDOMETER_MODE, strlen(cmd),
+	omron_exchange_cmd(dev, BP_MODE, strlen(cmd),
 			   (const unsigned char*) cmd,
 			   result_max_len+3, tmp);
 

@@ -51,7 +51,7 @@ typedef struct {
 } omron_device_impl;
 #else
 #define OMRON_DECLSPEC
-#include "libusb-1.0/libusb.h"
+#include "libusb.h"
 typedef struct {
 	struct libusb_context* _context;
 	struct libusb_device_handle* _device;
@@ -104,7 +104,8 @@ typedef enum
 	/// Weekly blood pressure info mode
 	WEEKLY_INFO_MODE	= 0x1074,
 	/// Pedometer info mode
-	PEDOMETER_MODE		= 0x0102
+	PEDOMETER_MODE		= 0x0102,
+    BP_MODE             = 0x0101
 } omron_mode;
 
 /**
