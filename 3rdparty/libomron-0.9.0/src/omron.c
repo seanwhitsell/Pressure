@@ -19,6 +19,10 @@
 #include <math.h>
 
 //#define DEBUG
+int bcd_to_int(unsigned char *data, int start, int length);
+short short_to_bcd(int number);
+int omron_send_command(omron_device* dev, int size, const unsigned char* buf);
+int omron_check_success(unsigned char *input_report, int start_index);
 
 #ifdef DEBUG
 #define IF_DEBUG(x)	do { x; } while (0)
