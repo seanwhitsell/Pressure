@@ -1,9 +1,8 @@
 //
 //  OmronDataSyncOperation.m
-//  pressure-test
+//  pressure
 //
 //  Created by Sean Whitsell on 1/4/12.
-//  Copyright (c) 2012 Cisco Systems, Inc. All rights reserved.
 //
 
 #import "OmronDataSyncOperation.h"
