@@ -45,10 +45,12 @@ NSString *deviceInformationEntityName = @"DeviceInformation";
 //
 @interface OmronDataSource()
 
-@property (readwrite, strong, nonatomic) NSPersistentStoreCoordinator *persistentStoreCoordinator;
-@property (readwrite, strong, nonatomic) NSManagedObjectModel *managedObjectModel;
-@property (readwrite, strong, nonatomic) NSManagedObjectContext *managedObjectContext;
-@property (readwrite, strong, atomic) NSString *deviceID;
+@property (nonatomic, readwrite, retain) NSPersistentStoreCoordinator *persistentStoreCoordinator;
+@property (nonatomic, readwrite, retain) NSManagedObjectModel *managedObjectModel;
+@property (nonatomic, readwrite, retain) NSManagedObjectContext *managedObjectContext;
+@property (atomic, readwrite, retain) NSString *deviceID;
+@property (atomic, readwrite, retain) NSMutableArray *readingsListDates;
+@property (atomic, readwrite, retain) NSMutableArray *deviceList;
 
 - (int)getOmronData;
 
@@ -59,18 +61,20 @@ NSString *deviceInformationEntityName = @"DeviceInformation";
 //
 @implementation OmronDataSource
 
-@synthesize persistentStoreCoordinator = __persistentStoreCoordinator;
-@synthesize managedObjectModel = __managedObjectModel;
-@synthesize managedObjectContext = __managedObjectContext;
-@synthesize deviceID = __deviceID;
-@synthesize readings = __readings;
+@synthesize persistentStoreCoordinator = myPersistentStoreCoordinator;
+@synthesize managedObjectModel = myManagedObjectModel;
+@synthesize managedObjectContext = myManagedObjectContext;
+@synthesize deviceID = myDeviceID;
+@synthesize readings = myReadings;
+@synthesize readingsListDates = myReadingsListDates;
+@synthesize deviceList = myDeviceList;
 
 - (id)init
 {
 	self = [super init];
     if (self != nil)
 	{
-        readingsListDates = [[NSMutableArray alloc] initWithCapacity:10];
+        myReadingsListDates = [[NSMutableArray alloc] initWithCapacity:10];
     }
     
     return self;
@@ -80,7 +84,7 @@ NSString *deviceInformationEntityName = @"DeviceInformation";
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 
-    readingsListDates = nil;
+    [myReadingsListDates release]; myReadingsListDates = nil;
 }
 
 
@@ -119,10 +123,10 @@ NSString *deviceInformationEntityName = @"DeviceInformation";
                                        [[NSSortDescriptor alloc] initWithKey:deviceSerialNumberKey
                                                                    ascending:YES]]];
     
-    deviceList = (NSMutableArray*)[context executeFetchRequest:fetchRequest error:&error];
+    self.deviceList = (NSMutableArray*)[context executeFetchRequest:fetchRequest error:&error];
     
-    NSLog(@"Device List is %@", deviceList);
-    for (NSManagedObject *info in deviceList) {
+    NSLog(@"Device List is %@", self.deviceList);
+    for (NSManagedObject *info in self.deviceList) {
         NSLog(@"deviceVersion: %@", [info valueForKey:deviceVersionKey]);
         NSLog(@"serialNumber: %@", [info valueForKey:deviceSerialNumberKey]);
     }        
@@ -135,15 +139,15 @@ NSString *deviceInformationEntityName = @"DeviceInformation";
     [fetchRequest setSortDescriptors: [NSArray arrayWithObject:
                                        [[NSSortDescriptor alloc] initWithKey:readingDateKey
                                                                    ascending:YES]]];
-    __readings = (NSMutableArray*)[context executeFetchRequest:fetchRequest error:&error];
+    self.readings = (NSMutableArray*)[context executeFetchRequest:fetchRequest error:&error];
 
-    for (NSManagedObject *info in __readings) {
+    for (NSManagedObject *info in self.readings) {
         NSLog(@"readingDate: %@", [info valueForKey:readingDateKey]);
         NSLog(@"heartRate: %@", [info valueForKey:heartRateKey]);
         
         // This is the Array of dates for the data. We will look into this array when we are getting the data
         // from teh device to see if we already have an entry or not
-        [readingsListDates addObject:[info valueForKey:readingDateKey]];
+        [self.readingsListDates addObject:[info valueForKey:readingDateKey]];
     }        
     
     //
@@ -154,7 +158,7 @@ NSString *deviceInformationEntityName = @"DeviceInformation";
     //
     // Run the Fetch again, presuming that there was new data on the Device
     //
-    __readings = (NSMutableArray*)[context executeFetchRequest:fetchRequest error:&error];
+    self.readings = (NSMutableArray*)[context executeFetchRequest:fetchRequest error:&error];
     
     //
     // Tell the application that we are done getting the Data
@@ -219,7 +223,7 @@ NSString *deviceInformationEntityName = @"DeviceInformation";
     NSManagedObjectContext *context = [self managedObjectContext];
     NSEntityDescription *entity = [NSEntityDescription entityForName:deviceInformationEntityName inManagedObjectContext: self.managedObjectContext];
     
-    for (NSString * deviceSerial in deviceList)
+    for (NSString * deviceSerial in self.deviceList)
     {
         if ([deviceSerial isEqualToString:[NSString stringWithUTF8String:(char*)serialNumber]])
         {
@@ -271,12 +275,12 @@ NSString *deviceInformationEntityName = @"DeviceInformation";
         [comps setSecond:r.second];
         NSDate* readingDate = [[NSCalendar currentCalendar] dateFromComponents:comps];
         
-        unsigned index = (unsigned)CFArrayBSearchValues((__bridge CFArrayRef)readingsListDates,
-                                                        CFRangeMake(0, CFArrayGetCount((__bridge CFArrayRef)readingsListDates)),
+        unsigned index = (unsigned)CFArrayBSearchValues((__bridge CFArrayRef)self.readingsListDates,
+                                                        CFRangeMake(0, CFArrayGetCount((__bridge CFArrayRef)self.readingsListDates)),
                                                         (__bridge CFDateRef)readingDate,
                                                         (CFComparatorFunction)CFDateCompare,
                                                         NULL);
-        if (index < [__readings count])
+        if (index < [self.readings count])
         {
             // Already in the list
             NSLog(@"Record already in list");
@@ -348,21 +352,21 @@ NSString *deviceInformationEntityName = @"DeviceInformation";
  Creates if necessary and returns the managed object model for the application.
  */
 - (NSManagedObjectModel *)managedObjectModel {
-    if (__managedObjectModel) {
-        return __managedObjectModel;
+    if (self.managedObjectModel) {
+        return self.managedObjectModel;
     }
 	
     NSURL *modelURL = [[NSBundle mainBundle] URLForResource:@"pressure_test" withExtension:@"momd"];
-    __managedObjectModel = [[NSManagedObjectModel alloc] initWithContentsOfURL:modelURL];    
-    return __managedObjectModel;
+    self.managedObjectModel = [[NSManagedObjectModel alloc] initWithContentsOfURL:modelURL];    
+    return self.managedObjectModel;
 }
 
 /**
  Returns the persistent store coordinator for the application. This implementation creates and return a coordinator, having added the store for the application to it. (The directory for the store is created, if necessary.)
  */
 - (NSPersistentStoreCoordinator *)persistentStoreCoordinator {
-    if (__persistentStoreCoordinator) {
-        return __persistentStoreCoordinator;
+    if (self.persistentStoreCoordinator) {
+        return self.persistentStoreCoordinator;
     }
     
     NSManagedObjectModel *mom = [self managedObjectModel];
@@ -407,9 +411,9 @@ NSString *deviceInformationEntityName = @"DeviceInformation";
         [[NSApplication sharedApplication] presentError:error];
         return nil;
     }
-    __persistentStoreCoordinator = coordinator;
+    self.persistentStoreCoordinator = coordinator;
     
-    return __persistentStoreCoordinator;
+    return self.persistentStoreCoordinator;
 }
 
 /**
@@ -417,8 +421,8 @@ NSString *deviceInformationEntityName = @"DeviceInformation";
  bound to the persistent store coordinator for the application.) 
  */
 - (NSManagedObjectContext *)managedObjectContext {
-    if (__managedObjectContext) {
-        return __managedObjectContext;
+    if (self.managedObjectContext) {
+        return self.managedObjectContext;
     }
     
     NSPersistentStoreCoordinator *coordinator = [self persistentStoreCoordinator];
@@ -430,16 +434,16 @@ NSString *deviceInformationEntityName = @"DeviceInformation";
         [[NSApplication sharedApplication] presentError:error];
         return nil;
     }
-    __managedObjectContext = [[NSManagedObjectContext alloc] init];
-    [__managedObjectContext setPersistentStoreCoordinator:coordinator];
+    self.managedObjectContext = [[NSManagedObjectContext alloc] init];
+    [self.managedObjectContext setPersistentStoreCoordinator:coordinator];
     
-    return __managedObjectContext;
+    return self.managedObjectContext;
 }
 
 - (NSApplicationTerminateReply)applicationShouldTerminate:(NSApplication *)sender {
     
     // Save changes in the application's managed object context before the application terminates.
-    if (!__managedObjectContext) {
+    if (!self.managedObjectContext) {
         return NSTerminateNow;
     }
     

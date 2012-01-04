@@ -17,7 +17,7 @@
 
 #define OMRON_USB_INTERFACE	0
 
-omron_device* omron_create()
+omron_device* omron_create(void)
 {
 	omron_device* s = (omron_device*)malloc(sizeof(omron_device));
 	s->device._is_open = 0;
@@ -33,7 +33,6 @@ omron_device* omron_create()
 int omron_get_count(omron_device* s, int device_vid, int device_pid)
 {
 	struct libusb_device **devs;
-	struct libusb_device *found = NULL;
 	struct libusb_device *dev;
 	size_t i = 0;
 	int count = 0;
@@ -75,7 +74,7 @@ int omron_open(omron_device* s, int device_vid, int device_pid, unsigned int dev
 	struct libusb_device *dev;
 	size_t i = 0;
 	int count = 0;
-	int device_error_code = 0;
+	ssize_t device_error_code = 0;
 
 	if (!s->device._is_inited)
 	{

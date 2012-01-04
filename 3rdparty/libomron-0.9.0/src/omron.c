@@ -23,6 +23,9 @@ int bcd_to_int(unsigned char *data, int start, int length);
 short short_to_bcd(int number);
 int omron_send_command(omron_device* dev, int size, const unsigned char* buf);
 int omron_check_success(unsigned char *input_report, int start_index);
+int omron_send_clear(omron_device* dev);
+int omron_get_command_return(omron_device* dev, int size, unsigned char* data);
+int omron_check_mode(omron_device* dev, omron_mode mode);
 
 #ifdef DEBUG
 #define IF_DEBUG(x)	do { x; } while (0)
@@ -32,7 +35,7 @@ int omron_check_success(unsigned char *input_report, int start_index);
 
 #define DPRINTF(args, ...)	IF_DEBUG(printf(args))
 
-static void hexdump(uint8_t *data, int n_bytes)
+static void hexdump(const unsigned char *data, int n_bytes)
 {
 	while (n_bytes--) {
 		printf(" %02x", *(unsigned char*) data);
@@ -121,13 +124,8 @@ xor_checksum(unsigned char *data, int len)
 {
 	unsigned char checksum = 0;
 
-	unsigned int begin_len = len;
-	
 	while (len--)
 		checksum ^= *(data++);
-
-	if (checksum)
-		DPRINTF("bad checksum 0x%x\n", checksum);
 
 	return checksum;
 }
@@ -148,12 +146,10 @@ int omron_get_command_return(omron_device* dev, int size, unsigned char* data)
 	unsigned char input_report[9];
 	int read_result;
 
-
-	DPRINTF("\n");		/* AJR */
 	while(total_read_size < size)
 	{
 		read_result = omron_read_data(dev, input_report);
-		DPRINTF("AJR read result=%x\n", read_result);
+
 		if (read_result < 0) {
 			fprintf(stderr, "omron_get_command_return: read_result_result %d < zero\n", read_result);
 			return read_result;
@@ -222,8 +218,7 @@ int omron_check_mode(omron_device* dev, omron_mode mode)
 	}
 	else
 	{
-		DPRINTF("omron_exchange_cmd: I/O error, status=%d\n",
-			ret);		
+		printf("omron_exchange_cmd: I/O error, status=%d\n",ret);		
 	}
 	return ret;
 }
@@ -243,13 +238,9 @@ static void omron_exchange_cmd(omron_device *dev,
 		omron_check_mode(dev, mode);
 		omron_send_command(dev, cmd_len, cmd);
 		status = omron_get_command_return(dev, response_len, response);
-		if (status > 0)
-			DPRINTF("garbled (resp_len=%d)\n", response_len);
+
 	} while (status > 0);
 
-	if (status < 0)
-		DPRINTF("omron_exchange_cmd: I/O error, status=%d\n",
-			status);
 }
 
 static void
@@ -260,7 +251,7 @@ omron_dev_info_command(omron_device* dev,
 {
 	unsigned char* tmp = (unsigned char*)malloc(result_max_len+3);
 
-	omron_exchange_cmd(dev, BP_MODE, strlen(cmd),
+	omron_exchange_cmd(dev, BP_MODE, (int)strlen(cmd),
 			   (const unsigned char*) cmd,
 			   result_max_len+3, tmp);
 
@@ -298,7 +289,6 @@ OMRON_DECLSPEC int omron_get_daily_data_count(omron_device* dev, unsigned char b
 	// assert(bank < 2);
 	omron_exchange_cmd(dev, DAILY_INFO_MODE, 8, command,
 			   sizeof(data), data);
-	DPRINTF("Data units found: %d\n", (int)data[6]);
 	return (int)data[6];
 }
 

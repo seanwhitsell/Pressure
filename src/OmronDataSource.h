@@ -72,17 +72,20 @@ extern NSString *deviceSerialNumberKey;
  */
 @interface OmronDataSource : NSObject
 {
-    NSMutableArray *deviceList;
-    NSMutableArray *readings;
-    NSMutableArray *readingsListDates;
-    NSString *deviceID;
+    NSPersistentStoreCoordinator *myPersistentStoreCoordinator;
+    NSManagedObjectModel *myManagedObjectModel;
+    NSManagedObjectContext *myManagedObjectContext;
+    NSMutableArray *myDeviceList;
+    NSMutableArray *myReadings;
+    NSMutableArray *myReadingsListDates;
+    NSString *myDeviceID;
 }
 
 //
 // These will not be guaranteed until after OmronDataSyncDidEnd
 //
-@property (atomic, readonly, strong) NSString *deviceID;
-@property (atomic, readwrite, strong) NSMutableArray *readings;
+@property (atomic, readonly, retain) NSString *deviceID;
+@property (atomic, readwrite, retain) NSMutableArray *readings;
 
 //
 // Calling this will generate OmronDataSyncDidBegin and at some later point OmronDataSyncDidEnd

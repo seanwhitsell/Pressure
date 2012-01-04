@@ -313,7 +313,7 @@ extern "C" {
 	 *
 	 * @return Number of devices connected, or < 0 if error
 	 */
-	OMRON_DECLSPEC omron_device* omron_create();
+	OMRON_DECLSPEC omron_device* omron_create(void);
 	OMRON_DECLSPEC void omron_delete(omron_device* dev);
 
 	/**
@@ -327,6 +327,8 @@ extern "C" {
 	 */
 	OMRON_DECLSPEC int omron_get_count(omron_device* dev, int VID, int PID);
 
+    OMRON_DECLSPEC int omron_get_daily_data_count(omron_device* dev, unsigned char bank);
+    
 	/**
 	 * Returns the number of devices connected, though does not specify device type
 	 *
