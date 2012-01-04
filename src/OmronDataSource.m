@@ -4,6 +4,8 @@
 //
 //  Created by Sean Whitsell on 1/3/12.
 //
+//  Copyright 2011 Sean Whitsell
+//
 //  This file is part of Pressure.
 //
 //  Pressure is free software: you can redistribute it and/or modify
