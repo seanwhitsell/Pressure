@@ -14,56 +14,38 @@
 // You should have received a copy of the GNU General Public License
 // along with Pressure.  If not, see <http://www.gnu.org/licenses/>.
 //
-//  MainWindowController.m
+//  TabBar.m
 //  Created by Ben Shanfelder on 1/4/12.
 //
 
-#import "MainWindowController.h"
-#import "TabBarController.h"
+#import "TabBar.h"
 
-@interface MainWindowController ()
+@implementation TabBar
 
-@property (nonatomic, readonly, retain) TabBarController *tabBarController;
-
-@end
-
-@implementation MainWindowController
-
-@synthesize box = mBox;
-
-- (id)init
-{
-	self = [super initWithWindowNibName:@"MainWindowController"];
-	if (self != nil)
-	{
-	}
-	
-	return self;
-}
+@synthesize delegate = mDelegate;
+@synthesize items = mItems;
+@synthesize selectedItem = mSelectedItem;
 
 - (void)dealloc
 {
-	[mBox release];
-	mBox = nil;
+	// not retained
+	mDelegate = nil;
+	
+	[mItems release];
+	mItems = nil;
+	
+	// not retained
+	mSelectedItem = nil;
 	
 	[super dealloc];
 }
 
-- (void)windowDidLoad
+- (void)drawRect:(NSRect)dirtyRect
 {
-	[self.box setContentView:[self.tabBarController view]];
-}
-
-#pragma mark - Private methods
-
-- (TabBarController *)tabBarController
-{
-	if (mTabBarController == nil)
-	{
-		mTabBarController = [[TabBarController alloc] init];
-	}
+	[[NSColor blackColor] set];
+	NSRectFill(dirtyRect);
 	
-	return mTabBarController;
+	[super drawRect:dirtyRect];
 }
 
 @end

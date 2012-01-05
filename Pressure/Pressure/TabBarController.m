@@ -14,26 +14,21 @@
 // You should have received a copy of the GNU General Public License
 // along with Pressure.  If not, see <http://www.gnu.org/licenses/>.
 //
-//  MainWindowController.m
+//  TabBarController.m
 //  Created by Ben Shanfelder on 1/4/12.
 //
 
-#import "MainWindowController.h"
 #import "TabBarController.h"
+#import "TabBar.h"
 
-@interface MainWindowController ()
+@implementation TabBarController
 
-@property (nonatomic, readonly, retain) TabBarController *tabBarController;
-
-@end
-
-@implementation MainWindowController
-
-@synthesize box = mBox;
+@synthesize tabBar = mTabBar;
+@synthesize containerView = mContainerView;
 
 - (id)init
 {
-	self = [super initWithWindowNibName:@"MainWindowController"];
+	self = [super initWithNibName:@"TabBarController" bundle:nil];
 	if (self != nil)
 	{
 	}
@@ -43,27 +38,30 @@
 
 - (void)dealloc
 {
-	[mBox release];
-	mBox = nil;
+	[mTabBar release];
+	mTabBar = nil;
+	
+	[mContainerView release];
+	mContainerView = nil;
 	
 	[super dealloc];
 }
 
-- (void)windowDidLoad
+#pragma mark - NSSplitViewDelegate
+
+- (BOOL)splitView:(NSSplitView *)splitView shouldAdjustSizeOfSubview:(NSView *)view
 {
-	[self.box setContentView:[self.tabBarController view]];
+	return (view != self.tabBar);
 }
 
-#pragma mark - Private methods
-
-- (TabBarController *)tabBarController
+- (CGFloat)splitView:(NSSplitView *)splitView constrainMaxCoordinate:(CGFloat)proposedMaximumPosition ofSubviewAt:(NSInteger)dividerIndex
 {
-	if (mTabBarController == nil)
-	{
-		mTabBarController = [[TabBarController alloc] init];
-	}
-	
-	return mTabBarController;
+	return 200.0f;
+}
+
+- (CGFloat)splitView:(NSSplitView *)splitView constrainMinCoordinate:(CGFloat)proposedMinimumPosition ofSubviewAt:(NSInteger)dividerIndex
+{
+	return 80.0f;
 }
 
 @end

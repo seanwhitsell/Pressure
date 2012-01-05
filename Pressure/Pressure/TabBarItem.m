@@ -14,28 +14,29 @@
 // You should have received a copy of the GNU General Public License
 // along with Pressure.  If not, see <http://www.gnu.org/licenses/>.
 //
-//  MainWindowController.m
+//  TabBarItem.m
 //  Created by Ben Shanfelder on 1/4/12.
 //
 
-#import "MainWindowController.h"
-#import "TabBarController.h"
+#import "TabBarItem.h"
 
-@interface MainWindowController ()
+@implementation TabBarItem
 
-@property (nonatomic, readonly, retain) TabBarController *tabBarController;
+@synthesize image = mImage;
+@synthesize title = mTitle;
+@synthesize tag = mTag;
+@synthesize badgeValue = mBadgeValue;
 
-@end
-
-@implementation MainWindowController
-
-@synthesize box = mBox;
+@synthesize view = mView;
 
 - (id)init
 {
-	self = [super initWithWindowNibName:@"MainWindowController"];
+	self = [super init];
 	if (self != nil)
 	{
+		if ([NSBundle loadNibNamed:@"TabBarItem" owner:self])
+		{
+		}
 	}
 	
 	return self;
@@ -43,27 +44,19 @@
 
 - (void)dealloc
 {
-	[mBox release];
-	mBox = nil;
+	[mImage release];
+	mImage = nil;
+	
+	[mTitle release];
+	mTitle = nil;
+	
+	[mBadgeValue release];
+	mBadgeValue = nil;
+	
+	[mView release];
+	mView = nil;
 	
 	[super dealloc];
-}
-
-- (void)windowDidLoad
-{
-	[self.box setContentView:[self.tabBarController view]];
-}
-
-#pragma mark - Private methods
-
-- (TabBarController *)tabBarController
-{
-	if (mTabBarController == nil)
-	{
-		mTabBarController = [[TabBarController alloc] init];
-	}
-	
-	return mTabBarController;
 }
 
 @end

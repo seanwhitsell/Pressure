@@ -14,56 +14,27 @@
 // You should have received a copy of the GNU General Public License
 // along with Pressure.  If not, see <http://www.gnu.org/licenses/>.
 //
-//  MainWindowController.m
+//  TabBarController.h
 //  Created by Ben Shanfelder on 1/4/12.
 //
 
-#import "MainWindowController.h"
-#import "TabBarController.h"
+#import <Cocoa/Cocoa.h>
 
-@interface MainWindowController ()
+@class TabBar;
+@class TabBarItem;
 
-@property (nonatomic, readonly, retain) TabBarController *tabBarController;
+@interface TabBarController : NSViewController <NSSplitViewDelegate>
+{
+	@private
+	TabBar *mTabBar;
+	NSView *mContainerView;
+}
 
 @end
 
-@implementation MainWindowController
+@interface TabBarController ()
 
-@synthesize box = mBox;
-
-- (id)init
-{
-	self = [super initWithWindowNibName:@"MainWindowController"];
-	if (self != nil)
-	{
-	}
-	
-	return self;
-}
-
-- (void)dealloc
-{
-	[mBox release];
-	mBox = nil;
-	
-	[super dealloc];
-}
-
-- (void)windowDidLoad
-{
-	[self.box setContentView:[self.tabBarController view]];
-}
-
-#pragma mark - Private methods
-
-- (TabBarController *)tabBarController
-{
-	if (mTabBarController == nil)
-	{
-		mTabBarController = [[TabBarController alloc] init];
-	}
-	
-	return mTabBarController;
-}
+@property (nonatomic, readwrite, retain) IBOutlet TabBar *tabBar;
+@property (nonatomic, readwrite, retain) IBOutlet NSView *containerView;
 
 @end

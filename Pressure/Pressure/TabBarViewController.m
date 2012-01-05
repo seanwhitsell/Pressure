@@ -14,26 +14,47 @@
 // You should have received a copy of the GNU General Public License
 // along with Pressure.  If not, see <http://www.gnu.org/licenses/>.
 //
-//  MainWindowController.h
-//  Created by Ben Shanfelder on 1/4/12.
+//  TabBarViewController.m
+//  Created by Ben Shanfelder on 1/5/12.
 //
 
-#import <Cocoa/Cocoa.h>
+#import "TabBarViewController.h"
+#import "TabBarItem.h"
 
-@class TabBarController;
+@implementation TabBarViewController
 
-@interface MainWindowController : NSWindowController
+- (void)dealloc
 {
-	@private
-	TabBarController *mTabBarController;
+	[mTabBarItem release];
+	mTabBarItem = nil;
 	
-	NSBox *mBox;
+	[super dealloc];
 }
 
-@end
+- (TabBarItem *)tabBarItem
+{
+	if (mTabBarItem == nil)
+	{
+		mTabBarItem = [[TabBarItem alloc] init];
+	}
+	
+	return mTabBarItem;
+}
 
-@interface MainWindowController ()
+- (void)viewWillAppear
+{
+}
 
-@property (nonatomic, readwrite, retain) IBOutlet NSBox *box;
+- (void)viewDidAppear
+{
+}
+
+- (void)viewWillDisappear
+{
+}
+
+- (void)viewDidDisappear
+{
+}
 
 @end

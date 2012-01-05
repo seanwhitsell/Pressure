@@ -14,56 +14,34 @@
 // You should have received a copy of the GNU General Public License
 // along with Pressure.  If not, see <http://www.gnu.org/licenses/>.
 //
-//  MainWindowController.m
+//  TabBarItem.h
 //  Created by Ben Shanfelder on 1/4/12.
 //
 
-#import "MainWindowController.h"
-#import "TabBarController.h"
+#import <Cocoa/Cocoa.h>
 
-@interface MainWindowController ()
+@class TabBarItemView;
 
-@property (nonatomic, readonly, retain) TabBarController *tabBarController;
+@interface TabBarItem : NSObject
+{
+	@private
+	NSImage *mImage;
+	NSString *mTitle;
+	NSInteger mTag;
+	NSString *mBadgeValue;
+	
+	TabBarItemView *mView;
+}
+
+@property (nonatomic, readwrite, retain) NSImage *image;
+@property (nonatomic, readwrite, copy) NSString *title;
+@property (nonatomic, readwrite, assign) NSInteger tag;
+@property (nonatomic, readwrite, copy) NSString *badgeValue;
 
 @end
 
-@implementation MainWindowController
+@interface TabBarItem ()
 
-@synthesize box = mBox;
-
-- (id)init
-{
-	self = [super initWithWindowNibName:@"MainWindowController"];
-	if (self != nil)
-	{
-	}
-	
-	return self;
-}
-
-- (void)dealloc
-{
-	[mBox release];
-	mBox = nil;
-	
-	[super dealloc];
-}
-
-- (void)windowDidLoad
-{
-	[self.box setContentView:[self.tabBarController view]];
-}
-
-#pragma mark - Private methods
-
-- (TabBarController *)tabBarController
-{
-	if (mTabBarController == nil)
-	{
-		mTabBarController = [[TabBarController alloc] init];
-	}
-	
-	return mTabBarController;
-}
+@property (nonatomic, readwrite, retain) IBOutlet TabBarItemView *view;
 
 @end
