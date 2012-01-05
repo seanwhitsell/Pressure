@@ -19,11 +19,11 @@
 		8F32EB3214B56CD800122156 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
 		8F32EB3314B56CD800122156 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		8F32EB3414B56CD800122156 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		8F32EB3614B56CD800122156 /* AppDelegate.h */ = {isa = PBXFileReference; path = AppDelegate.h; sourceTree = "<group>"; };
+		8F32EB3614B56CD800122156 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		8F32EB3714B56CD800122156 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		8F32EB3A14B56CD800122156 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
-		8F32EB3D14B56CD800122156 /* Pressure-Info.plist */ = {isa = PBXFileReference; path = "Pressure-Info.plist"; sourceTree = "<group>"; };
-		8F32EB3E14B56CD800122156 /* Pressure-Prefix.pch */ = {isa = PBXFileReference; path = "Pressure-Prefix.pch"; sourceTree = "<group>"; };
+		8F32EB3D14B56CD800122156 /* Pressure-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Pressure-Info.plist"; sourceTree = "<group>"; };
+		8F32EB3E14B56CD800122156 /* Pressure-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Pressure-Prefix.pch"; sourceTree = "<group>"; };
 		8F32EB3F14B56CD800122156 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -106,7 +106,6 @@
 				8F32EB2614B56CD800122156 /* Sources */,
 				8F32EB2714B56CD800122156 /* Frameworks */,
 				8F32EB2814B56CD800122156 /* Resources */,
-				8F32EB2914B56CD800122156 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -152,22 +151,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		8F32EB2914B56CD800122156 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $(svnversion -n | cut -d : -f 2)\" \"${BUILT_PRODUCTS_DIR}/${CONTENTS_FOLDER_PATH}/Info.plist\"";
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		8F32EB2614B56CD800122156 /* Sources */ = {
@@ -337,6 +320,7 @@
 				8F32EB4514B56CD800122156 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
