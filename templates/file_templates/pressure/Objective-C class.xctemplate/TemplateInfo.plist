@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Description</key>
+	<string>An Objective-C class, with implementation and header files.</string>
+	<key>MainTemplateFile</key>
+	<string>___FILEBASENAME___.m</string>
+	<key>CounterpartTemplateFile</key>
+	<string>___FILEBASENAME___.h</string>
+	<key>DefaultCompletionName</key>
+	<string>untitled.m</string>
+</dict>
+</plist>
