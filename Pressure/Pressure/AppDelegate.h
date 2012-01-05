@@ -20,9 +20,12 @@
 
 #import <Cocoa/Cocoa.h>
 
+@class MainWindowController;
+
 @interface AppDelegate : NSResponder <NSApplicationDelegate>
 {
-@private
+	@private
+	MainWindowController *mMainWindowController;
 }
 
 @end

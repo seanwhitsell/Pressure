@@ -11,6 +11,8 @@
 		8F32EB3814B56CD800122156 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F32EB3714B56CD800122156 /* AppDelegate.m */; };
 		8F32EB3B14B56CD800122156 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8F32EB3914B56CD800122156 /* MainMenu.xib */; };
 		8F32EB4014B56CD800122156 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F32EB3F14B56CD800122156 /* main.m */; };
+		8FFAB3AB14B58C4900EAE31F /* MainWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FFAB3AA14B58C4900EAE31F /* MainWindowController.m */; };
+		8FFAB3AF14B58C6000EAE31F /* MainWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8FFAB3AD14B58C6000EAE31F /* MainWindowController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,6 +27,9 @@
 		8F32EB3D14B56CD800122156 /* Pressure-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Pressure-Info.plist"; sourceTree = "<group>"; };
 		8F32EB3E14B56CD800122156 /* Pressure-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Pressure-Prefix.pch"; sourceTree = "<group>"; };
 		8F32EB3F14B56CD800122156 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		8FFAB3A914B58C4900EAE31F /* MainWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainWindowController.h; sourceTree = "<group>"; };
+		8FFAB3AA14B58C4900EAE31F /* MainWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainWindowController.m; sourceTree = "<group>"; };
+		8FFAB3AE14B58C6000EAE31F /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainWindowController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,6 +86,10 @@
 				8F32EB3614B56CD800122156 /* AppDelegate.h */,
 				8F32EB3714B56CD800122156 /* AppDelegate.m */,
 				8F32EB3914B56CD800122156 /* MainMenu.xib */,
+				8FFAB3A914B58C4900EAE31F /* MainWindowController.h */,
+				8FFAB3AA14B58C4900EAE31F /* MainWindowController.m */,
+				8FFAB3AD14B58C6000EAE31F /* MainWindowController.xib */,
+				8FFAB3B014B58E2300EAE31F /* Images */,
 				8F32EB3C14B56CD800122156 /* Supporting Files */,
 			);
 			path = Pressure;
@@ -94,6 +103,13 @@
 				8F32EB3F14B56CD800122156 /* main.m */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		8FFAB3B014B58E2300EAE31F /* Images */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Images;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -147,6 +163,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8F32EB3B14B56CD800122156 /* MainMenu.xib in Resources */,
+				8FFAB3AF14B58C6000EAE31F /* MainWindowController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -159,6 +176,7 @@
 			files = (
 				8F32EB3814B56CD800122156 /* AppDelegate.m in Sources */,
 				8F32EB4014B56CD800122156 /* main.m in Sources */,
+				8FFAB3AB14B58C4900EAE31F /* MainWindowController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -171,6 +189,14 @@
 				8F32EB3A14B56CD800122156 /* en */,
 			);
 			name = MainMenu.xib;
+			sourceTree = "<group>";
+		};
+		8FFAB3AD14B58C6000EAE31F /* MainWindowController.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				8FFAB3AE14B58C6000EAE31F /* en */,
+			);
+			name = MainWindowController.xib;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

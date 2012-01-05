@@ -14,43 +14,27 @@
 // You should have received a copy of the GNU General Public License
 // along with Pressure.  If not, see <http://www.gnu.org/licenses/>.
 //
-//  AppDelegate.m
+//  MainWindowController.m
 //  Created by Ben Shanfelder on 1/4/12.
 //
 
-#import "AppDelegate.h"
 #import "MainWindowController.h"
 
-@interface AppDelegate ()
+@implementation MainWindowController
 
-@property (nonatomic, readonly, retain) MainWindowController *mainWindowController;
-
-@end
-
-@implementation AppDelegate
-
-#pragma mark - NSApplicationDelegate
-
-- (void)applicationDidFinishLaunching:(NSNotification *)notification
+- (id)initWithWindow:(NSWindow *)window
 {
-	[self.mainWindowController showWindow:self];
-}
-
-- (BOOL)applicationShouldTerminateAfterLastWindowClosed:(NSApplication *)application
-{
-	return YES;
-}
-
-#pragma mark - Private methods
-
-- (MainWindowController *)mainWindowController
-{
-	if (mMainWindowController == nil)
+	self = [super initWithWindow:window];
+	if (self != nil)
 	{
-		mMainWindowController = [[MainWindowController alloc] init];
 	}
 	
-	return mMainWindowController;
+	return self;
+}
+
+- (id)init
+{
+	return [super initWithWindowNibName:@"MainWindowController"];
 }
 
 @end
