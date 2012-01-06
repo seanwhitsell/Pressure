@@ -25,6 +25,7 @@
 
 @synthesize tabBar = mTabBar;
 @synthesize containerView = mContainerView;
+@synthesize splitterHandleImageView = mSplitterHandleImageView;
 
 - (id)init
 {
@@ -44,10 +45,18 @@
 	[mContainerView release];
 	mContainerView = nil;
 	
+	[mSplitterHandleImageView release];
+	mSplitterHandleImageView = nil;
+	
 	[super dealloc];
 }
 
 #pragma mark - NSSplitViewDelegate
+
+- (NSRect)splitView:(NSSplitView *)splitView additionalEffectiveRectOfDividerAtIndex:(NSInteger)dividerIndex
+{
+	return [splitView convertRect:[self.splitterHandleImageView bounds] fromView:self.splitterHandleImageView];
+}
 
 - (BOOL)splitView:(NSSplitView *)splitView shouldAdjustSizeOfSubview:(NSView *)view
 {

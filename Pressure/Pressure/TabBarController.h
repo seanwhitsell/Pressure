@@ -28,6 +28,7 @@
 	@private
 	TabBar *mTabBar;
 	NSView *mContainerView;
+	NSImageView *mSplitterHandleImageView;
 }
 
 @end
@@ -36,5 +37,6 @@
 
 @property (nonatomic, readwrite, retain) IBOutlet TabBar *tabBar;
 @property (nonatomic, readwrite, retain) IBOutlet NSView *containerView;
+@property (nonatomic, readwrite, retain) IBOutlet NSImageView *splitterHandleImageView;
 
 @end
