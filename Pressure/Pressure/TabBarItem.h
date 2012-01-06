@@ -30,6 +30,10 @@
 	NSInteger mTag;
 	NSString *mBadgeValue;
 	
+	id mTarget;
+	SEL mAction;
+	BOOL mSelected;
+	
 	TabBarItemView *mView;
 }
 
@@ -42,6 +46,13 @@
 
 @interface TabBarItem ()
 
+@property (nonatomic, readwrite, assign) id target;
+@property (nonatomic, readwrite, assign) SEL action;
+@property (nonatomic, readwrite, assign, getter=isSelected) BOOL selected;
+// FIXME: Add selected image
+
 @property (nonatomic, readwrite, retain) IBOutlet TabBarItemView *view;
+
+- (IBAction)handleButton:(id)sender;
 
 @end

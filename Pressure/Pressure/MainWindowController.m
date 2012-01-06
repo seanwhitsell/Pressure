@@ -19,7 +19,10 @@
 //
 
 #import "MainWindowController.h"
+#import "NSViewController+TabBarControllerItem.h"
 #import "TabBarController.h"
+#import "TabBarItem.h"
+#import "TestViewController.h"
 
 @interface MainWindowController ()
 
@@ -52,6 +55,29 @@
 - (void)windowDidLoad
 {
 	[self.box setContentView:[self.tabBarController view]];
+	
+	TestViewController *vc1 = [[[TestViewController alloc] init] autorelease];
+	vc1.tabBarItem.image = [NSImage imageNamed:@"1325750140_Home"];
+	vc1.tabBarItem.title = @"Test 1";
+	vc1.tabBarItem.tag = 1;
+	
+	TestViewController *vc2 = [[[TestViewController alloc] init] autorelease];
+	vc2.tabBarItem.image = [NSImage imageNamed:@"1325750134_Account and Control"];
+	vc2.tabBarItem.title = @"Test 2";
+	vc2.tabBarItem.tag = 2;
+	
+	TestViewController *vc3 = [[[TestViewController alloc] init] autorelease];
+	vc3.tabBarItem.image = [NSImage imageNamed:@"1325750130_Control Panel"];
+	vc3.tabBarItem.title = @"Test 3";
+	vc3.tabBarItem.tag = 3;
+	
+	TestViewController *vc4 = [[[TestViewController alloc] init] autorelease];
+	vc4.tabBarItem.image = [NSImage imageNamed:@"1325750145_Folder-Picture-2"];
+	vc4.tabBarItem.title = @"Test 4";
+	vc4.tabBarItem.tag = 4;
+	
+	self.tabBarController.viewControllers = [NSArray arrayWithObjects:vc1, vc2, vc3, vc4, nil];
+	self.tabBarController.selectedViewController = vc2;
 }
 
 #pragma mark - Private methods

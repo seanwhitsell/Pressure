@@ -14,32 +14,15 @@
 // You should have received a copy of the GNU General Public License
 // along with Pressure.  If not, see <http://www.gnu.org/licenses/>.
 //
-//  TabBar.h
-//  Created by Ben Shanfelder on 1/4/12.
+//  TabBarSelectionIndicatorView.h
+//  Created by Ben Shanfelder on 1/5/12.
 //
 
 #import <Cocoa/Cocoa.h>
 
-@class TabBarItem;
-
-@interface TabBar : NSView
+@interface TabBarSelectionIndicatorView : NSView
 {
 	@private
-	NSArray *mItems;
-	TabBarItem *mSelectedItem;
-	
-	NSView *mContainerView;
-	NSPopUpButton *mOverflowPopUpButton;
 }
-
-@property (nonatomic, readwrite, copy) NSArray *items;
-@property (nonatomic, readwrite, assign) TabBarItem *selectedItem;
-
-@end
-
-@interface TabBar ()
-
-@property (nonatomic, readwrite, retain) IBOutlet NSView *containerView;
-@property (nonatomic, readwrite, retain) IBOutlet NSPopUpButton *overflowPopUpButton;
 
 @end

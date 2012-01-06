@@ -19,9 +19,22 @@
 //
 
 #import "TabBarController.h"
+#import "NSViewController+TabBarControllerItem.h"
 #import "TabBar.h"
+#import "TabBarItem.h"
+#import "TabBarItemView.h"
+
+@interface TabBarController ()
+
+- (void)tabBarItemClicked:(id)sender;
+
+@end
 
 @implementation TabBarController
+
+@synthesize delegate = mDelegate;
+@synthesize viewControllers = mViewControllers;
+@synthesize selectedViewController = mSelectedViewController;
 
 @synthesize tabBar = mTabBar;
 @synthesize containerView = mContainerView;
@@ -39,6 +52,15 @@
 
 - (void)dealloc
 {
+	// not retained
+	mDelegate = nil;
+	
+	[mViewControllers release];
+	mViewControllers = nil;
+	
+	// not retained
+	mSelectedViewController = nil;
+	
 	[mTabBar release];
 	mTabBar = nil;
 	
@@ -49,6 +71,59 @@
 	mSplitterHandleImageView = nil;
 	
 	[super dealloc];
+}
+
+- (void)setViewControllers:(NSArray *)viewControllers
+{
+	if (![viewControllers isEqualToArray:mViewControllers])
+	{
+		NSUInteger oldSelectedIndex = (mViewControllers != nil) ? [mViewControllers indexOfObject:self.selectedViewController] : NSNotFound;
+		
+		[mViewControllers release];
+		mViewControllers = [viewControllers copy];
+		
+		NSArray *items = [viewControllers valueForKey:@"tabBarItem"];
+		for (TabBarItem *item in items)
+		{
+			item.target = self;
+			item.action = @selector(tabBarItemClicked:);
+		}
+		
+		self.tabBar.items = items;
+		
+		if (oldSelectedIndex != NSNotFound)
+		{
+			if (![viewControllers containsObject:self.selectedViewController])
+			{
+				NSViewController *viewController = nil;
+				if (oldSelectedIndex < [viewControllers count])
+				{
+					viewController = [viewControllers objectAtIndex:oldSelectedIndex];
+				}
+				else if ([viewControllers count] > 0)
+				{
+					viewController = [viewControllers objectAtIndex:0];
+				}
+				
+				self.selectedViewController = viewController;
+			}
+			else
+			{
+				self.tabBar.selectedItem = self.selectedViewController.tabBarItem;
+			}
+		}
+	}
+}
+
+- (void)setSelectedViewController:(NSViewController *)selectedViewController
+{
+	if ((selectedViewController != mSelectedViewController) && [self.viewControllers containsObject:selectedViewController])
+	{
+		// TODO
+		mSelectedViewController = selectedViewController;
+		
+		self.tabBar.selectedItem = selectedViewController.tabBarItem;
+	}
 }
 
 #pragma mark - NSSplitViewDelegate
@@ -65,12 +140,26 @@
 
 - (CGFloat)splitView:(NSSplitView *)splitView constrainMaxCoordinate:(CGFloat)proposedMaximumPosition ofSubviewAt:(NSInteger)dividerIndex
 {
-	return 200.0f;
+	return 128.0f;
 }
 
 - (CGFloat)splitView:(NSSplitView *)splitView constrainMinCoordinate:(CGFloat)proposedMinimumPosition ofSubviewAt:(NSInteger)dividerIndex
 {
-	return 80.0f;
+	return 64.0f;
+}
+
+#pragma mark - Private methods
+
+- (void)tabBarItemClicked:(id)sender
+{
+	for (NSViewController *viewController in self.viewControllers)
+	{
+		if (viewController.tabBarItem == sender)
+		{
+			self.selectedViewController = viewController;
+			break;
+		}
+	}
 }
 
 @end

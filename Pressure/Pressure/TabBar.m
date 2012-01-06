@@ -19,25 +19,45 @@
 //
 
 #import "TabBar.h"
+#import "TabBarItem.h"
+#import "TabBarItemView.h"
+
+@interface TabBar ()
+
+- (void)layoutSubviews;
+- (void)handleOverflowMenuItem:(id)sender;
+
+@end
 
 @implementation TabBar
 
-@synthesize delegate = mDelegate;
 @synthesize items = mItems;
 @synthesize selectedItem = mSelectedItem;
 
+@synthesize containerView = mContainerView;
+@synthesize overflowPopUpButton = mOverflowPopUpButton;
+
 - (void)dealloc
 {
-	// not retained
-	mDelegate = nil;
-	
 	[mItems release];
 	mItems = nil;
 	
 	// not retained
 	mSelectedItem = nil;
 	
+	[mContainerView release];
+	mContainerView = nil;
+	
+	[mOverflowPopUpButton release];
+	mOverflowPopUpButton = nil;
+	
 	[super dealloc];
+}
+
+- (void)setFrame:(NSRect)frameRect
+{
+	[super setFrame:frameRect];
+	[self layoutSubviews];
 }
 
 - (void)drawRect:(NSRect)dirtyRect
@@ -46,6 +66,81 @@
 	NSRectFill(dirtyRect);
 	
 	[super drawRect:dirtyRect];
+}
+
+- (void)setItems:(NSArray *)items
+{
+	if (![items isEqualToArray:mItems])
+	{
+		[[mItems valueForKey:@"view"] makeObjectsPerformSelector:@selector(removeFromSuperview)];
+		
+		[mItems release];
+		mItems = [items copy];
+		
+		[self layoutSubviews];
+	}
+}
+
+- (void)setSelectedItem:(TabBarItem *)selectedItem
+{
+	if ((selectedItem != mSelectedItem) && [self.items containsObject:selectedItem])
+	{
+		mSelectedItem.selected = NO;
+		mSelectedItem = selectedItem;
+		selectedItem.selected = YES;
+	}
+}
+
+#pragma mark - Private methods
+
+- (void)layoutSubviews
+{
+	[[self.items valueForKey:@"view"] makeObjectsPerformSelector:@selector(removeFromSuperview)];
+	
+	CGFloat y = NSHeight([self.containerView frame]);
+	CGFloat height = NSWidth([self.containerView frame]);
+	BOOL showsOverflow = NO;
+	for (TabBarItem *item in self.items)
+	{
+		y -= (height + 12.0f);
+		if (y > 0.0f)
+		{
+			TabBarItemView *view = item.view;
+			[self.containerView addSubview:view];
+			[view setFrame:NSMakeRect(0.0f, y, height, height)];
+		}
+		else
+		{
+			showsOverflow = YES;
+			break;
+		}
+	}
+	
+	[self.overflowPopUpButton setHidden:!showsOverflow];
+	if (showsOverflow)
+	{
+		NSMenuItem *arrowMenuItem = [[[self.overflowPopUpButton itemAtIndex:0] retain] autorelease];
+		[self.overflowPopUpButton removeAllItems];
+		[[self.overflowPopUpButton menu] addItem:arrowMenuItem];
+		
+		for (TabBarItem *item in self.items)
+		{
+			if ([item.view superview] == nil)
+			{
+				NSMenuItem *menuItem = [[self.overflowPopUpButton menu] addItemWithTitle:item.title action:@selector(handleOverflowMenuItem:) keyEquivalent:@""];
+				[menuItem setTarget:self];
+				[menuItem setRepresentedObject:item];
+			}
+		}
+	}
+	
+	[self setNeedsDisplay:YES];
+}
+
+- (void)handleOverflowMenuItem:(id)sender
+{
+	TabBarItem *item = [sender representedObject];
+	[item.target performSelector:item.action withObject:item];
 }
 
 @end

@@ -14,32 +14,42 @@
 // You should have received a copy of the GNU General Public License
 // along with Pressure.  If not, see <http://www.gnu.org/licenses/>.
 //
-//  TabBar.h
-//  Created by Ben Shanfelder on 1/4/12.
+//  TestViewController.m
+//  Created by Ben Shanfelder on 1/5/12.
 //
 
-#import <Cocoa/Cocoa.h>
+#import "TestViewController.h"
 
-@class TabBarItem;
+@implementation TestViewController
 
-@interface TabBar : NSView
+- (id)init
 {
-	@private
-	NSArray *mItems;
-	TabBarItem *mSelectedItem;
+	self = [super initWithNibName:@"TestViewController" bundle:nil];
+	if (self != nil)
+	{
+	}
 	
-	NSView *mContainerView;
-	NSPopUpButton *mOverflowPopUpButton;
+	return self;
 }
 
-@property (nonatomic, readwrite, copy) NSArray *items;
-@property (nonatomic, readwrite, assign) TabBarItem *selectedItem;
+- (void)viewWillAppear
+{
+	NSLog(@"<%p> %@", self, [NSString stringWithUTF8String:__func__]);
+}
 
-@end
+- (void)viewDidAppear
+{
+	NSLog(@"<%p> %@", self, [NSString stringWithUTF8String:__func__]);
+}
 
-@interface TabBar ()
+- (void)viewWillDisappear
+{
+	NSLog(@"<%p> %@", self, [NSString stringWithUTF8String:__func__]);
+}
 
-@property (nonatomic, readwrite, retain) IBOutlet NSView *containerView;
-@property (nonatomic, readwrite, retain) IBOutlet NSPopUpButton *overflowPopUpButton;
+- (void)viewDidDisappear
+{
+	NSLog(@"<%p> %@", self, [NSString stringWithUTF8String:__func__]);
+}
 
 @end

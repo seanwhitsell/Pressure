@@ -27,6 +27,10 @@
 @synthesize tag = mTag;
 @synthesize badgeValue = mBadgeValue;
 
+@synthesize target = mTarget;
+@synthesize action = mAction;
+@synthesize selected = mSelected;
+
 @synthesize view = mView;
 
 - (id)init
@@ -53,10 +57,20 @@
 	[mBadgeValue release];
 	mBadgeValue = nil;
 	
+	// not retained
+	mTarget = nil;
+	
 	[mView release];
 	mView = nil;
 	
 	[super dealloc];
+}
+
+#pragma mark - Private methods
+
+- (IBAction)handleButton:(id)sender
+{
+	[self.target performSelector:self.action withObject:self];
 }
 
 @end

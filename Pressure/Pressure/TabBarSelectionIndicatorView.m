@@ -14,25 +14,20 @@
 // You should have received a copy of the GNU General Public License
 // along with Pressure.  If not, see <http://www.gnu.org/licenses/>.
 //
-//  TabBarViewController.h
+//  TabBarSelectionIndicatorView.m
 //  Created by Ben Shanfelder on 1/5/12.
 //
 
-#import <Cocoa/Cocoa.h>
+#import "TabBarSelectionIndicatorView.h"
 
-@class TabBarItem;
+@implementation TabBarSelectionIndicatorView
 
-@interface TabBarViewController : NSViewController
+- (void)drawRect:(NSRect)dirtyRect
 {
-	@private
-	TabBarItem *mTabBarItem;
+	[[[NSColor whiteColor] colorWithAlphaComponent:0.25f] set];
+	[[NSBezierPath bezierPathWithRoundedRect:NSInsetRect([self bounds], 2.0f, 2.0f) xRadius:4.0f yRadius:4.0f] fill];
+	
+	[super drawRect:dirtyRect];
 }
-
-@property (nonatomic, readonly, retain) TabBarItem *tabBarItem;
-
-- (void)viewWillAppear;
-- (void)viewDidAppear;
-- (void)viewWillDisappear;
-- (void)viewDidDisappear;
 
 @end

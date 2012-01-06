@@ -14,32 +14,44 @@
 // You should have received a copy of the GNU General Public License
 // along with Pressure.  If not, see <http://www.gnu.org/licenses/>.
 //
-//  TabBar.h
-//  Created by Ben Shanfelder on 1/4/12.
+//  NSViewController+TabBarControllerItem.m
+//  Created by Ben Shanfelder on 1/5/12.
 //
 
-#import <Cocoa/Cocoa.h>
+#import "NSViewController+TabBarControllerItem.h"
+#import <objc/runtime.h>
+#import "TabBarItem.h"
 
-@class TabBarItem;
+@implementation NSViewController (TabBarControllerItem)
 
-@interface TabBar : NSView
+- (TabBarItem *)tabBarItem
 {
-	@private
-	NSArray *mItems;
-	TabBarItem *mSelectedItem;
+	static char tabBarItemKey;
 	
-	NSView *mContainerView;
-	NSPopUpButton *mOverflowPopUpButton;
+	TabBarItem *tabBarItem = objc_getAssociatedObject(self, &tabBarItemKey);
+	if (tabBarItem == nil)
+	{
+		tabBarItem = [[[TabBarItem alloc] init] autorelease];
+		objc_setAssociatedObject(self, &tabBarItemKey, tabBarItem, OBJC_ASSOCIATION_RETAIN);
+	}
+	
+	return tabBarItem;
 }
 
-@property (nonatomic, readwrite, copy) NSArray *items;
-@property (nonatomic, readwrite, assign) TabBarItem *selectedItem;
+- (void)viewWillAppear
+{
+}
 
-@end
+- (void)viewDidAppear
+{
+}
 
-@interface TabBar ()
+- (void)viewWillDisappear
+{
+}
 
-@property (nonatomic, readwrite, retain) IBOutlet NSView *containerView;
-@property (nonatomic, readwrite, retain) IBOutlet NSPopUpButton *overflowPopUpButton;
+- (void)viewDidDisappear
+{
+}
 
 @end

@@ -12,6 +12,11 @@
 		8F32EB3B14B56CD800122156 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8F32EB3914B56CD800122156 /* MainMenu.xib */; };
 		8F32EB4014B56CD800122156 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F32EB3F14B56CD800122156 /* main.m */; };
 		8F4EAF0814B6B18200C9C31C /* splitterhandle.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F4EAF0714B6B18200C9C31C /* splitterhandle.png */; };
+		8F4EAF0D14B6B44900C9C31C /* TestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F4EAF0C14B6B44900C9C31C /* TestViewController.m */; };
+		8F4EAF1314B6B8C600C9C31C /* NSViewController+TabBarControllerItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F4EAF1214B6B8C600C9C31C /* NSViewController+TabBarControllerItem.m */; };
+		8F4EAF1614B6BB2D00C9C31C /* TestViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8F4EAF1414B6BB2D00C9C31C /* TestViewController.xib */; };
+		8F4EAF1814B6CB0C00C9C31C /* overflow.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F4EAF1714B6CB0C00C9C31C /* overflow.png */; };
+		8F4EAF1B14B6D6E600C9C31C /* TabBarSelectionIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F4EAF1A14B6D6E600C9C31C /* TabBarSelectionIndicatorView.m */; };
 		8FFAB3AB14B58C4900EAE31F /* MainWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FFAB3AA14B58C4900EAE31F /* MainWindowController.m */; };
 		8FFAB3AF14B58C6000EAE31F /* MainWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8FFAB3AD14B58C6000EAE31F /* MainWindowController.xib */; };
 		8FFAB3B414B58F6000EAE31F /* TabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FFAB3B314B58F6000EAE31F /* TabBarController.m */; };
@@ -24,7 +29,6 @@
 		8FFAB3CB14B59BCC00EAE31F /* 1325750134_Account and Control.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FFAB3C614B59BCC00EAE31F /* 1325750134_Account and Control.png */; };
 		8FFAB3CC14B59BCC00EAE31F /* 1325750140_Home.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FFAB3C714B59BCC00EAE31F /* 1325750140_Home.png */; };
 		8FFAB3CD14B59BCC00EAE31F /* 1325750145_Folder-Picture-2.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FFAB3C814B59BCC00EAE31F /* 1325750145_Folder-Picture-2.png */; };
-		8FFAB3D014B5A4F400EAE31F /* TabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FFAB3CF14B5A4F400EAE31F /* TabBarViewController.m */; };
 		8FFAB3D514B5A70900EAE31F /* TabBarItem.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8FFAB3D314B5A70900EAE31F /* TabBarItem.xib */; };
 /* End PBXBuildFile section */
 
@@ -41,6 +45,14 @@
 		8F32EB3E14B56CD800122156 /* Pressure-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Pressure-Prefix.pch"; sourceTree = "<group>"; };
 		8F32EB3F14B56CD800122156 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		8F4EAF0714B6B18200C9C31C /* splitterhandle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = splitterhandle.png; sourceTree = "<group>"; };
+		8F4EAF0B14B6B44900C9C31C /* TestViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestViewController.h; sourceTree = "<group>"; };
+		8F4EAF0C14B6B44900C9C31C /* TestViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestViewController.m; sourceTree = "<group>"; };
+		8F4EAF1114B6B8C600C9C31C /* NSViewController+TabBarControllerItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSViewController+TabBarControllerItem.h"; sourceTree = "<group>"; };
+		8F4EAF1214B6B8C600C9C31C /* NSViewController+TabBarControllerItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSViewController+TabBarControllerItem.m"; sourceTree = "<group>"; };
+		8F4EAF1514B6BB2D00C9C31C /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/TestViewController.xib; sourceTree = "<group>"; };
+		8F4EAF1714B6CB0C00C9C31C /* overflow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = overflow.png; sourceTree = "<group>"; };
+		8F4EAF1914B6D6E600C9C31C /* TabBarSelectionIndicatorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TabBarSelectionIndicatorView.h; sourceTree = "<group>"; };
+		8F4EAF1A14B6D6E600C9C31C /* TabBarSelectionIndicatorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TabBarSelectionIndicatorView.m; sourceTree = "<group>"; };
 		8FFAB3A914B58C4900EAE31F /* MainWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainWindowController.h; sourceTree = "<group>"; };
 		8FFAB3AA14B58C4900EAE31F /* MainWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainWindowController.m; sourceTree = "<group>"; };
 		8FFAB3AE14B58C6000EAE31F /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainWindowController.xib; sourceTree = "<group>"; };
@@ -58,8 +70,6 @@
 		8FFAB3C614B59BCC00EAE31F /* 1325750134_Account and Control.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "1325750134_Account and Control.png"; sourceTree = "<group>"; };
 		8FFAB3C714B59BCC00EAE31F /* 1325750140_Home.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 1325750140_Home.png; sourceTree = "<group>"; };
 		8FFAB3C814B59BCC00EAE31F /* 1325750145_Folder-Picture-2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "1325750145_Folder-Picture-2.png"; sourceTree = "<group>"; };
-		8FFAB3CE14B5A4F400EAE31F /* TabBarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TabBarViewController.h; sourceTree = "<group>"; };
-		8FFAB3CF14B5A4F400EAE31F /* TabBarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TabBarViewController.m; sourceTree = "<group>"; };
 		8FFAB3D414B5A70900EAE31F /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/TabBarItem.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -120,6 +130,7 @@
 				8FFAB3A914B58C4900EAE31F /* MainWindowController.h */,
 				8FFAB3AA14B58C4900EAE31F /* MainWindowController.m */,
 				8FFAB3AD14B58C6000EAE31F /* MainWindowController.xib */,
+				8F4EAF0A14B6B42A00C9C31C /* Tabs */,
 				8FFAB3B114B58F4800EAE31F /* Tab Bar */,
 				8FFAB3B014B58E2300EAE31F /* Images */,
 				8F32EB3C14B56CD800122156 /* Supporting Files */,
@@ -140,9 +151,20 @@
 		8F4EAF0614B6B18200C9C31C /* Tab Bar */ = {
 			isa = PBXGroup;
 			children = (
+				8F4EAF1714B6CB0C00C9C31C /* overflow.png */,
 				8F4EAF0714B6B18200C9C31C /* splitterhandle.png */,
 			);
 			path = "Tab Bar";
+			sourceTree = "<group>";
+		};
+		8F4EAF0A14B6B42A00C9C31C /* Tabs */ = {
+			isa = PBXGroup;
+			children = (
+				8F4EAF0B14B6B44900C9C31C /* TestViewController.h */,
+				8F4EAF0C14B6B44900C9C31C /* TestViewController.m */,
+				8F4EAF1414B6BB2D00C9C31C /* TestViewController.xib */,
+			);
+			name = Tabs;
 			sourceTree = "<group>";
 		};
 		8FFAB3B014B58E2300EAE31F /* Images */ = {
@@ -161,6 +183,8 @@
 		8FFAB3B114B58F4800EAE31F /* Tab Bar */ = {
 			isa = PBXGroup;
 			children = (
+				8F4EAF1114B6B8C600C9C31C /* NSViewController+TabBarControllerItem.h */,
+				8F4EAF1214B6B8C600C9C31C /* NSViewController+TabBarControllerItem.m */,
 				8FFAB3B514B58F8500EAE31F /* TabBar.h */,
 				8FFAB3B614B58F8500EAE31F /* TabBar.m */,
 				8FFAB3B214B58F6000EAE31F /* TabBarController.h */,
@@ -169,10 +193,10 @@
 				8FFAB3BB14B58FA900EAE31F /* TabBarItem.h */,
 				8FFAB3BC14B58FA900EAE31F /* TabBarItem.m */,
 				8FFAB3D314B5A70900EAE31F /* TabBarItem.xib */,
+				8F4EAF1914B6D6E600C9C31C /* TabBarSelectionIndicatorView.h */,
+				8F4EAF1A14B6D6E600C9C31C /* TabBarSelectionIndicatorView.m */,
 				8FFAB3BE14B58FC000EAE31F /* TabBarItemView.h */,
 				8FFAB3BF14B58FC000EAE31F /* TabBarItemView.m */,
-				8FFAB3CE14B5A4F400EAE31F /* TabBarViewController.h */,
-				8FFAB3CF14B5A4F400EAE31F /* TabBarViewController.m */,
 			);
 			name = "Tab Bar";
 			sourceTree = "<group>";
@@ -237,6 +261,8 @@
 				8FFAB3CD14B59BCC00EAE31F /* 1325750145_Folder-Picture-2.png in Resources */,
 				8FFAB3D514B5A70900EAE31F /* TabBarItem.xib in Resources */,
 				8F4EAF0814B6B18200C9C31C /* splitterhandle.png in Resources */,
+				8F4EAF1614B6BB2D00C9C31C /* TestViewController.xib in Resources */,
+				8F4EAF1814B6CB0C00C9C31C /* overflow.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -254,7 +280,9 @@
 				8FFAB3B714B58F8500EAE31F /* TabBar.m in Sources */,
 				8FFAB3BD14B58FA900EAE31F /* TabBarItem.m in Sources */,
 				8FFAB3C014B58FC000EAE31F /* TabBarItemView.m in Sources */,
-				8FFAB3D014B5A4F400EAE31F /* TabBarViewController.m in Sources */,
+				8F4EAF0D14B6B44900C9C31C /* TestViewController.m in Sources */,
+				8F4EAF1314B6B8C600C9C31C /* NSViewController+TabBarControllerItem.m in Sources */,
+				8F4EAF1B14B6D6E600C9C31C /* TabBarSelectionIndicatorView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -267,6 +295,14 @@
 				8F32EB3A14B56CD800122156 /* en */,
 			);
 			name = MainMenu.xib;
+			sourceTree = "<group>";
+		};
+		8F4EAF1414B6BB2D00C9C31C /* TestViewController.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				8F4EAF1514B6BB2D00C9C31C /* en */,
+			);
+			name = TestViewController.xib;
 			sourceTree = "<group>";
 		};
 		8FFAB3AD14B58C6000EAE31F /* MainWindowController.xib */ = {

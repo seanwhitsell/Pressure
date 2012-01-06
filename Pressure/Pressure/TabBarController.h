@@ -22,14 +22,31 @@
 
 @class TabBar;
 @class TabBarItem;
+@class TabBarViewController;
+@protocol TabBarControllerDelegate;
 
 @interface TabBarController : NSViewController <NSSplitViewDelegate>
 {
 	@private
+	id<TabBarControllerDelegate> mDelegate;
+	NSArray *mViewControllers;
+	NSViewController *mSelectedViewController;
+	
 	TabBar *mTabBar;
 	NSView *mContainerView;
 	NSImageView *mSplitterHandleImageView;
 }
+
+@property (nonatomic, readwrite, assign) id<TabBarControllerDelegate> delegate;
+@property (nonatomic, readonly, retain) TabBar *tabBar;
+@property (nonatomic, readwrite, copy) NSArray *viewControllers;
+@property (nonatomic, readwrite, assign) NSViewController *selectedViewController;
+
+@end
+
+@protocol TabBarControllerDelegate <NSObject>
+
+- (void)tabBarController:(TabBarController *)tabBarController didSelectViewController:(NSViewController *)viewController;
 
 @end
 
