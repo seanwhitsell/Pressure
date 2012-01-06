@@ -15,7 +15,9 @@
 			<string>NSCustomView</string>
 			<string>NSTextField</string>
 			<string>NSTextFieldCell</string>
+			<string>NSButtonCell</string>
 			<string>NSCustomObject</string>
+			<string>NSButton</string>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -41,6 +43,32 @@
 				<int key="NSvFlags">274</int>
 				<object class="NSMutableArray" key="NSSubviews">
 					<bool key="EncodedWithXMLCoder">YES</bool>
+					<object class="NSButton" id="5941615">
+						<reference key="NSNextResponder" ref="23945583"/>
+						<int key="NSvFlags">268</int>
+						<string key="NSFrame">{{14, 267}, {82, 32}}</string>
+						<reference key="NSSuperview" ref="23945583"/>
+						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView" ref="503034653"/>
+						<bool key="NSEnabled">YES</bool>
+						<object class="NSButtonCell" key="NSCell" id="589399729">
+							<int key="NSCellFlags">67239424</int>
+							<int key="NSCellFlags2">134217728</int>
+							<string key="NSContents">Button</string>
+							<object class="NSFont" key="NSSupport" id="709923527">
+								<string key="NSName">LucidaGrande</string>
+								<double key="NSSize">13</double>
+								<int key="NSfFlags">1044</int>
+							</object>
+							<reference key="NSControlView" ref="5941615"/>
+							<int key="NSButtonFlags">-2038284033</int>
+							<int key="NSButtonFlags2">129</int>
+							<string key="NSAlternateContents"/>
+							<string key="NSKeyEquivalent"/>
+							<int key="NSPeriodicDelay">200</int>
+							<int key="NSPeriodicInterval">25</int>
+						</object>
+					</object>
 					<object class="NSTextField" id="503034653">
 						<reference key="NSNextResponder" ref="23945583"/>
 						<int key="NSvFlags">290</int>
@@ -53,11 +81,7 @@
 							<int key="NSCellFlags">68288064</int>
 							<int key="NSCellFlags2">71304192</int>
 							<string key="NSContents">This is another test</string>
-							<object class="NSFont" key="NSSupport" id="709923527">
-								<string key="NSName">LucidaGrande</string>
-								<double key="NSSize">13</double>
-								<int key="NSfFlags">1044</int>
-							</object>
+							<reference key="NSSupport" ref="709923527"/>
 							<reference key="NSControlView" ref="503034653"/>
 							<object class="NSColor" key="NSBackgroundColor" id="672988101">
 								<int key="NSColorSpace">6</int>
@@ -85,7 +109,7 @@
 						<string key="NSFrame">{{17, 363}, {366, 17}}</string>
 						<reference key="NSSuperview" ref="23945583"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="503034653"/>
+						<reference key="NSNextKeyView" ref="5941615"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSTextFieldCell" key="NSCell" id="647241323">
 							<int key="NSCellFlags">68288064</int>
@@ -169,6 +193,7 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<reference ref="109725642"/>
 							<reference ref="503034653"/>
+							<reference ref="5941615"/>
 						</object>
 						<reference key="parent" ref="1002"/>
 						<string key="objectName">View</string>
@@ -201,6 +226,20 @@
 						<reference key="object" ref="862873737"/>
 						<reference key="parent" ref="503034653"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">8</int>
+						<reference key="object" ref="5941615"/>
+						<object class="NSMutableArray" key="children">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<reference ref="589399729"/>
+						</object>
+						<reference key="parent" ref="23945583"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">9</int>
+						<reference key="object" ref="589399729"/>
+						<reference key="parent" ref="5941615"/>
+					</object>
 				</object>
 			</object>
 			<object class="NSMutableDictionary" key="flattenedProperties">
@@ -215,9 +254,13 @@
 					<string>4.IBPluginDependency</string>
 					<string>5.IBPluginDependency</string>
 					<string>6.IBPluginDependency</string>
+					<string>8.IBPluginDependency</string>
+					<string>9.IBPluginDependency</string>
 				</object>
 				<object class="NSMutableArray" key="dict.values">
 					<bool key="EncodedWithXMLCoder">YES</bool>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -240,7 +283,7 @@
 				<reference key="dict.values" ref="1002"/>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">7</int>
+			<int key="maxID">9</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">

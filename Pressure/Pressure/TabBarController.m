@@ -119,10 +119,39 @@
 {
 	if ((selectedViewController != mSelectedViewController) && [self.viewControllers containsObject:selectedViewController])
 	{
-		// TODO
+		NSViewController *oldSelectedViewController = mSelectedViewController;
 		mSelectedViewController = selectedViewController;
 		
+		[oldSelectedViewController viewWillDisappear];
+		[selectedViewController viewWillAppear];
+		
+		[[oldSelectedViewController view] removeFromSuperview];
+		[self.containerView addSubview:[selectedViewController view]];
+		[[selectedViewController view] setFrame:[self.containerView bounds]];
+		
+		if (selectedViewController != nil)
+		{
+			// Add the view controller to the responder chain.
+			NSResponder *responder = [[selectedViewController view] nextResponder];
+			[selectedViewController setNextResponder:responder];
+			[[selectedViewController view] setNextResponder:selectedViewController];
+		}
+		
 		self.tabBar.selectedItem = selectedViewController.tabBarItem;
+		
+		[oldSelectedViewController viewDidDisappear];
+		[selectedViewController viewDidAppear];
+		
+		// Try to select the inner content.
+		NSWindow *window = [[self view] window];
+		[window recalculateKeyViewLoop];
+		NSView *nextValidKeyView = [[selectedViewController view] nextValidKeyView];
+		if (nextValidKeyView != nil)
+		{
+			[window makeFirstResponder:nextValidKeyView];
+		}
+		
+		[self.delegate tabBarController:self didSelectViewController:selectedViewController];
 	}
 }
 
