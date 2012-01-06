@@ -26,6 +26,7 @@
 {
 	@private
 	NSImage *mImage;
+	NSImage *mFinishedSelectedImage;
 	NSString *mTitle;
 	NSInteger mTag;
 	NSString *mBadgeValue;
@@ -38,9 +39,12 @@
 }
 
 @property (nonatomic, readwrite, retain) NSImage *image;
+@property (nonatomic, readwrite, retain) NSImage *finishedSelectedImage;
 @property (nonatomic, readwrite, copy) NSString *title;
 @property (nonatomic, readwrite, assign) NSInteger tag;
 @property (nonatomic, readwrite, copy) NSString *badgeValue;
+
+@property (nonatomic, readonly, assign) NSImage *currentImage;
 
 @end
 
@@ -49,7 +53,6 @@
 @property (nonatomic, readwrite, assign) id target;
 @property (nonatomic, readwrite, assign) SEL action;
 @property (nonatomic, readwrite, assign, getter=isSelected) BOOL selected;
-// FIXME: Add selected image
 
 @property (nonatomic, readwrite, retain) IBOutlet TabBarItemView *view;
 

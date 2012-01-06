@@ -62,8 +62,8 @@
 
 - (void)drawRect:(NSRect)dirtyRect
 {
-	[[NSColor blackColor] set];
-	NSRectFill(dirtyRect);
+	NSGradient *gradient = [[[NSGradient alloc] initWithStartingColor:[NSColor blackColor] endingColor:[NSColor colorWithDeviceWhite:0.2f alpha:1.0f]] autorelease];
+	[gradient drawInRect:[self frame] angle:10.0f];
 	
 	[super drawRect:dirtyRect];
 }

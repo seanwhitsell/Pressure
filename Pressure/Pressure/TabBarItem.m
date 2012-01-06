@@ -23,6 +23,7 @@
 @implementation TabBarItem
 
 @synthesize image = mImage;
+@synthesize finishedSelectedImage = mFinishedSelectedImage;
 @synthesize title = mTitle;
 @synthesize tag = mTag;
 @synthesize badgeValue = mBadgeValue;
@@ -51,6 +52,9 @@
 	[mImage release];
 	mImage = nil;
 	
+	[mFinishedSelectedImage release];
+	mFinishedSelectedImage = nil;
+	
 	[mTitle release];
 	mTitle = nil;
 	
@@ -64,6 +68,55 @@
 	mView = nil;
 	
 	[super dealloc];
+}
+
+- (void)setImage:(NSImage *)image
+{
+	if (image != mImage)
+	{
+		[image retain];
+		[mImage release];
+		mImage = image;
+		
+		if (!NSEqualSizes([image size], NSZeroSize))
+		{
+			NSRect imageRect = NSMakeRect(0.0f, 0.0f, [image size].width, [image size].height);
+			
+			NSImage *overlayImage = [[[NSImage alloc] initWithSize:[image size]] autorelease];
+			[overlayImage lockFocus];
+			NSGradient *gradient = [[[NSGradient alloc] initWithStartingColor:[NSColor whiteColor] endingColor:[NSColor blueColor]] autorelease];
+			[gradient drawInRect:imageRect angle:45.0f];
+			[overlayImage unlockFocus];
+			
+			NSImage *tempImage = [[[NSImage alloc] initWithSize:[image size]] autorelease];
+			[tempImage lockFocus];
+			[image drawInRect:imageRect fromRect:NSZeroRect operation:NSCompositeSourceOver fraction:1.0f];
+			[overlayImage drawInRect:imageRect fromRect:NSZeroRect operation:NSCompositeSourceIn fraction:1.0f];
+			[tempImage unlockFocus];
+			
+			NSImage *finishedSelectedImage = [[[NSImage alloc] initWithSize:[image size]] autorelease];
+			[finishedSelectedImage lockFocus];
+			NSShadow *shadow = [[[NSShadow alloc] init] autorelease];
+			[shadow setShadowOffset:NSMakeSize(3.0f, -6.0f)];
+			[shadow setShadowBlurRadius:8.0f];
+			[shadow setShadowColor:[NSColor shadowColor]];
+			[shadow set];
+			[tempImage drawInRect:NSMakeRect(0.0f, 0.0f, [self.image size].width, [self.image size].height) fromRect:NSZeroRect operation:NSCompositeSourceOver fraction:1.0f];
+			[finishedSelectedImage unlockFocus];
+			
+			self.finishedSelectedImage = finishedSelectedImage;
+		}
+	}
+}
+
++ (NSSet *)keyPathsForValuesAffectingCurrentImage
+{
+	return [NSSet setWithObjects:@"image", @"selected", nil];
+}
+
+- (NSImage *)currentImage
+{
+	return self.isSelected ? self.finishedSelectedImage : self.image;
 }
 
 #pragma mark - Private methods
