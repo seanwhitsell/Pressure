@@ -41,6 +41,9 @@
 	{
 		if ([NSBundle loadNibNamed:@"TabBarItem" owner:self])
 		{
+			// NOTE: The top-level view is configured to not autoresize.
+			// We will configure the size while laying out the view.
+			// This also prevents artifacts where the size will grow if you resize the window quickly.
 		}
 	}
 	
