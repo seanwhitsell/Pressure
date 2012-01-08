@@ -85,11 +85,13 @@
 		{
 			NSRect imageRect = NSMakeRect(0.0f, 0.0f, [image size].width, [image size].height);
 			
-			NSImage *overlayImage = [[[NSImage alloc] initWithSize:[image size]] autorelease];
-			[overlayImage lockFocus];
-			NSGradient *gradient = [[[NSGradient alloc] initWithStartingColor:[NSColor whiteColor] endingColor:[NSColor blueColor]] autorelease];
-			[gradient drawInRect:imageRect angle:45.0f];
-			[overlayImage unlockFocus];
+//			NSImage *overlayImage = [[[NSImage alloc] initWithSize:[image size]] autorelease];
+//			[overlayImage lockFocus];
+//			NSGradient *gradient = [[[NSGradient alloc] initWithStartingColor:[NSColor whiteColor] endingColor:[NSColor blueColor]] autorelease];
+//			[gradient drawInRect:imageRect angle:45.0f];
+//			[overlayImage unlockFocus];
+			
+			NSImage *overlayImage = [NSImage imageNamed:@"blueGradient"];
 			
 			NSImage *tempImage = [[[NSImage alloc] initWithSize:[image size]] autorelease];
 			[tempImage lockFocus];

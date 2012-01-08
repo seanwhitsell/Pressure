@@ -62,8 +62,17 @@
 
 - (void)drawRect:(NSRect)dirtyRect
 {
-	NSGradient *gradient = [[[NSGradient alloc] initWithStartingColor:[NSColor blackColor] endingColor:[NSColor colorWithDeviceWhite:0.2f alpha:1.0f]] autorelease];
-	[gradient drawInRect:[self frame] angle:10.0f];
+//	NSGradient *gradient = [[[NSGradient alloc] initWithStartingColor:[NSColor blackColor] endingColor:[NSColor colorWithDeviceWhite:0.2f alpha:1.0f]] autorelease];
+//	[gradient drawInRect:[self frame] angle:10.0f];
+	
+	NSGraphicsContext *context = [NSGraphicsContext currentContext];
+	[context saveGraphicsState];
+	[context setPatternPhase:NSMakePoint(0.0f, NSHeight([self frame]))];
+	
+	[[NSColor colorWithPatternImage:[NSImage imageNamed:@"backgroundDark"]] set];
+	NSRectFill([self bounds]);
+	
+	[context restoreGraphicsState];
 	
 	[super drawRect:dirtyRect];
 }
