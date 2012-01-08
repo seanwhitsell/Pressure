@@ -67,7 +67,7 @@
 	
 	NSGraphicsContext *context = [NSGraphicsContext currentContext];
 	[context saveGraphicsState];
-	[context setPatternPhase:NSMakePoint(0.0f, NSHeight([self frame]))];
+	[context setPatternPhase:NSMakePoint(0.0f, NSHeight([self bounds]))];
 	
 	[[NSColor colorWithPatternImage:[NSImage imageNamed:@"backgroundDark"]] set];
 	NSRectFill([self bounds]);
