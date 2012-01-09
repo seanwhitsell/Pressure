@@ -24,6 +24,9 @@
 {
 	@private
 	BOOL mSyncing;
+	NSTrackingArea *mTrackingArea;
+	BOOL mRollover;
+	NSUInteger mAngle;
 }
 
 + (NSSize)frameSize;
