@@ -23,6 +23,7 @@
 #import "TabBarController.h"
 #import "TabBarItem.h"
 #import "TestViewController.h"
+#import "GraphViewController.h"
 
 @interface MainWindowController ()
 
@@ -56,9 +57,9 @@
 {
 	[self.box setContentView:[self.tabBarController view]];
 	
-	TestViewController *vc1 = [[[TestViewController alloc] init] autorelease];
+	GraphViewController *vc1 = [[[GraphViewController alloc] init] autorelease];
 	vc1.tabBarItem.image = [NSImage imageNamed:@"1325750140_Home"];
-	vc1.tabBarItem.title = @"Test 1";
+	vc1.tabBarItem.title = @"Graphs";
 	vc1.tabBarItem.tag = 1;
 	
 	TestViewController *vc2 = [[[TestViewController alloc] init] autorelease];
