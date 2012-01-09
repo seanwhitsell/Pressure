@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8F176DFB14BAB9EE004A5E1A /* SyncButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F176DFA14BAB9EE004A5E1A /* SyncButton.m */; };
+		8F176DFE14BAB9F7004A5E1A /* RolloverButtonCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F176DFD14BAB9F7004A5E1A /* RolloverButtonCell.m */; };
 		8F29F77414B9116200488B32 /* blueGradient.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F29F77314B9116200488B32 /* blueGradient.png */; };
 		8F29F77814B912D800488B32 /* backgroundDark.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F29F77614B912D800488B32 /* backgroundDark.png */; };
 		8F29F77914B912D800488B32 /* backgroundLight.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F29F77714B912D800488B32 /* backgroundLight.png */; };
@@ -14,12 +16,15 @@
 		8F32EB3814B56CD800122156 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F32EB3714B56CD800122156 /* AppDelegate.m */; };
 		8F32EB3B14B56CD800122156 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8F32EB3914B56CD800122156 /* MainMenu.xib */; };
 		8F32EB4014B56CD800122156 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F32EB3F14B56CD800122156 /* main.m */; };
+		8F41AEE414B9623B00F850D0 /* syncarrow.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 8F41AEE214B9623B00F850D0 /* syncarrow.pdf */; };
+		8F41AEE514B9623B00F850D0 /* x_close.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 8F41AEE314B9623B00F850D0 /* x_close.pdf */; };
 		8F4EAF0814B6B18200C9C31C /* splitterhandle.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F4EAF0714B6B18200C9C31C /* splitterhandle.png */; };
 		8F4EAF0D14B6B44900C9C31C /* TestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F4EAF0C14B6B44900C9C31C /* TestViewController.m */; };
 		8F4EAF1314B6B8C600C9C31C /* NSViewController+TabBarControllerItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F4EAF1214B6B8C600C9C31C /* NSViewController+TabBarControllerItem.m */; };
 		8F4EAF1614B6BB2D00C9C31C /* TestViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8F4EAF1414B6BB2D00C9C31C /* TestViewController.xib */; };
 		8F4EAF1814B6CB0C00C9C31C /* overflow.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F4EAF1714B6CB0C00C9C31C /* overflow.png */; };
 		8F4EAF1B14B6D6E600C9C31C /* TabBarSelectionIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F4EAF1A14B6D6E600C9C31C /* TabBarSelectionIndicatorView.m */; };
+		8F76D0A414B9816900C1F1A0 /* TMRotatingArrow.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 8F76D0A314B9816900C1F1A0 /* TMRotatingArrow.pdf */; };
 		8FFAB3AB14B58C4900EAE31F /* MainWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FFAB3AA14B58C4900EAE31F /* MainWindowController.m */; };
 		8FFAB3AF14B58C6000EAE31F /* MainWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8FFAB3AD14B58C6000EAE31F /* MainWindowController.xib */; };
 		8FFAB3B414B58F6000EAE31F /* TabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FFAB3B314B58F6000EAE31F /* TabBarController.m */; };
@@ -36,6 +41,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		8F176DF914BAB9EE004A5E1A /* SyncButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SyncButton.h; sourceTree = "<group>"; };
+		8F176DFA14BAB9EE004A5E1A /* SyncButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SyncButton.m; sourceTree = "<group>"; };
+		8F176DFC14BAB9F7004A5E1A /* RolloverButtonCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RolloverButtonCell.h; sourceTree = "<group>"; };
+		8F176DFD14BAB9F7004A5E1A /* RolloverButtonCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RolloverButtonCell.m; sourceTree = "<group>"; };
 		8F29F77314B9116200488B32 /* blueGradient.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = blueGradient.png; sourceTree = "<group>"; };
 		8F29F77614B912D800488B32 /* backgroundDark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = backgroundDark.png; sourceTree = "<group>"; };
 		8F29F77714B912D800488B32 /* backgroundLight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = backgroundLight.png; sourceTree = "<group>"; };
@@ -50,6 +59,8 @@
 		8F32EB3D14B56CD800122156 /* Pressure-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Pressure-Info.plist"; sourceTree = "<group>"; };
 		8F32EB3E14B56CD800122156 /* Pressure-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Pressure-Prefix.pch"; sourceTree = "<group>"; };
 		8F32EB3F14B56CD800122156 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		8F41AEE214B9623B00F850D0 /* syncarrow.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = syncarrow.pdf; sourceTree = "<group>"; };
+		8F41AEE314B9623B00F850D0 /* x_close.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = x_close.pdf; sourceTree = "<group>"; };
 		8F4EAF0714B6B18200C9C31C /* splitterhandle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = splitterhandle.png; sourceTree = "<group>"; };
 		8F4EAF0B14B6B44900C9C31C /* TestViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestViewController.h; sourceTree = "<group>"; };
 		8F4EAF0C14B6B44900C9C31C /* TestViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestViewController.m; sourceTree = "<group>"; };
@@ -59,6 +70,7 @@
 		8F4EAF1714B6CB0C00C9C31C /* overflow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = overflow.png; sourceTree = "<group>"; };
 		8F4EAF1914B6D6E600C9C31C /* TabBarSelectionIndicatorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TabBarSelectionIndicatorView.h; sourceTree = "<group>"; };
 		8F4EAF1A14B6D6E600C9C31C /* TabBarSelectionIndicatorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TabBarSelectionIndicatorView.m; sourceTree = "<group>"; };
+		8F76D0A314B9816900C1F1A0 /* TMRotatingArrow.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = TMRotatingArrow.pdf; sourceTree = "<group>"; };
 		8FFAB3A914B58C4900EAE31F /* MainWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainWindowController.h; sourceTree = "<group>"; };
 		8FFAB3AA14B58C4900EAE31F /* MainWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainWindowController.m; sourceTree = "<group>"; };
 		8FFAB3AE14B58C6000EAE31F /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainWindowController.xib; sourceTree = "<group>"; };
@@ -133,10 +145,8 @@
 				8F32EB3614B56CD800122156 /* AppDelegate.h */,
 				8F32EB3714B56CD800122156 /* AppDelegate.m */,
 				8F32EB3914B56CD800122156 /* MainMenu.xib */,
-				8FFAB3A914B58C4900EAE31F /* MainWindowController.h */,
-				8FFAB3AA14B58C4900EAE31F /* MainWindowController.m */,
-				8FFAB3AD14B58C6000EAE31F /* MainWindowController.xib */,
 				8F4EAF0A14B6B42A00C9C31C /* Tabs */,
+				8F41AECD14B94DEF00F850D0 /* Main Window */,
 				8FFAB3B114B58F4800EAE31F /* Tab Bar */,
 				8FFAB3B014B58E2300EAE31F /* Images */,
 				8F32EB3C14B56CD800122156 /* Supporting Files */,
@@ -152,6 +162,30 @@
 				8F32EB3F14B56CD800122156 /* main.m */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		8F41AECD14B94DEF00F850D0 /* Main Window */ = {
+			isa = PBXGroup;
+			children = (
+				8FFAB3A914B58C4900EAE31F /* MainWindowController.h */,
+				8FFAB3AA14B58C4900EAE31F /* MainWindowController.m */,
+				8FFAB3AD14B58C6000EAE31F /* MainWindowController.xib */,
+				8F176DF914BAB9EE004A5E1A /* SyncButton.h */,
+				8F176DFA14BAB9EE004A5E1A /* SyncButton.m */,
+				8F176DFC14BAB9F7004A5E1A /* RolloverButtonCell.h */,
+				8F176DFD14BAB9F7004A5E1A /* RolloverButtonCell.m */,
+			);
+			name = "Main Window";
+			sourceTree = "<group>";
+		};
+		8F41AED214B94FD000F850D0 /* Main Window */ = {
+			isa = PBXGroup;
+			children = (
+				8F41AEE214B9623B00F850D0 /* syncarrow.pdf */,
+				8F76D0A314B9816900C1F1A0 /* TMRotatingArrow.pdf */,
+				8F41AEE314B9623B00F850D0 /* x_close.pdf */,
+			);
+			path = "Main Window";
 			sourceTree = "<group>";
 		};
 		8F4EAF0614B6B18200C9C31C /* Tab Bar */ = {
@@ -184,6 +218,7 @@
 				8FFAB3C614B59BCC00EAE31F /* 1325750134_Account and Control.png */,
 				8FFAB3C714B59BCC00EAE31F /* 1325750140_Home.png */,
 				8FFAB3C814B59BCC00EAE31F /* 1325750145_Folder-Picture-2.png */,
+				8F41AED214B94FD000F850D0 /* Main Window */,
 				8F4EAF0614B6B18200C9C31C /* Tab Bar */,
 			);
 			path = Images;
@@ -275,6 +310,9 @@
 				8F29F77414B9116200488B32 /* blueGradient.png in Resources */,
 				8F29F77814B912D800488B32 /* backgroundDark.png in Resources */,
 				8F29F77914B912D800488B32 /* backgroundLight.png in Resources */,
+				8F41AEE414B9623B00F850D0 /* syncarrow.pdf in Resources */,
+				8F41AEE514B9623B00F850D0 /* x_close.pdf in Resources */,
+				8F76D0A414B9816900C1F1A0 /* TMRotatingArrow.pdf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -295,6 +333,8 @@
 				8F4EAF0D14B6B44900C9C31C /* TestViewController.m in Sources */,
 				8F4EAF1314B6B8C600C9C31C /* NSViewController+TabBarControllerItem.m in Sources */,
 				8F4EAF1B14B6D6E600C9C31C /* TabBarSelectionIndicatorView.m in Sources */,
+				8F176DFB14BAB9EE004A5E1A /* SyncButton.m in Sources */,
+				8F176DFE14BAB9F7004A5E1A /* RolloverButtonCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

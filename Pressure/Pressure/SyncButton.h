@@ -14,28 +14,20 @@
 // You should have received a copy of the GNU General Public License
 // along with Pressure.  If not, see <http://www.gnu.org/licenses/>.
 //
-//  MainWindowController.h
-//  Created by Ben Shanfelder on 1/4/12.
+//  SyncButton.h
+//  Created by Ben Shanfelder on 1/8/12.
 //
 
 #import <Cocoa/Cocoa.h>
 
-@class SyncButton;
-@class TabBarController;
-
-@interface MainWindowController : NSWindowController
+@interface SyncButton : NSButton
 {
 	@private
-	TabBarController *mTabBarController;
-	SyncButton *mSyncButton;
-	
-	NSBox *mBox;
+	BOOL mSyncing;
 }
 
-@end
++ (NSSize)frameSize;
 
-@interface MainWindowController ()
-
-@property (nonatomic, readwrite, retain) IBOutlet NSBox *box;
+@property (nonatomic, readwrite, assign, getter=isSyncing) BOOL syncing;
 
 @end

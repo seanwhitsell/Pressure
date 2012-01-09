@@ -14,28 +14,15 @@
 // You should have received a copy of the GNU General Public License
 // along with Pressure.  If not, see <http://www.gnu.org/licenses/>.
 //
-//  MainWindowController.h
-//  Created by Ben Shanfelder on 1/4/12.
+//  RolloverButtonCell.h
+//  Created by Ben Shanfelder on 1/8/12.
 //
 
 #import <Cocoa/Cocoa.h>
 
-@class SyncButton;
-@class TabBarController;
-
-@interface MainWindowController : NSWindowController
+@interface RolloverButtonCell : NSButtonCell
 {
 	@private
-	TabBarController *mTabBarController;
-	SyncButton *mSyncButton;
-	
-	NSBox *mBox;
 }
-
-@end
-
-@interface MainWindowController ()
-
-@property (nonatomic, readwrite, retain) IBOutlet NSBox *box;
 
 @end
