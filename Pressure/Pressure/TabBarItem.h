@@ -29,7 +29,6 @@
 	NSImage *mFinishedSelectedImage;
 	NSString *mTitle;
 	NSInteger mTag;
-	NSString *mBadgeValue;
 	
 	id mTarget;
 	SEL mAction;
@@ -42,7 +41,6 @@
 @property (nonatomic, readwrite, retain) NSImage *finishedSelectedImage;
 @property (nonatomic, readwrite, copy) NSString *title;
 @property (nonatomic, readwrite, assign) NSInteger tag;
-@property (nonatomic, readwrite, copy) NSString *badgeValue;
 
 @property (nonatomic, readonly, assign) NSImage *currentImage;
 
