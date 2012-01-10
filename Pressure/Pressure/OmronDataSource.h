@@ -26,6 +26,9 @@
 
 extern NSString *OmronDataSyncDidBeginNotification;
 extern NSString *OmronDataSyncDidEndNotification;
+extern NSString *OmronDeviceConnectedNotification;
+extern NSString *OmronDeviceDisconnectedNotification;
+extern NSString *OmronDeviceNotPresentNotification;
 
 extern NSString *readingDateKey;
 extern NSString *excludeReadingKey;
@@ -71,7 +74,20 @@ extern NSString *deviceSerialNumberKey;
         // ... do something with the data here
      }
  
+ First User Experience:
+ 
+ Because the user may not have an Omron Device, there is a Sample Data interface. When the application is run, and there
+ has never been a device connected to sync the data, the OmronDataSource will be in "SampleData" mode.
+ 
+     if ([myDataSource isSampleData])
+     {
+        ...
+     }
+ 
+ This will allow the User Interface to indicate that the data that is being displayed is not "real" data.
+ 
  */
+
 @interface OmronDataSource : NSObject
 {
     NSPersistentStoreCoordinator *myPersistentStoreCoordinator;
@@ -81,6 +97,8 @@ extern NSString *deviceSerialNumberKey;
     NSMutableArray *myReadings;
     NSMutableArray *myReadingsListDates;
     NSString *myDeviceID;
+    BOOL mySyncing;
+    BOOL myUsingSampleData;
 }
 
 //
@@ -88,6 +106,8 @@ extern NSString *deviceSerialNumberKey;
 //
 @property (atomic, readonly, retain) NSString *deviceID;
 @property (atomic, readwrite, retain) NSMutableArray *readings;
+@property (atomic, readonly, getter = isSyncing) BOOL syncing;
+@property (atomic, readonly, getter = isSampleData) BOOL usingSampleData;
 
 //
 // Calling this will generate OmronDataSyncDidBegin and at some later point OmronDataSyncDidEnd
@@ -95,5 +115,9 @@ extern NSString *deviceSerialNumberKey;
 // If there are readings that have had the "exclude" flag updated, that will be written to persistent store
 //
 - (void)sync;
+
+//
+// Calling this will generate OmronDataSyncDidEnd
+- (void)cancelSync;
 
 @end

@@ -21,6 +21,13 @@
 
 #import <Cocoa/Cocoa.h>
 
+@class OmronDataSource;
+
 @interface GraphViewController : NSViewController
+{
+    OmronDataSource *mDataSource;
+}
+
+@property (nonatomic, readwrite, retain) OmronDataSource *dataSource;
 
 @end

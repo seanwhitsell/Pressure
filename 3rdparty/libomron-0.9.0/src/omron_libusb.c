@@ -12,7 +12,7 @@
  */
 
 
-#include "libomron/omron.h"
+#include "omron.h"
 #include <stdlib.h>
 
 #define OMRON_USB_INTERFACE	0
@@ -73,7 +73,7 @@ int omron_open(omron_device* s, int device_vid, int device_pid, unsigned int dev
 	struct libusb_device *found = NULL;
 	struct libusb_device *dev;
 	size_t i = 0;
-	int count = 0;
+	unsigned int count = 0;
 	ssize_t device_error_code = 0;
 
 	if (!s->device._is_inited)

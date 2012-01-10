@@ -11,7 +11,7 @@
  * Read LICENSE_BSD.txt for details.
  */
 
-#include "libomron/omron.h"
+#include "omron.h"
 #include <assert.h>
 #include <string.h>
 #include <stdio.h>
@@ -35,14 +35,14 @@ int omron_check_mode(omron_device* dev, omron_mode mode);
 
 #define DPRINTF(args, ...)	IF_DEBUG(printf(args))
 
-static void hexdump(const unsigned char *data, int n_bytes)
-{
-	while (n_bytes--) {
-		printf(" %02x", *(unsigned char*) data);
-		data++;
-	}
-	printf("\n");
-}
+//static void hexdump(const unsigned char *data, int n_bytes)
+//{
+//	while (n_bytes--) {
+//		printf(" %02x", *(unsigned char*) data);
+//		data++;
+//	}
+//	printf("\n");
+//}
 
 int bcd_to_int(unsigned char *data, int start, int length)
 {

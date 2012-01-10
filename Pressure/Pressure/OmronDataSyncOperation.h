@@ -27,8 +27,9 @@
 
 @class OmronDataSource;
 
-@interface OmronDataSyncOperation : NSOperation {
-    OmronDataSource* dataSource;
+@interface OmronDataSyncOperation : NSOperation 
+{
+    OmronDataSource* mDataSource;
 }
 
 - (id)initWithDataSource:(OmronDataSource*)dataSource;

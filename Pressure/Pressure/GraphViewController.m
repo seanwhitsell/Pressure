@@ -20,8 +20,11 @@
 //
 
 #import "GraphViewController.h"
+#import "OmronDataSource.h"
 
 @implementation GraphViewController
+
+@synthesize dataSource = mDataSource;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {

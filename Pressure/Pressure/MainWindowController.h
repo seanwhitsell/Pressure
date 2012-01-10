@@ -22,13 +22,14 @@
 
 @class SyncButton;
 @class TabBarController;
+@class OmronDataSource;
 
 @interface MainWindowController : NSWindowController
 {
 	@private
 	TabBarController *mTabBarController;
 	SyncButton *mSyncButton;
-	
+	OmronDataSource *mDataSource;
 	NSBox *mBox;
 }
 

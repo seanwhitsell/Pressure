@@ -25,13 +25,18 @@
 #import "TabBarItem.h"
 #import "TestViewController.h"
 #import "GraphViewController.h"
+#import "ReadingViewController.h"
+#import "OmronDataSource.h"
 
 @interface MainWindowController ()
 
 @property (nonatomic, readonly, retain) TabBarController *tabBarController;
 @property (nonatomic, readwrite, retain) SyncButton *syncButton;
+@property (nonatomic, readwrite, retain) OmronDataSource *dataSource;
 
 - (void)toggleSync:(id)sender;
+- (void)dataSyncOperationDidBegin:(NSNotification*)notif;
+- (void)dataSyncOperationDidEnd:(NSNotification*)notif;
 
 @end
 
@@ -39,12 +44,16 @@
 
 @synthesize syncButton = mSyncButton;
 @synthesize box = mBox;
+@synthesize dataSource = mDataSource;
 
 - (id)init
 {
 	self = [super initWithWindowNibName:@"MainWindowController"];
 	if (self != nil)
 	{
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(dataSyncOperationDidBegin:) name:OmronDataSyncDidBeginNotification object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(dataSyncOperationDidEnd:) name:OmronDataSyncDidEndNotification object:nil];
+        mDataSource = [[OmronDataSource alloc] init];
 	}
 	
 	return self;
@@ -52,6 +61,8 @@
 
 - (void)dealloc
 {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    
 	[mTabBarController release];
 	mTabBarController = nil;
 	
@@ -61,6 +72,9 @@
 	[mBox release];
 	mBox = nil;
 	
+    [mDataSource release];
+    mDataSource = nil;
+    
 	[super dealloc];
 }
 
@@ -80,13 +94,17 @@
 	
 	
 	GraphViewController *vc1 = [[[GraphViewController alloc] init] autorelease];
+    [vc1 setDataSource:self.dataSource];
+    
 	vc1.tabBarItem.image = [NSImage imageNamed:@"1325750140_Home"];
 	vc1.tabBarItem.title = @"Graphs";
 	vc1.tabBarItem.tag = 1;
 	
-	TestViewController *vc2 = [[[TestViewController alloc] init] autorelease];
+	ReadingViewController *vc2 = [[[ReadingViewController alloc] init] autorelease];
+    [vc2 setDataSource:self.dataSource];
+    
 	vc2.tabBarItem.image = [NSImage imageNamed:@"1325750134_Account and Control"];
-	vc2.tabBarItem.title = @"Test 2";
+	vc2.tabBarItem.title = @"Readings";
 	vc2.tabBarItem.tag = 2;
 	
 	TestViewController *vc3 = [[[TestViewController alloc] init] autorelease];
@@ -115,12 +133,26 @@
 	return mTabBarController;
 }
 
+- (void)dataSyncOperationDidBegin:(NSNotification*)notif
+{
+    self.syncButton.syncing = YES;
+}
+
+- (void)dataSyncOperationDidEnd:(NSNotification*)notif
+{
+    self.syncButton.syncing = NO;
+}
+
 - (void)toggleSync:(id)sender
 {
-	self.syncButton.syncing = !self.syncButton.isSyncing;
-	// FIXME: Add the real code here to start and stop syncing.
-	// This should probably be a roundtrip to the core.
-	// For example, cancel should invoke the cancel command but only update the UI when cancel has been performed.
+    if ([self.dataSource isSyncing])
+    {
+        [self.dataSource cancelSync];
+    }
+    else
+    {
+        [self.dataSource sync];
+    }
 }
 
 @end

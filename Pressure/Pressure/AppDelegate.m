@@ -33,12 +33,24 @@
 
 - (void)applicationDidFinishLaunching:(NSNotification *)notification
 {
+    //
+    // Let's find out about the First-Launch
+    //
+    [[NSUserDefaults standardUserDefaults] registerDefaults:[NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithBool:YES],@"firstLaunch",nil]];
+
 	[self.mainWindowController showWindow:self];
 }
 
 - (BOOL)applicationShouldTerminateAfterLastWindowClosed:(NSApplication *)application
 {
 	return YES;
+}
+
+- (void)applicationWillTerminate:(NSNotification *)notification
+{
+    //
+    // First Launch is over
+    [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"firstLaunch"];
 }
 
 #pragma mark - Private methods
