@@ -20,6 +20,7 @@
 
 #import "MainWindowController.h"
 #import "NSViewController+TabBarControllerItem.h"
+#import "SyncButton.h"
 #import "TabBarController.h"
 #import "TabBarItem.h"
 #import "TestViewController.h"
@@ -28,11 +29,15 @@
 @interface MainWindowController ()
 
 @property (nonatomic, readonly, retain) TabBarController *tabBarController;
+@property (nonatomic, readwrite, retain) SyncButton *syncButton;
+
+- (void)toggleSync:(id)sender;
 
 @end
 
 @implementation MainWindowController
 
+@synthesize syncButton = mSyncButton;
 @synthesize box = mBox;
 
 - (id)init
@@ -47,6 +52,12 @@
 
 - (void)dealloc
 {
+	[mTabBarController release];
+	mTabBarController = nil;
+	
+	[mSyncButton release];
+	mSyncButton = nil;
+	
 	[mBox release];
 	mBox = nil;
 	
@@ -56,6 +67,17 @@
 - (void)windowDidLoad
 {
 	[self.box setContentView:[self.tabBarController view]];
+	
+	NSButton *windowCloseButton = [[self window] standardWindowButton:NSWindowCloseButton];
+	NSRect frame = [windowCloseButton frame];
+	frame.size.width = [SyncButton frameSize].width;
+	frame.origin.x = NSMaxX([[windowCloseButton superview] frame]) - NSWidth(frame) - NSMinX(frame) + 4.0f;
+	self.syncButton = [[[SyncButton alloc] initWithFrame:frame] autorelease];
+	[self.syncButton setAction:@selector(toggleSync:)];
+	[self.syncButton setTarget:self];
+	[self.syncButton setAutoresizingMask:(NSViewMinXMargin | NSViewMinYMargin)];
+	[[windowCloseButton superview] addSubview:self.syncButton];
+	
 	
 	GraphViewController *vc1 = [[[GraphViewController alloc] init] autorelease];
 	vc1.tabBarItem.image = [NSImage imageNamed:@"1325750140_Home"];
@@ -91,6 +113,14 @@
 	}
 	
 	return mTabBarController;
+}
+
+- (void)toggleSync:(id)sender
+{
+	self.syncButton.syncing = !self.syncButton.isSyncing;
+	// FIXME: Add the real code here to start and stop syncing.
+	// This should probably be a roundtrip to the core.
+	// For example, cancel should invoke the cancel command but only update the UI when cancel has been performed.
 }
 
 @end
