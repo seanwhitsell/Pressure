@@ -26,7 +26,6 @@
 @synthesize finishedSelectedImage = mFinishedSelectedImage;
 @synthesize title = mTitle;
 @synthesize tag = mTag;
-@synthesize badgeValue = mBadgeValue;
 
 @synthesize target = mTarget;
 @synthesize action = mAction;
@@ -60,9 +59,6 @@
 	
 	[mTitle release];
 	mTitle = nil;
-	
-	[mBadgeValue release];
-	mBadgeValue = nil;
 	
 	// not retained
 	mTarget = nil;
