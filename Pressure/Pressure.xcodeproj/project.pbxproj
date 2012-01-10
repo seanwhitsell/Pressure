@@ -36,7 +36,6 @@
 		8FFAB3CA14B59BCC00EAE31F /* 1325750130_Control Panel.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FFAB3C514B59BCC00EAE31F /* 1325750130_Control Panel.png */; };
 		8FFAB3CB14B59BCC00EAE31F /* 1325750134_Account and Control.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FFAB3C614B59BCC00EAE31F /* 1325750134_Account and Control.png */; };
 		8FFAB3CC14B59BCC00EAE31F /* 1325750140_Home.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FFAB3C714B59BCC00EAE31F /* 1325750140_Home.png */; };
-		8FFAB3CD14B59BCC00EAE31F /* 1325750145_Folder-Picture-2.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FFAB3C814B59BCC00EAE31F /* 1325750145_Folder-Picture-2.png */; };
 		8FFAB3D514B5A70900EAE31F /* TabBarItem.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8FFAB3D314B5A70900EAE31F /* TabBarItem.xib */; };
 		DA1A34BC14BA2EA30089F858 /* GraphViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DA1A34BA14BA2EA30089F858 /* GraphViewController.m */; };
 		DA1A34BD14BA2EA30089F858 /* GraphViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = DA1A34BB14BA2EA30089F858 /* GraphViewController.xib */; };
@@ -97,7 +96,6 @@
 		8FFAB3C514B59BCC00EAE31F /* 1325750130_Control Panel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "1325750130_Control Panel.png"; sourceTree = "<group>"; };
 		8FFAB3C614B59BCC00EAE31F /* 1325750134_Account and Control.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "1325750134_Account and Control.png"; sourceTree = "<group>"; };
 		8FFAB3C714B59BCC00EAE31F /* 1325750140_Home.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 1325750140_Home.png; sourceTree = "<group>"; };
-		8FFAB3C814B59BCC00EAE31F /* 1325750145_Folder-Picture-2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "1325750145_Folder-Picture-2.png"; sourceTree = "<group>"; };
 		8FFAB3D414B5A70900EAE31F /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/TabBarItem.xib; sourceTree = "<group>"; };
 		DA1A34B914BA2EA30089F858 /* GraphViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GraphViewController.h; sourceTree = "<group>"; };
 		DA1A34BA14BA2EA30089F858 /* GraphViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GraphViewController.m; sourceTree = "<group>"; };
@@ -251,7 +249,6 @@
 				8FFAB3C514B59BCC00EAE31F /* 1325750130_Control Panel.png */,
 				8FFAB3C614B59BCC00EAE31F /* 1325750134_Account and Control.png */,
 				8FFAB3C714B59BCC00EAE31F /* 1325750140_Home.png */,
-				8FFAB3C814B59BCC00EAE31F /* 1325750145_Folder-Picture-2.png */,
 				8F41AED214B94FD000F850D0 /* Main Window */,
 				8F4EAF0614B6B18200C9C31C /* Tab Bar */,
 			);
@@ -349,7 +346,6 @@
 				8FFAB3CA14B59BCC00EAE31F /* 1325750130_Control Panel.png in Resources */,
 				8FFAB3CB14B59BCC00EAE31F /* 1325750134_Account and Control.png in Resources */,
 				8FFAB3CC14B59BCC00EAE31F /* 1325750140_Home.png in Resources */,
-				8FFAB3CD14B59BCC00EAE31F /* 1325750145_Folder-Picture-2.png in Resources */,
 				8FFAB3D514B5A70900EAE31F /* TabBarItem.xib in Resources */,
 				8F4EAF0814B6B18200C9C31C /* splitterhandle.png in Resources */,
 				8F4EAF1614B6BB2D00C9C31C /* TestViewController.xib in Resources */,

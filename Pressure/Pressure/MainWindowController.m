@@ -106,18 +106,9 @@
 	vc2.tabBarItem.image = [NSImage imageNamed:@"1325750134_Account and Control"];
 	vc2.tabBarItem.title = @"Readings";
 	vc2.tabBarItem.tag = 2;
+
 	
-	TestViewController *vc3 = [[[TestViewController alloc] init] autorelease];
-	vc3.tabBarItem.image = [NSImage imageNamed:@"1325750130_Control Panel"];
-	vc3.tabBarItem.title = @"Test 3";
-	vc3.tabBarItem.tag = 3;
-	
-	TestViewController *vc4 = [[[TestViewController alloc] init] autorelease];
-	vc4.tabBarItem.image = [NSImage imageNamed:@"1325750145_Folder-Picture-2"];
-	vc4.tabBarItem.title = @"Test 4";
-	vc4.tabBarItem.tag = 4;
-	
-	self.tabBarController.viewControllers = [NSArray arrayWithObjects:vc1, vc2, vc3, vc4, nil];
+	self.tabBarController.viewControllers = [NSArray arrayWithObjects:vc1, vc2, nil];
 	self.tabBarController.selectedViewController = vc2;
 }
 
