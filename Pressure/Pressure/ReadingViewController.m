@@ -19,6 +19,13 @@
 //
 #import "ReadingViewController.h"
 #import "OmronDataSource.h"
+#import "OmronDataSyncOperation.h"
+
+@interface ReadingViewController()
+
+- (void)dataSyncOperationDidEnd:(NSNotification*)notif;
+
+@end
 
 @implementation ReadingViewController
 
@@ -29,10 +36,16 @@
     self = [super initWithNibName:@"ReadingViewController" bundle:nil];
     if (self) 
     {
-        // Initialization code here.
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(dataSyncOperationDidEnd:) name:OmronDataSyncDidEndNotification object:nil];
     }
     
     return self;
+}
+
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+
 }
 
 - (void)viewWillAppear
@@ -63,6 +76,11 @@
 - (id)tableView:(NSTableView *)tableView objectValueForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row
 {
     return nil;
+}
+
+- (void)dataSyncOperationDidEnd:(NSNotification*)notif
+{
+    // Tell the table to reload
 }
 
 @end

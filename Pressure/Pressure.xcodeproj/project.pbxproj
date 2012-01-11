@@ -47,6 +47,7 @@
 		DA4FE8AF14BB5E4B0019B20F /* omron_libusb.c in Sources */ = {isa = PBXBuildFile; fileRef = DA4FE8AE14BB5E4B0019B20F /* omron_libusb.c */; };
 		DA4FE8B114BB5F260019B20F /* libusb-1.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DA4FE8B014BB5F260019B20F /* libusb-1.0.a */; };
 		DA4FE8BB14BB6A050019B20F /* Pressure.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = DA4FE8B914BB6A050019B20F /* Pressure.xcdatamodeld */; };
+		DAA1651A14BC999E00B55940 /* SampleDataWatermark.png in Resources */ = {isa = PBXBuildFile; fileRef = DAA1651914BC999E00B55940 /* SampleDataWatermark.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -111,6 +112,7 @@
 		DA4FE8AE14BB5E4B0019B20F /* omron_libusb.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = omron_libusb.c; path = "../../3rdparty/libomron-0.9.0/src/omron_libusb.c"; sourceTree = "<group>"; };
 		DA4FE8B014BB5F260019B20F /* libusb-1.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libusb-1.0.a"; path = "../3rdparty/libusb-1.0.8/lib/libusb-1.0.a"; sourceTree = "<group>"; };
 		DA4FE8BA14BB6A050019B20F /* Pressure.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Pressure.xcdatamodel; sourceTree = "<group>"; };
+		DAA1651914BC999E00B55940 /* SampleDataWatermark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SampleDataWatermark.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -245,6 +247,7 @@
 		8FFAB3B014B58E2300EAE31F /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				DAA1651914BC999E00B55940 /* SampleDataWatermark.png */,
 				8FFAB3C414B59BCC00EAE31F /* 1325750127_Times and Dates.png */,
 				8FFAB3C514B59BCC00EAE31F /* 1325750130_Control Panel.png */,
 				8FFAB3C614B59BCC00EAE31F /* 1325750134_Account and Control.png */,
@@ -358,6 +361,7 @@
 				8F76D0A414B9816900C1F1A0 /* TMRotatingArrow.pdf in Resources */,
 				DA1A34BD14BA2EA30089F858 /* GraphViewController.xib in Resources */,
 				DA1A34C714BB32940089F858 /* ReadingViewController.xib in Resources */,
+				DAA1651A14BC999E00B55940 /* SampleDataWatermark.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

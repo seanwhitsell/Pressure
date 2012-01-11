@@ -23,7 +23,7 @@
 //
 
 #import "OmronDataSource.h"
-#import "omronDataSyncOperation.h"
+#import "OmronDataSyncOperation.h"
 
 #include "omron.h"
 
