@@ -20,29 +20,54 @@
 #import "ReadingViewController.h"
 #import "OmronDataSource.h"
 
+@interface ReadingViewController()
+
+- (void)dataSyncOperationDidEnd:(NSNotification*)notif;
+
+@end
+
 @implementation ReadingViewController
 
 @synthesize dataSource = mDataSource;
+
+#pragma mark Object Lifecycle
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:@"ReadingViewController" bundle:nil];
     if (self) 
     {
-        // Initialization code here.
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(dataSyncOperationDidEnd:) name:OmronDataSyncDidEndNotification object:nil];
     }
     
     return self;
 }
 
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+#pragma mark Notification Observers
+
+- (void)dataSyncOperationDidEnd:(NSNotification*)notif
+{
+    // Table Reload
+    NSLog(@"[ReadingViewController dataSyncOperationDidEnd] Data Source isSampleData %s", [mDataSource isSampleData] ? "yes":"no");
+}
+
+#pragma mark NSViewController implementation
+
 - (void)viewWillAppear
 {
 	NSLog(@"<%p> %@", self, [NSString stringWithUTF8String:__func__]);
+    NSLog(@"Data Source isSampleData %s", [mDataSource isSampleData] ? "yes":"no");
 }
 
 - (void)viewDidAppear
 {
 	NSLog(@"<%p> %@", self, [NSString stringWithUTF8String:__func__]);
+    NSLog(@"Data Source isSampleData %@", [mDataSource isSampleData]);
 }
 
 - (void)viewWillDisappear
@@ -54,6 +79,8 @@
 {
 	NSLog(@"<%p> %@", self, [NSString stringWithUTF8String:__func__]);
 }
+
+#pragma mark NSTableViewDataSource methods
 
 - (NSInteger)numberOfRowsInTableView:(NSTableView *)tableView
 {
