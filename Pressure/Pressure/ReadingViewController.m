@@ -67,7 +67,7 @@
 - (void)viewDidAppear
 {
 	NSLog(@"<%p> %@", self, [NSString stringWithUTF8String:__func__]);
-    NSLog(@"Data Source isSampleData %@", [mDataSource isSampleData]);
+    NSLog(@"Data Source isSampleData %s", [mDataSource isSampleData] ? "yes":"no");
 }
 
 - (void)viewWillDisappear
