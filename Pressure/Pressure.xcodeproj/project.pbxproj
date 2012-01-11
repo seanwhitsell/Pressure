@@ -47,6 +47,7 @@
 		DA4FE8AF14BB5E4B0019B20F /* omron_libusb.c in Sources */ = {isa = PBXBuildFile; fileRef = DA4FE8AE14BB5E4B0019B20F /* omron_libusb.c */; };
 		DA4FE8B114BB5F260019B20F /* libusb-1.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DA4FE8B014BB5F260019B20F /* libusb-1.0.a */; };
 		DA4FE8BB14BB6A050019B20F /* Pressure.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = DA4FE8B914BB6A050019B20F /* Pressure.xcdatamodeld */; };
+		DAD1DAD114BD30FF00D3EB5F /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DAD1DAD014BD30FF00D3EB5F /* IOKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -111,6 +112,7 @@
 		DA4FE8AE14BB5E4B0019B20F /* omron_libusb.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = omron_libusb.c; path = "../../3rdparty/libomron-0.9.0/src/omron_libusb.c"; sourceTree = "<group>"; };
 		DA4FE8B014BB5F260019B20F /* libusb-1.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libusb-1.0.a"; path = "../3rdparty/libusb-1.0.8/lib/libusb-1.0.a"; sourceTree = "<group>"; };
 		DA4FE8BA14BB6A050019B20F /* Pressure.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Pressure.xcdatamodel; sourceTree = "<group>"; };
+		DAD1DAD014BD30FF00D3EB5F /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = System/Library/Frameworks/IOKit.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -118,6 +120,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DAD1DAD114BD30FF00D3EB5F /* IOKit.framework in Frameworks */,
 				8F32EB3014B56CD800122156 /* Cocoa.framework in Frameworks */,
 				DA4FE8B114BB5F260019B20F /* libusb-1.0.a in Frameworks */,
 			);
@@ -146,6 +149,7 @@
 		8F32EB2E14B56CD800122156 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				DAD1DAD014BD30FF00D3EB5F /* IOKit.framework */,
 				DA4FE8B014BB5F260019B20F /* libusb-1.0.a */,
 				8F32EB2F14B56CD800122156 /* Cocoa.framework */,
 				8F32EB3114B56CD800122156 /* Other Frameworks */,
