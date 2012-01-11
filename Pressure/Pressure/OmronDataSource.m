@@ -85,6 +85,7 @@ NSString *deviceInformationEntityName = @"DeviceInformation";
     if (self != nil)
 	{
         myReadingsListDates = [[NSMutableArray alloc] initWithCapacity:10];
+        myUsingSampleData = [[NSUserDefaults standardUserDefaults] boolForKey:@"usingSampleData"];
     }
     
     return self;
@@ -307,6 +308,8 @@ NSString *deviceInformationEntityName = @"DeviceInformation";
 	{
 		NSLog(@"Cannot get device prf!\n");
 	}
+    
+    [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"usingSampleData"];
     
 	for(i = data_count - 1; i >= 0; --i)
 	{

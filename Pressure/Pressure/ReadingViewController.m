@@ -19,7 +19,6 @@
 //
 #import "ReadingViewController.h"
 #import "OmronDataSource.h"
-#import "OmronDataSyncOperation.h"
 
 @interface ReadingViewController()
 
@@ -30,6 +29,8 @@
 @implementation ReadingViewController
 
 @synthesize dataSource = mDataSource;
+
+#pragma mark Object Lifecycle
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -45,17 +46,28 @@
 - (void)dealloc
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
-
 }
+
+#pragma mark Notification Observers
+
+- (void)dataSyncOperationDidEnd:(NSNotification*)notif
+{
+    // Table Reload
+    NSLog(@"[ReadingViewController dataSyncOperationDidEnd] Data Source isSampleData %s", [mDataSource isSampleData] ? "yes":"no");
+}
+
+#pragma mark NSViewController implementation
 
 - (void)viewWillAppear
 {
 	NSLog(@"<%p> %@", self, [NSString stringWithUTF8String:__func__]);
+    NSLog(@"Data Source isSampleData %s", [mDataSource isSampleData] ? "yes":"no");
 }
 
 - (void)viewDidAppear
 {
 	NSLog(@"<%p> %@", self, [NSString stringWithUTF8String:__func__]);
+    NSLog(@"Data Source isSampleData %s", [mDataSource isSampleData] ? "yes":"no");
 }
 
 - (void)viewWillDisappear
@@ -68,6 +80,8 @@
 	NSLog(@"<%p> %@", self, [NSString stringWithUTF8String:__func__]);
 }
 
+#pragma mark NSTableViewDataSource methods
+
 - (NSInteger)numberOfRowsInTableView:(NSTableView *)tableView
 {
     return 0;
@@ -76,11 +90,6 @@
 - (id)tableView:(NSTableView *)tableView objectValueForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row
 {
     return nil;
-}
-
-- (void)dataSyncOperationDidEnd:(NSNotification*)notif
-{
-    // Tell the table to reload
 }
 
 @end

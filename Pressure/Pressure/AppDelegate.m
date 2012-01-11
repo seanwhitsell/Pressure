@@ -37,6 +37,7 @@
     // Let's find out about the First-Launch
     //
     [[NSUserDefaults standardUserDefaults] registerDefaults:[NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithBool:YES],@"firstLaunch",nil]];
+    [[NSUserDefaults standardUserDefaults] registerDefaults:[NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithBool:YES],@"usingSampleData",nil]];
 
 	[self.mainWindowController showWindow:self];
 }
