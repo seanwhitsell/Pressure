@@ -56,27 +56,22 @@
 										<string key="NSReuseIdentifierKey">_NS:404</string>
 									</object>
 								</array>
-								<string key="NSFrame">{{1, 1}, {484, 270}}</string>
+								<string key="NSFrameSize">{486, 272}</string>
 								<reference key="NSSuperview" ref="432252851"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="768731302"/>
 								<string key="NSReuseIdentifierKey">_NS:402</string>
 								<reference key="NSDocView" ref="768731302"/>
 								<object class="NSColor" key="NSBGColor">
-									<int key="NSColorSpace">6</int>
-									<string key="NSCatalogName">System</string>
-									<string key="NSColorName">controlColor</string>
-									<object class="NSColor" key="NSColor">
-										<int key="NSColorSpace">3</int>
-										<bytes key="NSWhite">MC42NjY2NjY2NjY3AA</bytes>
-									</object>
+									<int key="NSColorSpace">3</int>
+									<bytes key="NSWhite">MC45NQA</bytes>
 								</object>
 								<int key="NScvFlags">4</int>
 							</object>
 							<object class="NSScroller" id="338425695">
 								<reference key="NSNextResponder" ref="432252851"/>
 								<int key="NSvFlags">256</int>
-								<string key="NSFrame">{{470, 1}, {15, 264}}</string>
+								<string key="NSFrame">{{471, 0}, {15, 266}}</string>
 								<reference key="NSSuperview" ref="432252851"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView"/>
@@ -89,7 +84,7 @@
 							<object class="NSScroller" id="412229645">
 								<reference key="NSNextResponder" ref="432252851"/>
 								<int key="NSvFlags">256</int>
-								<string key="NSFrame">{{1, 256}, {478, 15}}</string>
+								<string key="NSFrame">{{0, 257}, {480, 15}}</string>
 								<reference key="NSSuperview" ref="432252851"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="338425695"/>
@@ -105,7 +100,7 @@
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="799185729"/>
 						<string key="NSReuseIdentifierKey">_NS:400</string>
-						<int key="NSsFlags">133170</int>
+						<int key="NSsFlags">133168</int>
 						<reference key="NSVScroller" ref="338425695"/>
 						<reference key="NSHScroller" ref="412229645"/>
 						<reference key="NSContentView" ref="799185729"/>

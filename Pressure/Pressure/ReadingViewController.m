@@ -42,7 +42,7 @@
 - (void)viewDidAppear
 {
 	NSLog(@"<%p> %@", self, [NSString stringWithUTF8String:__func__]);
-    [self.listView setCellSpacing:2.0f];
+    [self.listView setCellSpacing:4.0f];
 	[self.listView setAllowsEmptySelection:YES];
 	[self.listView setAllowsMultipleSelection:YES];
 	[self.listView registerForDraggedTypes:[NSArray arrayWithObjects: NSStringPboardType, nil]];
@@ -93,7 +93,7 @@
 	}
 	
 	// Set up the new cell:
-	[[cell titleLabel] setStringValue:@"Date and Time | Systolic / Diastolic      |  Heart Rate    | check box to exclude from graph"];
+	[[cell systolicPressureLabel] setStringValue:@"131"];
 	
 	return cell;
 }

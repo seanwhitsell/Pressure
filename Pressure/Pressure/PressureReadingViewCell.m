@@ -10,7 +10,9 @@
 #import <iso646.h>
 
 @implementation PressureReadingViewCell
-@synthesize titleLabel;
+@synthesize systolicPressureLabel = mSystolicPressureLabel;
+@synthesize diastolicPressureLabel = mDiastolicPressureLabel;
+@synthesize readingDateLabel = mReadingDateLabel;
 
 #pragma mark -
 #pragma mark Init/Dealloc
@@ -26,7 +28,9 @@
 
 - (void)dealloc
 {
-	[titleLabel release], titleLabel=nil;
+	[mSystolicPressureLabel release], mSystolicPressureLabel=nil;
+	[mDiastolicPressureLabel release], mDiastolicPressureLabel=nil;
+	[mReadingDateLabel release], mReadingDateLabel=nil;
     
 	[super dealloc];
 }
@@ -36,7 +40,9 @@
 
 - (void)prepareForReuse
 {
-	[titleLabel setStringValue:@""];
+	[self.systolicPressureLabel setStringValue:@""];
+	[self.diastolicPressureLabel setStringValue:@""];
+	[self.readingDateLabel setStringValue:@""];
 }
 
 #pragma mark -
@@ -95,7 +101,7 @@
     if([attribute isEqualToString:NSAccessibilityDescriptionAttribute]
        or [attribute isEqualToString:NSAccessibilityTitleAttribute])
 	{
-		return [titleLabel stringValue];
+		return [self.systolicPressureLabel stringValue];
 	}
     
 	if([attribute isEqualToString:NSAccessibilityEnabledAttribute])

@@ -12,9 +12,15 @@
 
 @interface PressureReadingViewCell : PXListViewCell
 {
-	NSTextField *titleLabel;
+	NSTextField *mSystolicPressureLabel;
+	NSTextField *mDiastolicPressureLabel;
+	NSTextField *mReadingDateLabel;
+    
 }
 
-@property (nonatomic, retain) IBOutlet NSTextField *titleLabel;
+@property (nonatomic, retain) IBOutlet NSTextField *systolicPressureLabel;
+@property (nonatomic, retain) IBOutlet NSTextField *diastolicPressureLabel;
+@property (nonatomic, retain) IBOutlet NSTextField *readingDateLabel;
+
 
 @end
