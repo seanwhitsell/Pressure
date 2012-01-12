@@ -15,6 +15,11 @@
 
 NSString * const PXListViewSelectionDidChange = @"PXListViewSelectionDidChange";
 
+@interface PXListView()
+
+-(void)windowSizing:(NSNotification *)inNot;
+
+@end
 
 @implementation PXListView
 
@@ -106,7 +111,7 @@ NSString * const PXListViewSelectionDidChange = @"PXListViewSelectionDidChange";
     }
 }
 
--(void)reloadRowAtIndex:(NSInteger)inIndex;
+-(void)reloadRowAtIndex:(NSInteger)inIndex
 {
     [self cacheCellLayout];
     [self layoutCells];

@@ -19,8 +19,8 @@
 }
 
 @property (assign) PXListView				*listView;
-@property (assign) PXListViewDropHighlight	dropHighlight;
+@property (nonatomic, readwrite, assign) PXListViewDropHighlight	dropHighlight;
 
--(void)	setDropHighlight: (PXListViewDropHighlight)inState;
+-(void)	setDropHighlight:(PXListViewDropHighlight)inState;
 
 @end

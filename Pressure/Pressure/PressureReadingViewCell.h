@@ -8,6 +8,13 @@
 
 #import <Foundation/Foundation.h>
 
-@interface PressureReadingViewCell : NSObject
+#import "PXListViewCell.h"
+
+@interface PressureReadingViewCell : PXListViewCell
+{
+	NSTextField *titleLabel;
+}
+
+@property (nonatomic, retain) IBOutlet NSTextField *titleLabel;
 
 @end

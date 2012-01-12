@@ -39,8 +39,6 @@
 		8FFAB3D514B5A70900EAE31F /* TabBarItem.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8FFAB3D314B5A70900EAE31F /* TabBarItem.xib */; };
 		DA1A34BC14BA2EA30089F858 /* GraphViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DA1A34BA14BA2EA30089F858 /* GraphViewController.m */; };
 		DA1A34BD14BA2EA30089F858 /* GraphViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = DA1A34BB14BA2EA30089F858 /* GraphViewController.xib */; };
-		DA1A34C614BB32940089F858 /* ReadingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DA1A34C414BB32940089F858 /* ReadingViewController.m */; };
-		DA1A34C714BB32940089F858 /* ReadingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = DA1A34C514BB32940089F858 /* ReadingViewController.xib */; };
 		DA1A34CD14BB36D00089F858 /* OmronDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = DA1A34CA14BB36D00089F858 /* OmronDataSource.m */; };
 		DA1A34CE14BB36D00089F858 /* OmronDataSyncOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = DA1A34CC14BB36D00089F858 /* OmronDataSyncOperation.m */; };
 		DA4FE8AD14BB5E3F0019B20F /* omron.c in Sources */ = {isa = PBXBuildFile; fileRef = DA4FE8AC14BB5E3F0019B20F /* omron.c */; };
@@ -49,6 +47,14 @@
 		DA4FE8BB14BB6A050019B20F /* Pressure.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = DA4FE8B914BB6A050019B20F /* Pressure.xcdatamodeld */; };
 		DAA6226A14BE92A000B91BFA /* Pressure.icns in Resources */ = {isa = PBXBuildFile; fileRef = DAA6226914BE92A000B91BFA /* Pressure.icns */; };
 		DAD1DAD114BD30FF00D3EB5F /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DAD1DAD014BD30FF00D3EB5F /* IOKit.framework */; };
+		DAFB343914BE94AB006AC226 /* PXListView.m in Sources */ = {isa = PBXBuildFile; fileRef = DAFB342E14BE94AB006AC226 /* PXListView.m */; };
+		DAFB343A14BE94AB006AC226 /* PXListView+UserInteraction.m in Sources */ = {isa = PBXBuildFile; fileRef = DAFB343214BE94AB006AC226 /* PXListView+UserInteraction.m */; };
+		DAFB343B14BE94AB006AC226 /* PXListViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DAFB343514BE94AB006AC226 /* PXListViewCell.m */; };
+		DAFB343C14BE94AB006AC226 /* PXListDocumentView.m in Sources */ = {isa = PBXBuildFile; fileRef = DAFB343814BE94AB006AC226 /* PXListDocumentView.m */; };
+		DAFB344014BE96F3006AC226 /* PressureReadingViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DAFB343F14BE96F3006AC226 /* PressureReadingViewCell.m */; };
+		DAFB355B14BEA109006AC226 /* ReadingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DAFB355914BEA109006AC226 /* ReadingViewController.m */; };
+		DAFB355C14BEA109006AC226 /* ReadingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = DAFB355A14BEA109006AC226 /* ReadingViewController.xib */; };
+		DAFB355E14BEA56A006AC226 /* PressureReadingViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = DAFB355D14BEA56A006AC226 /* PressureReadingViewCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -102,9 +108,6 @@
 		DA1A34B914BA2EA30089F858 /* GraphViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GraphViewController.h; sourceTree = "<group>"; };
 		DA1A34BA14BA2EA30089F858 /* GraphViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GraphViewController.m; sourceTree = "<group>"; };
 		DA1A34BB14BA2EA30089F858 /* GraphViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GraphViewController.xib; sourceTree = "<group>"; };
-		DA1A34C314BB32940089F858 /* ReadingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReadingViewController.h; sourceTree = "<group>"; };
-		DA1A34C414BB32940089F858 /* ReadingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReadingViewController.m; sourceTree = "<group>"; };
-		DA1A34C514BB32940089F858 /* ReadingViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ReadingViewController.xib; sourceTree = "<group>"; };
 		DA1A34C914BB36D00089F858 /* OmronDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OmronDataSource.h; sourceTree = "<group>"; };
 		DA1A34CA14BB36D00089F858 /* OmronDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OmronDataSource.m; sourceTree = "<group>"; };
 		DA1A34CB14BB36D00089F858 /* OmronDataSyncOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OmronDataSyncOperation.h; sourceTree = "<group>"; };
@@ -115,6 +118,24 @@
 		DA4FE8BA14BB6A050019B20F /* Pressure.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Pressure.xcdatamodel; sourceTree = "<group>"; };
 		DAA6226914BE92A000B91BFA /* Pressure.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = Pressure.icns; sourceTree = "<group>"; };
 		DAD1DAD014BD30FF00D3EB5F /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = System/Library/Frameworks/IOKit.framework; sourceTree = SDKROOT; };
+		DAFB342D14BE94AB006AC226 /* PXListView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXListView.h; sourceTree = "<group>"; };
+		DAFB342E14BE94AB006AC226 /* PXListView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PXListView.m; sourceTree = "<group>"; };
+		DAFB342F14BE94AB006AC226 /* PXListView+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PXListView+Private.h"; sourceTree = "<group>"; };
+		DAFB343014BE94AB006AC226 /* PXListViewDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXListViewDelegate.h; sourceTree = "<group>"; };
+		DAFB343114BE94AB006AC226 /* PXListView+UserInteraction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PXListView+UserInteraction.h"; sourceTree = "<group>"; };
+		DAFB343214BE94AB006AC226 /* PXListView+UserInteraction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "PXListView+UserInteraction.m"; sourceTree = "<group>"; };
+		DAFB343314BE94AB006AC226 /* PXListViewDropHighlight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXListViewDropHighlight.h; sourceTree = "<group>"; };
+		DAFB343414BE94AB006AC226 /* PXListViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXListViewCell.h; sourceTree = "<group>"; };
+		DAFB343514BE94AB006AC226 /* PXListViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PXListViewCell.m; sourceTree = "<group>"; };
+		DAFB343614BE94AB006AC226 /* PXListViewCell+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PXListViewCell+Private.h"; sourceTree = "<group>"; };
+		DAFB343714BE94AB006AC226 /* PXListDocumentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXListDocumentView.h; sourceTree = "<group>"; };
+		DAFB343814BE94AB006AC226 /* PXListDocumentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PXListDocumentView.m; sourceTree = "<group>"; };
+		DAFB343E14BE96F3006AC226 /* PressureReadingViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PressureReadingViewCell.h; sourceTree = "<group>"; };
+		DAFB343F14BE96F3006AC226 /* PressureReadingViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PressureReadingViewCell.m; sourceTree = "<group>"; };
+		DAFB355814BEA109006AC226 /* ReadingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReadingViewController.h; sourceTree = "<group>"; };
+		DAFB355914BEA109006AC226 /* ReadingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReadingViewController.m; sourceTree = "<group>"; };
+		DAFB355A14BEA109006AC226 /* ReadingViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ReadingViewController.xib; sourceTree = "<group>"; };
+		DAFB355D14BEA56A006AC226 /* PressureReadingViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PressureReadingViewCell.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -172,6 +193,7 @@
 		8F32EB3514B56CD800122156 /* Pressure */ = {
 			isa = PBXGroup;
 			children = (
+				DAA6226C14BE943500B91BFA /* PXListView */,
 				8F32EB3614B56CD800122156 /* AppDelegate.h */,
 				8F32EB3714B56CD800122156 /* AppDelegate.m */,
 				8F32EB3914B56CD800122156 /* MainMenu.xib */,
@@ -241,9 +263,12 @@
 				DA1A34B914BA2EA30089F858 /* GraphViewController.h */,
 				DA1A34BA14BA2EA30089F858 /* GraphViewController.m */,
 				DA1A34BB14BA2EA30089F858 /* GraphViewController.xib */,
-				DA1A34C314BB32940089F858 /* ReadingViewController.h */,
-				DA1A34C414BB32940089F858 /* ReadingViewController.m */,
-				DA1A34C514BB32940089F858 /* ReadingViewController.xib */,
+				DAFB343E14BE96F3006AC226 /* PressureReadingViewCell.h */,
+				DAFB343F14BE96F3006AC226 /* PressureReadingViewCell.m */,
+				DAFB355D14BEA56A006AC226 /* PressureReadingViewCell.xib */,
+				DAFB355814BEA109006AC226 /* ReadingViewController.h */,
+				DAFB355914BEA109006AC226 /* ReadingViewController.m */,
+				DAFB355A14BEA109006AC226 /* ReadingViewController.xib */,
 			);
 			name = Tabs;
 			sourceTree = "<group>";
@@ -294,6 +319,25 @@
 				DA1A34CC14BB36D00089F858 /* OmronDataSyncOperation.m */,
 			);
 			name = OmronDevice;
+			sourceTree = "<group>";
+		};
+		DAA6226C14BE943500B91BFA /* PXListView */ = {
+			isa = PBXGroup;
+			children = (
+				DAFB342D14BE94AB006AC226 /* PXListView.h */,
+				DAFB342E14BE94AB006AC226 /* PXListView.m */,
+				DAFB342F14BE94AB006AC226 /* PXListView+Private.h */,
+				DAFB343014BE94AB006AC226 /* PXListViewDelegate.h */,
+				DAFB343114BE94AB006AC226 /* PXListView+UserInteraction.h */,
+				DAFB343214BE94AB006AC226 /* PXListView+UserInteraction.m */,
+				DAFB343314BE94AB006AC226 /* PXListViewDropHighlight.h */,
+				DAFB343414BE94AB006AC226 /* PXListViewCell.h */,
+				DAFB343514BE94AB006AC226 /* PXListViewCell.m */,
+				DAFB343614BE94AB006AC226 /* PXListViewCell+Private.h */,
+				DAFB343714BE94AB006AC226 /* PXListDocumentView.h */,
+				DAFB343814BE94AB006AC226 /* PXListDocumentView.m */,
+			);
+			name = PXListView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -364,8 +408,9 @@
 				8F41AEE514B9623B00F850D0 /* x_close.pdf in Resources */,
 				8F76D0A414B9816900C1F1A0 /* TMRotatingArrow.pdf in Resources */,
 				DA1A34BD14BA2EA30089F858 /* GraphViewController.xib in Resources */,
-				DA1A34C714BB32940089F858 /* ReadingViewController.xib in Resources */,
 				DAA6226A14BE92A000B91BFA /* Pressure.icns in Resources */,
+				DAFB355C14BEA109006AC226 /* ReadingViewController.xib in Resources */,
+				DAFB355E14BEA56A006AC226 /* PressureReadingViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -389,12 +434,17 @@
 				8F176DFB14BAB9EE004A5E1A /* SyncButton.m in Sources */,
 				8F176DFE14BAB9F7004A5E1A /* RolloverButtonCell.m in Sources */,
 				DA1A34BC14BA2EA30089F858 /* GraphViewController.m in Sources */,
-				DA1A34C614BB32940089F858 /* ReadingViewController.m in Sources */,
 				DA1A34CD14BB36D00089F858 /* OmronDataSource.m in Sources */,
 				DA1A34CE14BB36D00089F858 /* OmronDataSyncOperation.m in Sources */,
 				DA4FE8AD14BB5E3F0019B20F /* omron.c in Sources */,
 				DA4FE8AF14BB5E4B0019B20F /* omron_libusb.c in Sources */,
 				DA4FE8BB14BB6A050019B20F /* Pressure.xcdatamodeld in Sources */,
+				DAFB343914BE94AB006AC226 /* PXListView.m in Sources */,
+				DAFB343A14BE94AB006AC226 /* PXListView+UserInteraction.m in Sources */,
+				DAFB343B14BE94AB006AC226 /* PXListViewCell.m in Sources */,
+				DAFB343C14BE94AB006AC226 /* PXListDocumentView.m in Sources */,
+				DAFB344014BE96F3006AC226 /* PressureReadingViewCell.m in Sources */,
+				DAFB355B14BEA109006AC226 /* ReadingViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

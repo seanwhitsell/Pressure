@@ -60,7 +60,7 @@
 	}
 }
 
--(void)	setDropHighlight: (PXListViewDropHighlight)inState
+- (void)setDropHighlight:(PXListViewDropHighlight)inState
 {
 	_dropHighlight = inState;
 	//NSLog( @"setDropHighlight %lu", _dropHighlight );

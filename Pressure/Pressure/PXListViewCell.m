@@ -147,7 +147,7 @@
 
 #pragma mark layout
 
--(void)layoutSubviews;
+-(void)layoutSubviews
 {
     
 }

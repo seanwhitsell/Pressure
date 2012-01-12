@@ -7,7 +7,20 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import "PXListView.h"
 
-@interface ReadingViewController : NSViewController
+@class PXListView;
+@class OmronDataSource;
+
+@interface ReadingViewController : NSViewController <PXListViewDelegate>
+{
+    OmronDataSource *mDataSource;
+    PXListView *mListView;
+}
+
+@property (nonatomic, readwrite, retain) OmronDataSource *dataSource;
+@property (nonatomic, readwrite, assign) IBOutlet PXListView *listView;
+
+- (IBAction)reloadTable:(id)sender;
 
 @end
