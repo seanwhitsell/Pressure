@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model name="" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="872" systemVersion="11C74" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
     <entity name="DeviceInformation" syncable="YES">
-        <attribute name="deviceVersion" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="serialNumber" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="deviceVersionKey" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="serialNumberKey" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <entity name="ReadingEntry" syncable="YES">
-        <attribute name="bank" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
-        <attribute name="diastolicPressure" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
-        <attribute name="exclude" optional="YES" attributeType="Boolean" syncable="YES"/>
-        <attribute name="heartRate" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
-        <attribute name="readingDate" optional="YES" attributeType="Date" syncable="YES"/>
-        <attribute name="serialNumber" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="systolicPressure" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="dataBankKey" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="deviceSerialNumberKey" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="diastolicPressureKey" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="excludeReadingKey" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="heartRateKey" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="readingDateKey" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="systolicPressureKey" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
     </entity>
     <elements>
         <element name="DeviceInformation" positionX="160" positionY="192" width="128" height="75"/>

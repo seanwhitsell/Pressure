@@ -28,6 +28,7 @@
 #include "omron.h"
 
 NSString *OmronDataSyncDidBeginNotification = @"OmronDataSyncDidBeginNotification";
+NSString *OmronDataSyncDataAvailableNotification = @"OmronDataSyncDataAvailableNotification";
 NSString *OmronDataSyncDidEndNotification = @"OmronDataSyncDidEndNotification";
 NSString *OmronDeviceConnectedNotification = @"OmronDeviceConnectedNotification";
 NSString *OmronDeviceDisconnectedNotification = @"OmronDeviceDisconnectedNotification";
@@ -184,6 +185,9 @@ NSString *deviceInformationEntityName = @"DeviceInformation";
         // from teh device to see if we already have an entry or not
         [self.readingsListDates addObject:[info valueForKey:readingDateKey]];
     }        
+    
+    note = [NSNotification notificationWithName:OmronDataSyncDataAvailableNotification  object:nil userInfo:nil];
+    [[NSNotificationCenter defaultCenter] performSelectorOnMainThread:@selector(postNotification:) withObject:note waitUntilDone:YES];
     
     //
     // Lastly, let's get the data off of the Device and fill in any new Readings

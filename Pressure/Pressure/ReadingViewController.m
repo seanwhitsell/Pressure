@@ -10,12 +10,14 @@
 #import "PXListView.h"
 #import "PressureReadingViewCell.h"
 #import "OmronDataSource.h"
+#import "NSDate+Helper.h"
 
 #define LISTVIEW_CELL_IDENTIFIER		@"PressureReadingViewCell"
 
 @interface ReadingViewController()
 
 - (void)dataSyncOperationDidEnd:(NSNotification*)notif;
+- (void)dataSyncOperationDataAvailable:(NSNotification*)notif;
 
 @end
 
@@ -29,6 +31,8 @@
 	if (self != nil)
 	{
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(dataSyncOperationDidEnd:) name:OmronDataSyncDidEndNotification object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(dataSyncOperationDataAvailable:) name:OmronDataSyncDataAvailableNotification object:nil];
+       
 	}
 	
 	return self;
@@ -73,9 +77,16 @@
     [self.listView reloadData];
 }
 
+- (void)dataSyncOperationDataAvailable:(NSNotification*)notif
+{
+    // Table Reload
+    NSLog(@"[ReadingViewController dataSyncOperationDataAvailable] Data Source isSampleData %s", [mDataSource isSampleData] ? "yes":"no");
+    [self.listView reloadData];
+}
+
 - (NSUInteger)numberOfRowsInListView:(PXListView*)aListView
 {
-    return 10; //[self.dataSource.readings count];
+    return [self.dataSource.readings count];
 }
 
 - (CGFloat)listView:(PXListView*)aListView heightOfRow:(NSUInteger)row
@@ -93,8 +104,13 @@
 	}
 	
 	// Set up the new cell:
-	[[cell systolicPressureLabel] setStringValue:@"131"];
-	
+	[[cell systolicPressureLabel] setStringValue:[[self.dataSource.readings objectAtIndex:row] valueForKey:systolicPressureKey]];
+	[[cell diastolicPressureLabel] setStringValue:[[self.dataSource.readings objectAtIndex:row] valueForKey:diastolicPressureKey]];
+    [[cell heartRateLabel] setStringValue:[[self.dataSource.readings objectAtIndex:row] valueForKey:heartRateKey]];
+    NSString *displayString = [NSDate stringForDisplayFromDate:[[self.dataSource.readings objectAtIndex:row] valueForKey:readingDateKey]
+                               prefixed:YES
+                               alwaysDisplayTime:YES];
+    [[cell readingDateLabel] setStringValue:displayString];
 	return cell;
 }
 

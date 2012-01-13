@@ -25,6 +25,7 @@
 #import <Foundation/Foundation.h>
 
 extern NSString *OmronDataSyncDidBeginNotification;
+extern NSString *OmronDataSyncDataAvailableNotification;
 extern NSString *OmronDataSyncDidEndNotification;
 extern NSString *OmronDeviceConnectedNotification;
 extern NSString *OmronDeviceDisconnectedNotification;

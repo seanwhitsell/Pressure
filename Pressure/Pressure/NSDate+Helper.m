@@ -40,7 +40,7 @@ static NSDateFormatter *displayFormatter;
     
     calendar = [[NSCalendar currentCalendar] retain];
     displayFormatter = [[NSDateFormatter alloc] init];
-    
+    [displayFormatter setTimeStyle:NSDateFormatterShortStyle];
 	[pool drain];
 }
 
@@ -173,6 +173,8 @@ static NSDateFormatter *displayFormatter;
 	}
 	
 	// use display formatter to return formatted date string
+    [displayFormatter setAMSymbol:@"am"];
+    [displayFormatter setPMSymbol:@"pm"];
 	displayString = [displayFormatter stringFromDate:date];
 	return displayString;
 }

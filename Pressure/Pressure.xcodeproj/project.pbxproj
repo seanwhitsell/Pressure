@@ -45,6 +45,7 @@
 		DA4FE8AF14BB5E4B0019B20F /* omron_libusb.c in Sources */ = {isa = PBXBuildFile; fileRef = DA4FE8AE14BB5E4B0019B20F /* omron_libusb.c */; };
 		DA4FE8B114BB5F260019B20F /* libusb-1.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DA4FE8B014BB5F260019B20F /* libusb-1.0.a */; };
 		DA4FE8BB14BB6A050019B20F /* Pressure.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = DA4FE8B914BB6A050019B20F /* Pressure.xcdatamodeld */; };
+		DA6A784E14C07F050048E771 /* NSDate+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = DA6A784D14C07F050048E771 /* NSDate+Helper.m */; };
 		DAA6226A14BE92A000B91BFA /* Pressure.icns in Resources */ = {isa = PBXBuildFile; fileRef = DAA6226914BE92A000B91BFA /* Pressure.icns */; };
 		DAD1DAD114BD30FF00D3EB5F /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DAD1DAD014BD30FF00D3EB5F /* IOKit.framework */; };
 		DAFB343914BE94AB006AC226 /* PXListView.m in Sources */ = {isa = PBXBuildFile; fileRef = DAFB342E14BE94AB006AC226 /* PXListView.m */; };
@@ -116,6 +117,8 @@
 		DA4FE8AE14BB5E4B0019B20F /* omron_libusb.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = omron_libusb.c; path = "../../3rdparty/libomron-0.9.0/src/omron_libusb.c"; sourceTree = "<group>"; };
 		DA4FE8B014BB5F260019B20F /* libusb-1.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libusb-1.0.a"; path = "../3rdparty/libusb-1.0.8/lib/libusb-1.0.a"; sourceTree = "<group>"; };
 		DA4FE8BA14BB6A050019B20F /* Pressure.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Pressure.xcdatamodel; sourceTree = "<group>"; };
+		DA6A784C14C07F050048E771 /* NSDate+Helper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+Helper.h"; sourceTree = "<group>"; };
+		DA6A784D14C07F050048E771 /* NSDate+Helper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Helper.m"; sourceTree = "<group>"; };
 		DAA6226914BE92A000B91BFA /* Pressure.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = Pressure.icns; sourceTree = "<group>"; };
 		DAD1DAD014BD30FF00D3EB5F /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = System/Library/Frameworks/IOKit.framework; sourceTree = SDKROOT; };
 		DAFB342D14BE94AB006AC226 /* PXListView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXListView.h; sourceTree = "<group>"; };
@@ -210,6 +213,8 @@
 		8F32EB3C14B56CD800122156 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				DA6A784C14C07F050048E771 /* NSDate+Helper.h */,
+				DA6A784D14C07F050048E771 /* NSDate+Helper.m */,
 				DA4FE8B914BB6A050019B20F /* Pressure.xcdatamodeld */,
 				8F32EB3D14B56CD800122156 /* Pressure-Info.plist */,
 				8F32EB3E14B56CD800122156 /* Pressure-Prefix.pch */,
@@ -445,6 +450,7 @@
 				DAFB343C14BE94AB006AC226 /* PXListDocumentView.m in Sources */,
 				DAFB344014BE96F3006AC226 /* PressureReadingViewCell.m in Sources */,
 				DAFB355B14BEA109006AC226 /* ReadingViewController.m in Sources */,
+				DA6A784E14C07F050048E771 /* NSDate+Helper.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
