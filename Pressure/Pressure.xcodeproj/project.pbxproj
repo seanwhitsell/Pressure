@@ -41,7 +41,6 @@
 		DA1A34BD14BA2EA30089F858 /* GraphViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = DA1A34BB14BA2EA30089F858 /* GraphViewController.xib */; };
 		DA1A34CD14BB36D00089F858 /* OmronDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = DA1A34CA14BB36D00089F858 /* OmronDataSource.m */; };
 		DA1A34CE14BB36D00089F858 /* OmronDataSyncOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = DA1A34CC14BB36D00089F858 /* OmronDataSyncOperation.m */; };
-		DA46A19B14BF7CF100AA46E8 /* cellBreak.png in Resources */ = {isa = PBXBuildFile; fileRef = DA46A19A14BF7CF100AA46E8 /* cellBreak.png */; };
 		DA4FE8AD14BB5E3F0019B20F /* omron.c in Sources */ = {isa = PBXBuildFile; fileRef = DA4FE8AC14BB5E3F0019B20F /* omron.c */; };
 		DA4FE8AF14BB5E4B0019B20F /* omron_libusb.c in Sources */ = {isa = PBXBuildFile; fileRef = DA4FE8AE14BB5E4B0019B20F /* omron_libusb.c */; };
 		DA4FE8B114BB5F260019B20F /* libusb-1.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DA4FE8B014BB5F260019B20F /* libusb-1.0.a */; };
@@ -113,7 +112,6 @@
 		DA1A34CA14BB36D00089F858 /* OmronDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OmronDataSource.m; sourceTree = "<group>"; };
 		DA1A34CB14BB36D00089F858 /* OmronDataSyncOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OmronDataSyncOperation.h; sourceTree = "<group>"; };
 		DA1A34CC14BB36D00089F858 /* OmronDataSyncOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OmronDataSyncOperation.m; sourceTree = "<group>"; };
-		DA46A19A14BF7CF100AA46E8 /* cellBreak.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cellBreak.png; sourceTree = "<group>"; };
 		DA4FE8AC14BB5E3F0019B20F /* omron.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = omron.c; path = "../../3rdparty/libomron-0.9.0/src/omron.c"; sourceTree = "<group>"; };
 		DA4FE8AE14BB5E4B0019B20F /* omron_libusb.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = omron_libusb.c; path = "../../3rdparty/libomron-0.9.0/src/omron_libusb.c"; sourceTree = "<group>"; };
 		DA4FE8B014BB5F260019B20F /* libusb-1.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libusb-1.0.a"; path = "../3rdparty/libusb-1.0.8/lib/libusb-1.0.a"; sourceTree = "<group>"; };
@@ -278,7 +276,6 @@
 		8FFAB3B014B58E2300EAE31F /* Images */ = {
 			isa = PBXGroup;
 			children = (
-				DA46A19A14BF7CF100AA46E8 /* cellBreak.png */,
 				DAA6226914BE92A000B91BFA /* Pressure.icns */,
 				8FFAB3C414B59BCC00EAE31F /* 1325750127_Times and Dates.png */,
 				8FFAB3C514B59BCC00EAE31F /* 1325750130_Control Panel.png */,
@@ -414,7 +411,6 @@
 				DAA6226A14BE92A000B91BFA /* Pressure.icns in Resources */,
 				DAFB355C14BEA109006AC226 /* ReadingViewController.xib in Resources */,
 				DAFB355E14BEA56A006AC226 /* PressureReadingViewCell.xib in Resources */,
-				DA46A19B14BF7CF100AA46E8 /* cellBreak.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
