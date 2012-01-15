@@ -208,7 +208,7 @@ NSString *deviceInformationEntityName = @"DeviceInformation";
         for (int i=0; i<100; i++)
         {
             // Get a date that is within the last 100 days
-            int seconds = (60*60*24) * (arc4random() %100);
+            int seconds = (24 * (arc4random() % 3600)) * (arc4random() %100);
             OmronDataRecord *dataRecord = [[OmronDataRecord alloc] init];
             dataRecord.readingDate = [[[NSDate alloc] initWithTimeIntervalSinceNow:-seconds] autorelease];
             

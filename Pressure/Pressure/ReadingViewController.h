@@ -29,11 +29,10 @@
 {
     OmronDataSource *mDataSource;
     PXListView *mListView;
+    NSArray *mDataSourceSortedReadings;
 }
 
 @property (nonatomic, readwrite, retain) OmronDataSource *dataSource;
 @property (nonatomic, readwrite, assign) IBOutlet PXListView *listView;
-
-- (IBAction)reloadTable:(id)sender;
 
 @end
