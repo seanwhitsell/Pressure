@@ -11,6 +11,7 @@
 #import "PressureReadingViewCell.h"
 #import "OmronDataSource.h"
 #import "NSDate+Helper.h"
+#import "OmronDataRecord.h"
 
 #define LISTVIEW_CELL_IDENTIFIER		@"PressureReadingViewCell"
 
@@ -97,6 +98,8 @@
 - (PXListViewCell*)listView:(PXListView*)aListView cellForRow:(NSUInteger)row
 {
     NSLog(@"listView:cellForRow:%lu", row);
+    
+    OmronDataRecord *record = [self.dataSource.readings objectAtIndex:row];
     PressureReadingViewCell *cell = (PressureReadingViewCell*)[aListView dequeueCellWithReusableIdentifier:LISTVIEW_CELL_IDENTIFIER];
 	
 	if(!cell) {
@@ -104,10 +107,10 @@
 	}
 	
 	// Set up the new cell:
-	[[cell systolicPressureLabel] setStringValue:[[self.dataSource.readings objectAtIndex:row] valueForKey:systolicPressureKey]];
-	[[cell diastolicPressureLabel] setStringValue:[[self.dataSource.readings objectAtIndex:row] valueForKey:diastolicPressureKey]];
-    [[cell heartRateLabel] setStringValue:[[self.dataSource.readings objectAtIndex:row] valueForKey:heartRateKey]];
-    NSString *displayString = [NSDate stringForDisplayFromDate:[[self.dataSource.readings objectAtIndex:row] valueForKey:readingDateKey]
+	[[cell systolicPressureLabel] setStringValue:record.systolicPressure];
+	[[cell diastolicPressureLabel] setStringValue:record.diastolicPressure];
+    [[cell heartRateLabel] setStringValue:record.heartRate];
+    NSString *displayString = [NSDate stringForDisplayFromDate:record.readingDate
                                prefixed:YES
                                alwaysDisplayTime:YES];
     [[cell readingDateLabel] setStringValue:displayString];

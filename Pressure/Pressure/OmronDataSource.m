@@ -24,6 +24,7 @@
 
 #import "OmronDataSource.h"
 #import "OmronDataSyncOperation.h"
+#import "OmronDataRecord.h"
 
 #include "omron.h"
 
@@ -194,16 +195,55 @@ NSString *deviceInformationEntityName = @"DeviceInformation";
     //
     //
     // Watch for a "cancel"
+    int retval = 0;
     if (self.syncing)
     {
-        [self getOmronData];
+        retval = [self getOmronData];
     }
     
-    //
-    // Run the Fetch again, presuming that there was new data on the Device
-    //
-    self.readings = (NSMutableArray*)[context executeFetchRequest:fetchRequest error:&error];
-    
+    if (retval)
+    {
+        // We did not get any data, let's fake it
+        NSMutableArray *sampleData = [[NSMutableArray alloc] initWithCapacity:100];
+        for (int i=0; i<100; i++)
+        {
+            // Get a date that is within the last 100 days
+            int seconds = (60*60*24) * (arc4random() %100);
+            OmronDataRecord *dataRecord = [[OmronDataRecord alloc] init];
+            dataRecord.readingDate = [[[NSDate alloc] initWithTimeIntervalSinceNow:-seconds] autorelease];
+            
+            int s = 100 + (arc4random() % 100);
+            int d = 50 + (arc4random() % 50);
+            int hr = 50 + (arc4random() % 50);
+            dataRecord.systolicPressure = [NSString stringWithFormat:@"%i", s];
+            dataRecord.diastolicPressure = [NSString stringWithFormat:@"%i", d];
+            dataRecord.heartRate = [NSString stringWithFormat:@"%i", hr];
+            [sampleData addObject:dataRecord];
+        }
+        
+        self.readings = sampleData;
+    }
+    else
+    {
+        //
+        // Run the Fetch again, presuming that there was new data on the Device
+        //
+        NSMutableArray *realData = [[NSMutableArray alloc] initWithCapacity:100];
+        
+        for (NSManagedObject *object in [context executeFetchRequest:fetchRequest error:&error])
+        {
+            OmronDataRecord *dataRecord = [[OmronDataRecord alloc] init];
+            dataRecord.systolicPressure = [object valueForKey:systolicPressureKey];
+            dataRecord.diastolicPressure = [object valueForKey:diastolicPressureKey];
+            dataRecord.heartRate = [object valueForKey:heartRateKey];
+            dataRecord.readingDate = [object valueForKey:readingDateKey];
+            
+            [realData addObject:dataRecord];
+        }
+        
+        self.readings = realData;
+        
+    }
     //
     // Tell the application that we are done getting the Data
     //
