@@ -157,7 +157,7 @@
 	[[cell diastolicPressureLabel] setStringValue:record.diastolicPressure];
     [[cell heartRateLabel] setStringValue:record.heartRate];
     NSString *displayString = [NSDate stringForDisplayFromDate:record.readingDate
-                               prefixed:YES
+                               prefixed:NO
                                alwaysDisplayTime:YES];
     [[cell readingDateLabel] setStringValue:displayString];
 	return cell;

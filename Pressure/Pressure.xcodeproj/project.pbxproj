@@ -49,6 +49,7 @@
 		DA6A784E14C07F050048E771 /* NSDate+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = DA6A784D14C07F050048E771 /* NSDate+Helper.m */; };
 		DAA6226A14BE92A000B91BFA /* Pressure.icns in Resources */ = {isa = PBXBuildFile; fileRef = DAA6226914BE92A000B91BFA /* Pressure.icns */; };
 		DAD1DAD114BD30FF00D3EB5F /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DAD1DAD014BD30FF00D3EB5F /* IOKit.framework */; };
+		DAFAA27E14C624500046875B /* LCDM2N__.TTF in Resources */ = {isa = PBXBuildFile; fileRef = DAFAA27D14C624500046875B /* LCDM2N__.TTF */; };
 		DAFB343914BE94AB006AC226 /* PXListView.m in Sources */ = {isa = PBXBuildFile; fileRef = DAFB342E14BE94AB006AC226 /* PXListView.m */; };
 		DAFB343A14BE94AB006AC226 /* PXListView+UserInteraction.m in Sources */ = {isa = PBXBuildFile; fileRef = DAFB343214BE94AB006AC226 /* PXListView+UserInteraction.m */; };
 		DAFB343B14BE94AB006AC226 /* PXListViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DAFB343514BE94AB006AC226 /* PXListViewCell.m */; };
@@ -124,6 +125,7 @@
 		DA6A784D14C07F050048E771 /* NSDate+Helper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Helper.m"; sourceTree = "<group>"; };
 		DAA6226914BE92A000B91BFA /* Pressure.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = Pressure.icns; sourceTree = "<group>"; };
 		DAD1DAD014BD30FF00D3EB5F /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = System/Library/Frameworks/IOKit.framework; sourceTree = SDKROOT; };
+		DAFAA27D14C624500046875B /* LCDM2N__.TTF */ = {isa = PBXFileReference; lastKnownFileType = file; path = LCDM2N__.TTF; sourceTree = "<group>"; };
 		DAFB342D14BE94AB006AC226 /* PXListView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXListView.h; sourceTree = "<group>"; };
 		DAFB342E14BE94AB006AC226 /* PXListView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PXListView.m; sourceTree = "<group>"; };
 		DAFB342F14BE94AB006AC226 /* PXListView+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PXListView+Private.h"; sourceTree = "<group>"; };
@@ -216,6 +218,7 @@
 		8F32EB3C14B56CD800122156 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				DAFAA27D14C624500046875B /* LCDM2N__.TTF */,
 				DA6A784C14C07F050048E771 /* NSDate+Helper.h */,
 				DA6A784D14C07F050048E771 /* NSDate+Helper.m */,
 				DA4FE8B914BB6A050019B20F /* Pressure.xcdatamodeld */,
@@ -421,6 +424,7 @@
 				DAA6226A14BE92A000B91BFA /* Pressure.icns in Resources */,
 				DAFB355C14BEA109006AC226 /* ReadingViewController.xib in Resources */,
 				DAFB355E14BEA56A006AC226 /* PressureReadingViewCell.xib in Resources */,
+				DAFAA27E14C624500046875B /* LCDM2N__.TTF in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

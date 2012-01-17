@@ -175,17 +175,25 @@ NSString *deviceInformationEntityName = @"DeviceInformation";
     // Watch for a "cancel"
     if (self.syncing)
     {
-        self.readings = (NSMutableArray*)[context executeFetchRequest:fetchRequest error:&error];
-    }
-    
-    for (NSManagedObject *info in self.readings) {
-        NSLog(@"readingDate: %@", [info valueForKey:readingDateKey]);
-        NSLog(@"heartRate: %@", [info valueForKey:heartRateKey]);
+        //
+        // This is the data that was persisted from the last run. 
+        //
+        NSMutableArray *realData = [[NSMutableArray alloc] initWithCapacity:100];
         
-        // This is the Array of dates for the data. We will look into this array when we are getting the data
-        // from teh device to see if we already have an entry or not
-        [self.readingsListDates addObject:[info valueForKey:readingDateKey]];
-    }        
+        for (NSManagedObject *object in [context executeFetchRequest:fetchRequest error:&error])
+        {
+            OmronDataRecord *dataRecord = [[OmronDataRecord alloc] init];
+            dataRecord.systolicPressure = [object valueForKey:systolicPressureKey];
+            dataRecord.diastolicPressure = [object valueForKey:diastolicPressureKey];
+            dataRecord.heartRate = [object valueForKey:heartRateKey];
+            dataRecord.readingDate = [object valueForKey:readingDateKey];
+            
+            [realData addObject:dataRecord];
+            [self.readingsListDates addObject:dataRecord.readingDate];
+        }
+        
+        self.readings = realData;
+    }       
     
     note = [NSNotification notificationWithName:OmronDataSyncDataAvailableNotification  object:nil userInfo:nil];
     [[NSNotificationCenter defaultCenter] performSelectorOnMainThread:@selector(postNotification:) withObject:note waitUntilDone:YES];
