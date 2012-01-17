@@ -107,9 +107,10 @@
 	vc2.tabBarItem.title = @"Readings";
 	vc2.tabBarItem.tag = 2;
 
-	
 	self.tabBarController.viewControllers = [NSArray arrayWithObjects:vc1, vc2, nil];
 	self.tabBarController.selectedViewController = vc2;
+    
+    [self.dataSource sync];
 }
 
 #pragma mark - Private methods
