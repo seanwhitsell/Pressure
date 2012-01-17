@@ -20,20 +20,73 @@
 //
 
 #import "GraphViewController.h"
+#import "PXListView.h"
+#import "PressureReadingViewCell.h"
 #import "OmronDataSource.h"
+#import "NSDate+Helper.h"
+#import "OmronDataRecord.h"
+
+#pragma mark Private Interface
+
+@interface GraphViewController()
+
+@property (nonatomic, readwrite, retain) NSArray *dataSourceSortedReadings;
+
+- (void)dataSyncOperationDidEnd:(NSNotification*)notif;
+- (void)dataSyncOperationDataAvailable:(NSNotification*)notif;
+
+@end
 
 @implementation GraphViewController
 
 @synthesize dataSource = mDataSource;
-
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+@synthesize dataSourceSortedReadings = mDataSourceSortedReadings;
+- (id)init
 {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Initialization code here.
-    }
-    
-    return self;
+	self = [super initWithNibName:@"GraphViewController" bundle:nil];
+	if (self != nil)
+	{
+        [[NSNotificationCenter defaultCenter] addObserver:self 
+                                                 selector:@selector(dataSyncOperationDidEnd:) 
+                                                     name:OmronDataSyncDidEndNotification 
+                                                   object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self 
+                                                 selector:@selector(dataSyncOperationDataAvailable:) 
+                                                     name:OmronDataSyncDataAvailableNotification 
+                                                   object:nil];
+	}
+	
+	return self;
 }
+
+#pragma mark NSNotification Observers
+
+- (void)dataSyncOperationDidEnd:(NSNotification*)notif
+{
+    // Table Reload
+    NSLog(@"[GraphViewController dataSyncOperationDidEnd] Data Source isSampleData %s", [mDataSource isSampleData] ? "yes":"no");
+    
+    self.dataSourceSortedReadings = [self.dataSource.readings sortedArrayUsingComparator:^(id a, id b) {
+        NSDate *first = [(OmronDataRecord*)a readingDate];
+        NSDate *second = [(OmronDataRecord*)b readingDate];
+        return [first compare:second];
+    }];
+    
+}
+
+- (void)dataSyncOperationDataAvailable:(NSNotification*)notif
+{
+    // Table Reload
+    NSLog(@"[GraphViewController dataSyncOperationDataAvailable] Data Source isSampleData %s", [mDataSource isSampleData] ? "yes":"no");
+    
+    self.dataSourceSortedReadings = [self.dataSource.readings sortedArrayUsingComparator:^(id a, id b) {
+        NSDate *first = [(OmronDataRecord*)a readingDate];
+        NSDate *second = [(OmronDataRecord*)b readingDate];
+        return [first compare:second];
+    }];
+
+    
+}
+
 
 @end

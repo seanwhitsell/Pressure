@@ -42,6 +42,8 @@
 		DA1A34CD14BB36D00089F858 /* OmronDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = DA1A34CA14BB36D00089F858 /* OmronDataSource.m */; };
 		DA1A34CE14BB36D00089F858 /* OmronDataSyncOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = DA1A34CC14BB36D00089F858 /* OmronDataSyncOperation.m */; };
 		DA33174C14C10DFA00022170 /* OmronDataRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = DA33174B14C10DFA00022170 /* OmronDataRecord.m */; };
+		DA4C98D714C373380068793E /* CorePlot.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA4C98D614C373380068793E /* CorePlot.framework */; };
+		DA4C98DA14C376AF0068793E /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA4C98D914C376AF0068793E /* QuartzCore.framework */; };
 		DA4FE8AD14BB5E3F0019B20F /* omron.c in Sources */ = {isa = PBXBuildFile; fileRef = DA4FE8AC14BB5E3F0019B20F /* omron.c */; };
 		DA4FE8AF14BB5E4B0019B20F /* omron_libusb.c in Sources */ = {isa = PBXBuildFile; fileRef = DA4FE8AE14BB5E4B0019B20F /* omron_libusb.c */; };
 		DA4FE8B114BB5F260019B20F /* libusb-1.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DA4FE8B014BB5F260019B20F /* libusb-1.0.a */; };
@@ -59,6 +61,30 @@
 		DAFB355C14BEA109006AC226 /* ReadingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = DAFB355A14BEA109006AC226 /* ReadingViewController.xib */; };
 		DAFB355E14BEA56A006AC226 /* PressureReadingViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = DAFB355D14BEA56A006AC226 /* PressureReadingViewCell.xib */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		DA4C98E514C377130068793E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DA4C98DC14C377130068793E /* CorePlot.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 8DC2EF5B0486A6940098B216;
+			remoteInfo = CorePlot;
+		};
+		DA4C98E714C377130068793E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DA4C98DC14C377130068793E /* CorePlot.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 0730F600109492D800E95162;
+			remoteInfo = UnitTests;
+		};
+		DA4C98EA14C3771E0068793E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DA4C98DC14C377130068793E /* CorePlot.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 8DC2EF4F0486A6940098B216;
+			remoteInfo = CorePlot;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		8F176DF914BAB9EE004A5E1A /* SyncButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SyncButton.h; sourceTree = "<group>"; };
@@ -117,6 +143,9 @@
 		DA1A34CC14BB36D00089F858 /* OmronDataSyncOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OmronDataSyncOperation.m; sourceTree = "<group>"; };
 		DA33174A14C10DFA00022170 /* OmronDataRecord.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OmronDataRecord.h; sourceTree = "<group>"; };
 		DA33174B14C10DFA00022170 /* OmronDataRecord.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OmronDataRecord.m; sourceTree = "<group>"; };
+		DA4C98D614C373380068793E /* CorePlot.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CorePlot.framework; path = ../3rdparty/CorePlot_0.9/Binaries/MacOS/CorePlot.framework; sourceTree = "<group>"; };
+		DA4C98D914C376AF0068793E /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		DA4C98DC14C377130068793E /* CorePlot.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = CorePlot.xcodeproj; path = ../3rdparty/CorePlot_0.9/Source/framework/CorePlot.xcodeproj; sourceTree = "<group>"; };
 		DA4FE8AC14BB5E3F0019B20F /* omron.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = omron.c; path = "../../3rdparty/libomron-0.9.0/src/omron.c"; sourceTree = "<group>"; };
 		DA4FE8AE14BB5E4B0019B20F /* omron_libusb.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = omron_libusb.c; path = "../../3rdparty/libomron-0.9.0/src/omron_libusb.c"; sourceTree = "<group>"; };
 		DA4FE8B014BB5F260019B20F /* libusb-1.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libusb-1.0.a"; path = "../3rdparty/libusb-1.0.8/lib/libusb-1.0.a"; sourceTree = "<group>"; };
@@ -151,9 +180,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DA4C98DA14C376AF0068793E /* QuartzCore.framework in Frameworks */,
 				DAD1DAD114BD30FF00D3EB5F /* IOKit.framework in Frameworks */,
 				8F32EB3014B56CD800122156 /* Cocoa.framework in Frameworks */,
 				DA4FE8B114BB5F260019B20F /* libusb-1.0.a in Frameworks */,
+				DA4C98D714C373380068793E /* CorePlot.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -163,6 +194,7 @@
 		8F32EB1F14B56CD800122156 = {
 			isa = PBXGroup;
 			children = (
+				DA4C98DB14C376EE0068793E /* Dependant Projects */,
 				8F32EB3514B56CD800122156 /* Pressure */,
 				8F32EB2E14B56CD800122156 /* Frameworks */,
 				8F32EB2C14B56CD800122156 /* Products */,
@@ -180,6 +212,8 @@
 		8F32EB2E14B56CD800122156 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				DA4C98D914C376AF0068793E /* QuartzCore.framework */,
+				DA4C98D614C373380068793E /* CorePlot.framework */,
 				DAD1DAD014BD30FF00D3EB5F /* IOKit.framework */,
 				DA4FE8B014BB5F260019B20F /* libusb-1.0.a */,
 				8F32EB2F14B56CD800122156 /* Cocoa.framework */,
@@ -319,6 +353,23 @@
 			name = "Tab Bar";
 			sourceTree = "<group>";
 		};
+		DA4C98DB14C376EE0068793E /* Dependant Projects */ = {
+			isa = PBXGroup;
+			children = (
+				DA4C98DC14C377130068793E /* CorePlot.xcodeproj */,
+			);
+			name = "Dependant Projects";
+			sourceTree = "<group>";
+		};
+		DA4C98DD14C377130068793E /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				DA4C98E614C377130068793E /* CorePlot.framework */,
+				DA4C98E814C377130068793E /* UnitTests.octest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		DA4FE8BC14BB6AF60019B20F /* OmronDevice */ = {
 			isa = PBXGroup;
 			children = (
@@ -367,6 +418,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				DA4C98EB14C3771E0068793E /* PBXTargetDependency */,
 			);
 			name = Pressure;
 			productName = Pressure;
@@ -391,12 +443,35 @@
 			mainGroup = 8F32EB1F14B56CD800122156;
 			productRefGroup = 8F32EB2C14B56CD800122156 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = DA4C98DD14C377130068793E /* Products */;
+					ProjectRef = DA4C98DC14C377130068793E /* CorePlot.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				8F32EB2A14B56CD800122156 /* Pressure */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		DA4C98E614C377130068793E /* CorePlot.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = CorePlot.framework;
+			remoteRef = DA4C98E514C377130068793E /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		DA4C98E814C377130068793E /* UnitTests.octest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = UnitTests.octest;
+			remoteRef = DA4C98E714C377130068793E /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		8F32EB2814B56CD800122156 /* Resources */ = {
@@ -465,6 +540,14 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		DA4C98EB14C3771E0068793E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = CorePlot;
+			targetProxy = DA4C98EA14C3771E0068793E /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		8F32EB3914B56CD800122156 /* MainMenu.xib */ = {
@@ -626,6 +709,10 @@
 		8F32EB4414B56CD800122156 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../3rdparty/CorePlot_0.9/Binaries/MacOS\"",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Pressure/Pressure-Prefix.pch";
 				INFOPLIST_FILE = "Pressure/Pressure-Info.plist";
@@ -641,6 +728,10 @@
 		8F32EB4514B56CD800122156 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../3rdparty/CorePlot_0.9/Binaries/MacOS\"",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Pressure/Pressure-Prefix.pch";
 				INFOPLIST_FILE = "Pressure/Pressure-Info.plist";

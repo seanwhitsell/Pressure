@@ -26,7 +26,7 @@
 @interface GraphViewController : NSViewController
 {
     OmronDataSource *mDataSource;
-}
+    NSArray *mDataSourceSortedReadings;}
 
 @property (nonatomic, readwrite, retain) OmronDataSource *dataSource;
 
