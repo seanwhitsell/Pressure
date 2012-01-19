@@ -20,14 +20,22 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import <CorePlot/CorePlot.h>
 
 @class OmronDataSource;
 
-@interface GraphViewController : NSViewController
+@interface GraphViewController : NSViewController <CPTPlotDataSource>
 {
     OmronDataSource *mDataSource;
-    NSArray *mDataSourceSortedReadings;}
+    NSArray *mDataSourceSortedReadings;
+    CPTXYGraph *mGraph;
+    CPTGraphHostingView *mHostView;
+    NSArray *mPlotData;
+    CPTFill *areaFill;
+    CPTLineStyle *barLineStyle;
+}
 
 @property (nonatomic, readwrite, retain) OmronDataSource *dataSource;
+@property (nonatomic, readwrite, retain) IBOutlet CPTGraphHostingView *hostView;
 
 @end

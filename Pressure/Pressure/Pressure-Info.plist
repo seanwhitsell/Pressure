@@ -26,5 +26,7 @@
 	<string>MainMenu</string>
 	<key>NSPrincipalClass</key>
 	<string>NSApplication</string>
+	<key>ATSApplicationFontsPath</key>
+	<string>LCDM2N__.TTF</string>
 </dict>
 </plist>
