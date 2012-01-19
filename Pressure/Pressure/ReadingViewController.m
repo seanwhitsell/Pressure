@@ -153,9 +153,9 @@
 	}
 	
 	// Set up the new cell:
-	[[cell systolicPressureLabel] setStringValue:record.systolicPressure];
-	[[cell diastolicPressureLabel] setStringValue:record.diastolicPressure];
-    [[cell heartRateLabel] setStringValue:record.heartRate];
+	[[cell systolicPressureLabel] setStringValue:[NSString stringWithFormat:@"%i",record.systolicPressure]];
+	[[cell diastolicPressureLabel] setStringValue:[NSString stringWithFormat:@"%i",record.diastolicPressure]];
+    [[cell heartRateLabel] setStringValue:[NSString stringWithFormat:@"%i",record.heartRate]];
     NSString *displayString = [NSDate stringForDisplayFromDate:record.readingDate
                                prefixed:NO
                                alwaysDisplayTime:YES];

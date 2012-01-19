@@ -183,11 +183,13 @@ NSString *deviceInformationEntityName = @"DeviceInformation";
         for (NSManagedObject *object in [context executeFetchRequest:fetchRequest error:&error])
         {
             OmronDataRecord *dataRecord = [[OmronDataRecord alloc] init];
-            dataRecord.systolicPressure = [object valueForKey:systolicPressureKey];
-            dataRecord.diastolicPressure = [object valueForKey:diastolicPressureKey];
-            dataRecord.heartRate = [object valueForKey:heartRateKey];
+
+            dataRecord.systolicPressure = [(NSNumber*)[object valueForKey:systolicPressureKey] longValue];
+            dataRecord.diastolicPressure = [(NSNumber*)[object valueForKey:diastolicPressureKey] longValue];
+            dataRecord.heartRate = [(NSNumber*)[object valueForKey:heartRateKey] longValue];
             dataRecord.readingDate = [object valueForKey:readingDateKey];
-            
+            dataRecord.dataBank = [(NSNumber*)[object valueForKey:dataBankKey] longValue];
+
             [realData addObject:dataRecord];
             [self.readingsListDates addObject:dataRecord.readingDate];
         }
@@ -223,9 +225,9 @@ NSString *deviceInformationEntityName = @"DeviceInformation";
             int s = 100 + (arc4random() % 100);
             int d = 50 + (arc4random() % 50);
             int hr = 50 + (arc4random() % 50);
-            dataRecord.systolicPressure = [NSString stringWithFormat:@"%i", s];
-            dataRecord.diastolicPressure = [NSString stringWithFormat:@"%i", d];
-            dataRecord.heartRate = [NSString stringWithFormat:@"%i", hr];
+            dataRecord.systolicPressure = s;
+            dataRecord.diastolicPressure = d;
+            dataRecord.heartRate = hr;
             [sampleData addObject:dataRecord];
         }
         
@@ -241,11 +243,13 @@ NSString *deviceInformationEntityName = @"DeviceInformation";
         for (NSManagedObject *object in [context executeFetchRequest:fetchRequest error:&error])
         {
             OmronDataRecord *dataRecord = [[OmronDataRecord alloc] init];
-            dataRecord.systolicPressure = [object valueForKey:systolicPressureKey];
-            dataRecord.diastolicPressure = [object valueForKey:diastolicPressureKey];
-            dataRecord.heartRate = [object valueForKey:heartRateKey];
+
+            dataRecord.systolicPressure = [(NSNumber*)[object valueForKey:systolicPressureKey] longValue];
+            dataRecord.diastolicPressure = [(NSNumber*)[object valueForKey:diastolicPressureKey] longValue];
+            dataRecord.heartRate = [(NSNumber*)[object valueForKey:heartRateKey] longValue];
             dataRecord.readingDate = [object valueForKey:readingDateKey];
-            
+            dataRecord.dataBank = [(NSNumber*)[object valueForKey:dataBankKey] longValue];
+
             [realData addObject:dataRecord];
         }
         

@@ -25,18 +25,18 @@
 @interface OmronDataRecord : NSObject
 {
     NSDate *mReadingDate;
-    NSString *mSystolicPressure;
-    NSString *mDiastolicPressure;
-    NSString *mHeartRate;
-    int mDataBank;
+    NSInteger mSystolicPressure;
+    NSInteger mDiastolicPressure;
+    NSInteger mHeartRate;
+    NSInteger mDataBank;
     BOOL mExcludeFromGraph;
 }
 
 @property (nonatomic, readwrite, retain) NSDate *readingDate;
-@property (nonatomic, readwrite, retain) NSString *systolicPressure;
-@property (nonatomic, readwrite, retain) NSString *diastolicPressure;
-@property (nonatomic, readwrite, retain) NSString *heartRate;
-@property (nonatomic, readwrite, assign) int dataBank;
+@property (nonatomic, readwrite, assign) NSInteger systolicPressure;
+@property (nonatomic, readwrite, assign) NSInteger diastolicPressure;
+@property (nonatomic, readwrite, assign) NSInteger heartRate;
+@property (nonatomic, readwrite, assign) NSInteger dataBank;
 @property (nonatomic, readwrite, assign) BOOL excludeFromGraph;
 
 @end

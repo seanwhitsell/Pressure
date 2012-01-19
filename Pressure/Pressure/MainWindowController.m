@@ -93,8 +93,7 @@
 	[[windowCloseButton superview] addSubview:self.syncButton];
 	
 	
-	GraphViewController *vc1 = [[[GraphViewController alloc] init] autorelease];
-    [vc1 setDataSource:self.dataSource];
+	GraphViewController *vc1 = [[[GraphViewController alloc] initWithDatasource:self.dataSource] autorelease];
     
 	vc1.tabBarItem.image = [NSImage imageNamed:@"1325750140_Home"];
 	vc1.tabBarItem.title = @"Graphs";
@@ -108,7 +107,7 @@
 	vc2.tabBarItem.tag = 2;
 
 	self.tabBarController.viewControllers = [NSArray arrayWithObjects:vc1, vc2, nil];
-	self.tabBarController.selectedViewController = vc2;
+	self.tabBarController.selectedViewController = vc1;
     
     [self.dataSource sync];
 }

@@ -26,16 +26,22 @@
 
 @interface GraphViewController : NSViewController <CPTPlotDataSource>
 {
+@private
     OmronDataSource *mDataSource;
     NSArray *mDataSourceSortedReadings;
+
+    NSArray *mPlotData;
     CPTXYGraph *mGraph;
     CPTGraphHostingView *mHostView;
-    NSArray *mPlotData;
-    CPTFill *areaFill;
-    CPTLineStyle *barLineStyle;
+    CPTFill *mAreaFill;
+    CPTLineStyle *mBarLineStyle;
+    CPTScatterPlot *mDataSourceLinePlot;
+    NSDate *mReferenceDate;
 }
 
-@property (nonatomic, readwrite, retain) OmronDataSource *dataSource;
+@property (nonatomic, readonly, retain) OmronDataSource *dataSource;
 @property (nonatomic, readwrite, retain) IBOutlet CPTGraphHostingView *hostView;
+
+- (id)initWithDatasource:(OmronDataSource*)aDataSource;
 
 @end
