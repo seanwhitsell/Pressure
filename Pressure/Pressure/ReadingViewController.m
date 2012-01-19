@@ -83,7 +83,7 @@
 - (void)viewDidAppear
 {
 	NSLog(@"<%p> %@", self, [NSString stringWithUTF8String:__func__]);
-    [self.listView setCellSpacing:4.0f];
+    [self.listView setCellSpacing:1.0f];
 	[self.listView setAllowsEmptySelection:YES];
 	[self.listView setAllowsMultipleSelection:YES];
 	[self.listView registerForDraggedTypes:[NSArray arrayWithObjects: NSStringPboardType, nil]];

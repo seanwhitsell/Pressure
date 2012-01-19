@@ -68,16 +68,33 @@
 
 - (void)drawRect:(NSRect)dirtyRect
 {
-	if([self isSelected]) {
-		[[NSColor selectedControlColor] set];
+	NSColor *backgroundColor = nil;
+	NSColor *textColor = nil;
+	if (self.isSelected)
+	{
+		if ([[self window] isKeyWindow])
+		{
+			backgroundColor = [NSColor alternateSelectedControlColor];
+			textColor = [NSColor highlightColor];
+		}
+		else
+		{
+			backgroundColor = [NSColor secondarySelectedControlColor];
+			textColor = [NSColor controlTextColor];
+		}
 	}
-	else {
-		[[NSColor whiteColor] set];
-    }
-    
-    //Draw the border and background
-	NSBezierPath *roundedRect = [NSBezierPath bezierPathWithRoundedRect:[self bounds] xRadius:6.0 yRadius:6.0];
-	[roundedRect fill];
+	else
+	{
+		NSArray *colors = [NSColor controlAlternatingRowBackgroundColors];
+		NSUInteger index = self.row % [colors count];
+		backgroundColor = [colors objectAtIndex:index];
+		textColor = [NSColor controlTextColor];
+	}
+	
+	[backgroundColor set];
+	NSRectFill([self bounds]);
+	
+	// FIXME: Apply textColor to NSTextFields?
 }
 
 
