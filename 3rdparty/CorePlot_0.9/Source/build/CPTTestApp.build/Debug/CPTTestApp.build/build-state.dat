@@ -1,464 +1,0 @@
-TCPTTestApp
-v4
-r1
-cCheck dependencies
-cProcessInfoPlistFile /Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp/../../build/Debug/CPTTestApp.app/Contents/Info.plist Info.plist
-cCompileXIB /Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp/Resources/CPTTestApp.xib
-cCopyStringsFile /Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp/../../build/Debug/CPTTestApp.app/Contents/Resources/English.lproj/InfoPlist.strings English.lproj/InfoPlist.strings
-cCpResource CorePlotIcon.icns ../../build/Debug/CPTTestApp.app/Contents/Resources/CorePlotIcon.icns
-cCpResource Resources/BlueTexture.png ../../build/Debug/CPTTestApp.app/Contents/Resources/BlueTexture.png
-cCompileXIB /Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp/Resources/PlotSymbolDemo.xib
-cCompileXIB /Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp/Resources/AxisDemo.xib
-cCompileXIB /Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp/Resources/SelectionDemo.xib
-cPBXCp /Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/build/Debug/CorePlot.framework ../../build/Debug/CPTTestApp.app/Contents/Frameworks/CorePlot.framework
-cProcessPCH /var/folders/xt/g8rbjk710lzfv_k9sr_p_51c0000gn/C/com.apple.Xcode.501/SharedPrecompiledHeaders/CPTTestApp_Prefix-aereofqitdbxrccndxyujcmjrgob/CPTTestApp_Prefix.pch.gch CPTTestApp_Prefix.pch normal x86_64 objective-c com.apple.compilers.llvmgcc42
-cCompileC ../../build/CPTTestApp.build/Debug/CPTTestApp.build/Objects-normal/x86_64/CPTPlotSymbolTestController.o /Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp/Source/CPTPlotSymbolTestController.m normal x86_64 objective-c com.apple.compilers.llvmgcc42
-cCompileC ../../build/CPTTestApp.build/Debug/CPTTestApp.build/Objects-normal/x86_64/Controller.o /Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp/Source/Controller.m normal x86_64 objective-c com.apple.compilers.llvmgcc42
-cCompileC ../../build/CPTTestApp.build/Debug/CPTTestApp.build/Objects-normal/x86_64/main.o /Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp/Source/main.m normal x86_64 objective-c com.apple.compilers.llvmgcc42
-cCompileC ../../build/CPTTestApp.build/Debug/CPTTestApp.build/Objects-normal/x86_64/RotationView.o /Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp/Source/RotationView.m normal x86_64 objective-c com.apple.compilers.llvmgcc42
-cCompileC ../../build/CPTTestApp.build/Debug/CPTTestApp.build/Objects-normal/x86_64/AxisDemoController.o /Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp/Source/AxisDemoController.m normal x86_64 objective-c com.apple.compilers.llvmgcc42
-cCompileC ../../build/CPTTestApp.build/Debug/CPTTestApp.build/Objects-normal/x86_64/SelectionDemoController.o /Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp/Source/SelectionDemoController.m normal x86_64 objective-c com.apple.compilers.llvmgcc42
-cLd /Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp/../../build/Debug/CPTTestApp.app/Contents/MacOS/CPTTestApp normal x86_64
-cTouch /Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp/../../build/Debug/CPTTestApp.app
-
-N/System/Library/Frameworks/Cocoa.framework/Cocoa
-c000000004EA88BF20000000000006560
-t1319668722
-s25952
-
-N/System/Library/Frameworks/Cocoa.framework/Headers/Cocoa.h
-c0000000040C4AA6800000000000001E5
-t1086630504
-s485
-
-N/System/Library/Frameworks/QuartzCore.framework/Headers/QuartzCore.h
-c000000004E2F07110000000000000108
-t1311704849
-s264
-
-N/Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/build/Debug/CorePlot.framework
-c000000004F13405900000000000000EE
-t1326661721
-s238
-
-N/Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/build/Debug/CorePlot.framework/CorePlot
-c000000004F134059000000000012EA14
-t1326661721
-s1239572
-
-N/Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp/../../../../../../System/Library/Frameworks/QuartzCore.framework/QuartzCore
-c00000000000000000000000000000000
-t2
-s0
-
-N/Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp/../../build/CPTTestApp.build/Debug/CPTTestApp.build/Objects-normal/x86_64/AxisDemoController.o
-t1326661724
-s38480
-
-N/Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp/../../build/CPTTestApp.build/Debug/CPTTestApp.build/Objects-normal/x86_64/CPTPlotSymbolTestController.o
-t1326661724
-s44920
-
-N/Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp/../../build/CPTTestApp.build/Debug/CPTTestApp.build/Objects-normal/x86_64/CPTTestApp.LinkFileList
-c000000004F1340590000000000000448
-t1326661721
-s1096
-
-N/Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp/../../build/CPTTestApp.build/Debug/CPTTestApp.build/Objects-normal/x86_64/Controller.o
-t1326661724
-s144136
-
-N/Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp/../../build/CPTTestApp.build/Debug/CPTTestApp.build/Objects-normal/x86_64/RotationView.o
-t1326661724
-s21488
-
-N/Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp/../../build/CPTTestApp.build/Debug/CPTTestApp.build/Objects-normal/x86_64/SelectionDemoController.o
-t1326661724
-s69464
-
-N/Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp/../../build/CPTTestApp.build/Debug/CPTTestApp.build/Objects-normal/x86_64/main.o
-t1326661724
-s2856
-
-N/Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp/../../build/Debug/CPTTestApp.app
-t1326661724
-s102
-
-N/Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp/../../build/Debug/CPTTestApp.app/Contents/Frameworks/CorePlot.framework
-t1326661721
-s238
-
-N/Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp/../../build/Debug/CPTTestApp.app/Contents/Info.plist
-t1326661721
-s1221
-
-N/Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp/../../build/Debug/CPTTestApp.app/Contents/MacOS/CPTTestApp
-t1326661724
-s109240
-
-N/Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp/../../build/Debug/CPTTestApp.app/Contents/PkgInfo
-t1326661721
-s8
-
-N/Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp/../../build/Debug/CPTTestApp.app/Contents/Resources/AxisDemo.nib
-t1326661721
-s2064
-
-N/Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp/../../build/Debug/CPTTestApp.app/Contents/Resources/BlueTexture.png
-t1326661721
-s368382
-
-N/Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp/../../build/Debug/CPTTestApp.app/Contents/Resources/CPTTestApp.nib
-t1326661721
-s35016
-
-N/Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp/../../build/Debug/CPTTestApp.app/Contents/Resources/CorePlotIcon.icns
-t1326661721
-s298455
-
-N/Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp/../../build/Debug/CPTTestApp.app/Contents/Resources/English.lproj/InfoPlist.strings
-t1326661721
-s92
-
-N/Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp/../../build/Debug/CPTTestApp.app/Contents/Resources/PlotSymbolDemo.nib
-t1326661721
-s2062
-
-N/Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp/../../build/Debug/CPTTestApp.app/Contents/Resources/SelectionDemo.nib
-t1326661721
-s2082
-
-N/Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp/CPTTestApp_Prefix.pch
-c000000004F0CF9080000000000000097
-t1326250248
-s151
-i<Cocoa/Cocoa.h>
-
-N/Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp/CorePlotIcon.icns
-c000000004F0CF9080000000000048DD7
-t1326250248
-s298455
-
-N/Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp/English.lproj/InfoPlist.strings
-c000000004F0CF908000000000000005C
-t1326250248
-s92
-
-N/Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp/Resources/AxisDemo.xib
-c000000004F0CF9080000000000002310
-t1326250248
-s8976
-
-N/Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp/Resources/BlueTexture.png
-c000000004F0CF9080000000000059EFE
-t1326250248
-s368382
-
-N/Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp/Resources/CPTTestApp.xib
-c000000004F0CF908000000000002B1E3
-t1326250248
-s176611
-
-N/Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp/Resources/PlotSymbolDemo.xib
-c000000004F0CF9080000000000002286
-t1326250248
-s8838
-
-N/Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp/Resources/SelectionDemo.xib
-c000000004F0CF9080000000000003FBA
-t1326250248
-s16314
-
-N/Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp/Source/AxisDemoController.h
-c000000004F0CF9080000000000000097
-t1326250248
-s151
-i<Cocoa/Cocoa.h>
-i<CorePlot/CorePlot.h>
-
-N/Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp/Source/AxisDemoController.m
-c000000004F0CF9080000000000000F91
-t1326250248
-s3985
-i"AxisDemoController.h"
-
-N/Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp/Source/CPTPlotSymbolTestController.h
-c000000004F0CF90800000000000000CF
-t1326250248
-s207
-i<Cocoa/Cocoa.h>
-i<CorePlot/CorePlot.h>
-
-N/Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp/Source/CPTPlotSymbolTestController.m
-c000000004F0CF9080000000000000F78
-t1326250248
-s3960
-i"CPTPlotSymbolTestController.h"
-
-N/Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp/Source/Controller.h
-c000000004F0CF9080000000000000510
-t1326250248
-s1296
-i<Cocoa/Cocoa.h>
-i<CorePlot/CorePlot.h>
-i"RotationView.h"
-
-N/Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp/Source/Controller.m
-c000000004F0CF9080000000000005E8C
-t1326250248
-s24204
-i"Controller.h"
-i<CorePlot/CorePlot.h>
-
-N/Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp/Source/RotationView.h
-c000000004F0CF9080000000000000223
-t1326250248
-s547
-i<Cocoa/Cocoa.h>
-i<QuartzCore/QuartzCore.h>
-
-N/Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp/Source/RotationView.m
-c000000004F0CF90800000000000007BF
-t1326250248
-s1983
-i"RotationView.h"
-
-N/Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp/Source/SelectionDemoController.h
-c000000004F0CF9080000000000000119
-t1326250248
-s281
-i<Cocoa/Cocoa.h>
-i<CorePlot/CorePlot.h>
-
-N/Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp/Source/SelectionDemoController.m
-c000000004F0CF90800000000000022C1
-t1326250248
-s8897
-i"SelectionDemoController.h"
-
-N/Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp/Source/main.m
-c000000004F0CF9080000000000000104
-t1326250248
-s260
-i<Cocoa/Cocoa.h>
-
-N/var/folders/xt/g8rbjk710lzfv_k9sr_p_51c0000gn/C/com.apple.Xcode.501/SharedPrecompiledHeaders/CPTTestApp_Prefix-aereofqitdbxrccndxyujcmjrgob/CPTTestApp_Prefix.pch.gch
-t1326661723
-s41328656
-
-NInfo.plist
-c000000004F0CF9080000000000000365
-t1326250248
-s869
-
-CBuild AST from /Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp/Source/AxisDemoController.m
-r0
-
-CBuild AST from /Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp/Source/CPTPlotSymbolTestController.m
-r0
-
-CBuild AST from /Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp/Source/Controller.m
-r0
-
-CBuild AST from /Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp/Source/RotationView.m
-r0
-
-CBuild AST from /Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp/Source/SelectionDemoController.m
-r0
-
-CBuild AST from /Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp/Source/main.m
-r0
-
-CCheck dependencies
-r0
-lSLF04#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection18"Check dependencies13272b3986c3b441^b2492e3986c3b441^---0#1#0#--18"Check dependencies36"2FBB6C68-1D5B-4AE9-913B-82DD98891FF4-
-
-CCompileC ../../build/CPTTestApp.build/Debug/CPTTestApp.build/Objects-normal/x86_64/AxisDemoController.o /Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp/Source/AxisDemoController.m normal x86_64 objective-c com.apple.compilers.llvmgcc42
-s348354524.013831
-e348354524.309985
-r1
-xCompileC
-x../../build/CPTTestApp.build/Debug/CPTTestApp.build/Objects-normal/x86_64/AxisDemoController.o
-x/Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp/Source/AxisDemoController.m
-xnormal
-xx86_64
-xobjective-c
-xcom.apple.compilers.llvmgcc42
-lSLF04#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection125"Compile /Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp/Source/AxisDemoController.mfab303dc77c3b441^705b4fdc77c3b441^---0#0#0#-19%DVTDocumentLocation2@133"file://localhost/Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp/Source/AxisDemoController.m0000000000000000^2315"CompileC ../../build/CPTTestApp.build/Debug/CPTTestApp.build/Objects-normal/x86_64/AxisDemoController.o Source/AxisDemoController.m normal x86_64 objective-c com.apple.compilers.llvmgcc42    cd /Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp    setenv LANG en_US.US-ASCII    /Developer/usr/bin/llvm-gcc-4.2 -x objective-c -arch x86_64 -fmessage-length=0 -pipe -std=c99 -Wno-trigraphs -fpascal-strings -O0 -Werror -Wreturn-type -Wunused-variable -fasm-blocks -mmacosx-version-min=10.5 -gdwarf-2 -fvisibility=hidden -iquote /Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp/../../build/CPTTestApp.build/Debug/CPTTestApp.build/CPTTestApp-generated-files.hmap -I/Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp/../../build/CPTTestApp.build/Debug/CPTTestApp.build/CPTTestApp-own-target-headers.hmap -I/Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp/../../build/CPTTestApp.build/Debug/CPTTestApp.build/CPTTestApp-all-target-headers.hmap -iquote /Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp/../../build/CPTTestApp.build/Debug/CPTTestApp.build/CPTTestApp-project-headers.hmap -I/Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp/../../build/Debug/include -I/Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp/../../build/CPTTestApp.build/Debug/CPTTestApp.build/DerivedSources/x86_64 -I/Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp/../../build/CPTTestApp.build/Debug/CPTTestApp.build/DerivedSources -F/Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp/../../build/Debug -include /var/folders/xt/g8rbjk710lzfv_k9sr_p_51c0000gn/C/com.apple.Xcode.501/SharedPrecompiledHeaders/CPTTestApp_Prefix-aereofqitdbxrccndxyujcmjrgob/CPTTestApp_Prefix.pch -c /Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp/Source/AxisDemoController.m -o /Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp/../../build/CPTTestApp.build/Debug/CPTTestApp.build/Objects-normal/x86_64/AxisDemoController.o36"5C438831-1BD2-4EE8-B6FE-A8B8620C0432-
-
-CCompileC ../../build/CPTTestApp.build/Debug/CPTTestApp.build/Objects-normal/x86_64/CPTPlotSymbolTestController.o /Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp/Source/CPTPlotSymbolTestController.m normal x86_64 objective-c com.apple.compilers.llvmgcc42
-s348354523.781892
-e348354524.169185
-r1
-xCompileC
-x../../build/CPTTestApp.build/Debug/CPTTestApp.build/Objects-normal/x86_64/CPTPlotSymbolTestController.o
-x/Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp/Source/CPTPlotSymbolTestController.m
-xnormal
-xx86_64
-xobjective-c
-xcom.apple.compilers.llvmgcc42
-lSLF04#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection134"Compile /Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp/Source/CPTPlotSymbolTestController.mfb5dc8db77c3b441^404f2bdc77c3b441^---0#0#0#-19%DVTDocumentLocation2@142"file://localhost/Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp/Source/CPTPlotSymbolTestController.m0000000000000000^2351"CompileC ../../build/CPTTestApp.build/Debug/CPTTestApp.build/Objects-normal/x86_64/CPTPlotSymbolTestController.o Source/CPTPlotSymbolTestController.m normal x86_64 objective-c com.apple.compilers.llvmgcc42    cd /Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp    setenv LANG en_US.US-ASCII    /Developer/usr/bin/llvm-gcc-4.2 -x objective-c -arch x86_64 -fmessage-length=0 -pipe -std=c99 -Wno-trigraphs -fpascal-strings -O0 -Werror -Wreturn-type -Wunused-variable -fasm-blocks -mmacosx-version-min=10.5 -gdwarf-2 -fvisibility=hidden -iquote /Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp/../../build/CPTTestApp.build/Debug/CPTTestApp.build/CPTTestApp-generated-files.hmap -I/Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp/../../build/CPTTestApp.build/Debug/CPTTestApp.build/CPTTestApp-own-target-headers.hmap -I/Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp/../../build/CPTTestApp.build/Debug/CPTTestApp.build/CPTTestApp-all-target-headers.hmap -iquote /Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp/../../build/CPTTestApp.build/Debug/CPTTestApp.build/CPTTestApp-project-headers.hmap -I/Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp/../../build/Debug/include -I/Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp/../../build/CPTTestApp.build/Debug/CPTTestApp.build/DerivedSources/x86_64 -I/Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp/../../build/CPTTestApp.build/Debug/CPTTestApp.build/DerivedSources -F/Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp/../../build/Debug -include /var/folders/xt/g8rbjk710lzfv_k9sr_p_51c0000gn/C/com.apple.Xcode.501/SharedPrecompiledHeaders/CPTTestApp_Prefix-aereofqitdbxrccndxyujcmjrgob/CPTTestApp_Prefix.pch -c /Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp/Source/CPTPlotSymbolTestController.m -o /Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp/../../build/CPTTestApp.build/Debug/CPTTestApp.build/Objects-normal/x86_64/CPTPlotSymbolTestController.o36"502D9B50-E4FA-498F-8CE4-EEA78AFC304D-
-
-CCompileC ../../build/CPTTestApp.build/Debug/CPTTestApp.build/Objects-normal/x86_64/Controller.o /Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp/Source/Controller.m normal x86_64 objective-c com.apple.compilers.llvmgcc42
-s348354523.781876
-e348354524.341564
-r1
-xCompileC
-x../../build/CPTTestApp.build/Debug/CPTTestApp.build/Objects-normal/x86_64/Controller.o
-x/Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp/Source/Controller.m
-xnormal
-xx86_64
-xobjective-c
-xcom.apple.compilers.llvmgcc42
-lSLF04#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection117"Compile /Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp/Source/Controller.m0055c8db77c3b441^fc7157dc77c3b441^---0#0#0#-19%DVTDocumentLocation2@125"file://localhost/Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp/Source/Controller.m0000000000000000^2283"CompileC ../../build/CPTTestApp.build/Debug/CPTTestApp.build/Objects-normal/x86_64/Controller.o Source/Controller.m normal x86_64 objective-c com.apple.compilers.llvmgcc42    cd /Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp    setenv LANG en_US.US-ASCII    /Developer/usr/bin/llvm-gcc-4.2 -x objective-c -arch x86_64 -fmessage-length=0 -pipe -std=c99 -Wno-trigraphs -fpascal-strings -O0 -Werror -Wreturn-type -Wunused-variable -fasm-blocks -mmacosx-version-min=10.5 -gdwarf-2 -fvisibility=hidden -iquote /Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp/../../build/CPTTestApp.build/Debug/CPTTestApp.build/CPTTestApp-generated-files.hmap -I/Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp/../../build/CPTTestApp.build/Debug/CPTTestApp.build/CPTTestApp-own-target-headers.hmap -I/Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp/../../build/CPTTestApp.build/Debug/CPTTestApp.build/CPTTestApp-all-target-headers.hmap -iquote /Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp/../../build/CPTTestApp.build/Debug/CPTTestApp.build/CPTTestApp-project-headers.hmap -I/Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp/../../build/Debug/include -I/Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp/../../build/CPTTestApp.build/Debug/CPTTestApp.build/DerivedSources/x86_64 -I/Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp/../../build/CPTTestApp.build/Debug/CPTTestApp.build/DerivedSources -F/Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp/../../build/Debug -include /var/folders/xt/g8rbjk710lzfv_k9sr_p_51c0000gn/C/com.apple.Xcode.501/SharedPrecompiledHeaders/CPTTestApp_Prefix-aereofqitdbxrccndxyujcmjrgob/CPTTestApp_Prefix.pch -c /Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp/Source/Controller.m -o /Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp/../../build/CPTTestApp.build/Debug/CPTTestApp.build/Objects-normal/x86_64/Controller.o36"82C94AF1-72F9-473D-B574-13C8909FCF46-
-
-CCompileC ../../build/CPTTestApp.build/Debug/CPTTestApp.build/Objects-normal/x86_64/RotationView.o /Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp/Source/RotationView.m normal x86_64 objective-c com.apple.compilers.llvmgcc42
-s348354523.781889
-e348354524.131697
-r1
-xCompileC
-x../../build/CPTTestApp.build/Debug/CPTTestApp.build/Objects-normal/x86_64/RotationView.o
-x/Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp/Source/RotationView.m
-xnormal
-xx86_64
-xobjective-c
-xcom.apple.compilers.llvmgcc42
-lSLF04#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection119"Compile /Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp/Source/RotationView.m1d56c8db77c3b441^39b721dc77c3b441^---0#0#0#-19%DVTDocumentLocation2@127"file://localhost/Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp/Source/RotationView.m0000000000000000^2291"CompileC ../../build/CPTTestApp.build/Debug/CPTTestApp.build/Objects-normal/x86_64/RotationView.o Source/RotationView.m normal x86_64 objective-c com.apple.compilers.llvmgcc42    cd /Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp    setenv LANG en_US.US-ASCII    /Developer/usr/bin/llvm-gcc-4.2 -x objective-c -arch x86_64 -fmessage-length=0 -pipe -std=c99 -Wno-trigraphs -fpascal-strings -O0 -Werror -Wreturn-type -Wunused-variable -fasm-blocks -mmacosx-version-min=10.5 -gdwarf-2 -fvisibility=hidden -iquote /Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp/../../build/CPTTestApp.build/Debug/CPTTestApp.build/CPTTestApp-generated-files.hmap -I/Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp/../../build/CPTTestApp.build/Debug/CPTTestApp.build/CPTTestApp-own-target-headers.hmap -I/Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp/../../build/CPTTestApp.build/Debug/CPTTestApp.build/CPTTestApp-all-target-headers.hmap -iquote /Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp/../../build/CPTTestApp.build/Debug/CPTTestApp.build/CPTTestApp-project-headers.hmap -I/Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp/../../build/Debug/include -I/Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp/../../build/CPTTestApp.build/Debug/CPTTestApp.build/DerivedSources/x86_64 -I/Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp/../../build/CPTTestApp.build/Debug/CPTTestApp.build/DerivedSources -F/Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp/../../build/Debug -include /var/folders/xt/g8rbjk710lzfv_k9sr_p_51c0000gn/C/com.apple.Xcode.501/SharedPrecompiledHeaders/CPTTestApp_Prefix-aereofqitdbxrccndxyujcmjrgob/CPTTestApp_Prefix.pch -c /Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp/Source/RotationView.m -o /Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp/../../build/CPTTestApp.build/Debug/CPTTestApp.build/Objects-normal/x86_64/RotationView.o36"DE5D97CD-FC75-4D3D-A42F-A7B75C680D2D-
-
-CCompileC ../../build/CPTTestApp.build/Debug/CPTTestApp.build/Objects-normal/x86_64/SelectionDemoController.o /Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp/Source/SelectionDemoController.m normal x86_64 objective-c com.apple.compilers.llvmgcc42
-s348354524.133187
-e348354524.433533
-r1
-xCompileC
-x../../build/CPTTestApp.build/Debug/CPTTestApp.build/Objects-normal/x86_64/SelectionDemoController.o
-x/Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp/Source/SelectionDemoController.m
-xnormal
-xx86_64
-xobjective-c
-xcom.apple.compilers.llvmgcc42
-lSLF04#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection130"Compile /Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp/Source/SelectionDemoController.mf64122dc77c3b441^26fc6edc77c3b441^---0#0#0#-19%DVTDocumentLocation2@138"file://localhost/Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp/Source/SelectionDemoController.m0000000000000000^2335"CompileC ../../build/CPTTestApp.build/Debug/CPTTestApp.build/Objects-normal/x86_64/SelectionDemoController.o Source/SelectionDemoController.m normal x86_64 objective-c com.apple.compilers.llvmgcc42    cd /Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp    setenv LANG en_US.US-ASCII    /Developer/usr/bin/llvm-gcc-4.2 -x objective-c -arch x86_64 -fmessage-length=0 -pipe -std=c99 -Wno-trigraphs -fpascal-strings -O0 -Werror -Wreturn-type -Wunused-variable -fasm-blocks -mmacosx-version-min=10.5 -gdwarf-2 -fvisibility=hidden -iquote /Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp/../../build/CPTTestApp.build/Debug/CPTTestApp.build/CPTTestApp-generated-files.hmap -I/Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp/../../build/CPTTestApp.build/Debug/CPTTestApp.build/CPTTestApp-own-target-headers.hmap -I/Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp/../../build/CPTTestApp.build/Debug/CPTTestApp.build/CPTTestApp-all-target-headers.hmap -iquote /Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp/../../build/CPTTestApp.build/Debug/CPTTestApp.build/CPTTestApp-project-headers.hmap -I/Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp/../../build/Debug/include -I/Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp/../../build/CPTTestApp.build/Debug/CPTTestApp.build/DerivedSources/x86_64 -I/Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp/../../build/CPTTestApp.build/Debug/CPTTestApp.build/DerivedSources -F/Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp/../../build/Debug -include /var/folders/xt/g8rbjk710lzfv_k9sr_p_51c0000gn/C/com.apple.Xcode.501/SharedPrecompiledHeaders/CPTTestApp_Prefix-aereofqitdbxrccndxyujcmjrgob/CPTTestApp_Prefix.pch -c /Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp/Source/SelectionDemoController.m -o /Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp/../../build/CPTTestApp.build/Debug/CPTTestApp.build/Objects-normal/x86_64/SelectionDemoController.o36"8350DDC9-F0F4-4045-801D-227002D9D51C-
-
-CCompileC ../../build/CPTTestApp.build/Debug/CPTTestApp.build/Objects-normal/x86_64/main.o /Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp/Source/main.m normal x86_64 objective-c com.apple.compilers.llvmgcc42
-s348354523.781841
-e348354524.012367
-r1
-xCompileC
-x../../build/CPTTestApp.build/Debug/CPTTestApp.build/Objects-normal/x86_64/main.o
-x/Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp/Source/main.m
-xnormal
-xx86_64
-xobjective-c
-xcom.apple.compilers.llvmgcc42
-lSLF04#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection111"Compile /Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp/Source/main.m4c53c8db77c3b441^cf4d03dc77c3b441^---0#0#0#-19%DVTDocumentLocation2@119"file://localhost/Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp/Source/main.m0000000000000000^2259"CompileC ../../build/CPTTestApp.build/Debug/CPTTestApp.build/Objects-normal/x86_64/main.o Source/main.m normal x86_64 objective-c com.apple.compilers.llvmgcc42    cd /Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp    setenv LANG en_US.US-ASCII    /Developer/usr/bin/llvm-gcc-4.2 -x objective-c -arch x86_64 -fmessage-length=0 -pipe -std=c99 -Wno-trigraphs -fpascal-strings -O0 -Werror -Wreturn-type -Wunused-variable -fasm-blocks -mmacosx-version-min=10.5 -gdwarf-2 -fvisibility=hidden -iquote /Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp/../../build/CPTTestApp.build/Debug/CPTTestApp.build/CPTTestApp-generated-files.hmap -I/Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp/../../build/CPTTestApp.build/Debug/CPTTestApp.build/CPTTestApp-own-target-headers.hmap -I/Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp/../../build/CPTTestApp.build/Debug/CPTTestApp.build/CPTTestApp-all-target-headers.hmap -iquote /Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp/../../build/CPTTestApp.build/Debug/CPTTestApp.build/CPTTestApp-project-headers.hmap -I/Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp/../../build/Debug/include -I/Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp/../../build/CPTTestApp.build/Debug/CPTTestApp.build/DerivedSources/x86_64 -I/Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp/../../build/CPTTestApp.build/Debug/CPTTestApp.build/DerivedSources -F/Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp/../../build/Debug -include /var/folders/xt/g8rbjk710lzfv_k9sr_p_51c0000gn/C/com.apple.Xcode.501/SharedPrecompiledHeaders/CPTTestApp_Prefix-aereofqitdbxrccndxyujcmjrgob/CPTTestApp_Prefix.pch -c /Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp/Source/main.m -o /Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp/../../build/CPTTestApp.build/Debug/CPTTestApp.build/Objects-normal/x86_64/main.o36"3EAE796A-3262-41B7-86D1-F4CB2A278C0E-
-
-CCompileXIB /Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp/Resources/AxisDemo.xib
-s348354521.299014
-e348354521.854368
-r1
-xCompileXIB
-x/Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp/Resources/AxisDemo.xib
-lSLF04#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection122"Compiling /Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp/Resources/AxisDemo.xibed9e4cd977c3b441^66dadad977c3b441^---0#0#0#-19%DVTDocumentLocation2@128"file://localhost/Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp/Resources/AxisDemo.xib0000000000000000^572"CompileXIB Resources/AxisDemo.xib    cd /Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp    setenv XCODE_DEVELOPER_USR_PATH /Developer/usr/bin/..    /Developer/usr/bin/ibtool --errors --warnings --notices --output-format human-readable-text --compile /Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp/../../build/Debug/CPTTestApp.app/Contents/Resources/AxisDemo.nib /Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp/Resources/AxisDemo.xib --sdk ""36"E2FC4B02-0DEA-4F09-9753-62F7F30CEB1F-
-
-CCompileXIB /Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp/Resources/CPTTestApp.xib
-s348354521.292927
-e348354521.476667
-r1
-xCompileXIB
-x/Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp/Resources/CPTTestApp.xib
-lSLF04#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection124"Compiling /Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp/Resources/CPTTestApp.xib0e114bd977c3b441^2ff779d977c3b441^---0#0#0#-19%DVTDocumentLocation2@130"file://localhost/Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp/Resources/CPTTestApp.xib0000000000000000^578"CompileXIB Resources/CPTTestApp.xib    cd /Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp    setenv XCODE_DEVELOPER_USR_PATH /Developer/usr/bin/..    /Developer/usr/bin/ibtool --errors --warnings --notices --output-format human-readable-text --compile /Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp/../../build/Debug/CPTTestApp.app/Contents/Resources/CPTTestApp.nib /Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp/Resources/CPTTestApp.xib --sdk ""36"94CB6D58-808B-4CA8-BAB5-576B12878943-
-
-CCompileXIB /Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp/Resources/PlotSymbolDemo.xib
-s348354521.297360
-e348354521.333553
-r1
-xCompileXIB
-x/Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp/Resources/PlotSymbolDemo.xib
-lSLF04#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection128"Compiling /Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp/Resources/PlotSymbolDemo.xib59314cd977c3b441^4d6555d977c3b441^---0#0#0#-19%DVTDocumentLocation2@134"file://localhost/Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp/Resources/PlotSymbolDemo.xib0000000000000000^590"CompileXIB Resources/PlotSymbolDemo.xib    cd /Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp    setenv XCODE_DEVELOPER_USR_PATH /Developer/usr/bin/..    /Developer/usr/bin/ibtool --errors --warnings --notices --output-format human-readable-text --compile /Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp/../../build/Debug/CPTTestApp.app/Contents/Resources/PlotSymbolDemo.nib /Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp/Resources/PlotSymbolDemo.xib --sdk ""36"D8BAA433-4B6E-4B82-984C-5DA377E348E1-
-
-CCompileXIB /Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp/Resources/SelectionDemo.xib
-s348354521.317889
-e348354521.378395
-r1
-xCompileXIB
-x/Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp/Resources/SelectionDemo.xib
-lSLF04#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection127"Compiling /Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp/Resources/SelectionDemo.xib967b51d977c3b441^183f61d977c3b441^---0#0#0#-19%DVTDocumentLocation2@133"file://localhost/Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp/Resources/SelectionDemo.xib0000000000000000^587"CompileXIB Resources/SelectionDemo.xib    cd /Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp    setenv XCODE_DEVELOPER_USR_PATH /Developer/usr/bin/..    /Developer/usr/bin/ibtool --errors --warnings --notices --output-format human-readable-text --compile /Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp/../../build/Debug/CPTTestApp.app/Contents/Resources/SelectionDemo.nib /Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp/Resources/SelectionDemo.xib --sdk ""36"7F9468C1-655B-4381-A83B-B1DFB6E0460B-
-
-CCopyStringsFile /Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp/../../build/Debug/CPTTestApp.app/Contents/Resources/English.lproj/InfoPlist.strings English.lproj/InfoPlist.strings
-s348354521.292944
-e348354521.297864
-r1
-xCopyStringsFile
-x/Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp/../../build/Debug/CPTTestApp.app/Contents/Resources/English.lproj/InfoPlist.strings
-xEnglish.lproj/InfoPlist.strings
-lSLF04#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection36"Copy English.lproj/InfoPlist.strings41114bd977c3b441^bc414cd977c3b441^---0#0#0#-19%DVTDocumentLocation2@137"file://localhost/Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp/English.lproj/InfoPlist.strings0000000000000000^511"CopyStringsFile ../../build/Debug/CPTTestApp.app/Contents/Resources/English.lproj/InfoPlist.strings English.lproj/InfoPlist.strings    cd /Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp    builtin-copyStrings --validate --inputencoding utf-16 --outputencoding UTF-16 --outdir /Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp/../../build/Debug/CPTTestApp.app/Contents/Resources/English.lproj -- English.lproj/InfoPlist.strings36"F81462E0-DFC2-491B-8CB8-181082939A17-
-
-CCpResource CorePlotIcon.icns ../../build/Debug/CPTTestApp.app/Contents/Resources/CorePlotIcon.icns
-s348354521.292939
-e348354521.296216
-r1
-xCpResource
-xCorePlotIcon.icns
-x../../build/Debug/CPTTestApp.app/Contents/Resources/CorePlotIcon.icns
-lSLF04#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection74"Copy ../../build/Debug/CPTTestApp.app/Contents/Resources/CorePlotIcon.icns8c0f4bd977c3b441^45d54bd977c3b441^---0#0#0#-19%DVTDocumentLocation2@175"file://localhost/Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp/../../build/Debug/CPTTestApp.app/Contents/Resources/CorePlotIcon.icns00f48867deffdf42^558"CpResource CorePlotIcon.icns ../../build/Debug/CPTTestApp.app/Contents/Resources/CorePlotIcon.icns    cd /Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks /Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp/CorePlotIcon.icns /Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp/../../build/Debug/CPTTestApp.app/Contents/Resources36"E8E755F0-1071-45C3-AF93-3C8A651273A5-
-
-CCpResource Resources/BlueTexture.png ../../build/Debug/CPTTestApp.app/Contents/Resources/BlueTexture.png
-s348354521.293297
-e348354521.316455
-r1
-xCpResource
-xResources/BlueTexture.png
-x../../build/Debug/CPTTestApp.app/Contents/Resources/BlueTexture.png
-lSLF04#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection72"Copy ../../build/Debug/CPTTestApp.app/Contents/Resources/BlueTexture.png3a224bd977c3b441^600451d977c3b441^---0#0#0#-19%DVTDocumentLocation2@173"file://localhost/Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp/../../build/Debug/CPTTestApp.app/Contents/Resources/BlueTexture.png00f48867deffdf42^572"CpResource Resources/BlueTexture.png ../../build/Debug/CPTTestApp.app/Contents/Resources/BlueTexture.png    cd /Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks /Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp/Resources/BlueTexture.png /Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp/../../build/Debug/CPTTestApp.app/Contents/Resources36"C3BDB710-EE99-4DE8-A3D8-91C58A90C433-
-
-CLd /Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp/../../build/Debug/CPTTestApp.app/Contents/MacOS/CPTTestApp normal x86_64
-s348354524.441335
-e348354524.775595
-r1
-xLd
-x/Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp/../../build/Debug/CPTTestApp.app/Contents/MacOS/CPTTestApp
-xnormal
-xx86_64
-lSLF04#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection153"Link /Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp/../../build/Debug/CPTTestApp.app/Contents/MacOS/CPTTestApp4a0d71dc77c3b441^fc8dc6dc77c3b441^---0#0#0#--1015"Ld ../../build/Debug/CPTTestApp.app/Contents/MacOS/CPTTestApp normal x86_64    cd /Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp    setenv MACOSX_DEPLOYMENT_TARGET 10.5    /Developer/usr/bin/llvm-gcc-4.2 -arch x86_64 -L/Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp/../../build/Debug -F/Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp/../../build/Debug -filelist /Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp/../../build/CPTTestApp.build/Debug/CPTTestApp.build/Objects-normal/x86_64/CPTTestApp.LinkFileList -mmacosx-version-min=10.5 -lgcov -framework QuartzCore /Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/build/Debug/CorePlot.framework/CorePlot -framework Cocoa -o /Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp/../../build/Debug/CPTTestApp.app/Contents/MacOS/CPTTestApp36"D431BDAE-1BB9-4A5D-A248-5A3DE4AB8214-
-
-CPBXCp /Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/build/Debug/CorePlot.framework ../../build/Debug/CPTTestApp.app/Contents/Frameworks/CorePlot.framework
-s348354521.862570
-e348354521.882463
-r1
-xPBXCp
-x/Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/build/Debug/CorePlot.framework
-x../../build/Debug/CPTTestApp.app/Contents/Frameworks/CorePlot.framework
-lSLF04#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection76"Copy ../../build/Debug/CPTTestApp.app/Contents/Frameworks/CorePlot.framework96e8dcd977c3b441^89eee1d977c3b441^---0#0#0#-19%DVTDocumentLocation2@177"file://localhost/Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp/../../build/Debug/CPTTestApp.app/Contents/Frameworks/CorePlot.framework00f48867deffdf42^632"PBXCp /Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/build/Debug/CorePlot.framework ../../build/Debug/CPTTestApp.app/Contents/Frameworks/CorePlot.framework    cd /Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks /Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/build/Debug/CorePlot.framework /Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp/../../build/Debug/CPTTestApp.app/Contents/Frameworks36"A8353EB7-9943-476C-8B17-613FD98DAF9B-
-
-CProcessInfoPlistFile /Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp/../../build/Debug/CPTTestApp.app/Contents/Info.plist Info.plist
-s348354521.279928
-e348354521.283921
-r1
-xProcessInfoPlistFile
-x/Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp/../../build/Debug/CPTTestApp.app/Contents/Info.plist
-xInfo.plist
-lSLF04#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection18"Process Info.pliste9b747d977c3b441^92af48d977c3b441^---0#0#0#-19%DVTDocumentLocation2@116"file://localhost/Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp/Info.plist0000000000000000^558"ProcessInfoPlistFile ../../build/Debug/CPTTestApp.app/Contents/Info.plist Info.plist    cd /Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp    builtin-infoPlistUtility Info.plist -genpkginfo /Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp/../../build/Debug/CPTTestApp.app/Contents/PkgInfo -expandbuildsettings -platform macosx -o /Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp/../../build/Debug/CPTTestApp.app/Contents/Info.plist36"FDF3278C-E0C9-451A-8DF0-5118DD2F9DF6-
-
-CProcessPCH /Users/seanwhitsell/Library/Developer/Xcode/DerivedData/CPTTestApp-ceulpmsafmzffucdnndlbfpckpxy/Index/PrecompiledHeaders/CPTTestApp_Prefix-dajxgfhdtctmkogwfvftolqgogyg_ast/CPTTestApp_Prefix.pch.pth CPTTestApp_Prefix.pch normal x86_64 objective-c com.apple.compilers.llvm.clang.1_0.astbuilder
-r0
-
-CProcessPCH /var/folders/xt/g8rbjk710lzfv_k9sr_p_51c0000gn/C/com.apple.Xcode.501/SharedPrecompiledHeaders/CPTTestApp_Prefix-aereofqitdbxrccndxyujcmjrgob/CPTTestApp_Prefix.pch.gch CPTTestApp_Prefix.pch normal x86_64 objective-c com.apple.compilers.llvmgcc42
-s348354521.890689
-e348354523.774735
-r1
-xProcessPCH
-x/var/folders/xt/g8rbjk710lzfv_k9sr_p_51c0000gn/C/com.apple.Xcode.501/SharedPrecompiledHeaders/CPTTestApp_Prefix-aereofqitdbxrccndxyujcmjrgob/CPTTestApp_Prefix.pch.gch
-xCPTTestApp_Prefix.pch
-xnormal
-xx86_64
-xobjective-c
-xcom.apple.compilers.llvmgcc42
-lSLF04#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection32"Precompile CPTTestApp_Prefix.pchd025e4d977c3b441^e754c6db77c3b441^---0#0#0#-19%DVTDocumentLocation2@127"file://localhost/Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp/CPTTestApp_Prefix.pch0000000000000000^2194"ProcessPCH /var/folders/xt/g8rbjk710lzfv_k9sr_p_51c0000gn/C/com.apple.Xcode.501/SharedPrecompiledHeaders/CPTTestApp_Prefix-aereofqitdbxrccndxyujcmjrgob/CPTTestApp_Prefix.pch.gch CPTTestApp_Prefix.pch normal x86_64 objective-c com.apple.compilers.llvmgcc42    cd /Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp    setenv LANG en_US.US-ASCII    /Developer/usr/bin/llvm-gcc-4.2 -x objective-c-header -arch x86_64 -fmessage-length=0 -pipe -std=c99 -Wno-trigraphs -fpascal-strings -O0 -Werror -Wreturn-type -Wunused-variable -fasm-blocks -mmacosx-version-min=10.5 -gdwarf-2 -fvisibility=hidden -iquote /Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp/../../build/CPTTestApp.build/Debug/CPTTestApp.build/CPTTestApp-generated-files.hmap -I/Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp/../../build/CPTTestApp.build/Debug/CPTTestApp.build/CPTTestApp-own-target-headers.hmap -I/Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp/../../build/CPTTestApp.build/Debug/CPTTestApp.build/CPTTestApp-all-target-headers.hmap -iquote /Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp/../../build/CPTTestApp.build/Debug/CPTTestApp.build/CPTTestApp-project-headers.hmap -I/Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp/../../build/Debug/include -I/Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp/../../build/CPTTestApp.build/Debug/CPTTestApp.build/DerivedSources/x86_64 -I/Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp/../../build/CPTTestApp.build/Debug/CPTTestApp.build/DerivedSources -F/Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp/../../build/Debug -c /Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp/CPTTestApp_Prefix.pch -o /var/folders/xt/g8rbjk710lzfv_k9sr_p_51c0000gn/C/com.apple.Xcode.501/SharedPrecompiledHeaders/CPTTestApp_Prefix-aereofqitdbxrccndxyujcmjrgob/CPTTestApp_Prefix.pch.gch36"063FE426-5879-4ED3-AD5A-8D0C3B13FFBF-
-
-CTouch /Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp/../../build/Debug/CPTTestApp.app
-s348354524.783645
-e348354524.788686
-r1
-xTouch
-x/Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp/../../build/Debug/CPTTestApp.app
-lSLF04#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection128"Touch /Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp/../../build/Debug/CPTTestApp.app60abc8dc77c3b441^53e7c9dc77c3b441^---0#0#0#--281"Touch ../../build/Debug/CPTTestApp.app    cd /Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp    /usr/bin/touch -c /Users/seanwhitsell/development/Pressure/3rdparty/CorePlot_0.9/Source/examples/CPTTestApp/../../build/Debug/CPTTestApp.app36"4B3D98C1-2BFD-4113-94D3-B96FBBEF8E19-
-

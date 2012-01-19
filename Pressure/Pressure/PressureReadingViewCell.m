@@ -22,6 +22,7 @@
 
 #import "PressureReadingViewCell.h"
 #import <iso646.h>
+#import <objc/runtime.h>
 
 @implementation PressureReadingViewCell
 @synthesize systolicPressureLabel = mSystolicPressureLabel;
@@ -68,16 +69,51 @@
 
 - (void)drawRect:(NSRect)dirtyRect
 {
-	if([self isSelected]) {
-		[[NSColor selectedControlColor] set];
+	NSColor *backgroundColor = nil;
+	if (self.isSelected)
+	{
+		if ([[self window] isKeyWindow])
+		{
+			backgroundColor = [NSColor alternateSelectedControlColor];
+		}
+		else
+		{
+			backgroundColor = [NSColor secondarySelectedControlColor];
+		}
 	}
-	else {
-		[[NSColor whiteColor] set];
-    }
-    
-    //Draw the border and background
-	NSBezierPath *roundedRect = [NSBezierPath bezierPathWithRoundedRect:[self bounds] xRadius:6.0 yRadius:6.0];
-	[roundedRect fill];
+	else
+	{
+		NSArray *colors = [NSColor controlAlternatingRowBackgroundColors];
+		NSUInteger index = self.row % [colors count];
+		backgroundColor = [colors objectAtIndex:index];
+	}
+	
+	[backgroundColor set];
+	NSRectFill([self bounds]);
+	
+	for (NSView *subview in [self subviews])
+	{
+		if ([subview isKindOfClass:[NSTextField class]])
+		{
+			static char textColorKey;
+			NSTextField *textField = (NSTextField *)subview;
+			NSColor *textColor = objc_getAssociatedObject(textField, &textColorKey);
+			if (textColor == nil)
+			{
+				textColor = [textField textColor];
+				objc_setAssociatedObject(textField, &textColorKey, textColor, OBJC_ASSOCIATION_RETAIN);
+			}
+			
+			if (self.isSelected && [[self window] isKeyWindow])
+			{
+				[textField setTextColor:[NSColor highlightColor]];
+			}
+			else
+			{
+				[textField setTextColor:textColor];
+			}
+		}
+	}
 }
 
 

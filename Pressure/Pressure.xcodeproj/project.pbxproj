@@ -252,7 +252,7 @@
 		8F32EB3C14B56CD800122156 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				DAFAA27D14C624500046875B /* LCDM2N__.TTF */,
+				DA4C990A14C7019C0068793E /* Fonts */,
 				DA6A784C14C07F050048E771 /* NSDate+Helper.h */,
 				DA6A784D14C07F050048E771 /* NSDate+Helper.m */,
 				DA4FE8B914BB6A050019B20F /* Pressure.xcdatamodeld */,
@@ -368,6 +368,14 @@
 				DA4C98E814C377130068793E /* UnitTests.octest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		DA4C990A14C7019C0068793E /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				DAFAA27D14C624500046875B /* LCDM2N__.TTF */,
+			);
+			name = Fonts;
 			sourceTree = "<group>";
 		};
 		DA4FE8BC14BB6AF60019B20F /* OmronDevice */ = {
