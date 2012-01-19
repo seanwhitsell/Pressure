@@ -1,5 +1,6 @@
 #import "CPTGraphHostingView.h"
 #import "CPTGraph.h"
+#import <objc/objc-runtime.h>
 
 /**	@brief A container view for displaying a CPTGraph.
  **/
@@ -59,11 +60,11 @@
 	if ( self.hostedGraph ) {
 		NSWindow *myWindow = self.window;
 		// backingScaleFactor property is available in MacOS 10.7 and later
-		if ( [myWindow respondsToSelector:@selector(backingScaleFactor)] ) {
-			self.layer.contentsScale = myWindow.backingScaleFactor;
-		}
-		else {
-			self.layer.contentsScale = 1.0;
+		SEL backingScaleFactorSelector = NSSelectorFromString(@"backingScaleFactor");
+		SEL setContentsScaleSelector = NSSelectorFromString(@"setContentsScale:");
+		if ([myWindow respondsToSelector:backingScaleFactorSelector] && [self.layer respondsToSelector:setContentsScaleSelector])
+		{
+			objc_msgSend(self.layer, setContentsScaleSelector, objc_msgSend_fpret(myWindow, backingScaleFactorSelector));
 		}
 	}
 }
@@ -121,11 +122,11 @@
 			
 			NSWindow *myWindow = self.window;
 			// backingScaleFactor property is available in MacOS 10.7 and later
-			if ( [myWindow respondsToSelector:@selector(backingScaleFactor)] ) {
-				myLayer.contentsScale = myWindow.backingScaleFactor;
-			}
-			else {
-				myLayer.contentsScale = 1.0;
+			SEL backingScaleFactorSelector = NSSelectorFromString(@"backingScaleFactor");
+			SEL setContentsScaleSelector = NSSelectorFromString(@"setContentsScale:");
+			if ([myWindow respondsToSelector:backingScaleFactorSelector] && [self.layer respondsToSelector:setContentsScaleSelector])
+			{
+				objc_msgSend(self.layer, setContentsScaleSelector, objc_msgSend_fpret(myWindow, backingScaleFactorSelector));
 			}
 			
 			[myLayer addSublayer:hostedGraph];

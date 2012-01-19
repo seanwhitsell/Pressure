@@ -1,5 +1,6 @@
 #import "CPTImage.h"
 #import "NSCoderExtensions.h"
+#import <objc/objc-runtime.h>
 
 #if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
 #import <UIKit/UIKit.h>
@@ -109,8 +110,10 @@
 #else
 	NSScreen *screen = [NSScreen mainScreen];
 	// backingScaleFactor property is available in MacOS 10.7 and later
-	if ( [screen respondsToSelector:@selector(backingScaleFactor)] ) {
-		imageScale = screen.backingScaleFactor;
+	SEL backingScaleFactorSelector = NSSelectorFromString(@"backingScaleFactor");
+	if ([screen respondsToSelector:backingScaleFactorSelector])
+	{
+		imageScale = objc_msgSend_fpret(screen, backingScaleFactorSelector);
 	}
 #endif
 	
