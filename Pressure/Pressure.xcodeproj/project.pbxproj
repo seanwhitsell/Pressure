@@ -37,6 +37,7 @@
 		8FFAB3CB14B59BCC00EAE31F /* 1325750134_Account and Control.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FFAB3C614B59BCC00EAE31F /* 1325750134_Account and Control.png */; };
 		8FFAB3CC14B59BCC00EAE31F /* 1325750140_Home.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FFAB3C714B59BCC00EAE31F /* 1325750140_Home.png */; };
 		8FFAB3D514B5A70900EAE31F /* TabBarItem.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8FFAB3D314B5A70900EAE31F /* TabBarItem.xib */; };
+		8FFBCBB614C928DA00A24EA5 /* CorePlot.framework in Copy Files (Frameworks) */ = {isa = PBXBuildFile; fileRef = DA4C98E614C377130068793E /* CorePlot.framework */; };
 		DA1A34BC14BA2EA30089F858 /* GraphViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DA1A34BA14BA2EA30089F858 /* GraphViewController.m */; };
 		DA1A34BD14BA2EA30089F858 /* GraphViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = DA1A34BB14BA2EA30089F858 /* GraphViewController.xib */; };
 		DA1A34CD14BB36D00089F858 /* OmronDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = DA1A34CA14BB36D00089F858 /* OmronDataSource.m */; };
@@ -88,6 +89,20 @@
 			remoteInfo = CorePlot;
 		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		8FFBCBB514C928D200A24EA5 /* Copy Files (Frameworks) */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				8FFBCBB614C928DA00A24EA5 /* CorePlot.framework in Copy Files (Frameworks) */,
+			);
+			name = "Copy Files (Frameworks)";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		8F176DF914BAB9EE004A5E1A /* SyncButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SyncButton.h; sourceTree = "<group>"; };
@@ -431,6 +446,7 @@
 				8F32EB2614B56CD800122156 /* Sources */,
 				8F32EB2714B56CD800122156 /* Frameworks */,
 				8F32EB2814B56CD800122156 /* Resources */,
+				8FFBCBB514C928D200A24EA5 /* Copy Files (Frameworks) */,
 			);
 			buildRules = (
 			);
