@@ -176,17 +176,12 @@
  
 }
 
-<<<<<<< HEAD
 - (void)viewWillAppear
 {
     [self.backdropView setImage:[NSImage imageNamed:@"backdrop.png"]];
-
-=======
-- (void)viewDidAppear
-{
     NSLog(@"[GraphViewController viewDidAppear]");
     [self.graph reloadData];
->>>>>>> Changes for sample data
+
 }
 
 -(NSUInteger)numberOfRecordsForPlot:(CPTPlot *)plot
@@ -201,11 +196,7 @@
     NSDate *readingDate = [record readingDate];
     NSTimeInterval interval = [readingDate timeIntervalSinceDate:self.referenceDate];
     
-<<<<<<< HEAD
     NSLog(@"numberForPlot: %@", plot.identifier);
-=======
-    NSLog(@"[GraphViewController numberForPlot:] %@", plot);
->>>>>>> Changes for sample data
     
     if (record)
     {
@@ -228,7 +219,6 @@
         else
         if (plot == self.bloodPressureLinePlot)
         {
-<<<<<<< HEAD
             switch (fieldEnum) 
             {
                 case CPTTradingRangePlotFieldX:
@@ -252,18 +242,6 @@
                     break;                    
             }
            
-=======
-            case CPTScatterPlotFieldX:
-                num = (NSDecimalNumber *)[NSDecimalNumber numberWithInteger:interval];
-                NSLog(@"[GraphViewController numberForPlot:] CPTScatterPlotFieldX index %lu is %ld. fieldEnum is %lu", index, [num longValue], fieldEnum);
-                break;
-            case CPTScatterPlotFieldY:   
-                num = (NSDecimalNumber *) [NSDecimalNumber numberWithLong:[record heartRate]];
-                NSLog(@"[GraphViewController numberForPlot:] CPTScatterPlotFieldY index %lu is %ld. fieldEnum is %lu", index, [num longValue], fieldEnum);
-                break;
-            default:
-                break;
->>>>>>> Changes for sample data
         }
        
     }
@@ -313,17 +291,11 @@
 
         CPTXYPlotSpace *plotSpace = (CPTXYPlotSpace *)self.graph.defaultPlotSpace;
 
-<<<<<<< HEAD
-    NSDate *beginning = [[self.dataSourceSortedReadings objectAtIndex:0] readingDate];
-    NSDate *ending = [[self.dataSourceSortedReadings objectAtIndex:19/*[self.dataSourceSortedReadings count]-1*/] readingDate];
-    plotSpace.xRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(-1.0f) length:CPTDecimalFromInteger([ending timeIntervalSinceDate:beginning])];
-    plotSpace.yRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(30.0) length:CPTDecimalFromFloat(150.0)];
-=======
+
         NSDate *beginning = [[self.dataSourceSortedReadings objectAtIndex:0] readingDate];
         NSDate *ending = [[self.dataSourceSortedReadings objectAtIndex:[self.dataSourceSortedReadings count]-1] readingDate];
         plotSpace.xRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(-1.0f) length:CPTDecimalFromInteger([ending timeIntervalSinceDate:beginning])];
         plotSpace.yRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(30.0) length:CPTDecimalFromFloat(150.0)];
->>>>>>> Changes for sample data
 
         [self.graph reloadData];
     }
