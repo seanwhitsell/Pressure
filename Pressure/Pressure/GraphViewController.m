@@ -38,7 +38,8 @@
 @property (nonatomic, readwrite, retain) CPTXYGraph *graph;
 @property (nonatomic, readwrite, retain) CPTLineStyle *barLineStyle;
 @property (nonatomic, readwrite, retain) CPTFill *areaFill;
-@property (nonatomic, readwrite, retain) CPTScatterPlot *dataSourceLinePlot;
+@property (nonatomic, readwrite, retain) CPTScatterPlot *pulseLinePlot;
+@property (nonatomic, readwrite, retain) CPTTradingRangePlot *bloodPressureLinePlot;
 @property (nonatomic, readwrite, retain) NSDate *referenceDate;
 
 - (void)dataSyncOperationDidEnd:(NSNotification*)notif;
@@ -55,8 +56,10 @@
 @synthesize plotData = mPlotData;
 @synthesize barLineStyle = mBarLineStyle;
 @synthesize areaFill = mAreaFill;
-@synthesize dataSourceLinePlot = mDataSourceLinePlot;
+@synthesize pulseLinePlot = mPulseLinePlot;
+@synthesize bloodPressureLinePlot = mBloodPressureLinePlot;
 @synthesize referenceDate = mReferenceDate;
+@synthesize backdropView = mBackdropView;
 
 - (id)initWithDatasource:(OmronDataSource*)aDataSource
 {
@@ -82,12 +85,18 @@
 
         NSTimeInterval oneDay = 24 * 60 * 60;
         
+        
         // Create graph 
         mGraph = [[CPTXYGraph alloc] initWithFrame:self.view.bounds];
-        CPTTheme *theme = [CPTTheme themeNamed:kCPTPlainWhiteTheme];
-        [mGraph applyTheme:theme];
-        mHostView.hostedGraph = self.graph;
+        mHostView.hostedGraph = mGraph;
+        
+        CGFloat values[4]	= { 111.0/255.0, 206.0/255.0, 145.0/255.0, 1.0 };
+        CGColorRef colorRef = CGColorCreate([CPTColorSpace genericRGBSpace].cgColorSpace, values);
+        CPTColor *color		= [[CPTColor alloc] initWithCGColor:colorRef];
+        CGColorRelease(colorRef);
+        
         mGraph.plotAreaFrame.borderLineStyle = nil;
+        mGraph.defaultPlotSpace.delegate = (id)self;
         
         // Title
         CPTMutableTextStyle *textStyle = [CPTMutableTextStyle textStyle];
@@ -103,9 +112,14 @@
         mGraph.plotAreaFrame.paddingRight = 30.0;
         
         // Add line style
-        CPTMutableLineStyle *lineStyle = [CPTMutableLineStyle lineStyle];
-        lineStyle.lineWidth = 3.0f;
-        lineStyle.lineColor = [CPTColor greenColor];
+        CPTMutableLineStyle *pulseLineStyle = [CPTMutableLineStyle lineStyle];
+        pulseLineStyle.lineWidth = 3.0f;
+        pulseLineStyle.lineColor = color;
+        
+        // Add line style
+        CPTMutableLineStyle *bloodPressureLineStyle = [CPTMutableLineStyle lineStyle];
+        bloodPressureLineStyle.lineWidth = 1.0f;
+        bloodPressureLineStyle.lineColor = [CPTColor redColor];
         
         // Axes
         CPTXYAxisSet *axisSet = (CPTXYAxisSet *)mGraph.axisSet;
@@ -128,16 +142,26 @@
         [numberFormatter setGeneratesDecimalNumbers:NO];
         y.labelFormatter = numberFormatter;
         
-        // Create a plot that uses the data source method
-        mDataSourceLinePlot = [[CPTScatterPlot alloc] initWithFrame:self.graph.bounds];
-        mDataSourceLinePlot.identifier = @"Date Plot";
-        mDataSourceLinePlot.dataLineStyle = lineStyle;
-        mDataSourceLinePlot.dataSource = self;    
+        //
+        // Create a plot that uses the data for the Heart Rate
+        mPulseLinePlot = [[CPTScatterPlot alloc] initWithFrame:self.graph.bounds];
+        mPulseLinePlot.identifier = @"Pulse Plot";
+        mPulseLinePlot.dataLineStyle = pulseLineStyle;
+        mPulseLinePlot.dataSource = self;    
         
-        // Add plot
-        [mGraph addPlot:mDataSourceLinePlot];
-        mGraph.defaultPlotSpace.delegate = (id)self;
+        //
+        // Create a plot that uses the data for the Blood Pressure (Systolic/Diastolic)
+        mBloodPressureLinePlot = [[CPTTradingRangePlot alloc] initWithFrame:self.graph.bounds];
+        mBloodPressureLinePlot.identifier = @"Blood Pressure";
+        mBloodPressureLinePlot.lineStyle = bloodPressureLineStyle;
+        mBloodPressureLinePlot.plotStyle = CPTTradingRangePlotStyleOHLC;
+        mBloodPressureLinePlot.stickLength = 2.0f;
+        mBloodPressureLinePlot.dataSource = self;    
         
+        //
+        // Add plots to the graph
+        [mGraph addPlot:mPulseLinePlot];
+        [mGraph addPlot:mBloodPressureLinePlot];
     }
 	
 	return self;
@@ -147,14 +171,20 @@
 {
     [super dealloc];
     
-    [mDataSourceLinePlot release]; mDataSourceLinePlot = nil;
+    [mPulseLinePlot release]; mPulseLinePlot = nil;
     [mGraph release]; mGraph = nil;
  
 }
 
+- (void)viewWillAppear
+{
+    [self.backdropView setImage:[NSImage imageNamed:@"backdrop.png"]];
+
+}
+
 -(NSUInteger)numberOfRecordsForPlot:(CPTPlot *)plot
 {
-    return [self.dataSource.readings count];
+    return 20; //[self.dataSource.readings count];
 }
 
 -(NSNumber *)numberForPlot:(CPTPlot *)plot field:(NSUInteger)fieldEnum recordIndex:(NSUInteger)index
@@ -164,23 +194,54 @@
     NSDate *readingDate = [record readingDate];
     NSTimeInterval interval = [readingDate timeIntervalSinceDate:self.referenceDate];
     
-    NSLog(@"numberForPlot: %@", plot);
+    NSLog(@"numberForPlot: %@", plot.identifier);
     
     if (record)
     {
-        switch (fieldEnum) 
+        if (plot == self.pulseLinePlot)
         {
-            case CPTScatterPlotFieldX:
-                num = (NSDecimalNumber *)[NSDecimalNumber numberWithInteger:interval];
-                NSLog(@"numberForPlot:CPTScatterPlotFieldX index %lu is %ld. fieldEnum is %lu", index, [num longValue], fieldEnum);
-                break;
-            case CPTScatterPlotFieldY:   
-                num = (NSDecimalNumber *) [NSDecimalNumber numberWithLong:[record heartRate]];
-                NSLog(@"numberForPlot:CPTScatterPlotFieldY index %lu is %ld. fieldEnum is %lu", index, [num longValue], fieldEnum);
-                break;
-            default:
-                break;
+            switch (fieldEnum) 
+            {
+                case CPTScatterPlotFieldX:
+                    num = (NSDecimalNumber *)[NSDecimalNumber numberWithInteger:interval];
+                    NSLog(@"numberForPlot:CPTScatterPlotFieldX index %lu is %ld. fieldEnum is %lu", index, [num longValue], fieldEnum);
+                    break;
+                case CPTScatterPlotFieldY: 
+                        num = (NSDecimalNumber *) [NSDecimalNumber numberWithLong:[record heartRate]];
+                        NSLog(@"numberForPlot:CPTScatterPlotFieldY index %lu is %ld. fieldEnum is %lu", index, [num longValue], fieldEnum);
+                    break;
+                default:
+                    break;
+            }
         }
+        else
+        if (plot == self.bloodPressureLinePlot)
+        {
+            switch (fieldEnum) 
+            {
+                case CPTTradingRangePlotFieldX:
+                    num = (NSDecimalNumber *)[NSDecimalNumber numberWithInteger:interval];
+                    break;
+                    
+                case CPTTradingRangePlotFieldClose:
+                    //num = [fData objectForKey:@"close"];
+                    break;
+                    
+                case CPTTradingRangePlotFieldHigh:
+                    num = (NSDecimalNumber *) [NSDecimalNumber numberWithLong:[record systolicPressure]];
+                    break;
+                    
+                case CPTTradingRangePlotFieldLow:
+                    num = (NSDecimalNumber *) [NSDecimalNumber numberWithLong:[record diastolicPressure]];
+                    break;
+                    
+                case CPTTradingRangePlotFieldOpen:
+                    //num = [fData objectForKey:@"open"];
+                    break;                    
+            }
+           
+        }
+       
     }
 
     return num;
@@ -227,7 +288,7 @@
     CPTXYPlotSpace *plotSpace = (CPTXYPlotSpace *)self.graph.defaultPlotSpace;
 
     NSDate *beginning = [[self.dataSourceSortedReadings objectAtIndex:0] readingDate];
-    NSDate *ending = [[self.dataSourceSortedReadings objectAtIndex:[self.dataSourceSortedReadings count]-1] readingDate];
+    NSDate *ending = [[self.dataSourceSortedReadings objectAtIndex:19/*[self.dataSourceSortedReadings count]-1*/] readingDate];
     plotSpace.xRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(-1.0f) length:CPTDecimalFromInteger([ending timeIntervalSinceDate:beginning])];
     plotSpace.yRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(30.0) length:CPTDecimalFromFloat(150.0)];
 

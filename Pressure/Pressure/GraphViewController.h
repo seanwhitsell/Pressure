@@ -35,12 +35,15 @@
     CPTGraphHostingView *mHostView;
     CPTFill *mAreaFill;
     CPTLineStyle *mBarLineStyle;
-    CPTScatterPlot *mDataSourceLinePlot;
+    CPTScatterPlot *mPulseLinePlot;
+    CPTTradingRangePlot *mBloodPressureLinePlot;
     NSDate *mReferenceDate;
+    NSImageView *mBackdropView;
 }
 
 @property (nonatomic, readonly, retain) OmronDataSource *dataSource;
 @property (nonatomic, readwrite, retain) IBOutlet CPTGraphHostingView *hostView;
+@property (nonatomic, readwrite, retain) IBOutlet NSImageView *backdropView;
 
 - (id)initWithDatasource:(OmronDataSource*)aDataSource;
 

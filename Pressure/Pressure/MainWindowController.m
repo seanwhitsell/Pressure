@@ -95,14 +95,14 @@
 	
 	GraphViewController *vc1 = [[[GraphViewController alloc] initWithDatasource:self.dataSource] autorelease];
     
-	vc1.tabBarItem.image = [NSImage imageNamed:@"1325750140_Home"];
+	vc1.tabBarItem.image = [NSImage imageNamed:@"Stock.icns"];
 	vc1.tabBarItem.title = @"Graphs";
 	vc1.tabBarItem.tag = 1;
 	
 	ReadingViewController *vc2 = [[[ReadingViewController alloc] init] autorelease];
     [vc2 setDataSource:self.dataSource];
     
-	vc2.tabBarItem.image = [NSImage imageNamed:@"1325750134_Account and Control"];
+	vc2.tabBarItem.image = [NSImage imageNamed:@"List.icns"];
 	vc2.tabBarItem.title = @"Readings";
 	vc2.tabBarItem.tag = 2;
 

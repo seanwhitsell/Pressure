@@ -60,6 +60,9 @@
 		DAFB355B14BEA109006AC226 /* ReadingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DAFB355914BEA109006AC226 /* ReadingViewController.m */; };
 		DAFB355C14BEA109006AC226 /* ReadingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = DAFB355A14BEA109006AC226 /* ReadingViewController.xib */; };
 		DAFB355E14BEA56A006AC226 /* PressureReadingViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = DAFB355D14BEA56A006AC226 /* PressureReadingViewCell.xib */; };
+		DAFBB28914C8FCF90067CDFC /* backdrop.png in Resources */ = {isa = PBXBuildFile; fileRef = DAFBB28814C8FCF90067CDFC /* backdrop.png */; };
+		DAFBB28B14C904F20067CDFC /* List.icns in Resources */ = {isa = PBXBuildFile; fileRef = DAFBB28A14C904F20067CDFC /* List.icns */; };
+		DAFBB28D14C905490067CDFC /* Stock.icns in Resources */ = {isa = PBXBuildFile; fileRef = DAFBB28C14C905490067CDFC /* Stock.icns */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -173,6 +176,9 @@
 		DAFB355914BEA109006AC226 /* ReadingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReadingViewController.m; sourceTree = "<group>"; };
 		DAFB355A14BEA109006AC226 /* ReadingViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ReadingViewController.xib; sourceTree = "<group>"; };
 		DAFB355D14BEA56A006AC226 /* PressureReadingViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PressureReadingViewCell.xib; sourceTree = "<group>"; };
+		DAFBB28814C8FCF90067CDFC /* backdrop.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = backdrop.png; sourceTree = "<group>"; };
+		DAFBB28A14C904F20067CDFC /* List.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = List.icns; sourceTree = "<group>"; };
+		DAFBB28C14C905490067CDFC /* Stock.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = Stock.icns; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -321,6 +327,9 @@
 		8FFAB3B014B58E2300EAE31F /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				DAFBB28A14C904F20067CDFC /* List.icns */,
+				DAFBB28C14C905490067CDFC /* Stock.icns */,
+				DAFBB28814C8FCF90067CDFC /* backdrop.png */,
 				DAA6226914BE92A000B91BFA /* Pressure.icns */,
 				8FFAB3C414B59BCC00EAE31F /* 1325750127_Times and Dates.png */,
 				8FFAB3C514B59BCC00EAE31F /* 1325750130_Control Panel.png */,
@@ -508,6 +517,9 @@
 				DAFB355C14BEA109006AC226 /* ReadingViewController.xib in Resources */,
 				DAFB355E14BEA56A006AC226 /* PressureReadingViewCell.xib in Resources */,
 				DAFAA27E14C624500046875B /* LCDM2N__.TTF in Resources */,
+				DAFBB28914C8FCF90067CDFC /* backdrop.png in Resources */,
+				DAFBB28B14C904F20067CDFC /* List.icns in Resources */,
+				DAFBB28D14C905490067CDFC /* Stock.icns in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
