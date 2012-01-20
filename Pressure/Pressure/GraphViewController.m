@@ -92,7 +92,7 @@
         
         CGFloat values[4]	= { 111.0/255.0, 206.0/255.0, 145.0/255.0, 1.0 };
         CGColorRef colorRef = CGColorCreate([CPTColorSpace genericRGBSpace].cgColorSpace, values);
-        CPTColor *color		= [[CPTColor alloc] initWithCGColor:colorRef];
+        CPTColor *color		= [[[CPTColor alloc] initWithCGColor:colorRef] autorelease];
         CGColorRelease(colorRef);
         
         mGraph.plotAreaFrame.borderLineStyle = nil;
@@ -118,8 +118,8 @@
         
         // Add line style
         CPTMutableLineStyle *bloodPressureLineStyle = [CPTMutableLineStyle lineStyle];
-        bloodPressureLineStyle.lineWidth = 1.0f;
-        bloodPressureLineStyle.lineColor = [CPTColor redColor];
+        bloodPressureLineStyle.lineWidth = 2.0f;
+        bloodPressureLineStyle.lineColor = [CPTColor blueColor];
         
         // Axes
         CPTXYAxisSet *axisSet = (CPTXYAxisSet *)mGraph.axisSet;
@@ -129,7 +129,7 @@
         x.minorTicksPerInterval = 10;
         x.orthogonalCoordinateDecimal = CPTDecimalFromString(@"30");
         x.labelRotation = M_PI/4.0;
-        x.axisLineCapMax = [[CPTLineCap alloc] init];
+        x.axisLineCapMax = [[[CPTLineCap alloc] init] autorelease];
         x.axisLineCapMax.lineCapType = CPTLineCapTypeOpenArrow;
         
         CPTXYAxis *y = axisSet.yAxis;
@@ -137,7 +137,7 @@
         y.minorTicksPerInterval = 0;
         y.orthogonalCoordinateDecimal = CPTDecimalFromFloat(0.0f);
         
-        NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
+        NSNumberFormatter *numberFormatter = [[[NSNumberFormatter alloc] init] autorelease];
         [numberFormatter setNumberStyle:NSNumberFormatterDecimalStyle];
         [numberFormatter setGeneratesDecimalNumbers:NO];
         y.labelFormatter = numberFormatter;
@@ -155,7 +155,7 @@
         mBloodPressureLinePlot.identifier = @"Blood Pressure";
         mBloodPressureLinePlot.lineStyle = bloodPressureLineStyle;
         mBloodPressureLinePlot.plotStyle = CPTTradingRangePlotStyleOHLC;
-        mBloodPressureLinePlot.stickLength = 2.0f;
+        mBloodPressureLinePlot.stickLength = 4.0f;
         mBloodPressureLinePlot.dataSource = self;    
         
         //
@@ -169,11 +169,13 @@
 
 - (void)dealloc
 {
-    [super dealloc];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
     
     [mPulseLinePlot release]; mPulseLinePlot = nil;
+    [mBloodPressureLinePlot release]; mBloodPressureLinePlot = nil;
     [mGraph release]; mGraph = nil;
- 
+
+    [super dealloc];
 }
 
 - (void)viewWillAppear
@@ -226,7 +228,7 @@
                     break;
                     
                 case CPTTradingRangePlotFieldClose:
-                    //num = [fData objectForKey:@"close"];
+                    num = (NSDecimalNumber *) [NSDecimalNumber numberWithLong:[record diastolicPressure]];
                     break;
                     
                 case CPTTradingRangePlotFieldHigh:
@@ -238,7 +240,7 @@
                     break;
                     
                 case CPTTradingRangePlotFieldOpen:
-                    //num = [fData objectForKey:@"open"];
+                    num = (NSDecimalNumber *) [NSDecimalNumber numberWithLong:[record systolicPressure]];
                     break;                    
             }
             NSLog(@"BloodPressure - field %lu yields %i", fieldEnum, [num intValue]);

@@ -621,7 +621,7 @@ NSString * const CPTTradingRangePlotBindingCloseValues = @"closeValues";	///< Cl
 	
 	// open
 	if ( !isnan(open) ) {
-		CGPoint alignedOpenStartPoint = CGPointMake(x, open);
+		CGPoint alignedOpenStartPoint = CGPointMake(x + theStickLength, open);
 		CGPoint alignedOpenEndPoint = CGPointMake(x - theStickLength, open); // left side
 		if ( alignPoints ) {
 			alignedOpenStartPoint = CPTAlignPointToUserSpace(context, alignedOpenStartPoint);
@@ -633,7 +633,7 @@ NSString * const CPTTradingRangePlotBindingCloseValues = @"closeValues";	///< Cl
 	
 	// close
 	if ( !isnan(close) ) {
-		CGPoint alignedCloseStartPoint = CGPointMake(x, close);
+		CGPoint alignedCloseStartPoint = CGPointMake(x - theStickLength, close);
 		CGPoint alignedCloseEndPoint = CGPointMake(x + theStickLength, close); // right side
 		if ( alignPoints ) {
 			alignedCloseStartPoint = CPTAlignPointToUserSpace(context, alignedCloseStartPoint);
