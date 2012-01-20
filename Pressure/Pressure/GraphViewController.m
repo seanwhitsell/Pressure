@@ -192,11 +192,11 @@
 -(NSNumber *)numberForPlot:(CPTPlot *)plot field:(NSUInteger)fieldEnum recordIndex:(NSUInteger)index
 {
     NSDecimalNumber *num = [NSDecimalNumber zero];
-    OmronDataRecord *record = [self.dataSource.readings objectAtIndex:index];
+    OmronDataRecord *record = [self.dataSourceSortedReadings objectAtIndex:index];
     NSDate *readingDate = [record readingDate];
     NSTimeInterval interval = [readingDate timeIntervalSinceDate:self.referenceDate];
     
-    NSLog(@"numberForPlot: %@", plot.identifier);
+    NSLog(@"numberForPlot: %@, index %lu", plot.identifier, index);
     
     if (record)
     {
@@ -241,9 +241,17 @@
                     //num = [fData objectForKey:@"open"];
                     break;                    
             }
-           
+            NSLog(@"BloodPressure - field %lu yields %i", fieldEnum, [num intValue]);
+        }
+        else
+        {
+            NSLog(@"Error - unknown plot");
         }
        
+    }
+    else
+    {
+        NSLog(@"No Record");
     }
 
     return num;
@@ -262,7 +270,30 @@
         return [first compare:second];
     }];
     
-    [self.graph reloadData];
+    if ([self.dataSourceSortedReadings count] > 0)
+    {
+        OmronDataRecord *record = [self.dataSourceSortedReadings objectAtIndex:0];
+        self.referenceDate = [record readingDate];
+        
+        NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
+        dateFormatter.dateStyle = kCFDateFormatterShortStyle;
+        CPTTimeFormatter *timeFormatter = [[[CPTTimeFormatter alloc] initWithDateFormatter:dateFormatter] autorelease];
+        timeFormatter.referenceDate = self.referenceDate;
+        
+        CPTXYAxisSet *axisSet = (CPTXYAxisSet *)self.graph.axisSet;
+        CPTXYAxis *x = axisSet.xAxis;
+        x.labelFormatter = timeFormatter;
+        
+        CPTXYPlotSpace *plotSpace = (CPTXYPlotSpace *)self.graph.defaultPlotSpace;
+        
+        
+        NSDate *beginning = [[self.dataSourceSortedReadings objectAtIndex:0] readingDate];
+        NSDate *ending = [[self.dataSourceSortedReadings objectAtIndex:[self.dataSourceSortedReadings count]-1] readingDate];
+        plotSpace.xRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(-1.0f) length:CPTDecimalFromInteger([ending timeIntervalSinceDate:beginning])];
+        plotSpace.yRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(30.0) length:CPTDecimalFromFloat(150.0)];
+        
+        [self.graph reloadData];
+    }
 }
 
 - (void)dataSyncOperationDataAvailable:(NSNotification*)notif
