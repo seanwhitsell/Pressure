@@ -118,7 +118,7 @@
     self.dataSourceSortedReadings = [self.dataSource.readings sortedArrayUsingComparator:^(id a, id b) {
         NSDate *first = [(OmronDataRecord*)a readingDate];
         NSDate *second = [(OmronDataRecord*)b readingDate];
-        return [first compare:second];
+        return [second compare:first];
     }];
     
     [self.listView reloadData];
@@ -132,7 +132,7 @@
     self.dataSourceSortedReadings = [self.dataSource.readings sortedArrayUsingComparator:^(id a, id b) {
         NSDate *first = [(OmronDataRecord*)a readingDate];
         NSDate *second = [(OmronDataRecord*)b readingDate];
-        return [first compare:second];
+        return [second compare:first];
     }];
 
     [self.listView reloadData];
