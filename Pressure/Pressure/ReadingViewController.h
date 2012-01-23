@@ -32,7 +32,9 @@
     NSArray *mDataSourceSortedReadings;
 }
 
-@property (nonatomic, readwrite, retain) OmronDataSource *dataSource;
+@property (nonatomic, readonly, retain) OmronDataSource *dataSource;
 @property (nonatomic, readwrite, assign) IBOutlet PXListView *listView;
+
+- (id)initWithDatasource:(OmronDataSource*)aDataSource;
 
 @end

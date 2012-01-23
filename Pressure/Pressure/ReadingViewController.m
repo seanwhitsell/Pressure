@@ -33,6 +33,7 @@
 
 @interface ReadingViewController()
 
+@property (nonatomic, readwrite, retain) OmronDataSource *dataSource;
 @property (nonatomic, readwrite, retain) NSArray *dataSourceSortedReadings;
 
 - (void)dataSyncOperationDidEnd:(NSNotification*)notif;
@@ -49,6 +50,14 @@
 @synthesize dataSourceSortedReadings = mDataSourceSortedReadings;
 
 #pragma mark NSObject Lifecycle Routines
+
+- (id)initWithDatasource:(OmronDataSource*)aDataSource
+{
+    [self init];
+    mDataSource = aDataSource;
+    
+    return self;
+}
 
 - (id)init
 {

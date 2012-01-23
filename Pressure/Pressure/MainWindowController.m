@@ -99,8 +99,7 @@
 	vc1.tabBarItem.title = @"Graphs";
 	vc1.tabBarItem.tag = 1;
 	
-	ReadingViewController *vc2 = [[[ReadingViewController alloc] init] autorelease];
-    [vc2 setDataSource:self.dataSource];
+	ReadingViewController *vc2 = [[[ReadingViewController alloc] initWithDatasource:self.dataSource] autorelease];
     
 	vc2.tabBarItem.image = [NSImage imageNamed:@"List.icns"];
 	vc2.tabBarItem.title = @"Readings";

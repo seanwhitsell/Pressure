@@ -90,11 +90,6 @@
         mGraph = [[CPTXYGraph alloc] initWithFrame:self.view.bounds];
         mHostView.hostedGraph = mGraph;
         
-        CGFloat values[4]	= { 111.0/255.0, 206.0/255.0, 145.0/255.0, 1.0 };
-        CGColorRef colorRef = CGColorCreate([CPTColorSpace genericRGBSpace].cgColorSpace, values);
-        CPTColor *color		= [[[CPTColor alloc] initWithCGColor:colorRef] autorelease];
-        CGColorRelease(colorRef);
-        
         mGraph.plotAreaFrame.borderLineStyle = nil;
         mGraph.defaultPlotSpace.delegate = (id)self;
         
@@ -112,14 +107,24 @@
         mGraph.plotAreaFrame.paddingRight = 30.0;
         
         // Add line style
+        CGFloat values[4]	= { 111.0/255.0, 206.0/255.0, 145.0/255.0, 1.0 };
+        CGColorRef colorRef = CGColorCreate([CPTColorSpace genericRGBSpace].cgColorSpace, values);
+        CPTColor *pulseColor = [[[CPTColor alloc] initWithCGColor:colorRef] autorelease];
+        CGColorRelease(colorRef);
+        
         CPTMutableLineStyle *pulseLineStyle = [CPTMutableLineStyle lineStyle];
         pulseLineStyle.lineWidth = 3.0f;
-        pulseLineStyle.lineColor = color;
+        pulseLineStyle.lineColor = pulseColor;
         
         // Add line style
+        CGFloat values2[4]	= { 39.0/255.0, 193.0/255.0, 219.0/255.0, 1.0 };
+        CGColorRef colorRef2 = CGColorCreate([CPTColorSpace genericRGBSpace].cgColorSpace, values2);
+        CPTColor *pressureColor = [[[CPTColor alloc] initWithCGColor:colorRef2] autorelease];
+        CGColorRelease(colorRef2);
+        
         CPTMutableLineStyle *bloodPressureLineStyle = [CPTMutableLineStyle lineStyle];
         bloodPressureLineStyle.lineWidth = 2.0f;
-        bloodPressureLineStyle.lineColor = [CPTColor blueColor];
+        bloodPressureLineStyle.lineColor = pressureColor;
         
         // Axes
         CPTXYAxisSet *axisSet = (CPTXYAxisSet *)mGraph.axisSet;
@@ -188,7 +193,7 @@
 
 -(NSUInteger)numberOfRecordsForPlot:(CPTPlot *)plot
 {
-    return 20; //[self.dataSource.readings count];
+    return [self.dataSourceSortedReadings count];
 }
 
 -(NSNumber *)numberForPlot:(CPTPlot *)plot field:(NSUInteger)fieldEnum recordIndex:(NSUInteger)index
