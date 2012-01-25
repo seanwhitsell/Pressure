@@ -96,6 +96,7 @@
 	[self.listView setAllowsEmptySelection:YES];
 	[self.listView setAllowsMultipleSelection:YES];
 	[self.listView registerForDraggedTypes:[NSArray arrayWithObjects: NSStringPboardType, nil]];
+    [self.listView reloadData];
 }
 
 - (void)viewWillDisappear
@@ -118,7 +119,7 @@
     self.dataSourceSortedReadings = [self.dataSource.readings sortedArrayUsingComparator:^(id a, id b) {
         NSDate *first = [(OmronDataRecord*)a readingDate];
         NSDate *second = [(OmronDataRecord*)b readingDate];
-        return [first compare:second];
+        return [second compare:first];
     }];
     
     [self.listView reloadData];
@@ -132,7 +133,7 @@
     self.dataSourceSortedReadings = [self.dataSource.readings sortedArrayUsingComparator:^(id a, id b) {
         NSDate *first = [(OmronDataRecord*)a readingDate];
         NSDate *second = [(OmronDataRecord*)b readingDate];
-        return [first compare:second];
+        return [second compare:first];
     }];
 
     [self.listView reloadData];
@@ -152,7 +153,7 @@
 
 - (PXListViewCell*)listView:(PXListView*)aListView cellForRow:(NSUInteger)row
 {
-    NSLog(@"listView:cellForRow:%lu", row);
+    //NSLog(@"listView:cellForRow:%lu", row);
     
     OmronDataRecord *record = [self.dataSourceSortedReadings objectAtIndex:row];
     PressureReadingViewCell *cell = (PressureReadingViewCell*)[aListView dequeueCellWithReusableIdentifier:LISTVIEW_CELL_IDENTIFIER];
