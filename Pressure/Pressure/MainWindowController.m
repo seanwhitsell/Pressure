@@ -37,6 +37,7 @@
 - (void)toggleSync:(id)sender;
 - (void)dataSyncOperationDidBegin:(NSNotification*)notif;
 - (void)dataSyncOperationDidEnd:(NSNotification*)notif;
+- (void)graphDataPointSelected:(NSNotification*)notif;
 
 @end
 
@@ -53,6 +54,8 @@
 	{
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(dataSyncOperationDidBegin:) name:OmronDataSyncDidBeginNotification object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(dataSyncOperationDidEnd:) name:OmronDataSyncDidEndNotification object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(graphDataPointSelected:) name:GraphDataPointWasSelectedNotification object:nil];
+        
         mDataSource = [[OmronDataSource alloc] init];
 	}
 	
@@ -131,6 +134,24 @@
 - (void)dataSyncOperationDidEnd:(NSNotification*)notif
 {
     self.syncButton.syncing = NO;
+}
+
+- (void)graphDataPointSelected:(NSNotification*)notif
+{
+    NSNumber* passedIndex = (NSNumber*)notif.object;
+    NSUInteger index = [passedIndex integerValue];
+    
+    NSLog(@"Graph data point selected at %lu index", index);
+    
+   //
+    // The user has clicked on a Data Point on the Graph. Let's switch to the Readings View and select
+    // the Reading that this symbol came from
+    // I dont like the magic number "1", but it IS the index from the array created above.
+    //
+    ReadingViewController *vc2 = [self.tabBarController.viewControllers objectAtIndex:1];
+    vc2.listView.selectedRow = index;
+    self.tabBarController.selectedViewController = vc2;
+
 }
 
 - (void)toggleSync:(id)sender

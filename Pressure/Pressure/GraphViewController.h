@@ -22,9 +22,11 @@
 #import <Cocoa/Cocoa.h>
 #import <CorePlot/CorePlot.h>
 
+extern NSString *GraphDataPointWasSelectedNotification;
+
 @class OmronDataSource;
 
-@interface GraphViewController : NSViewController <CPTPlotDataSource>
+@interface GraphViewController : NSViewController <CPTPlotDataSource, CPTPlotSpaceDelegate, CPTScatterPlotDelegate>
 {
 @private
     OmronDataSource *mDataSource;

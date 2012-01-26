@@ -28,6 +28,8 @@
 #import <CorePlot/CorePlot.h>
 #import <CorePlot/CPTPlot.h>
 
+NSString *GraphDataPointWasSelectedNotification = @"GraphDataPointWasSelectedNotification";
+
 #pragma mark Private Interface
 
 @interface GraphViewController()
@@ -152,7 +154,9 @@
         mPulseLinePlot = [[CPTScatterPlot alloc] initWithFrame:self.graph.bounds];
         mPulseLinePlot.identifier = @"Pulse Plot";
         mPulseLinePlot.dataLineStyle = pulseLineStyle;
-        mPulseLinePlot.dataSource = self;    
+        mPulseLinePlot.opacity = 0.8f;
+        mPulseLinePlot.dataSource = self;  
+        mPulseLinePlot.delegate = self;
         
         //
         // Create a plot that uses the data for the Blood Pressure (Systolic/Diastolic)
@@ -186,10 +190,24 @@
 - (void)viewWillAppear
 {
     [self.backdropView setImage:[NSImage imageNamed:@"backdrop.png"]];
-    NSLog(@"[GraphViewController viewDidAppear]");
+    NSLog(@"[GraphViewController viewWillAppear]");
     [self.graph reloadData];
 
 }
+
+- (void)swipeWithEvent:(NSEvent *)event 
+{
+    NSLog(@"Swipe event detected!");
+}
+- (void)beginGestureWithEvent:(NSEvent *)event 
+{
+    NSLog(@"beginGestureWithEvent event detected!");
+}
+- (void)endGestureWithEvent:(NSEvent *)event 
+{
+    NSLog(@"endGestureWithEvent event detected!");
+}
+
 
 -(NSUInteger)numberOfRecordsForPlot:(CPTPlot *)plot
 {
@@ -203,7 +221,7 @@
     NSDate *readingDate = [record readingDate];
     NSTimeInterval interval = [readingDate timeIntervalSinceDate:self.referenceDate];
     
-    NSLog(@"numberForPlot: %@, index %lu", plot.identifier, index);
+    //NSLog(@"numberForPlot: %@, index %lu", plot.identifier, index);
     
     if (record)
     {
@@ -213,11 +231,11 @@
             {
                 case CPTScatterPlotFieldX:
                     num = (NSDecimalNumber *)[NSDecimalNumber numberWithInteger:interval];
-                    NSLog(@"numberForPlot:CPTScatterPlotFieldX index %lu is %ld. fieldEnum is %lu", index, [num longValue], fieldEnum);
+                    //NSLog(@"numberForPlot:CPTScatterPlotFieldX index %lu is %ld. fieldEnum is %lu", index, [num longValue], fieldEnum);
                     break;
                 case CPTScatterPlotFieldY: 
                         num = (NSDecimalNumber *) [NSDecimalNumber numberWithLong:[record heartRate]];
-                        NSLog(@"numberForPlot:CPTScatterPlotFieldY index %lu is %ld. fieldEnum is %lu", index, [num longValue], fieldEnum);
+                        //NSLog(@"numberForPlot:CPTScatterPlotFieldY index %lu is %ld. fieldEnum is %lu", index, [num longValue], fieldEnum);
                     break;
                 default:
                     break;
@@ -248,7 +266,7 @@
                     num = (NSDecimalNumber *) [NSDecimalNumber numberWithLong:[record systolicPressure]];
                     break;                    
             }
-            NSLog(@"BloodPressure - field %lu yields %i", fieldEnum, [num intValue]);
+            //NSLog(@"BloodPressure - field %lu yields %i", fieldEnum, [num intValue]);
         }
         else
         {
@@ -262,6 +280,35 @@
     }
 
     return num;
+}
+
+- (CPTPlotSymbol *)symbolForScatterPlot:(CPTScatterPlot *)plot recordIndex:(NSUInteger)index
+{
+    static CPTPlotSymbol *redDot = nil;
+    
+    CPTPlotSymbol *symbol = (id)[NSNull null];
+    
+    CGFloat values[4]	= { 111.0/255.0, 206.0/255.0, 145.0/255.0, 1.0 };
+    CGColorRef colorRef = CGColorCreate([CPTColorSpace genericRGBSpace].cgColorSpace, values);
+    CPTColor *pulseColor = [[[CPTColor alloc] initWithCGColor:colorRef] autorelease];
+    CGColorRelease(colorRef);
+
+    CPTMutableLineStyle *pulseLineStyle = [CPTMutableLineStyle lineStyle];
+    pulseLineStyle.lineWidth = 1.0f;
+    pulseLineStyle.lineColor = pulseColor;
+
+    if ( [(NSString *)plot.identifier isEqualToString:@"Pulse Plot"]  ) {
+        if ( !redDot ) {
+            redDot = [[CPTPlotSymbol alloc] init];
+            redDot.symbolType = CPTPlotSymbolTypeEllipse;
+            redDot.size = CGSizeMake(6.0, 6.0);
+            redDot.fill  = [CPTFill fillWithColor:pulseColor];
+            redDot.lineStyle = pulseLineStyle;
+        }
+        symbol = redDot;
+    }
+    
+    return symbol;
 }
 
 #pragma mark NSNotification Observers
@@ -339,5 +386,59 @@
     }
 }
 
+#pragma mark CPTPlotSpaceDelegate methods
 
+-(BOOL)plotSpace:(CPTPlotSpace*)space shouldScaleBy:(CGFloat)interactionScale aboutPoint:(CGPoint)interactionPoint
+{
+    NSLog(@"[GraphViewController shouldScaleBy] delegate");
+    return YES;
+}
+
+-(BOOL)plotSpace:(CPTPlotSpace *)space shouldHandlePointingDeviceDownEvent:(id)event atPoint:(CGPoint)point 
+{
+    NSLog(@"[GraphViewController shouldHandlePointingDeviceDownEvent] delegate");
+    return YES;
+}
+
+-(BOOL)plotSpace:(CPTPlotSpace *)space shouldHandlePointingDeviceDraggedEvent:(id)event atPoint:(CGPoint)point
+{
+    NSLog(@"[GraphViewController shouldHandlePointingDeviceDraggedEvent] delegate");
+    return YES;
+}
+
+-(BOOL)plotSpace:(CPTPlotSpace *)space shouldHandlePointingDeviceCancelledEvent:(id)event
+{
+    NSLog(@"[GraphViewController shouldHandlePointingDeviceCancelledEvent] delegate");
+   return YES;
+}
+
+-(BOOL)plotSpace:(CPTPlotSpace *)space shouldHandlePointingDeviceUpEvent:(id)event atPoint:(CGPoint)point
+{
+    NSLog(@"[GraphViewController shouldHandlePointingDeviceUpEvent] delegate - space %@ and point %f,%f", space, point.x, point.y);
+    return YES;
+}
+
+-(CGPoint)plotSpace:(CPTPlotSpace *)space willDisplaceBy:(CGPoint)proposedDisplacementVector
+{
+    NSLog(@"[GraphViewController willDisplaceBy] delegate");
+    return proposedDisplacementVector;
+}
+
+-(CPTPlotRange *)plotSpace:(CPTPlotSpace *)space willChangePlotRangeTo:(CPTPlotRange *)newRange forCoordinate:(CPTCoordinate)coordinate
+{
+    NSLog(@"[GraphViewController willChangePlotRangeTo] delegate");
+    return newRange;
+}
+-(void)plotSpace:(CPTPlotSpace *)space didChangePlotRangeForCoordinate:(CPTCoordinate)coordinate
+{
+    NSLog(@"[GraphViewController didChangePlotRangeForCoordinate] delegate");    
+}
+
+#pragma mark CPTScatterPlotDelegate methods
+
+-(void)scatterPlot:(CPTScatterPlot *)plot plotSymbolWasSelectedAtRecordIndex:(NSUInteger)index
+{
+    NSLog(@"[GraphViewController plotSymbolWasSelectedAtRecordIndex] delegate %@ at %lu", plot, index);
+    [[NSNotificationCenter defaultCenter] postNotificationName:GraphDataPointWasSelectedNotification object:[NSNumber numberWithUnsignedInteger:index]];
+}
 @end

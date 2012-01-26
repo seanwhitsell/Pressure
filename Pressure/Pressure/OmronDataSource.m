@@ -211,7 +211,7 @@ NSString *deviceInformationEntityName = @"DeviceInformation";
         retval = [self getOmronData];
     }
     
-    if (retval)
+    if (retval && ([self.readings count] == 0))
     {
         // We did not get any data, let's fake it
         NSMutableArray *sampleData = [[NSMutableArray alloc] initWithCapacity:100];

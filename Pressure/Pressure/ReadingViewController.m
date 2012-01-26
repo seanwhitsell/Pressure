@@ -84,6 +84,16 @@
 
 #pragma mark NSViewController overrides
 
+- (void)awakeFromNib
+{
+	NSLog(@"<%p> %@", self, [NSString stringWithUTF8String:__func__]);
+    [self.listView setCellSpacing:1.0f];
+    [self.listView setAllowsEmptySelection:YES];
+    [self.listView setAllowsMultipleSelection:YES];
+    [self.listView registerForDraggedTypes:[NSArray arrayWithObjects: NSStringPboardType, nil]];
+    [self.listView reloadData];
+}
+
 - (void)viewWillAppear
 {
 	NSLog(@"<%p> %@", self, [NSString stringWithUTF8String:__func__]);
@@ -92,11 +102,8 @@
 - (void)viewDidAppear
 {
 	NSLog(@"<%p> %@", self, [NSString stringWithUTF8String:__func__]);
-    [self.listView setCellSpacing:1.0f];
-	[self.listView setAllowsEmptySelection:YES];
-	[self.listView setAllowsMultipleSelection:YES];
-	[self.listView registerForDraggedTypes:[NSArray arrayWithObjects: NSStringPboardType, nil]];
-    [self.listView reloadData];
+    NSUInteger index = self.listView.selectedRow;
+    [self.listView scrollRowToVisible:index];
 }
 
 - (void)viewWillDisappear
@@ -143,6 +150,7 @@
 
 - (NSUInteger)numberOfRowsInListView:(PXListView*)aListView
 {
+	NSLog(@"<%p> %@", self, [NSString stringWithUTF8String:__func__]);
     return [self.dataSourceSortedReadings count];
 }
 
