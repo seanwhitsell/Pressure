@@ -142,7 +142,7 @@ NSString *GraphDataPointWasSelectedNotification = @"GraphDataPointWasSelectedNot
         CPTXYAxis *y = axisSet.yAxis;
         y.majorIntervalLength = CPTDecimalFromString(@"10");
         y.minorTicksPerInterval = 0;
-        y.orthogonalCoordinateDecimal = CPTDecimalFromFloat(0.0f);
+        y.orthogonalCoordinateDecimal = CPTDecimalFromFloat(-oneDay);
         
         NSNumberFormatter *numberFormatter = [[[NSNumberFormatter alloc] init] autorelease];
         [numberFormatter setNumberStyle:NSNumberFormatterDecimalStyle];
@@ -439,6 +439,10 @@ NSString *GraphDataPointWasSelectedNotification = @"GraphDataPointWasSelectedNot
 -(void)scatterPlot:(CPTScatterPlot *)plot plotSymbolWasSelectedAtRecordIndex:(NSUInteger)index
 {
     NSLog(@"[GraphViewController plotSymbolWasSelectedAtRecordIndex] delegate %@ at %lu", plot, index);
-    [[NSNotificationCenter defaultCenter] postNotificationName:GraphDataPointWasSelectedNotification object:[NSNumber numberWithUnsignedInteger:index]];
+    
+    //
+    // The graph view starts with the oldest reading. Let's reverse the index
+    // to select on the Reading View
+    [[NSNotificationCenter defaultCenter] postNotificationName:GraphDataPointWasSelectedNotification object:[NSNumber numberWithUnsignedInteger:[self.dataSourceSortedReadings count]-index]];
 }
 @end
