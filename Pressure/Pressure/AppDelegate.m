@@ -20,6 +20,7 @@
 
 #import "AppDelegate.h"
 #import "MainWindowController.h"
+#import "PXUserDefaults.h"
 
 @interface AppDelegate ()
 
@@ -31,14 +32,20 @@
 
 #pragma mark - NSApplicationDelegate
 
+- (id)init
+{
+	self = [super init];
+	if (self != nil)
+	{
+		// Create the shared defaults and register our defaults early.
+		[PXUserDefaults sharedDefaults];
+	}
+	
+	return self;
+}
+
 - (void)applicationDidFinishLaunching:(NSNotification *)notification
 {
-    //
-    // Let's find out about the First-Launch
-    //
-    [[NSUserDefaults standardUserDefaults] registerDefaults:[NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithBool:YES],@"firstLaunch",nil]];
-    [[NSUserDefaults standardUserDefaults] registerDefaults:[NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithBool:YES],@"usingSampleData",nil]];
-
 	[self.mainWindowController showWindow:self];
 }
 
@@ -49,9 +56,7 @@
 
 - (void)applicationWillTerminate:(NSNotification *)notification
 {
-    //
-    // First Launch is over
-    [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"firstLaunch"];
+	[[PXUserDefaults sharedDefaults] setFirstLaunch:NO];
 }
 
 #pragma mark - Private methods

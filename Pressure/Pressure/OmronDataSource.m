@@ -25,6 +25,7 @@
 #import "OmronDataSource.h"
 #import "OmronDataSyncOperation.h"
 #import "OmronDataRecord.h"
+#import "PXUserDefaults.h"
 
 #include "omron.h"
 
@@ -87,7 +88,7 @@ NSString *deviceInformationEntityName = @"DeviceInformation";
     if (self != nil)
 	{
         myReadingsListDates = [[NSMutableArray alloc] initWithCapacity:10];
-        myUsingSampleData = [[NSUserDefaults standardUserDefaults] boolForKey:@"usingSampleData"];
+        myUsingSampleData = [[PXUserDefaults sharedDefaults] usingSampleData];
     }
     
     return self;
@@ -365,7 +366,7 @@ NSString *deviceInformationEntityName = @"DeviceInformation";
 		NSLog(@"Cannot get device prf!\n");
 	}
     
-    [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"usingSampleData"];
+	[[PXUserDefaults sharedDefaults] setUsingSampleData:NO];
     
 	for(i = data_count - 1; i >= 0; --i)
 	{
