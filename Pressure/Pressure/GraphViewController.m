@@ -62,6 +62,8 @@ NSString *GraphDataPointWasSelectedNotification = @"GraphDataPointWasSelectedNot
 @synthesize bloodPressureLinePlot = mBloodPressureLinePlot;
 @synthesize referenceDate = mReferenceDate;
 @synthesize backdropView = mBackdropView;
+@synthesize systolicFrequencyDistributionView = mSystolicFrequencyDistributionView;
+@synthesize diastolicFrequencyDistributionView = mDiastolicFrequencyDistributionView;
 
 - (id)initWithDatasource:(OmronDataSource*)aDataSource
 {
@@ -88,14 +90,18 @@ NSString *GraphDataPointWasSelectedNotification = @"GraphDataPointWasSelectedNot
         NSTimeInterval oneDay = 24 * 60 * 60;
         
         
-        // Create graph 
+        // Create Main Graph 
         mGraph = [[CPTXYGraph alloc] initWithFrame:self.view.bounds];
         mHostView.hostedGraph = mGraph;
         
         mGraph.plotAreaFrame.borderLineStyle = nil;
         mGraph.defaultPlotSpace.delegate = (id)self;
+        mGraph.plotAreaFrame.paddingTop = 30.0;
+        mGraph.plotAreaFrame.paddingLeft = 40.0;
+        mGraph.plotAreaFrame.paddingBottom = 60.0;
+        mGraph.plotAreaFrame.paddingRight = 30.0;
         
-        // Title
+        // Main Graph Title
         CPTMutableTextStyle *textStyle = [CPTMutableTextStyle textStyle];
         textStyle.color = [CPTColor darkGrayColor];
         textStyle.fontSize = 18.0f;
@@ -103,12 +109,8 @@ NSString *GraphDataPointWasSelectedNotification = @"GraphDataPointWasSelectedNot
         mGraph.title = @"";
         mGraph.titleTextStyle = textStyle;
         mGraph.titleDisplacement = CGPointMake(0.0f, -20.0f);
-        mGraph.plotAreaFrame.paddingTop = 30.0;
-        mGraph.plotAreaFrame.paddingLeft = 40.0;
-        mGraph.plotAreaFrame.paddingBottom = 60.0;
-        mGraph.plotAreaFrame.paddingRight = 30.0;
         
-        // Add line style
+        // Add Pulse line style
         CGFloat values[4]	= { 111.0/255.0, 206.0/255.0, 145.0/255.0, 1.0 };
         CGColorRef colorRef = CGColorCreate([CPTColorSpace genericRGBSpace].cgColorSpace, values);
         CPTColor *pulseColor = [[[CPTColor alloc] initWithCGColor:colorRef] autorelease];
@@ -118,7 +120,7 @@ NSString *GraphDataPointWasSelectedNotification = @"GraphDataPointWasSelectedNot
         pulseLineStyle.lineWidth = 3.0f;
         pulseLineStyle.lineColor = pulseColor;
         
-        // Add line style
+        // Add Pressure line style
         CGFloat values2[4]	= { 39.0/255.0, 193.0/255.0, 219.0/255.0, 1.0 };
         CGColorRef colorRef2 = CGColorCreate([CPTColorSpace genericRGBSpace].cgColorSpace, values2);
         CPTColor *pressureColor = [[[CPTColor alloc] initWithCGColor:colorRef2] autorelease];
@@ -128,7 +130,7 @@ NSString *GraphDataPointWasSelectedNotification = @"GraphDataPointWasSelectedNot
         bloodPressureLineStyle.lineWidth = 2.0f;
         bloodPressureLineStyle.lineColor = pressureColor;
         
-        // Axes
+        // Main Graph Axes
         CPTXYAxisSet *axisSet = (CPTXYAxisSet *)mGraph.axisSet;
         CPTXYAxis *x = axisSet.xAxis;
         
@@ -171,6 +173,41 @@ NSString *GraphDataPointWasSelectedNotification = @"GraphDataPointWasSelectedNot
         // Add plots to the graph
         [mGraph addPlot:mPulseLinePlot];
         [mGraph addPlot:mBloodPressureLinePlot];
+        
+        //
+        // Systolic Frequency Distribution
+        mSystolicGraph = [[CPTXYGraph alloc] initWithFrame:self.view.bounds];
+        mSystolicFrequencyDistributionView.hostedGraph = mSystolicGraph;
+        
+        mSystolicGraph.plotAreaFrame.borderLineStyle = nil;
+        mSystolicGraph.defaultPlotSpace.delegate = (id)self;
+        mSystolicGraph.plotAreaFrame.paddingTop = 10.0;
+        mSystolicGraph.plotAreaFrame.paddingLeft = 40.0;
+        mSystolicGraph.plotAreaFrame.paddingBottom = 20.0;
+        mSystolicGraph.plotAreaFrame.paddingRight = 10.0;
+        
+        // Systolic Graph Title
+        mSystolicGraph.title = @"Systolic Frequency Distribution";
+        mSystolicGraph.titleTextStyle = textStyle;
+        mSystolicGraph.titleDisplacement = CGPointMake(0.0f, -165.0f);
+        
+        //
+        // Diastolic Frequency Distribution
+        mDiastolicGraph = [[CPTXYGraph alloc] initWithFrame:self.view.bounds];
+        mDiastolicFrequencyDistributionView.hostedGraph = mDiastolicGraph;
+        
+        mDiastolicGraph.plotAreaFrame.borderLineStyle = nil;
+        mDiastolicGraph.defaultPlotSpace.delegate = (id)self;
+        mDiastolicGraph.plotAreaFrame.paddingTop = 10.0;
+        mDiastolicGraph.plotAreaFrame.paddingLeft = 40.0;
+        mDiastolicGraph.plotAreaFrame.paddingBottom = 20.0;
+        mDiastolicGraph.plotAreaFrame.paddingRight = 10.0;
+        
+        // Systolic Graph Title
+        mDiastolicGraph.title = @"Diastolic Frequency Distribution";
+        mDiastolicGraph.titleTextStyle = textStyle;
+        mDiastolicGraph.titleDisplacement = CGPointMake(0.0f, -165.0f);
+        
     }
 	
 	return self;

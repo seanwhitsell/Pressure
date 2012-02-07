@@ -34,7 +34,11 @@ extern NSString *GraphDataPointWasSelectedNotification;
 
     NSArray *mPlotData;
     CPTXYGraph *mGraph;
+    CPTXYGraph *mSystolicGraph;
+    CPTXYGraph *mDiastolicGraph;
     CPTGraphHostingView *mHostView;
+    CPTGraphHostingView *mSystolicFrequencyDistributionView;
+    CPTGraphHostingView *mDiastolicFrequencyDistributionView;
     CPTFill *mAreaFill;
     CPTLineStyle *mBarLineStyle;
     CPTScatterPlot *mPulseLinePlot;
@@ -45,6 +49,8 @@ extern NSString *GraphDataPointWasSelectedNotification;
 
 @property (nonatomic, readonly, retain) OmronDataSource *dataSource;
 @property (nonatomic, readwrite, retain) IBOutlet CPTGraphHostingView *hostView;
+@property (nonatomic, readwrite, retain) IBOutlet CPTGraphHostingView *systolicFrequencyDistributionView;
+@property (nonatomic, readwrite, retain) IBOutlet CPTGraphHostingView *diastolicFrequencyDistributionView;
 @property (nonatomic, readwrite, retain) IBOutlet NSImageView *backdropView;
 
 - (id)initWithDatasource:(OmronDataSource*)aDataSource;
