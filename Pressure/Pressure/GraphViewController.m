@@ -30,22 +30,32 @@
 
 NSString *GraphDataPointWasSelectedNotification = @"GraphDataPointWasSelectedNotification";
 
+#define FrequencyDistributionWidth 5
+
 #pragma mark Private Interface
 
 @interface GraphViewController()
 
 @property (nonatomic, readwrite, retain) OmronDataSource *dataSource;
 @property (nonatomic, readwrite, retain) NSArray *dataSourceSortedReadings;
+@property (nonatomic, readwrite, retain) NSArray *systolicFrequencyDistribution;
+@property (nonatomic, readwrite, retain) NSArray *diastolicFrequencyDistribution;
 @property (nonatomic, readwrite, retain) NSArray *plotData;
 @property (nonatomic, readwrite, retain) CPTXYGraph *graph;
+@property (nonatomic, readwrite, retain) CPTXYGraph *systolicGraph;
+@property (nonatomic, readwrite, retain) CPTXYGraph *diastolicGraph;
 @property (nonatomic, readwrite, retain) CPTLineStyle *barLineStyle;
 @property (nonatomic, readwrite, retain) CPTFill *areaFill;
 @property (nonatomic, readwrite, retain) CPTScatterPlot *pulseLinePlot;
 @property (nonatomic, readwrite, retain) CPTTradingRangePlot *bloodPressureLinePlot;
+@property (nonatomic, readwrite, retain) CPTBarPlot *systolicBarPlot;
+@property (nonatomic, readwrite, retain) CPTBarPlot *diastolicBarPlot;
 @property (nonatomic, readwrite, retain) NSDate *referenceDate;
 
 - (void)dataSyncOperationDidEnd:(NSNotification*)notif;
 - (void)dataSyncOperationDataAvailable:(NSNotification*)notif;
+- (void)updateSortedReadings;
+- (void)recalculateGraphAxis;
 
 @end
 
@@ -55,6 +65,8 @@ NSString *GraphDataPointWasSelectedNotification = @"GraphDataPointWasSelectedNot
 @synthesize hostView = mHostView;
 @synthesize dataSourceSortedReadings = mDataSourceSortedReadings;
 @synthesize graph = mGraph;
+@synthesize systolicGraph = mSystolicGraph;
+@synthesize diastolicGraph = mDiastolicGraph;
 @synthesize plotData = mPlotData;
 @synthesize barLineStyle = mBarLineStyle;
 @synthesize areaFill = mAreaFill;
@@ -64,6 +76,12 @@ NSString *GraphDataPointWasSelectedNotification = @"GraphDataPointWasSelectedNot
 @synthesize backdropView = mBackdropView;
 @synthesize systolicFrequencyDistributionView = mSystolicFrequencyDistributionView;
 @synthesize diastolicFrequencyDistributionView = mDiastolicFrequencyDistributionView;
+@synthesize systolicBarPlot = mSystolicBarPlot;
+@synthesize diastolicBarPlot = mDiastolicBarPlot;
+@synthesize systolicFrequencyDistribution = mSystolicFrequencyDistribution;
+@synthesize diastolicFrequencyDistribution = mDiastolicFrequencyDistribution;
+
+#pragma mark Object Lifecycle Routines
 
 - (id)initWithDatasource:(OmronDataSource*)aDataSource
 {
@@ -153,7 +171,7 @@ NSString *GraphDataPointWasSelectedNotification = @"GraphDataPointWasSelectedNot
         
         //
         // Create a plot that uses the data for the Heart Rate
-        mPulseLinePlot = [[CPTScatterPlot alloc] initWithFrame:self.graph.bounds];
+        mPulseLinePlot = [[CPTScatterPlot alloc] initWithFrame:mGraph.bounds];
         mPulseLinePlot.identifier = @"Pulse Plot";
         mPulseLinePlot.dataLineStyle = pulseLineStyle;
         mPulseLinePlot.opacity = 0.8f;
@@ -162,7 +180,7 @@ NSString *GraphDataPointWasSelectedNotification = @"GraphDataPointWasSelectedNot
         
         //
         // Create a plot that uses the data for the Blood Pressure (Systolic/Diastolic)
-        mBloodPressureLinePlot = [[CPTTradingRangePlot alloc] initWithFrame:self.graph.bounds];
+        mBloodPressureLinePlot = [[CPTTradingRangePlot alloc] initWithFrame:mGraph.bounds];
         mBloodPressureLinePlot.identifier = @"Blood Pressure";
         mBloodPressureLinePlot.lineStyle = bloodPressureLineStyle;
         mBloodPressureLinePlot.plotStyle = CPTTradingRangePlotStyleOHLC;
@@ -189,25 +207,75 @@ NSString *GraphDataPointWasSelectedNotification = @"GraphDataPointWasSelectedNot
         // Systolic Graph Title
         mSystolicGraph.title = @"Systolic Frequency Distribution";
         mSystolicGraph.titleTextStyle = textStyle;
-        mSystolicGraph.titleDisplacement = CGPointMake(0.0f, -165.0f);
+        mSystolicGraph.titleDisplacement = CGPointMake(0.0f, 0.0f);
         
         //
         // Diastolic Frequency Distribution
-        mDiastolicGraph = [[CPTXYGraph alloc] initWithFrame:self.view.bounds];
-        mDiastolicFrequencyDistributionView.hostedGraph = mDiastolicGraph;
+//        mDiastolicGraph = [[CPTXYGraph alloc] initWithFrame:self.view.bounds];
+//        mDiastolicFrequencyDistributionView.hostedGraph = mDiastolicGraph;
+//        
+//        mDiastolicGraph.plotAreaFrame.borderLineStyle = nil;
+//        mDiastolicGraph.defaultPlotSpace.delegate = (id)self;
+//        mDiastolicGraph.plotAreaFrame.paddingTop = 10.0;
+//        mDiastolicGraph.plotAreaFrame.paddingLeft = 40.0;
+//        mDiastolicGraph.plotAreaFrame.paddingBottom = 40.0;
+//        mDiastolicGraph.plotAreaFrame.paddingRight = 10.0;
+//        
+//        // Diastolic Graph Title
+//        mDiastolicGraph.title = @"Diastolic Frequency Distribution";
+//        mDiastolicGraph.titleTextStyle = textStyle;
+//        mDiastolicGraph.titleDisplacement = CGPointMake(0.0f, -165.0f);
+//        
+        // Create grid line styles
+//        CPTMutableLineStyle *majorGridLineStyle = [CPTMutableLineStyle lineStyle];
+//        majorGridLineStyle.lineWidth = 1.0f;
+//        majorGridLineStyle.lineColor = [[CPTColor blackColor] colorWithAlphaComponent:0.75];
+//        
+//        CPTMutableLineStyle *minorGridLineStyle = [CPTMutableLineStyle lineStyle];
+//        minorGridLineStyle.lineWidth = 1.0f;
+//        minorGridLineStyle.lineColor = [[CPTColor blackColor] colorWithAlphaComponent:0.25];    
+
         
-        mDiastolicGraph.plotAreaFrame.borderLineStyle = nil;
-        mDiastolicGraph.defaultPlotSpace.delegate = (id)self;
-        mDiastolicGraph.plotAreaFrame.paddingTop = 10.0;
-        mDiastolicGraph.plotAreaFrame.paddingLeft = 40.0;
-        mDiastolicGraph.plotAreaFrame.paddingBottom = 20.0;
-        mDiastolicGraph.plotAreaFrame.paddingRight = 10.0;
+        // Systolic Graph Axes
+        axisSet = (CPTXYAxisSet *)mSystolicGraph.axisSet;
+        x = axisSet.xAxis;
         
-        // Systolic Graph Title
-        mDiastolicGraph.title = @"Diastolic Frequency Distribution";
-        mDiastolicGraph.titleTextStyle = textStyle;
-        mDiastolicGraph.titleDisplacement = CGPointMake(0.0f, -165.0f);
+        x.majorIntervalLength = CPTDecimalFromInt(1);
+        x.minorTicksPerInterval = 0;
+        x.orthogonalCoordinateDecimal = CPTDecimalFromString(@"0");
+        //x.labelRotation = M_PI/4.0;
+        x.axisLineCapMax = [[[CPTLineCap alloc] init] autorelease];
+        x.axisLineCapMax.lineCapType = CPTLineCapTypeOpenArrow;
+        x.labelFormatter = numberFormatter;
+        x.visibleRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0.0f) length:CPTDecimalFromFloat(6.0f)];
+		x.gridLinesRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0.0f) length:CPTDecimalFromFloat(60.0f)];
+//        x.majorGridLineStyle = majorGridLineStyle;
+//		x.minorGridLineStyle = minorGridLineStyle;
+//		x.axisLineStyle = nil;
+//		x.majorTickLineStyle = nil;
+//		x.minorTickLineStyle = nil;
+//		x.labelOffset = 10.0;
         
+        //CPTXYAxis *y = axisSet.yAxis;
+        y = axisSet.yAxis;
+        y.majorIntervalLength = CPTDecimalFromInt(10);
+        y.minorTicksPerInterval = 4;
+        y.orthogonalCoordinateDecimal = CPTDecimalFromInt(0);
+        y.labelFormatter = numberFormatter;
+        
+        mSystolicBarPlot = [[CPTBarPlot alloc] initWithFrame:mSystolicGraph.bounds];
+        mSystolicBarPlot.identifier = @"Systolic Bar Plot";
+        mSystolicBarPlot.opacity = 0.8f;
+        mSystolicBarPlot.dataSource = self;  
+        mSystolicBarPlot.delegate = self;
+        CPTXYPlotSpace *barPlotSpace = [[[CPTXYPlotSpace alloc] init] autorelease];
+        barPlotSpace.xRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0.0f) length:CPTDecimalFromFloat(20.0f)];
+        barPlotSpace.yRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0.0f) length:CPTDecimalFromFloat(60.0f)];
+        [mSystolicGraph addPlotSpace:barPlotSpace];
+        
+        x.plotSpace = barPlotSpace;
+        
+        [mSystolicGraph addPlot:mSystolicBarPlot];
     }
 	
 	return self;
@@ -224,13 +292,151 @@ NSString *GraphDataPointWasSelectedNotification = @"GraphDataPointWasSelectedNot
     [super dealloc];
 }
 
+#pragma mark Utility routines
+
+- (void)updateSortedReadings
+{
+    // Table Reload
+    NSLog(@"[GraphViewController updateSortedReadings]");
+    
+    //
+    // Let's take the data and sort it by date. There is no guarantee that the readings are
+    // in any order
+    //
+    if ([self.dataSource.readings count] > 0)
+    {
+        self.dataSourceSortedReadings = [self.dataSource.readings sortedArrayUsingComparator:^(id a, id b) {
+            NSDate *first = [(OmronDataRecord*)a readingDate];
+            NSDate *second = [(OmronDataRecord*)b readingDate];
+            return [first compare:second];
+        }];
+    }
+}
+
+- (void)recalculateFrequencyDistributionHistogram
+{
+    if ([self.dataSource.readings count] > 0)
+    {
+        //
+        // We will have FrequencyDistributionWidth classes for the histogram. 
+        // The formula is
+        //      W = (L - S) / K
+        // where L is the largest data, S is the smallest data, and K is the 
+        // number of classes
+        //
+        // We will create an array of 5 for our classes, calculate W, iterate over 
+        // the data and increment the class that each data point calls into.
+        //
+        OmronDataRecord *record = nil;
+        NSArray *readingsSortedBySystolicPressure = [self.dataSource.readings sortedArrayUsingComparator:^(id a, id b) {
+            NSInteger first = [(OmronDataRecord*)a systolicPressure];
+            NSInteger second = [(OmronDataRecord*)b systolicPressure];
+            if ( first < second ) {
+                return (NSComparisonResult)NSOrderedAscending;
+            } else if ( first > second ) {
+                return (NSComparisonResult)NSOrderedDescending;
+            } else {
+                return (NSComparisonResult)NSOrderedSame;
+            }
+        }];
+
+        record = [readingsSortedBySystolicPressure objectAtIndex:0];
+
+        NSInteger K = FrequencyDistributionWidth;
+        NSInteger L = [[readingsSortedBySystolicPressure lastObject] systolicPressure];
+        NSInteger S = [[readingsSortedBySystolicPressure objectAtIndex:0] systolicPressure];
+        NSInteger W = (L - S) / K;
+        
+        if (W*K < L)
+        {
+            //
+            // If there is a remainder for (L-S)/K, then we want to round up
+            // on the width
+            W++;
+        }
+        
+        NSLog(@"recalculateFrequencyDistributionHistogram - L is %ld, S is %ld W is %ld", L,S,W);
+        NSMutableArray *systolicFrequencyDistribution = [[NSMutableArray alloc] initWithCapacity:K];
+        
+        //
+        // Initialize the frequency distribution values
+        for (int i=0; i<K; i++) 
+        {
+            [systolicFrequencyDistribution insertObject:[NSNumber numberWithInt:0] atIndex:i];
+        }
+        
+        NSInteger highestValue = 0;
+        for (OmronDataRecord *record in readingsSortedBySystolicPressure)
+        {
+            //
+            // To put each reading in the frequency distribution, we use this formula
+            // Index = (READING - S) / W
+            
+            NSInteger systolicPressure = [record systolicPressure];
+            NSInteger index = (systolicPressure - S) / W;
+            int value = [[systolicFrequencyDistribution objectAtIndex:index] intValue];
+            value++;
+            [systolicFrequencyDistribution replaceObjectAtIndex:index withObject:[NSNumber numberWithInt:value]];
+            
+            if (value > highestValue)
+            {
+                highestValue = value;
+            }
+        }
+        
+        self.systolicFrequencyDistribution = systolicFrequencyDistribution;
+        
+        NSLog(@"Systolic Frequency Distribution is %@", self.systolicFrequencyDistribution);
+        
+        CPTXYPlotSpace *barPlotSpace = (CPTXYPlotSpace*)self.systolicGraph.defaultPlotSpace;
+        barPlotSpace.yRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0.0f) length:CPTDecimalFromFloat(60.0f)];
+        barPlotSpace.yRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0.0f) length:CPTDecimalFromFloat(highestValue + 5.0f)];
+        [self.systolicGraph reloadData];
+    }
+}
+
+- (void)recalculateGraphAxis
+{
+    //
+    // We have the list ordered by date, let's get the date of the first
+    // record and set teh axis accordingly for the Pressure/Pulse plots
+    //
+    if ([self.dataSourceSortedReadings count] > 0)
+    {
+        OmronDataRecord *record = [self.dataSourceSortedReadings objectAtIndex:0];
+        self.referenceDate = [record readingDate];
+        
+        NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
+        dateFormatter.dateStyle = kCFDateFormatterShortStyle;
+        CPTTimeFormatter *timeFormatter = [[[CPTTimeFormatter alloc] initWithDateFormatter:dateFormatter] autorelease];
+        timeFormatter.referenceDate = self.referenceDate;
+        
+        CPTXYAxisSet *axisSet = (CPTXYAxisSet *)self.graph.axisSet;
+        CPTXYAxis *x = axisSet.xAxis;
+        x.labelFormatter = timeFormatter;
+        
+        CPTXYPlotSpace *plotSpace = (CPTXYPlotSpace *)self.graph.defaultPlotSpace;
+        
+        NSDate *beginning = [[self.dataSourceSortedReadings objectAtIndex:0] readingDate];
+        NSDate *ending = [[self.dataSourceSortedReadings objectAtIndex:[self.dataSourceSortedReadings count]-1] readingDate];
+        plotSpace.xRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(-1.0f) length:CPTDecimalFromInteger([ending timeIntervalSinceDate:beginning])];
+        plotSpace.yRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(30.0) length:CPTDecimalFromFloat(150.0)];
+        
+        [self.graph reloadData];
+    }
+}
+
+#pragma mark NSViewController methods
+
 - (void)viewWillAppear
 {
     [self.backdropView setImage:[NSImage imageNamed:@"backdrop.png"]];
     NSLog(@"[GraphViewController viewWillAppear]");
     [self.graph reloadData];
-
+    [self.systolicGraph reloadData];
 }
+
+#pragma mark NSResponder events
 
 - (void)swipeWithEvent:(NSEvent *)event 
 {
@@ -245,10 +451,28 @@ NSString *GraphDataPointWasSelectedNotification = @"GraphDataPointWasSelectedNot
     NSLog(@"endGestureWithEvent event detected!");
 }
 
+#pragma mark CPTPlotDataSource routines
 
 -(NSUInteger)numberOfRecordsForPlot:(CPTPlot *)plot
 {
-    return [self.dataSourceSortedReadings count];
+    if (plot == self.pulseLinePlot)
+    {
+        return [self.dataSourceSortedReadings count];
+    }
+    else if (plot == self.bloodPressureLinePlot)
+    {
+        return [self.dataSourceSortedReadings count];
+    }
+    else if (plot == self.systolicBarPlot)
+    {
+        return FrequencyDistributionWidth;
+    }
+    else if (plot == self.diastolicBarPlot)
+    {
+        return FrequencyDistributionWidth;
+    }
+    
+    return 0;
 }
 
 -(NSNumber *)numberForPlot:(CPTPlot *)plot field:(NSUInteger)fieldEnum recordIndex:(NSUInteger)index
@@ -258,8 +482,31 @@ NSString *GraphDataPointWasSelectedNotification = @"GraphDataPointWasSelectedNot
     NSDate *readingDate = [record readingDate];
     NSTimeInterval interval = [readingDate timeIntervalSinceDate:self.referenceDate];
     
-    //NSLog(@"numberForPlot: %@, index %lu", plot.identifier, index);
-    
+    if (plot == self.systolicBarPlot)
+    {
+        switch (fieldEnum) {
+            case CPTBarPlotFieldBarLocation:
+                num = (NSDecimalNumber *)[NSDecimalNumber numberWithInteger:index];;
+                NSLog(@"systolicBarPlot CPTBarPlotFieldBarLocation: %d", [num intValue]);
+                break;
+            case CPTBarPlotFieldBarTip:
+                num = [self.systolicFrequencyDistribution objectAtIndex:index];
+                NSLog(@"systolicBarPlot CPTBarPlotFieldBarTip: %d", [num intValue]);
+                break;
+            case CPTBarPlotFieldBarBase:
+                num = (NSDecimalNumber *)[NSDecimalNumber numberWithInteger:0];;
+                NSLog(@"systolicBarPlot CPTBarPlotFieldBarBase: %d", [num intValue]);
+                break;
+            default:
+                NSLog(@"systolicBarPlot unknown field enum %lu", fieldEnum);
+                break;
+        }
+    }
+    else if (plot == self.diastolicBarPlot)
+    {
+        
+    }
+    else
     if (record)
     {
         if (plot == self.pulseLinePlot)
@@ -268,11 +515,9 @@ NSString *GraphDataPointWasSelectedNotification = @"GraphDataPointWasSelectedNot
             {
                 case CPTScatterPlotFieldX:
                     num = (NSDecimalNumber *)[NSDecimalNumber numberWithInteger:interval];
-                    //NSLog(@"numberForPlot:CPTScatterPlotFieldX index %lu is %ld. fieldEnum is %lu", index, [num longValue], fieldEnum);
                     break;
                 case CPTScatterPlotFieldY: 
-                        num = (NSDecimalNumber *) [NSDecimalNumber numberWithLong:[record heartRate]];
-                        //NSLog(@"numberForPlot:CPTScatterPlotFieldY index %lu is %ld. fieldEnum is %lu", index, [num longValue], fieldEnum);
+                    num = (NSDecimalNumber *) [NSDecimalNumber numberWithLong:[record heartRate]];
                     break;
                 default:
                     break;
@@ -303,7 +548,6 @@ NSString *GraphDataPointWasSelectedNotification = @"GraphDataPointWasSelectedNot
                     num = (NSDecimalNumber *) [NSDecimalNumber numberWithLong:[record systolicPressure]];
                     break;                    
             }
-            //NSLog(@"BloodPressure - field %lu yields %i", fieldEnum, [num intValue]);
         }
         else
         {
@@ -352,75 +596,16 @@ NSString *GraphDataPointWasSelectedNotification = @"GraphDataPointWasSelectedNot
 
 - (void)dataSyncOperationDidEnd:(NSNotification*)notif
 {
-    // Table Reload
-    NSLog(@"[GraphViewController dataSyncOperationDidEnd] Data Source isSampleData %s", [self.dataSource isSampleData] ? "yes":"no");
-    
-    self.dataSourceSortedReadings = [self.dataSource.readings sortedArrayUsingComparator:^(id a, id b) {
-        NSDate *first = [(OmronDataRecord*)a readingDate];
-        NSDate *second = [(OmronDataRecord*)b readingDate];
-        return [first compare:second];
-    }];
-    
-    if ([self.dataSourceSortedReadings count] > 0)
-    {
-        OmronDataRecord *record = [self.dataSourceSortedReadings objectAtIndex:0];
-        self.referenceDate = [record readingDate];
-        
-        NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
-        dateFormatter.dateStyle = kCFDateFormatterShortStyle;
-        CPTTimeFormatter *timeFormatter = [[[CPTTimeFormatter alloc] initWithDateFormatter:dateFormatter] autorelease];
-        timeFormatter.referenceDate = self.referenceDate;
-        
-        CPTXYAxisSet *axisSet = (CPTXYAxisSet *)self.graph.axisSet;
-        CPTXYAxis *x = axisSet.xAxis;
-        x.labelFormatter = timeFormatter;
-        
-        CPTXYPlotSpace *plotSpace = (CPTXYPlotSpace *)self.graph.defaultPlotSpace;
-        
-        
-        NSDate *beginning = [[self.dataSourceSortedReadings objectAtIndex:0] readingDate];
-        NSDate *ending = [[self.dataSourceSortedReadings objectAtIndex:[self.dataSourceSortedReadings count]-1] readingDate];
-        plotSpace.xRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(-1.0f) length:CPTDecimalFromInteger([ending timeIntervalSinceDate:beginning])];
-        plotSpace.yRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(30.0) length:CPTDecimalFromFloat(150.0)];
-        
-        [self.graph reloadData];
-    }
+    [self updateSortedReadings];
+    [self recalculateFrequencyDistributionHistogram];
+    [self recalculateGraphAxis];
 }
 
 - (void)dataSyncOperationDataAvailable:(NSNotification*)notif
 {
-    NSLog(@"[GraphViewController dataSyncOperationDataAvailable] Data Source isSampleData %s", [self.dataSource isSampleData] ? "yes":"no");
-    
-    self.dataSourceSortedReadings = [self.dataSource.readings sortedArrayUsingComparator:^(id a, id b) {
-        NSDate *first = [(OmronDataRecord*)a readingDate];
-        NSDate *second = [(OmronDataRecord*)b readingDate];
-        return [first compare:second];
-    }];
-
-    if ([self.dataSourceSortedReadings count] > 0)
-    {
-        OmronDataRecord *record = [self.dataSourceSortedReadings objectAtIndex:0];
-        self.referenceDate = [record readingDate];
-        
-        NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
-        dateFormatter.dateStyle = kCFDateFormatterShortStyle;
-        CPTTimeFormatter *timeFormatter = [[[CPTTimeFormatter alloc] initWithDateFormatter:dateFormatter] autorelease];
-        timeFormatter.referenceDate = self.referenceDate;
-
-        CPTXYAxisSet *axisSet = (CPTXYAxisSet *)self.graph.axisSet;
-        CPTXYAxis *x = axisSet.xAxis;
-        x.labelFormatter = timeFormatter;
-
-        CPTXYPlotSpace *plotSpace = (CPTXYPlotSpace *)self.graph.defaultPlotSpace;
-
-
-        NSDate *beginning = [[self.dataSourceSortedReadings objectAtIndex:0] readingDate];
-        NSDate *ending = [[self.dataSourceSortedReadings objectAtIndex:[self.dataSourceSortedReadings count]-1] readingDate];
-        plotSpace.xRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(-1.0f) length:CPTDecimalFromInteger([ending timeIntervalSinceDate:beginning])];
-        plotSpace.yRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(30.0) length:CPTDecimalFromFloat(150.0)];
-
-        [self.graph reloadData];
-    }
+    [self updateSortedReadings];
+    [self recalculateFrequencyDistributionHistogram];
+    [self recalculateGraphAxis];
 }
 
 #pragma mark CPTPlotSpaceDelegate methods
@@ -463,12 +648,13 @@ NSString *GraphDataPointWasSelectedNotification = @"GraphDataPointWasSelectedNot
 
 -(CPTPlotRange *)plotSpace:(CPTPlotSpace *)space willChangePlotRangeTo:(CPTPlotRange *)newRange forCoordinate:(CPTCoordinate)coordinate
 {
-    NSLog(@"[GraphViewController willChangePlotRangeTo] delegate");
+    NSLog(@"[GraphViewController willChangePlotRangeTo] delegate %@", newRange);
     return newRange;
 }
+
 -(void)plotSpace:(CPTPlotSpace *)space didChangePlotRangeForCoordinate:(CPTCoordinate)coordinate
 {
-    NSLog(@"[GraphViewController didChangePlotRangeForCoordinate] delegate");    
+    NSLog(@"[GraphViewController didChangePlotRangeForCoordinate] delegate %@", [space identifier]);    
 }
 
 #pragma mark CPTScatterPlotDelegate methods

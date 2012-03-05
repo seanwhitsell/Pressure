@@ -31,7 +31,9 @@ extern NSString *GraphDataPointWasSelectedNotification;
 @private
     OmronDataSource *mDataSource;
     NSArray *mDataSourceSortedReadings;
-
+    NSArray *mSystolicFrequencyDistribution;
+    NSArray *mDiastolicFrequencyDistribution;
+    
     NSArray *mPlotData;
     CPTXYGraph *mGraph;
     CPTXYGraph *mSystolicGraph;
@@ -43,6 +45,8 @@ extern NSString *GraphDataPointWasSelectedNotification;
     CPTLineStyle *mBarLineStyle;
     CPTScatterPlot *mPulseLinePlot;
     CPTTradingRangePlot *mBloodPressureLinePlot;
+    CPTBarPlot *mSystolicBarPlot;
+    CPTBarPlot *mDiastolicBarPlot;
     NSDate *mReferenceDate;
     NSImageView *mBackdropView;
 }
