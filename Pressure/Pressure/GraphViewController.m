@@ -209,33 +209,6 @@ NSString *GraphDataPointWasSelectedNotification = @"GraphDataPointWasSelectedNot
         mSystolicGraph.titleTextStyle = textStyle;
         mSystolicGraph.titleDisplacement = CGPointMake(0.0f, 0.0f);
         
-        //
-        // Diastolic Frequency Distribution
-//        mDiastolicGraph = [[CPTXYGraph alloc] initWithFrame:self.view.bounds];
-//        mDiastolicFrequencyDistributionView.hostedGraph = mDiastolicGraph;
-//        
-//        mDiastolicGraph.plotAreaFrame.borderLineStyle = nil;
-//        mDiastolicGraph.defaultPlotSpace.delegate = (id)self;
-//        mDiastolicGraph.plotAreaFrame.paddingTop = 10.0;
-//        mDiastolicGraph.plotAreaFrame.paddingLeft = 40.0;
-//        mDiastolicGraph.plotAreaFrame.paddingBottom = 40.0;
-//        mDiastolicGraph.plotAreaFrame.paddingRight = 10.0;
-//        
-//        // Diastolic Graph Title
-//        mDiastolicGraph.title = @"Diastolic Frequency Distribution";
-//        mDiastolicGraph.titleTextStyle = textStyle;
-//        mDiastolicGraph.titleDisplacement = CGPointMake(0.0f, -165.0f);
-//        
-        // Create grid line styles
-//        CPTMutableLineStyle *majorGridLineStyle = [CPTMutableLineStyle lineStyle];
-//        majorGridLineStyle.lineWidth = 1.0f;
-//        majorGridLineStyle.lineColor = [[CPTColor blackColor] colorWithAlphaComponent:0.75];
-//        
-//        CPTMutableLineStyle *minorGridLineStyle = [CPTMutableLineStyle lineStyle];
-//        minorGridLineStyle.lineWidth = 1.0f;
-//        minorGridLineStyle.lineColor = [[CPTColor blackColor] colorWithAlphaComponent:0.25];    
-
-        
         // Systolic Graph Axes
         axisSet = (CPTXYAxisSet *)mSystolicGraph.axisSet;
         x = axisSet.xAxis;
@@ -243,20 +216,8 @@ NSString *GraphDataPointWasSelectedNotification = @"GraphDataPointWasSelectedNot
         x.majorIntervalLength = CPTDecimalFromInt(1);
         x.minorTicksPerInterval = 0;
         x.orthogonalCoordinateDecimal = CPTDecimalFromString(@"0");
-        //x.labelRotation = M_PI/4.0;
-        x.axisLineCapMax = [[[CPTLineCap alloc] init] autorelease];
-        x.axisLineCapMax.lineCapType = CPTLineCapTypeOpenArrow;
         x.labelFormatter = numberFormatter;
-        x.visibleRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0.0f) length:CPTDecimalFromFloat(6.0f)];
-		x.gridLinesRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0.0f) length:CPTDecimalFromFloat(60.0f)];
-//        x.majorGridLineStyle = majorGridLineStyle;
-//		x.minorGridLineStyle = minorGridLineStyle;
-//		x.axisLineStyle = nil;
-//		x.majorTickLineStyle = nil;
-//		x.minorTickLineStyle = nil;
-//		x.labelOffset = 10.0;
         
-        //CPTXYAxis *y = axisSet.yAxis;
         y = axisSet.yAxis;
         y.majorIntervalLength = CPTDecimalFromInt(10);
         y.minorTicksPerInterval = 4;
@@ -268,14 +229,54 @@ NSString *GraphDataPointWasSelectedNotification = @"GraphDataPointWasSelectedNot
         mSystolicBarPlot.opacity = 0.8f;
         mSystolicBarPlot.dataSource = self;  
         mSystolicBarPlot.delegate = self;
-        CPTXYPlotSpace *barPlotSpace = [[[CPTXYPlotSpace alloc] init] autorelease];
-        barPlotSpace.xRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0.0f) length:CPTDecimalFromFloat(20.0f)];
+        CPTXYPlotSpace *barPlotSpace = (CPTXYPlotSpace *)mSystolicGraph.defaultPlotSpace;
+        barPlotSpace.xRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0.0f) length:CPTDecimalFromFloat(4.0f)];
         barPlotSpace.yRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0.0f) length:CPTDecimalFromFloat(60.0f)];
-        [mSystolicGraph addPlotSpace:barPlotSpace];
-        
-        x.plotSpace = barPlotSpace;
-        
         [mSystolicGraph addPlot:mSystolicBarPlot];
+        
+        //
+        // Diastolic Frequency Distribution
+        mDiastolicGraph = [[CPTXYGraph alloc] initWithFrame:self.view.bounds];
+        mDiastolicFrequencyDistributionView.hostedGraph = mDiastolicGraph;
+        
+        mDiastolicGraph.plotAreaFrame.borderLineStyle = nil;
+        mDiastolicGraph.defaultPlotSpace.delegate = (id)self;
+        mDiastolicGraph.plotAreaFrame.paddingTop = 10.0;
+        mDiastolicGraph.plotAreaFrame.paddingLeft = 40.0;
+        mDiastolicGraph.plotAreaFrame.paddingBottom = 20.0;
+        mDiastolicGraph.plotAreaFrame.paddingRight = 10.0;
+        
+        // Diastolic Graph Title
+        mDiastolicGraph.title = @"Diastolic Frequency Distribution";
+        mDiastolicGraph.titleTextStyle = textStyle;
+        mDiastolicGraph.titleDisplacement = CGPointMake(0.0f, 0.0f);
+        
+        // Diastolic Graph Axes
+        axisSet = (CPTXYAxisSet *)mDiastolicGraph.axisSet;
+        x = axisSet.xAxis;
+        
+        x.majorIntervalLength = CPTDecimalFromInt(1);
+        x.minorTicksPerInterval = 0;
+        x.orthogonalCoordinateDecimal = CPTDecimalFromString(@"0");
+        x.labelFormatter = numberFormatter;
+        
+        y = axisSet.yAxis;
+        y.majorIntervalLength = CPTDecimalFromInt(10);
+        y.minorTicksPerInterval = 4;
+        y.orthogonalCoordinateDecimal = CPTDecimalFromInt(0);
+        y.labelFormatter = numberFormatter;
+        
+        mDiastolicBarPlot = [[CPTBarPlot alloc] initWithFrame:mSystolicGraph.bounds];
+        mDiastolicBarPlot.identifier = @"Diastolic Bar Plot";
+        mDiastolicBarPlot.opacity = 0.8f;
+        mDiastolicBarPlot.dataSource = self;  
+        mDiastolicBarPlot.delegate = self;
+        barPlotSpace = (CPTXYPlotSpace *)mDiastolicGraph.defaultPlotSpace;
+        barPlotSpace.xRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0.0f) length:CPTDecimalFromFloat(4.0f)];
+        barPlotSpace.yRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0.0f) length:CPTDecimalFromFloat(60.0f)];
+        [mDiastolicGraph addPlot:mDiastolicBarPlot];
+     
+
     }
 	
 	return self;
@@ -328,6 +329,16 @@ NSString *GraphDataPointWasSelectedNotification = @"GraphDataPointWasSelectedNot
         // the data and increment the class that each data point calls into.
         //
         OmronDataRecord *record = nil;
+        NSInteger K = 0;
+        NSInteger L = 0;
+        NSInteger S = 0;
+        NSInteger W = 0;
+        NSInteger highestValue = 0;
+        CPTXYPlotSpace *barPlotSpace = nil;
+        
+        //
+        // SYSTOLIC
+        //
         NSArray *readingsSortedBySystolicPressure = [self.dataSource.readings sortedArrayUsingComparator:^(id a, id b) {
             NSInteger first = [(OmronDataRecord*)a systolicPressure];
             NSInteger second = [(OmronDataRecord*)b systolicPressure];
@@ -342,10 +353,10 @@ NSString *GraphDataPointWasSelectedNotification = @"GraphDataPointWasSelectedNot
 
         record = [readingsSortedBySystolicPressure objectAtIndex:0];
 
-        NSInteger K = FrequencyDistributionWidth;
-        NSInteger L = [[readingsSortedBySystolicPressure lastObject] systolicPressure];
-        NSInteger S = [[readingsSortedBySystolicPressure objectAtIndex:0] systolicPressure];
-        NSInteger W = (L - S) / K;
+        K = FrequencyDistributionWidth;
+        L = [[readingsSortedBySystolicPressure lastObject] systolicPressure];
+        S = [[readingsSortedBySystolicPressure objectAtIndex:0] systolicPressure];
+        W = (L - S) / K;
         
         if (W*K < L)
         {
@@ -365,7 +376,7 @@ NSString *GraphDataPointWasSelectedNotification = @"GraphDataPointWasSelectedNot
             [systolicFrequencyDistribution insertObject:[NSNumber numberWithInt:0] atIndex:i];
         }
         
-        NSInteger highestValue = 0;
+        highestValue = 0;
         for (OmronDataRecord *record in readingsSortedBySystolicPressure)
         {
             //
@@ -388,10 +399,80 @@ NSString *GraphDataPointWasSelectedNotification = @"GraphDataPointWasSelectedNot
         
         NSLog(@"Systolic Frequency Distribution is %@", self.systolicFrequencyDistribution);
         
-        CPTXYPlotSpace *barPlotSpace = (CPTXYPlotSpace*)self.systolicGraph.defaultPlotSpace;
+        barPlotSpace = (CPTXYPlotSpace*)self.systolicGraph.defaultPlotSpace;
         barPlotSpace.yRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0.0f) length:CPTDecimalFromFloat(60.0f)];
         barPlotSpace.yRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0.0f) length:CPTDecimalFromFloat(highestValue + 5.0f)];
         [self.systolicGraph reloadData];
+       
+        //
+        // DIASTOLIC
+        //
+        NSArray *readingsSortedByDiastolicPressure = [self.dataSource.readings sortedArrayUsingComparator:^(id a, id b) {
+            NSInteger first = [(OmronDataRecord*)a diastolicPressure];
+            NSInteger second = [(OmronDataRecord*)b diastolicPressure];
+            if ( first < second ) {
+                return (NSComparisonResult)NSOrderedAscending;
+            } else if ( first > second ) {
+                return (NSComparisonResult)NSOrderedDescending;
+            } else {
+                return (NSComparisonResult)NSOrderedSame;
+            }
+        }];
+        
+        record = [readingsSortedByDiastolicPressure objectAtIndex:0];
+        
+        K = FrequencyDistributionWidth;
+        L = [[readingsSortedByDiastolicPressure lastObject] diastolicPressure];
+        S = [[readingsSortedByDiastolicPressure objectAtIndex:0] diastolicPressure];
+        W = (L - S) / K;
+        
+        if (W*K < L)
+        {
+            //
+            // If there is a remainder for (L-S)/K, then we want to round up
+            // on the width
+            W++;
+        }
+        
+        NSLog(@"recalculateFrequencyDistributionHistogram - L is %ld, S is %ld W is %ld", L,S,W);
+        NSMutableArray *diastolicFrequencyDistribution = [[NSMutableArray alloc] initWithCapacity:K];
+        
+        //
+        // Initialize the frequency distribution values
+        for (int i=0; i<K; i++) 
+        {
+            [diastolicFrequencyDistribution insertObject:[NSNumber numberWithInt:0] atIndex:i];
+        }
+        
+        highestValue = 0;
+        for (OmronDataRecord *record in readingsSortedByDiastolicPressure)
+        {
+            //
+            // To put each reading in the frequency distribution, we use this formula
+            // Index = (READING - S) / W
+            
+            NSInteger diastolicPressure = [record diastolicPressure];
+            NSInteger index = (diastolicPressure - S) / W;
+            int value = [[diastolicFrequencyDistribution objectAtIndex:index] intValue];
+            value++;
+            [diastolicFrequencyDistribution replaceObjectAtIndex:index withObject:[NSNumber numberWithInt:value]];
+            
+            if (value > highestValue)
+            {
+                highestValue = value;
+            }
+        }
+        
+        self.diastolicFrequencyDistribution = diastolicFrequencyDistribution;
+        
+        NSLog(@"Diastolic Frequency Distribution is %@", self.diastolicFrequencyDistribution);
+        
+        barPlotSpace = (CPTXYPlotSpace*)self.diastolicGraph.defaultPlotSpace;
+        barPlotSpace.yRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0.0f) length:CPTDecimalFromFloat(60.0f)];
+        barPlotSpace.yRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0.0f) length:CPTDecimalFromFloat(highestValue + 5.0f)];
+        [self.diastolicGraph reloadData];
+
+        
     }
 }
 
@@ -486,7 +567,7 @@ NSString *GraphDataPointWasSelectedNotification = @"GraphDataPointWasSelectedNot
     {
         switch (fieldEnum) {
             case CPTBarPlotFieldBarLocation:
-                num = (NSDecimalNumber *)[NSDecimalNumber numberWithInteger:index];;
+                num = (NSDecimalNumber *)[NSDecimalNumber numberWithInteger:index];
                 NSLog(@"systolicBarPlot CPTBarPlotFieldBarLocation: %d", [num intValue]);
                 break;
             case CPTBarPlotFieldBarTip:
@@ -504,6 +585,23 @@ NSString *GraphDataPointWasSelectedNotification = @"GraphDataPointWasSelectedNot
     }
     else if (plot == self.diastolicBarPlot)
     {
+        switch (fieldEnum) {
+            case CPTBarPlotFieldBarLocation:
+                num = (NSDecimalNumber *)[NSDecimalNumber numberWithInteger:index];
+                NSLog(@"diastolicBarPlot CPTBarPlotFieldBarLocation: %d", [num intValue]);
+                break;
+            case CPTBarPlotFieldBarTip:
+                num = [self.diastolicFrequencyDistribution objectAtIndex:index];
+                NSLog(@"diastolicBarPlot CPTBarPlotFieldBarTip: %d", [num intValue]);
+                break;
+            case CPTBarPlotFieldBarBase:
+                num = (NSDecimalNumber *)[NSDecimalNumber numberWithInteger:0];;
+                NSLog(@"diastolicBarPlot CPTBarPlotFieldBarBase: %d", [num intValue]);
+                break;
+            default:
+                NSLog(@"diastolicBarPlot unknown field enum %lu", fieldEnum);
+                break;
+        }
         
     }
     else
