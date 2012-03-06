@@ -56,6 +56,8 @@ NSString *GraphDataPointWasSelectedNotification = @"GraphDataPointWasSelectedNot
 - (void)dataSyncOperationDataAvailable:(NSNotification*)notif;
 - (void)updateSortedReadings;
 - (void)recalculateGraphAxis;
+- (CPTFill *)barFillForBarPlot:(CPTBarPlot *)barPlot recordIndex:(NSUInteger)index; 
+- (CPTLineStyle *)barLineStyleForBarPlot:(CPTBarPlot *)barPlot recordIndex:(NSUInteger)index; 
 
 @end
 
@@ -229,9 +231,11 @@ NSString *GraphDataPointWasSelectedNotification = @"GraphDataPointWasSelectedNot
         mSystolicBarPlot.opacity = 0.8f;
         mSystolicBarPlot.dataSource = self;  
         mSystolicBarPlot.delegate = self;
+        mSystolicBarPlot.barOffset = CPTDecimalFromFloat(0.5);
+        mSystolicBarPlot.barCornerRadius = 6.0f;
         CPTXYPlotSpace *barPlotSpace = (CPTXYPlotSpace *)mSystolicGraph.defaultPlotSpace;
-        barPlotSpace.xRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0.0f) length:CPTDecimalFromFloat(4.0f)];
-        barPlotSpace.yRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0.0f) length:CPTDecimalFromFloat(60.0f)];
+        barPlotSpace.xRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0.0f) length:CPTDecimalFromInt(FrequencyDistributionWidth)];
+        barPlotSpace.yRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0.0f) length:CPTDecimalFromFloat(100.0f)];
         [mSystolicGraph addPlot:mSystolicBarPlot];
         
         //
@@ -266,14 +270,16 @@ NSString *GraphDataPointWasSelectedNotification = @"GraphDataPointWasSelectedNot
         y.orthogonalCoordinateDecimal = CPTDecimalFromInt(0);
         y.labelFormatter = numberFormatter;
         
-        mDiastolicBarPlot = [[CPTBarPlot alloc] initWithFrame:mSystolicGraph.bounds];
+        mDiastolicBarPlot = [[CPTBarPlot alloc] initWithFrame:mDiastolicGraph.bounds];
         mDiastolicBarPlot.identifier = @"Diastolic Bar Plot";
         mDiastolicBarPlot.opacity = 0.8f;
         mDiastolicBarPlot.dataSource = self;  
         mDiastolicBarPlot.delegate = self;
+        mDiastolicBarPlot.barOffset = CPTDecimalFromFloat(0.5);
+        mDiastolicBarPlot.barCornerRadius = 6.0f;
         barPlotSpace = (CPTXYPlotSpace *)mDiastolicGraph.defaultPlotSpace;
-        barPlotSpace.xRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0.0f) length:CPTDecimalFromFloat(4.0f)];
-        barPlotSpace.yRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0.0f) length:CPTDecimalFromFloat(60.0f)];
+        barPlotSpace.xRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0.0f) length:CPTDecimalFromInt(FrequencyDistributionWidth)];
+        barPlotSpace.yRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0.0f) length:CPTDecimalFromFloat(100.0f)];
         [mDiastolicGraph addPlot:mDiastolicBarPlot];
      
 
@@ -471,8 +477,6 @@ NSString *GraphDataPointWasSelectedNotification = @"GraphDataPointWasSelectedNot
         barPlotSpace.yRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0.0f) length:CPTDecimalFromFloat(60.0f)];
         barPlotSpace.yRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0.0f) length:CPTDecimalFromFloat(highestValue + 5.0f)];
         [self.diastolicGraph reloadData];
-
-        
     }
 }
 
@@ -515,6 +519,7 @@ NSString *GraphDataPointWasSelectedNotification = @"GraphDataPointWasSelectedNot
     NSLog(@"[GraphViewController viewWillAppear]");
     [self.graph reloadData];
     [self.systolicGraph reloadData];
+    [self.diastolicGraph reloadData];
 }
 
 #pragma mark NSResponder events
@@ -651,7 +656,6 @@ NSString *GraphDataPointWasSelectedNotification = @"GraphDataPointWasSelectedNot
         {
             NSLog(@"Error - unknown plot");
         }
-       
     }
     else
     {
@@ -688,6 +692,18 @@ NSString *GraphDataPointWasSelectedNotification = @"GraphDataPointWasSelectedNot
     }
     
     return symbol;
+}
+
+#pragma mark CPTBarPlotDataSource optional routines
+
+- (CPTFill *)barFillForBarPlot:(CPTBarPlot *)barPlot recordIndex:(NSUInteger)index
+{
+    return [CPTFill fillWithColor:[CPTColor whiteColor]];
+}
+
+- (CPTLineStyle *)barLineStyleForBarPlot:(CPTBarPlot *)barPlot recordIndex:(NSUInteger)index
+{
+    return nil;
 }
 
 #pragma mark NSNotification Observers

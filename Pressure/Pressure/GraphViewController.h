@@ -60,3 +60,4 @@ extern NSString *GraphDataPointWasSelectedNotification;
 - (id)initWithDatasource:(OmronDataSource*)aDataSource;
 
 @end
+
