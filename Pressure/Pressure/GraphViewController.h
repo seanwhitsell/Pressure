@@ -21,12 +21,13 @@
 
 #import <Cocoa/Cocoa.h>
 #import <CorePlot/CorePlot.h>
+#import "SWDatePicker.h"
 
 extern NSString *GraphDataPointWasSelectedNotification;
 
 @class OmronDataSource;
 
-@interface GraphViewController : NSViewController <CPTPlotDataSource, CPTPlotSpaceDelegate, CPTScatterPlotDelegate>
+@interface GraphViewController : NSViewController <CPTPlotDataSource, CPTPlotSpaceDelegate, CPTScatterPlotDelegate, SWDatePickerProtocol>
 {
 @private
     OmronDataSource *mDataSource;
@@ -49,6 +50,7 @@ extern NSString *GraphDataPointWasSelectedNotification;
     CPTBarPlot *mDiastolicBarPlot;
     NSDate *mReferenceDate;
     NSImageView *mBackdropView;
+    SWDatePicker *mDatePicker;
 }
 
 @property (nonatomic, readonly, retain) OmronDataSource *dataSource;
@@ -56,6 +58,7 @@ extern NSString *GraphDataPointWasSelectedNotification;
 @property (nonatomic, readwrite, retain) IBOutlet CPTGraphHostingView *systolicFrequencyDistributionView;
 @property (nonatomic, readwrite, retain) IBOutlet CPTGraphHostingView *diastolicFrequencyDistributionView;
 @property (nonatomic, readwrite, retain) IBOutlet NSImageView *backdropView;
+@property (nonatomic, readwrite, retain) IBOutlet SWDatePicker *datePicker;
 
 - (id)initWithDatasource:(OmronDataSource*)aDataSource;
 

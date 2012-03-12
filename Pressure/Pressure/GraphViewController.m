@@ -56,6 +56,7 @@ NSString *GraphDataPointWasSelectedNotification = @"GraphDataPointWasSelectedNot
 - (void)dataSyncOperationDataAvailable:(NSNotification*)notif;
 - (void)updateSortedReadings;
 - (void)recalculateGraphAxis;
+- (void)recalculateDatePickerRange;
 - (CPTFill *)barFillForBarPlot:(CPTBarPlot *)barPlot recordIndex:(NSUInteger)index; 
 - (CPTLineStyle *)barLineStyleForBarPlot:(CPTBarPlot *)barPlot recordIndex:(NSUInteger)index; 
 
@@ -82,6 +83,7 @@ NSString *GraphDataPointWasSelectedNotification = @"GraphDataPointWasSelectedNot
 @synthesize diastolicBarPlot = mDiastolicBarPlot;
 @synthesize systolicFrequencyDistribution = mSystolicFrequencyDistribution;
 @synthesize diastolicFrequencyDistribution = mDiastolicFrequencyDistribution;
+@synthesize datePicker = mDatePicker;
 
 #pragma mark Object Lifecycle Routines
 
@@ -164,7 +166,7 @@ NSString *GraphDataPointWasSelectedNotification = @"GraphDataPointWasSelectedNot
         CPTXYAxis *y = axisSet.yAxis;
         y.majorIntervalLength = CPTDecimalFromString(@"10");
         y.minorTicksPerInterval = 0;
-        y.orthogonalCoordinateDecimal = CPTDecimalFromFloat(-oneDay);
+        y.orthogonalCoordinateDecimal = CPTDecimalFromFloat(0.0f);
         
         NSNumberFormatter *numberFormatter = [[[NSNumberFormatter alloc] init] autorelease];
         [numberFormatter setNumberStyle:NSNumberFormatterDecimalStyle];
@@ -282,7 +284,10 @@ NSString *GraphDataPointWasSelectedNotification = @"GraphDataPointWasSelectedNot
         barPlotSpace.yRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0.0f) length:CPTDecimalFromFloat(100.0f)];
         [mDiastolicGraph addPlot:mDiastolicBarPlot];
      
-
+        //
+        // Date Picker
+        mDatePicker.delegate = self;
+        
     }
 	
 	return self;
@@ -511,6 +516,16 @@ NSString *GraphDataPointWasSelectedNotification = @"GraphDataPointWasSelectedNot
     }
 }
 
+- (void)recalculateDatePickerRange
+{
+    self.datePicker.rangeStartDate = [[self.dataSourceSortedReadings objectAtIndex:0] readingDate];
+    self.datePicker.rangeEndDate = [NSDate date];
+    self.datePicker.displayedStartDate = self.datePicker.rangeStartDate;
+    self.datePicker.displayedEndDate = self.datePicker.rangeEndDate;
+    
+    [self.datePicker setNeedsDisplay];
+}
+
 #pragma mark NSViewController methods
 
 - (void)viewWillAppear
@@ -713,6 +728,7 @@ NSString *GraphDataPointWasSelectedNotification = @"GraphDataPointWasSelectedNot
     [self updateSortedReadings];
     [self recalculateFrequencyDistributionHistogram];
     [self recalculateGraphAxis];
+    [self recalculateDatePickerRange];
 }
 
 - (void)dataSyncOperationDataAvailable:(NSNotification*)notif
@@ -720,6 +736,7 @@ NSString *GraphDataPointWasSelectedNotification = @"GraphDataPointWasSelectedNot
     [self updateSortedReadings];
     [self recalculateFrequencyDistributionHistogram];
     [self recalculateGraphAxis];
+    [self recalculateDatePickerRange];
 }
 
 #pragma mark CPTPlotSpaceDelegate methods
@@ -782,4 +799,13 @@ NSString *GraphDataPointWasSelectedNotification = @"GraphDataPointWasSelectedNot
     // to select on the Reading View
     [[NSNotificationCenter defaultCenter] postNotificationName:GraphDataPointWasSelectedNotification object:[NSNumber numberWithUnsignedInteger:[self.dataSourceSortedReadings count]-index]];
 }
+
+#pragma mark SWDatePickerProtocol
+- (void)dateRangeSelectionChanged:(SWDatePicker*)control selectedStartDate:(NSDate*)start selectedEndDate:(NSDate*)end
+{
+    //
+    // The user has changed the date range on the date Picker
+    NSLog(@"[GraphViewController dateRangeSelectionChanged] delegate");
+}
+
 @end

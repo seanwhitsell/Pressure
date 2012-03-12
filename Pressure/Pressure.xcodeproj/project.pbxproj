@@ -44,6 +44,9 @@
 		DA1A34CD14BB36D00089F858 /* OmronDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = DA1A34CA14BB36D00089F858 /* OmronDataSource.m */; };
 		DA1A34CE14BB36D00089F858 /* OmronDataSyncOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = DA1A34CC14BB36D00089F858 /* OmronDataSyncOperation.m */; };
 		DA33174C14C10DFA00022170 /* OmronDataRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = DA33174B14C10DFA00022170 /* OmronDataRecord.m */; };
+		DA340FF7150A32C200CA5AED /* SWDatePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = DA340FF6150A32C200CA5AED /* SWDatePicker.m */; };
+		DA43D56C150A5CC900C97C1E /* MonthCell.png in Resources */ = {isa = PBXBuildFile; fileRef = DA43D56A150A5CC900C97C1E /* MonthCell.png */; };
+		DA43D56D150A5CC900C97C1E /* MonthCellHighlighted.png in Resources */ = {isa = PBXBuildFile; fileRef = DA43D56B150A5CC900C97C1E /* MonthCellHighlighted.png */; };
 		DA4C98D714C373380068793E /* CorePlot.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA4C98D614C373380068793E /* CorePlot.framework */; };
 		DA4C98DA14C376AF0068793E /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA4C98D914C376AF0068793E /* QuartzCore.framework */; };
 		DA4FE8AD14BB5E3F0019B20F /* omron.c in Sources */ = {isa = PBXBuildFile; fileRef = DA4FE8AC14BB5E3F0019B20F /* omron.c */; };
@@ -164,6 +167,10 @@
 		DA1A34CC14BB36D00089F858 /* OmronDataSyncOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OmronDataSyncOperation.m; sourceTree = "<group>"; };
 		DA33174A14C10DFA00022170 /* OmronDataRecord.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OmronDataRecord.h; sourceTree = "<group>"; };
 		DA33174B14C10DFA00022170 /* OmronDataRecord.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OmronDataRecord.m; sourceTree = "<group>"; };
+		DA340FF5150A32C200CA5AED /* SWDatePicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWDatePicker.h; sourceTree = "<group>"; };
+		DA340FF6150A32C200CA5AED /* SWDatePicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWDatePicker.m; sourceTree = "<group>"; };
+		DA43D56A150A5CC900C97C1E /* MonthCell.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MonthCell.png; sourceTree = "<group>"; };
+		DA43D56B150A5CC900C97C1E /* MonthCellHighlighted.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MonthCellHighlighted.png; sourceTree = "<group>"; };
 		DA4C98D614C373380068793E /* CorePlot.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CorePlot.framework; path = ../3rdparty/CorePlot_0.9/Binaries/MacOS/CorePlot.framework; sourceTree = "<group>"; };
 		DA4C98D914C376AF0068793E /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		DA4C98DC14C377130068793E /* CorePlot.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = CorePlot.xcodeproj; path = ../3rdparty/CorePlot_0.9/Source/framework/CorePlot.xcodeproj; sourceTree = "<group>"; };
@@ -259,18 +266,20 @@
 		8F32EB3514B56CD800122156 /* Pressure */ = {
 			isa = PBXGroup;
 			children = (
-				DAA6226C14BE943500B91BFA /* PXListView */,
 				8F32EB3614B56CD800122156 /* AppDelegate.h */,
 				8F32EB3714B56CD800122156 /* AppDelegate.m */,
 				8FD7477814DE69F600E4E060 /* PXUserDefaults.h */,
 				8FD7477914DE69F600E4E060 /* PXUserDefaults.m */,
 				8F32EB3914B56CD800122156 /* MainMenu.xib */,
+				DAA6226C14BE943500B91BFA /* PXListView */,
 				8F4EAF0A14B6B42A00C9C31C /* Tabs */,
 				8F41AECD14B94DEF00F850D0 /* Main Window */,
 				8FFAB3B114B58F4800EAE31F /* Tab Bar */,
 				8FFAB3B014B58E2300EAE31F /* Images */,
 				DA4FE8BC14BB6AF60019B20F /* OmronDevice */,
 				8F32EB3C14B56CD800122156 /* Supporting Files */,
+				DA340FF5150A32C200CA5AED /* SWDatePicker.h */,
+				DA340FF6150A32C200CA5AED /* SWDatePicker.m */,
 			);
 			path = Pressure;
 			sourceTree = "<group>";
@@ -347,6 +356,8 @@
 		8FFAB3B014B58E2300EAE31F /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				DA43D56A150A5CC900C97C1E /* MonthCell.png */,
+				DA43D56B150A5CC900C97C1E /* MonthCellHighlighted.png */,
 				DAFBB28A14C904F20067CDFC /* List.icns */,
 				DAFBB28C14C905490067CDFC /* Stock.icns */,
 				DAFBB28814C8FCF90067CDFC /* backdrop.png */,
@@ -541,6 +552,8 @@
 				DAFBB28914C8FCF90067CDFC /* backdrop.png in Resources */,
 				DAFBB28B14C904F20067CDFC /* List.icns in Resources */,
 				DAFBB28D14C905490067CDFC /* Stock.icns in Resources */,
+				DA43D56C150A5CC900C97C1E /* MonthCell.png in Resources */,
+				DA43D56D150A5CC900C97C1E /* MonthCellHighlighted.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -578,6 +591,7 @@
 				DA6A784E14C07F050048E771 /* NSDate+Helper.m in Sources */,
 				DA33174C14C10DFA00022170 /* OmronDataRecord.m in Sources */,
 				8FD7477A14DE69F600E4E060 /* PXUserDefaults.m in Sources */,
+				DA340FF7150A32C200CA5AED /* SWDatePicker.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
