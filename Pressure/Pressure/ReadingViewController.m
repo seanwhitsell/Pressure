@@ -178,6 +178,15 @@
                                prefixed:NO
                                alwaysDisplayTime:YES];
     [[cell readingDateLabel] setStringValue:displayString];
+    
+    if ([record dataBank] == 0)
+    {
+        [[cell databankName] setStringValue:@"Databank A"];
+    }
+    else
+    {
+        [[cell databankName] setStringValue:@"Databank B"];
+    }
 	return cell;
 }
 

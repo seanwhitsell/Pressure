@@ -215,17 +215,28 @@ NSString *deviceInformationEntityName = @"DeviceInformation";
     if (retval && ([self.readings count] == 0))
     {
         // We did not get any data, let's fake it
-        NSMutableArray *sampleData = [[NSMutableArray alloc] initWithCapacity:100];
-        for (int i=0; i<100; i++)
+        NSMutableArray *sampleData = [[NSMutableArray alloc] initWithCapacity:(365*2)];
+        int s = 130;
+        int d = 80;
+        int hr = 60;
+        for (int i=0; i<(365*2); i++)
         {
             // Get a date that is within the last 100 days
-            int seconds = (24 * (arc4random() % 3600)) * (arc4random() %100);
+            int seconds = (24 * 3600) * ((365*2) - i);
             OmronDataRecord *dataRecord = [[OmronDataRecord alloc] init];
             dataRecord.readingDate = [[[NSDate alloc] initWithTimeIntervalSinceNow:-seconds] autorelease];
             
-            int s = 100 + (arc4random() % 100);
-            int d = 50 + (arc4random() % 50);
-            int hr = 50 + (arc4random() % 50);
+            s = s + (4 - arc4random() % 10);
+            d = d + (4 - arc4random() % 10);
+            hr = hr + (4 - arc4random() % 10);
+            
+            if (s < 100) s += (arc4random() % 5);
+            if (s > 150) s -= (arc4random() % 5);
+            if (d < 50)  d += (arc4random() % 5);
+            if (d > 100) d -= (arc4random() % 5);
+            if (hr < 50)  hr += (arc4random() % 5);
+            if (hr > 100) hr -= (arc4random() % 5);
+            
             dataRecord.systolicPressure = s;
             dataRecord.diastolicPressure = d;
             dataRecord.heartRate = hr;
@@ -278,7 +289,6 @@ NSString *deviceInformationEntityName = @"DeviceInformation";
 	int data_count;
 	unsigned char deviceVersion[64];
 	unsigned char serialNumber[64];
-	int bank =0;
     NSNotification *note;
     
 	device = omron_create();
@@ -359,61 +369,64 @@ NSString *deviceInformationEntityName = @"DeviceInformation";
         //abort();
     }
     
-	data_count = omron_get_daily_data_count(device, bank);
-	NSLog(@"Found %d entries. Reading valuers now.", data_count);
-	if(data_count < 0)
-	{
-		NSLog(@"Cannot get device prf!\n");
-	}
-    
-	[[PXUserDefaults sharedDefaults] setUsingSampleData:NO];
-    
-	for(i = data_count - 1; i >= 0; --i)
-	{
-        if (self.syncing)
+    for (int bank = 0; bank < 2; bank++)
+    {
+        data_count = omron_get_daily_data_count(device, bank);
+        NSLog(@"Found %d entries. Reading valuers now.", data_count);
+        if(data_count < 0)
         {
-            omron_bp_day_info r = omron_get_daily_bp_data(device, bank, i);
-            if(!r.present)
+            NSLog(@"Cannot get device prf!\n");
+        }
+        
+        [[PXUserDefaults sharedDefaults] setUsingSampleData:NO];
+        
+        for(i = data_count - 1; i >= 0; --i)
+        {
+            if (self.syncing)
             {
-                i = i + 1;
-                continue;
-            }
-            NSLog(@"%.2d/%.2d/20%.2d %.2d:%.2d:%.2d SYS: %3d DIA: %3d PULSE: %3d", r.day, r.month, r.year, r.hour, r.minute, r.second, r.sys, r.dia, r.pulse);
-            
-            NSDateComponents *comps = [[NSDateComponents alloc] init];
-            [comps setDay:r.day];
-            [comps setMonth:r.month];
-            [comps setYear:2000 + r.year];
-            [comps setHour:r.hour];
-            [comps setMinute:r.minute];
-            [comps setSecond:r.second];
-            NSDate* readingDate = [[NSCalendar currentCalendar] dateFromComponents:comps];
-            
-            unsigned index = (unsigned)CFArrayBSearchValues((__bridge CFArrayRef)self.readingsListDates,
-                                                            CFRangeMake(0, CFArrayGetCount((__bridge CFArrayRef)self.readingsListDates)),
-                                                            (__bridge CFDateRef)readingDate,
-                                                            (CFComparatorFunction)CFDateCompare,
-                                                            NULL);
-            if (index < [self.readings count])
-            {
-                // Already in the list
-                NSLog(@"Record already in list");
-            }
-            else
-            {
-                NSLog(@"Adding record");
-                // need to add this one
-                NSEntityDescription *entity = [NSEntityDescription entityForName:readingEntryEntityName inManagedObjectContext: self.managedObjectContext];
-                NSManagedObject *newManagedObject = [NSEntityDescription insertNewObjectForEntityForName:[entity name] inManagedObjectContext:context];
-                [newManagedObject setValue:readingDate forKey:readingDateKey];
-                [newManagedObject setValue:[NSNumber numberWithBool:NO] forKey:excludeReadingKey];
-                [newManagedObject setValue:[NSNumber numberWithInt:r.sys] forKey:systolicPressureKey];
-                [newManagedObject setValue:[NSNumber numberWithInt:r.dia] forKey:diastolicPressureKey];
-                [newManagedObject setValue:[NSNumber numberWithInt:r.pulse] forKey:heartRateKey];
-                [newManagedObject setValue:[NSNumber numberWithInt:bank] forKey:dataBankKey];
+                omron_bp_day_info r = omron_get_daily_bp_data(device, bank, i);
+                if(!r.present)
+                {
+                    i = i + 1;
+                    continue;
+                }
+                NSLog(@"%.2d/%.2d/20%.2d %.2d:%.2d:%.2d SYS: %3d DIA: %3d PULSE: %3d", r.day, r.month, r.year, r.hour, r.minute, r.second, r.sys, r.dia, r.pulse);
+                
+                NSDateComponents *comps = [[NSDateComponents alloc] init];
+                [comps setDay:r.day];
+                [comps setMonth:r.month];
+                [comps setYear:2000 + r.year];
+                [comps setHour:r.hour];
+                [comps setMinute:r.minute];
+                [comps setSecond:r.second];
+                NSDate* readingDate = [[NSCalendar currentCalendar] dateFromComponents:comps];
+                
+                unsigned index = (unsigned)CFArrayBSearchValues((__bridge CFArrayRef)self.readingsListDates,
+                                                                CFRangeMake(0, CFArrayGetCount((__bridge CFArrayRef)self.readingsListDates)),
+                                                                (__bridge CFDateRef)readingDate,
+                                                                (CFComparatorFunction)CFDateCompare,
+                                                                NULL);
+                if (index < [self.readings count])
+                {
+                    // Already in the list
+                    NSLog(@"Record already in list");
+                }
+                else
+                {
+                    NSLog(@"Adding record");
+                    // need to add this one
+                    NSEntityDescription *entity = [NSEntityDescription entityForName:readingEntryEntityName inManagedObjectContext: self.managedObjectContext];
+                    NSManagedObject *newManagedObject = [NSEntityDescription insertNewObjectForEntityForName:[entity name] inManagedObjectContext:context];
+                    [newManagedObject setValue:readingDate forKey:readingDateKey];
+                    [newManagedObject setValue:[NSNumber numberWithBool:NO] forKey:excludeReadingKey];
+                    [newManagedObject setValue:[NSNumber numberWithInt:r.sys] forKey:systolicPressureKey];
+                    [newManagedObject setValue:[NSNumber numberWithInt:r.dia] forKey:diastolicPressureKey];
+                    [newManagedObject setValue:[NSNumber numberWithInt:r.pulse] forKey:heartRateKey];
+                    [newManagedObject setValue:[NSNumber numberWithInt:bank] forKey:dataBankKey];
+                }
             }
         }
-	}
+    }
     
     if (![context save:&error])
     {
@@ -557,51 +570,5 @@ NSString *deviceInformationEntityName = @"DeviceInformation";
     
     return myManagedObjectContext;
 }
-
-//- (NSApplicationTerminateReply)applicationShouldTerminate:(NSApplication *)sender 
-//{
-//    
-//    // Save changes in the application's managed object context before the application terminates.
-//    if (!self.managedObjectContext) {
-//        return NSTerminateNow;
-//    }
-//    
-//    if (![[self managedObjectContext] commitEditing]) {
-//        NSLog(@"%@:%@ unable to commit editing to terminate", [self class], NSStringFromSelector(_cmd));
-//        return NSTerminateCancel;
-//    }
-//    
-//    if (![[self managedObjectContext] hasChanges]) {
-//        return NSTerminateNow;
-//    }
-//    
-//    NSError *error = nil;
-//    if (![[self managedObjectContext] save:&error]) {
-//        
-//        // Customize this code block to include application-specific recovery steps.              
-//        BOOL result = [sender presentError:error];
-//        if (result) {
-//            return NSTerminateCancel;
-//        }
-//        
-//        NSString *question = NSLocalizedString(@"Could not save changes while quitting. Quit anyway?", @"Quit without saves error question message");
-//        NSString *info = NSLocalizedString(@"Quitting now will lose any changes you have made since the last successful save", @"Quit without saves error question info");
-//        NSString *quitButton = NSLocalizedString(@"Quit anyway", @"Quit anyway button title");
-//        NSString *cancelButton = NSLocalizedString(@"Cancel", @"Cancel button title");
-//        NSAlert *alert = [[NSAlert alloc] init];
-//        [alert setMessageText:question];
-//        [alert setInformativeText:info];
-//        [alert addButtonWithTitle:quitButton];
-//        [alert addButtonWithTitle:cancelButton];
-//        
-//        NSInteger answer = [alert runModal];
-//        
-//        if (answer == NSAlertAlternateReturn) {
-//            return NSTerminateCancel;
-//        }
-//    }
-//    
-//    return NSTerminateNow;
-//}
 
 @end

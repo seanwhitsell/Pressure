@@ -31,6 +31,7 @@
 	NSTextField *mReadingDateLabel;
     NSTextField *mHeartRateLabel;
     NSButton *mExcludeCheckBox;
+    NSTextField *mDatabankName;
 }
 
 @property (nonatomic, readwrite, retain) IBOutlet NSTextField *systolicPressureLabel;
@@ -38,5 +39,6 @@
 @property (nonatomic, readwrite, retain) IBOutlet NSTextField *readingDateLabel;
 @property (nonatomic, readwrite, retain) IBOutlet NSTextField *heartRateLabel;
 @property (nonatomic, readwrite, retain) IBOutlet NSButton *excludeCheckBox;
+@property (nonatomic, readwrite, retain) IBOutlet NSTextField *databankName;
 
 @end

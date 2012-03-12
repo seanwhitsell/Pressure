@@ -21,6 +21,19 @@
 
 @protocol SWDatePickerProtocol;
 
+// The DatePicker is a Control that will display a horizontal row
+// of Months spanning the displayedStartDate to the displayedEndDate
+//
+// The range is set with rangeStartDate and rangeEndDate. The displayedStartDate
+// and displayedEndDate may be a subset of the full range depending on the size
+// of the control's bounds.
+//
+// The control understands mouseDown, mouseUp, and mouseDragging and will
+// "select" the months accordingly.
+//
+// Delegates can implement "dateRangeSelectionChanged:selectedStartDate:selectedEndDate:"
+// to be called back when the user makes a selection.
+//
 @interface SWDatePicker : NSControl
 {
 @private
@@ -36,6 +49,7 @@
     NSImage *mMonthHightlightedImage;
     NSImage *mMonthSelectedImage;
     NSInteger mMaxMonths;
+    NSInteger mMouseDownIndex;
 }
 
 @property (nonatomic, readwrite, retain) NSDate *rangeStartDate;

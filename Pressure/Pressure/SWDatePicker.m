@@ -22,10 +22,11 @@
 @interface SWDatePicker()
 
 @property (nonatomic, readwrite, assign) NSInteger maxMonths;
+@property (nonatomic, readwrite, assign) NSInteger mouseDownIndex;
 
 -(NSInteger)maxMonths;
 -(NSInteger)indexForPoint:(NSPoint)point;
--(NSDate*)dateForIndex:(NSInteger)index;
+-(NSDate*)firstDayOfMonthForIndex:(NSInteger)index;
 -(BOOL)shouldDisplayYearForIndex:(NSInteger)index;
 -(NSPoint)pointOfMonthAtIndex:(NSInteger)position highlighted:(BOOL)hightlighted;
 -(NSPoint)pointOfYearAtIndex:(NSInteger)position highlighted:(BOOL)hightlighted;
@@ -45,6 +46,7 @@
 @synthesize monthSelectedImage = mMonthSelectedImage;
 @synthesize delegate = mDelegate;
 @synthesize maxMonths = mMaxMonths;
+@synthesize mouseDownIndex = mMouseDownIndex;
 
 #pragma mark Object Lifecycle Routines
 
@@ -119,7 +121,7 @@
     return index;
 }
 
-- (NSDate*)dateForIndex:(NSInteger)index
+- (NSDate*)firstDayOfMonthForIndex:(NSInteger)index
 {
     NSDate *date = nil;
     
@@ -139,6 +141,40 @@
     return date;
 }
 
+- (NSDate*)lastDayOfMonthForIndex:(NSInteger)index
+{
+    NSDate *date = nil;
+    
+    NSCalendar *gregorian = [[NSCalendar alloc] 
+                             initWithCalendarIdentifier:NSGregorianCalendar]; 
+    
+    NSUInteger unitFlags = NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit; 
+    
+    NSDateComponents *components = [gregorian components:unitFlags 
+                                                fromDate:mRangeStartDate]; 
+    
+    //
+    // Figure out the date from the components
+    NSInteger months = [components month];
+    [components setMonth:(months + index)];
+    [components setDay:1];
+    date = [gregorian dateFromComponents:components];
+
+    //
+    // now that we have a date, let's figure out from teh Gregorian Calendar
+    // how many days are in that month
+    NSRange daysRange = [gregorian rangeOfUnit:NSDayCalendarUnit
+                                        inUnit:NSMonthCalendarUnit
+                                       forDate:date];
+    
+    //
+    // Now we create our "end date" from the last day of the month
+    [components setDay:daysRange.length];
+    date = [gregorian dateFromComponents:components];
+    
+    return date;
+}
+
 - (BOOL)shouldDisplayYearForIndex:(NSInteger)index
 {
     NSCalendar *gregorian = [[NSCalendar alloc] 
@@ -147,7 +183,7 @@
     NSUInteger unitFlags = NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit; 
     
     NSDateComponents *components = [gregorian components:unitFlags 
-                                                fromDate:[self dateForIndex:index]]; 
+                                                fromDate:[self firstDayOfMonthForIndex:index]]; 
     
     if ([components month] == 1)
     {
@@ -167,7 +203,7 @@
     NSUInteger unitFlags = NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit; 
     
     NSDateComponents *components = [gregorian components:unitFlags 
-                                                fromDate:[self dateForIndex:index]]; 
+                                                fromDate:[self firstDayOfMonthForIndex:index]]; 
 
     return [NSString stringWithFormat:@"%ld",[components year]];
 }
@@ -190,7 +226,7 @@
     CGFloat x = 0.0f;
     CGFloat y = 0.0f;
     
-    x = self.bounds.size.width - size.width*(self.maxMonths - position);
+    x = self.bounds.size.width - size.width*(self.maxMonths - position) + 4;
     y = (self.bounds.size.height - size.height)/2.0;
     
     return NSMakePoint(x,y); 
@@ -214,7 +250,7 @@
     // The Index is a zero based number starting at the mRangeStartDate
     // We will return a 3 character Month for that index
     NSString *retval = nil;
-    NSDate *startDate = [self dateForIndex:index];
+    NSDate *startDate = [self firstDayOfMonthForIndex:index];
     
     NSCalendar *gregorian = [[NSCalendar alloc] 
                              initWithCalendarIdentifier:NSGregorianCalendar]; 
@@ -273,7 +309,7 @@
 {
     BOOL retval = NO;
     
-    NSDate *indexDate = [self dateForIndex:index];
+    NSDate *indexDate = [self firstDayOfMonthForIndex:index];
     
     //
     // Let's see if the date is greater than the start date and less than the end date
@@ -364,8 +400,9 @@
         
         //
         // This will be the new Start Date.
-        self.selectedStartDate = [self dateForIndex:index];
-        self.selectedEndDate = self.selectedStartDate;
+        self.selectedStartDate = [self firstDayOfMonthForIndex:index];
+        self.selectedEndDate = [self lastDayOfMonthForIndex:index];
+        self.mouseDownIndex = index;
         
         NSLog(@"mouseDown: index %ld, startDate %@, endDate %@", index, self.selectedStartDate, self.selectedEndDate);
     
@@ -379,20 +416,19 @@
     NSPoint pointInView = [self convertPoint:[theEvent locationInWindow] fromView:nil];
     NSInteger index = [self indexForPoint:pointInView];
     
-    NSDate *temp = [self dateForIndex:index];
+    NSDate *temp = [self firstDayOfMonthForIndex:index];
     NSLog(@"mouseDragged: index %ld, dateForIndex %@, startDate %@, endDate %@", index, temp, self.selectedStartDate, self.selectedEndDate);
 
-    //
-    // We are dragging to the Left, let's swap
-    //
-    if (NSOrderedAscending == [temp compare:self.selectedStartDate])     
+    if (index <= self.mouseDownIndex)
     {
+        // We are dragging Left
         self.selectedStartDate = temp;
     }
-    
-    if (NSOrderedDescending == [temp compare:self.selectedEndDate])
+    else
+    if (index >= self.mouseDownIndex)
     {
-        self.selectedEndDate = temp;
+        // We are dragging Right
+        self.selectedEndDate = [self lastDayOfMonthForIndex:index];
     }
     
     [self setNeedsDisplay];

@@ -30,6 +30,7 @@
 @synthesize readingDateLabel = mReadingDateLabel;
 @synthesize heartRateLabel = mHeartRateLabel;
 @synthesize excludeCheckBox = mExcludeCheckBox;
+@synthesize databankName = mDatabankName;
 
 #pragma mark -
 #pragma mark Init/Dealloc
@@ -49,6 +50,7 @@
 	[mDiastolicPressureLabel release], mDiastolicPressureLabel=nil;
 	[mReadingDateLabel release], mReadingDateLabel=nil;
     [mHeartRateLabel release], mHeartRateLabel=nil;
+    [mDatabankName release], mDatabankName=nil;
     
 	[super dealloc];
 }
@@ -62,6 +64,7 @@
 	[self.diastolicPressureLabel setStringValue:@""];
 	[self.readingDateLabel setStringValue:@""];
     [self.heartRateLabel setStringValue:@""];
+    [self.databankName setStringValue:@""];
 }
 
 #pragma mark -

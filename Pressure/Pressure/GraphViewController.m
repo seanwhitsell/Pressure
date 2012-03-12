@@ -59,7 +59,8 @@ NSString *GraphDataPointWasSelectedNotification = @"GraphDataPointWasSelectedNot
 - (void)recalculateDatePickerRange;
 - (CPTFill *)barFillForBarPlot:(CPTBarPlot *)barPlot recordIndex:(NSUInteger)index; 
 - (CPTLineStyle *)barLineStyleForBarPlot:(CPTBarPlot *)barPlot recordIndex:(NSUInteger)index; 
-
+- (NSDate*)firstDayOfMonthForDate:(NSDate*)aDate;
+- (NSDate*)lastDayOfMonthForDate:(NSDate*)aDate;
 @end
 
 @implementation GraphViewController
@@ -306,6 +307,56 @@ NSString *GraphDataPointWasSelectedNotification = @"GraphDataPointWasSelectedNot
 
 #pragma mark Utility routines
 
+- (NSDate*)firstDayOfMonthForDate:(NSDate*)aDate    
+{
+    NSDate *date = nil;
+    
+    NSCalendar *gregorian = [[NSCalendar alloc] 
+                             initWithCalendarIdentifier:NSGregorianCalendar]; 
+    
+    NSUInteger unitFlags = NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit; 
+    
+    NSDateComponents *components = [gregorian components:unitFlags 
+                                                fromDate:aDate]; 
+    
+    [components setDay:1];
+    date = [gregorian dateFromComponents:components];
+    
+    return date;
+}
+
+- (NSDate*)lastDayOfMonthForDate:(NSDate*)aDate 
+{
+    NSDate *date = nil;
+    
+    NSCalendar *gregorian = [[NSCalendar alloc] 
+                             initWithCalendarIdentifier:NSGregorianCalendar]; 
+    
+    NSUInteger unitFlags = NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit; 
+    
+    NSDateComponents *components = [gregorian components:unitFlags 
+                                                fromDate:aDate]; 
+    
+    //
+    // Figure out the date from the components
+    [components setDay:1];
+    date = [gregorian dateFromComponents:components];
+    
+    //
+    // now that we have a date, let's figure out from teh Gregorian Calendar
+    // how many days are in that month
+    NSRange daysRange = [gregorian rangeOfUnit:NSDayCalendarUnit
+                                        inUnit:NSMonthCalendarUnit
+                                       forDate:date];
+    
+    //
+    // Now we create our "end date" from the last day of the month
+    [components setDay:daysRange.length];
+    date = [gregorian dateFromComponents:components];
+    
+    return date;
+}
+
 - (void)updateSortedReadings
 {
     // Table Reload
@@ -350,7 +401,7 @@ NSString *GraphDataPointWasSelectedNotification = @"GraphDataPointWasSelectedNot
         //
         // SYSTOLIC
         //
-        NSArray *readingsSortedBySystolicPressure = [self.dataSource.readings sortedArrayUsingComparator:^(id a, id b) {
+        NSArray *readingsSortedBySystolicPressure = [self.dataSourceSortedReadings sortedArrayUsingComparator:^(id a, id b) {
             NSInteger first = [(OmronDataRecord*)a systolicPressure];
             NSInteger second = [(OmronDataRecord*)b systolicPressure];
             if ( first < second ) {
@@ -418,7 +469,7 @@ NSString *GraphDataPointWasSelectedNotification = @"GraphDataPointWasSelectedNot
         //
         // DIASTOLIC
         //
-        NSArray *readingsSortedByDiastolicPressure = [self.dataSource.readings sortedArrayUsingComparator:^(id a, id b) {
+        NSArray *readingsSortedByDiastolicPressure = [self.dataSourceSortedReadings sortedArrayUsingComparator:^(id a, id b) {
             NSInteger first = [(OmronDataRecord*)a diastolicPressure];
             NSInteger second = [(OmronDataRecord*)b diastolicPressure];
             if ( first < second ) {
@@ -494,7 +545,18 @@ NSString *GraphDataPointWasSelectedNotification = @"GraphDataPointWasSelectedNot
     if ([self.dataSourceSortedReadings count] > 0)
     {
         OmronDataRecord *record = [self.dataSourceSortedReadings objectAtIndex:0];
-        self.referenceDate = [record readingDate];
+        
+        //
+        // We want to set the timeline reference date to the First Day of the Month of the first reading
+        NSCalendar *gregorian = [[NSCalendar alloc] 
+                                 initWithCalendarIdentifier:NSGregorianCalendar]; 
+        
+        NSUInteger unitFlags = NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit; 
+        
+        NSDateComponents *components = [gregorian components:unitFlags 
+                                                    fromDate:[record readingDate]]; 
+        [components setDay:1];
+        self.referenceDate = [gregorian dateFromComponents:components];
         
         NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
         dateFormatter.dateStyle = kCFDateFormatterShortStyle;
@@ -507,9 +569,8 @@ NSString *GraphDataPointWasSelectedNotification = @"GraphDataPointWasSelectedNot
         
         CPTXYPlotSpace *plotSpace = (CPTXYPlotSpace *)self.graph.defaultPlotSpace;
         
-        NSDate *beginning = [[self.dataSourceSortedReadings objectAtIndex:0] readingDate];
         NSDate *ending = [[self.dataSourceSortedReadings objectAtIndex:[self.dataSourceSortedReadings count]-1] readingDate];
-        plotSpace.xRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(-1.0f) length:CPTDecimalFromInteger([ending timeIntervalSinceDate:beginning])];
+        plotSpace.xRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0.0f) length:CPTDecimalFromInteger([[self lastDayOfMonthForDate:ending] timeIntervalSinceDate:self.referenceDate])];
         plotSpace.yRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(30.0) length:CPTDecimalFromFloat(150.0)];
         
         [self.graph reloadData];
@@ -579,9 +640,6 @@ NSString *GraphDataPointWasSelectedNotification = @"GraphDataPointWasSelectedNot
 -(NSNumber *)numberForPlot:(CPTPlot *)plot field:(NSUInteger)fieldEnum recordIndex:(NSUInteger)index
 {
     NSDecimalNumber *num = [NSDecimalNumber zero];
-    OmronDataRecord *record = [self.dataSourceSortedReadings objectAtIndex:index];
-    NSDate *readingDate = [record readingDate];
-    NSTimeInterval interval = [readingDate timeIntervalSinceDate:self.referenceDate];
     
     if (plot == self.systolicBarPlot)
     {
@@ -625,57 +683,59 @@ NSString *GraphDataPointWasSelectedNotification = @"GraphDataPointWasSelectedNot
         
     }
     else
-    if (record)
+    if (plot == self.pulseLinePlot)
     {
-        if (plot == self.pulseLinePlot)
+        OmronDataRecord *record = [self.dataSourceSortedReadings objectAtIndex:index];
+        NSDate *readingDate = [record readingDate];
+        NSTimeInterval interval = [readingDate timeIntervalSinceDate:self.referenceDate];
+
+        switch (fieldEnum) 
         {
-            switch (fieldEnum) 
-            {
-                case CPTScatterPlotFieldX:
-                    num = (NSDecimalNumber *)[NSDecimalNumber numberWithInteger:interval];
-                    break;
-                case CPTScatterPlotFieldY: 
-                    num = (NSDecimalNumber *) [NSDecimalNumber numberWithLong:[record heartRate]];
-                    break;
-                default:
-                    break;
-            }
+            case CPTScatterPlotFieldX:
+                num = (NSDecimalNumber *)[NSDecimalNumber numberWithInteger:interval];
+                break;
+            case CPTScatterPlotFieldY: 
+                num = (NSDecimalNumber *) [NSDecimalNumber numberWithLong:[record heartRate]];
+                break;
+            default:
+                break;
         }
-        else
-        if (plot == self.bloodPressureLinePlot)
+    }
+    else
+    if (plot == self.bloodPressureLinePlot)
+    {
+        OmronDataRecord *record = [self.dataSourceSortedReadings objectAtIndex:index];
+        NSDate *readingDate = [record readingDate];
+        NSTimeInterval interval = [readingDate timeIntervalSinceDate:self.referenceDate];
+
+        switch (fieldEnum) 
         {
-            switch (fieldEnum) 
-            {
-                case CPTTradingRangePlotFieldX:
-                    num = (NSDecimalNumber *)[NSDecimalNumber numberWithInteger:interval];
-                    break;
-                    
-                case CPTTradingRangePlotFieldClose:
-                    num = (NSDecimalNumber *) [NSDecimalNumber numberWithLong:[record diastolicPressure]];
-                    break;
-                    
-                case CPTTradingRangePlotFieldHigh:
-                    num = (NSDecimalNumber *) [NSDecimalNumber numberWithLong:[record systolicPressure]];
-                    break;
-                    
-                case CPTTradingRangePlotFieldLow:
-                    num = (NSDecimalNumber *) [NSDecimalNumber numberWithLong:[record diastolicPressure]];
-                    break;
-                    
-                case CPTTradingRangePlotFieldOpen:
-                    num = (NSDecimalNumber *) [NSDecimalNumber numberWithLong:[record systolicPressure]];
-                    break;                    
-            }
-        }
-        else
-        {
-            NSLog(@"Error - unknown plot");
+            case CPTTradingRangePlotFieldX:
+                num = (NSDecimalNumber *)[NSDecimalNumber numberWithInteger:interval];
+                break;
+                
+            case CPTTradingRangePlotFieldClose:
+                num = (NSDecimalNumber *) [NSDecimalNumber numberWithLong:[record diastolicPressure]];
+                break;
+                
+            case CPTTradingRangePlotFieldHigh:
+                num = (NSDecimalNumber *) [NSDecimalNumber numberWithLong:[record systolicPressure]];
+                break;
+                
+            case CPTTradingRangePlotFieldLow:
+                num = (NSDecimalNumber *) [NSDecimalNumber numberWithLong:[record diastolicPressure]];
+                break;
+                
+            case CPTTradingRangePlotFieldOpen:
+                num = (NSDecimalNumber *) [NSDecimalNumber numberWithLong:[record systolicPressure]];
+                break;                    
         }
     }
     else
     {
-        NSLog(@"No Record");
+        NSLog(@"Error - unknown plot");
     }
+
 
     return num;
 }
@@ -805,7 +865,17 @@ NSString *GraphDataPointWasSelectedNotification = @"GraphDataPointWasSelectedNot
 {
     //
     // The user has changed the date range on the date Picker
-    NSLog(@"[GraphViewController dateRangeSelectionChanged] delegate");
+    NSLog(@"[GraphViewController dateRangeSelectionChanged] delegate start:%@ end:%@", start, end);
+    
+    [self updateSortedReadings];
+    NSPredicate *predicate = [NSPredicate
+                              predicateWithFormat:@"(readingDate >= %@) AND (readingDate <= %@)",
+                              start, end];
+    self.dataSourceSortedReadings = [self.dataSourceSortedReadings filteredArrayUsingPredicate:predicate];
+    [self recalculateFrequencyDistributionHistogram];
+    [self recalculateGraphAxis];
+
+
 }
 
 @end
