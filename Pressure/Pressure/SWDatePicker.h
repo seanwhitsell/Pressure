@@ -50,6 +50,7 @@
     NSImage *mMonthSelectedImage;
     NSInteger mMaxMonths;
     NSInteger mMouseDownIndex;
+    NSString *mDateRangeLabel;
 }
 
 @property (nonatomic, readwrite, retain) NSDate *rangeStartDate;

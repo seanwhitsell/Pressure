@@ -85,6 +85,7 @@ NSString *GraphDataPointWasSelectedNotification = @"GraphDataPointWasSelectedNot
 @synthesize systolicFrequencyDistribution = mSystolicFrequencyDistribution;
 @synthesize diastolicFrequencyDistribution = mDiastolicFrequencyDistribution;
 @synthesize datePicker = mDatePicker;
+@synthesize dateRangeLabel = mDateRangeLabel;
 
 #pragma mark Object Lifecycle Routines
 
@@ -110,8 +111,6 @@ NSString *GraphDataPointWasSelectedNotification = @"GraphDataPointWasSelectedNot
                                                      name:OmronDataSyncDataAvailableNotification 
                                                    object:nil];
 
-        NSTimeInterval oneDay = 24 * 60 * 60;
-        
         
         // Create Main Graph 
         mGraph = [[CPTXYGraph alloc] initWithFrame:self.view.bounds];
@@ -134,33 +133,29 @@ NSString *GraphDataPointWasSelectedNotification = @"GraphDataPointWasSelectedNot
         mGraph.titleDisplacement = CGPointMake(0.0f, -20.0f);
         
         // Add Pulse line style
-        CGFloat values[4]	= { 111.0/255.0, 206.0/255.0, 145.0/255.0, 1.0 };
+        CGFloat values[4]	= { 111.0/255.0, 206.0/255.0, 145.0/255.0, 0.5f };
         CGColorRef colorRef = CGColorCreate([CPTColorSpace genericRGBSpace].cgColorSpace, values);
         CPTColor *pulseColor = [[[CPTColor alloc] initWithCGColor:colorRef] autorelease];
         CGColorRelease(colorRef);
         
         CPTMutableLineStyle *pulseLineStyle = [CPTMutableLineStyle lineStyle];
-        pulseLineStyle.lineWidth = 3.0f;
+        pulseLineStyle.lineWidth = 1.0f;
         pulseLineStyle.lineColor = pulseColor;
         
         // Add Pressure line style
-        CGFloat values2[4]	= { 39.0/255.0, 193.0/255.0, 219.0/255.0, 1.0 };
+        CGFloat values2[4]	= { 39.0/255.0, 193.0/255.0, 219.0/255.0, 0.5f };
         CGColorRef colorRef2 = CGColorCreate([CPTColorSpace genericRGBSpace].cgColorSpace, values2);
         CPTColor *pressureColor = [[[CPTColor alloc] initWithCGColor:colorRef2] autorelease];
         CGColorRelease(colorRef2);
         
         CPTMutableLineStyle *bloodPressureLineStyle = [CPTMutableLineStyle lineStyle];
-        bloodPressureLineStyle.lineWidth = 2.0f;
+        bloodPressureLineStyle.lineWidth = 1.0f;
         bloodPressureLineStyle.lineColor = pressureColor;
         
         // Main Graph Axes
         CPTXYAxisSet *axisSet = (CPTXYAxisSet *)mGraph.axisSet;
         CPTXYAxis *x = axisSet.xAxis;
         
-        x.majorIntervalLength = CPTDecimalFromFloat(oneDay * 10);
-        x.minorTicksPerInterval = 10;
-        x.orthogonalCoordinateDecimal = CPTDecimalFromString(@"30");
-        x.labelRotation = M_PI/4.0;
         x.axisLineCapMax = [[[CPTLineCap alloc] init] autorelease];
         x.axisLineCapMax.lineCapType = CPTLineCapTypeOpenArrow;
         
@@ -571,18 +566,71 @@ NSString *GraphDataPointWasSelectedNotification = @"GraphDataPointWasSelectedNot
         
         NSDate *ending = [[self.dataSourceSortedReadings objectAtIndex:[self.dataSourceSortedReadings count]-1] readingDate];
         plotSpace.xRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0.0f) length:CPTDecimalFromInteger([[self lastDayOfMonthForDate:ending] timeIntervalSinceDate:self.referenceDate])];
-        plotSpace.yRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(30.0) length:CPTDecimalFromFloat(150.0)];
         
+        //
+        // For the Y range, we want the lowest Diastolic or lowest Heartrate and the Highest Systolic
+        NSArray *readingsSortedBySystolicPressure = [self.dataSourceSortedReadings sortedArrayUsingComparator:^(id a, id b) {
+            NSInteger first = [(OmronDataRecord*)a systolicPressure];
+            NSInteger second = [(OmronDataRecord*)b systolicPressure];
+            if ( first < second ) {
+                return (NSComparisonResult)NSOrderedAscending;
+            } else if ( first > second ) {
+                return (NSComparisonResult)NSOrderedDescending;
+            } else {
+                return (NSComparisonResult)NSOrderedSame;
+            }
+        }];
+
+        NSArray *readingsSortedByDiastolicPressure = [self.dataSourceSortedReadings sortedArrayUsingComparator:^(id a, id b) {
+            NSInteger first = [(OmronDataRecord*)a diastolicPressure];
+            NSInteger second = [(OmronDataRecord*)b diastolicPressure];
+            if ( first < second ) {
+                return (NSComparisonResult)NSOrderedAscending;
+            } else if ( first > second ) {
+                return (NSComparisonResult)NSOrderedDescending;
+            } else {
+                return (NSComparisonResult)NSOrderedSame;
+            }
+        }];
+        
+        NSArray *readingsSortedByHeartrate = [self.dataSourceSortedReadings sortedArrayUsingComparator:^(id a, id b) {
+            NSInteger first = [(OmronDataRecord*)a heartRate];
+            NSInteger second = [(OmronDataRecord*)b heartRate];
+            if ( first < second ) {
+                return (NSComparisonResult)NSOrderedAscending;
+            } else if ( first > second ) {
+                return (NSComparisonResult)NSOrderedDescending;
+            } else {
+                return (NSComparisonResult)NSOrderedSame;
+            }
+        }];
+        
+        NSInteger lowestDiastolic = [[readingsSortedByDiastolicPressure objectAtIndex:0] diastolicPressure];
+        NSInteger lowestHeartrate = [[readingsSortedByHeartrate objectAtIndex:0] heartRate];
+        NSInteger lowestValue = lowestDiastolic<lowestHeartrate ? lowestDiastolic : lowestHeartrate;
+        NSInteger highestSystolic = [[readingsSortedBySystolicPressure lastObject] systolicPressure];
+        int roundedLowValue = ((((int)lowestValue - 10) / 10) * 10);
+
+        plotSpace.yRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(roundedLowValue) length:CPTDecimalFromFloat(highestSystolic - roundedLowValue + 20.0f)];
+        
+        //
+        // Cleanup the X Axis now
+        x.majorIntervalLength = CPTDecimalFromFloat(60*60*24 * 30);
+        x.minorTicksPerInterval = 0;
+        x.orthogonalCoordinateDecimal = CPTDecimalFromInteger(roundedLowValue);
+
         [self.graph reloadData];
     }
 }
 
 - (void)recalculateDatePickerRange
 {
-    self.datePicker.rangeStartDate = [[self.dataSourceSortedReadings objectAtIndex:0] readingDate];
-    self.datePicker.rangeEndDate = [NSDate date];
+    self.datePicker.rangeStartDate = [self firstDayOfMonthForDate:[[self.dataSourceSortedReadings objectAtIndex:0] readingDate]];
+    self.datePicker.rangeEndDate = [self lastDayOfMonthForDate:[NSDate date]];
     self.datePicker.displayedStartDate = self.datePicker.rangeStartDate;
     self.datePicker.displayedEndDate = self.datePicker.rangeEndDate;
+    self.datePicker.selectedStartDate = self.datePicker.rangeStartDate;
+    self.datePicker.selectedEndDate = self.datePicker.rangeEndDate;
     
     [self.datePicker setNeedsDisplay];
 }
@@ -785,18 +833,22 @@ NSString *GraphDataPointWasSelectedNotification = @"GraphDataPointWasSelectedNot
 
 - (void)dataSyncOperationDidEnd:(NSNotification*)notif
 {
+    //
+    // These need to be in this order. The recalculateFrequencyDistributionHistogram and recalculateGraphAxis
+    // depend on the recalculateDatePickerRange
+    //
     [self updateSortedReadings];
+    [self recalculateDatePickerRange];
     [self recalculateFrequencyDistributionHistogram];
     [self recalculateGraphAxis];
-    [self recalculateDatePickerRange];
 }
 
 - (void)dataSyncOperationDataAvailable:(NSNotification*)notif
 {
     [self updateSortedReadings];
+    [self recalculateDatePickerRange];
     [self recalculateFrequencyDistributionHistogram];
     [self recalculateGraphAxis];
-    [self recalculateDatePickerRange];
 }
 
 #pragma mark CPTPlotSpaceDelegate methods
@@ -874,6 +926,7 @@ NSString *GraphDataPointWasSelectedNotification = @"GraphDataPointWasSelectedNot
     self.dataSourceSortedReadings = [self.dataSourceSortedReadings filteredArrayUsingPredicate:predicate];
     [self recalculateFrequencyDistributionHistogram];
     [self recalculateGraphAxis];
+
 
 
 }

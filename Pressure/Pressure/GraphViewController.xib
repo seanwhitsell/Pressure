@@ -38,8 +38,9 @@
 					<object class="NSCustomView" id="8497665">
 						<reference key="NSNextResponder" ref="1005"/>
 						<int key="NSvFlags">271</int>
-						<string key="NSFrame">{{400, 52}, {380, 240}}</string>
+						<string key="NSFrame">{{400, 24}, {380, 240}}</string>
 						<reference key="NSSuperview" ref="1005"/>
+						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:1192</string>
 						<string key="NSClassName">CPTGraphHostingView</string>
@@ -47,8 +48,9 @@
 					<object class="NSCustomView" id="741864798">
 						<reference key="NSNextResponder" ref="1005"/>
 						<int key="NSvFlags">271</int>
-						<string key="NSFrame">{{0, 52}, {380, 240}}</string>
+						<string key="NSFrame">{{0, 24}, {380, 240}}</string>
 						<reference key="NSSuperview" ref="1005"/>
+						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="8497665"/>
 						<string key="NSReuseIdentifierKey">_NS:1192</string>
 						<string key="NSClassName">CPTGraphHostingView</string>
@@ -56,35 +58,39 @@
 					<object class="NSCustomView" id="812005329">
 						<reference key="NSNextResponder" ref="1005"/>
 						<int key="NSvFlags">271</int>
-						<array class="NSMutableArray" key="NSSubviews">
-							<object class="NSCustomView" id="322113788">
-								<reference key="NSNextResponder" ref="812005329"/>
-								<int key="NSvFlags">270</int>
-								<string key="NSFrame">{{20, 320}, {740, 60}}</string>
-								<reference key="NSSuperview" ref="812005329"/>
-								<reference key="NSNextKeyView" ref="741864798"/>
-								<string key="NSReuseIdentifierKey">_NS:1192</string>
-								<string key="NSClassName">SWDatePicker</string>
-							</object>
-						</array>
-						<string key="NSFrame">{{0, 300}, {780, 400}}</string>
+						<string key="NSFrame">{{0, 272}, {780, 400}}</string>
 						<reference key="NSSuperview" ref="1005"/>
-						<reference key="NSNextKeyView" ref="322113788"/>
+						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView" ref="741864798"/>
 						<string key="NSReuseIdentifierKey">_NS:1192</string>
 						<string key="NSClassName">CPTGraphHostingView</string>
 					</object>
 					<object class="NSCustomView" id="69785652">
 						<reference key="NSNextResponder" ref="1005"/>
 						<int key="NSvFlags">266</int>
-						<string key="NSFrame">{{0, 570}, {800, 150}}</string>
+						<array class="NSMutableArray" key="NSSubviews">
+							<object class="NSCustomView" id="111284822">
+								<reference key="NSNextResponder" ref="69785652"/>
+								<int key="NSvFlags">270</int>
+								<string key="NSFrame">{{20, 26}, {740, 60}}</string>
+								<reference key="NSSuperview" ref="69785652"/>
+								<reference key="NSWindow"/>
+								<reference key="NSNextKeyView" ref="812005329"/>
+								<string key="NSReuseIdentifierKey">_NS:1192</string>
+								<string key="NSClassName">SWDatePicker</string>
+							</object>
+						</array>
+						<string key="NSFrame">{{0, 626}, {800, 150}}</string>
 						<reference key="NSSuperview" ref="1005"/>
-						<reference key="NSNextKeyView" ref="812005329"/>
+						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:1192</string>
 						<string key="NSClassName">NSImageView</string>
 					</object>
 				</array>
-				<string key="NSFrameSize">{800, 700}</string>
+				<string key="NSFrameSize">{800, 756}</string>
 				<reference key="NSSuperview"/>
+				<reference key="NSWindow"/>
 				<reference key="NSNextKeyView" ref="69785652"/>
 				<string key="NSClassName">NSView</string>
 			</object>
@@ -135,7 +141,7 @@
 					<object class="IBOutletConnection" key="connection">
 						<string key="label">datePicker</string>
 						<reference key="source" ref="1001"/>
-						<reference key="destination" ref="322113788"/>
+						<reference key="destination" ref="111284822"/>
 					</object>
 					<int key="connectionID">32</int>
 				</object>
@@ -170,16 +176,19 @@
 						<int key="objectID">1</int>
 						<reference key="object" ref="1005"/>
 						<array class="NSMutableArray" key="children">
-							<reference ref="812005329"/>
 							<reference ref="69785652"/>
-							<reference ref="741864798"/>
 							<reference ref="8497665"/>
+							<reference ref="741864798"/>
+							<reference ref="812005329"/>
 						</array>
 						<reference key="parent" ref="0"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">8</int>
 						<reference key="object" ref="69785652"/>
+						<array class="NSMutableArray" key="children">
+							<reference ref="111284822"/>
+						</array>
 						<reference key="parent" ref="1005"/>
 					</object>
 					<object class="IBObjectRecord">
@@ -197,15 +206,12 @@
 					<object class="IBObjectRecord">
 						<int key="objectID">3</int>
 						<reference key="object" ref="812005329"/>
-						<array class="NSMutableArray" key="children">
-							<reference ref="322113788"/>
-						</array>
 						<reference key="parent" ref="1005"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">31</int>
-						<reference key="object" ref="322113788"/>
-						<reference key="parent" ref="812005329"/>
+						<reference key="object" ref="111284822"/>
+						<reference key="parent" ref="69785652"/>
 					</object>
 				</array>
 			</object>
@@ -224,9 +230,70 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">32</int>
+			<int key="maxID">35</int>
 		</object>
-		<object class="IBClassDescriber" key="IBDocument.Classes"/>
+		<object class="IBClassDescriber" key="IBDocument.Classes">
+			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
+				<object class="IBPartialClassDescription">
+					<string key="className">CPTGraphHostingView</string>
+					<string key="superclassName">NSView</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/CPTGraphHostingView.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">GraphViewController</string>
+					<string key="superclassName">NSViewController</string>
+					<dictionary class="NSMutableDictionary" key="outlets">
+						<string key="backdropView">NSImageView</string>
+						<string key="datePicker">SWDatePicker</string>
+						<string key="dateRangeLabel">NSTextField</string>
+						<string key="diastolicFrequencyDistributionView">CPTGraphHostingView</string>
+						<string key="hostView">CPTGraphHostingView</string>
+						<string key="systolicFrequencyDistributionView">CPTGraphHostingView</string>
+					</dictionary>
+					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
+						<object class="IBToOneOutletInfo" key="backdropView">
+							<string key="name">backdropView</string>
+							<string key="candidateClassName">NSImageView</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="datePicker">
+							<string key="name">datePicker</string>
+							<string key="candidateClassName">SWDatePicker</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="dateRangeLabel">
+							<string key="name">dateRangeLabel</string>
+							<string key="candidateClassName">NSTextField</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="diastolicFrequencyDistributionView">
+							<string key="name">diastolicFrequencyDistributionView</string>
+							<string key="candidateClassName">CPTGraphHostingView</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="hostView">
+							<string key="name">hostView</string>
+							<string key="candidateClassName">CPTGraphHostingView</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="systolicFrequencyDistributionView">
+							<string key="name">systolicFrequencyDistributionView</string>
+							<string key="candidateClassName">CPTGraphHostingView</string>
+						</object>
+					</dictionary>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/GraphViewController.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">SWDatePicker</string>
+					<string key="superclassName">NSControl</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/SWDatePicker.h</string>
+					</object>
+				</object>
+			</array>
+		</object>
 		<int key="IBDocument.localizationMode">0</int>
 		<string key="IBDocument.TargetRuntimeIdentifier">IBCocoaFramework</string>
 		<bool key="IBDocument.PluginDeclaredDependenciesTrackSystemTargetVersion">YES</bool>

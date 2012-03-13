@@ -51,6 +51,7 @@ extern NSString *GraphDataPointWasSelectedNotification;
     NSDate *mReferenceDate;
     NSImageView *mBackdropView;
     SWDatePicker *mDatePicker;
+    NSTextField *mDateRangeLabel;
 }
 
 @property (nonatomic, readonly, retain) OmronDataSource *dataSource;
@@ -59,6 +60,7 @@ extern NSString *GraphDataPointWasSelectedNotification;
 @property (nonatomic, readwrite, retain) IBOutlet CPTGraphHostingView *diastolicFrequencyDistributionView;
 @property (nonatomic, readwrite, retain) IBOutlet NSImageView *backdropView;
 @property (nonatomic, readwrite, retain) IBOutlet SWDatePicker *datePicker;
+@property (nonatomic, readwrite, retain) IBOutlet NSTextField *dateRangeLabel;
 
 - (id)initWithDatasource:(OmronDataSource*)aDataSource;
 
