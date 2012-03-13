@@ -355,7 +355,7 @@ NSString *GraphDataPointWasSelectedNotification = @"GraphDataPointWasSelectedNot
 - (void)updateSortedReadings
 {
     // Table Reload
-    NSLog(@"[GraphViewController updateSortedReadings]");
+    //NSLog(@"[GraphViewController updateSortedReadings]");
     
     //
     // Let's take the data and sort it by date. There is no guarantee that the readings are
@@ -423,7 +423,7 @@ NSString *GraphDataPointWasSelectedNotification = @"GraphDataPointWasSelectedNot
             W++;
         }
         
-        NSLog(@"recalculateFrequencyDistributionHistogram - L is %ld, S is %ld W is %ld", L,S,W);
+        //NSLog(@"recalculateFrequencyDistributionHistogram - L is %ld, S is %ld W is %ld", L,S,W);
         NSMutableArray *systolicFrequencyDistribution = [[NSMutableArray alloc] initWithCapacity:K];
         
         //
@@ -454,7 +454,7 @@ NSString *GraphDataPointWasSelectedNotification = @"GraphDataPointWasSelectedNot
         
         self.systolicFrequencyDistribution = systolicFrequencyDistribution;
         
-        NSLog(@"Systolic Frequency Distribution is %@", self.systolicFrequencyDistribution);
+        //NSLog(@"Systolic Frequency Distribution is %@", self.systolicFrequencyDistribution);
         
         barPlotSpace = (CPTXYPlotSpace*)self.systolicGraph.defaultPlotSpace;
         barPlotSpace.yRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0.0f) length:CPTDecimalFromFloat(60.0f)];
@@ -491,7 +491,7 @@ NSString *GraphDataPointWasSelectedNotification = @"GraphDataPointWasSelectedNot
             W++;
         }
         
-        NSLog(@"recalculateFrequencyDistributionHistogram - L is %ld, S is %ld W is %ld", L,S,W);
+        //NSLog(@"recalculateFrequencyDistributionHistogram - L is %ld, S is %ld W is %ld", L,S,W);
         NSMutableArray *diastolicFrequencyDistribution = [[NSMutableArray alloc] initWithCapacity:K];
         
         //
@@ -522,7 +522,7 @@ NSString *GraphDataPointWasSelectedNotification = @"GraphDataPointWasSelectedNot
         
         self.diastolicFrequencyDistribution = diastolicFrequencyDistribution;
         
-        NSLog(@"Diastolic Frequency Distribution is %@", self.diastolicFrequencyDistribution);
+        //NSLog(@"Diastolic Frequency Distribution is %@", self.diastolicFrequencyDistribution);
         
         barPlotSpace = (CPTXYPlotSpace*)self.diastolicGraph.defaultPlotSpace;
         barPlotSpace.yRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0.0f) length:CPTDecimalFromFloat(60.0f)];
@@ -543,29 +543,27 @@ NSString *GraphDataPointWasSelectedNotification = @"GraphDataPointWasSelectedNot
         
         //
         // We want to set the timeline reference date to the First Day of the Month of the first reading
-        NSCalendar *gregorian = [[NSCalendar alloc] 
-                                 initWithCalendarIdentifier:NSGregorianCalendar]; 
-        
+        //
+        NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar]; 
         NSUInteger unitFlags = NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit; 
-        
-        NSDateComponents *components = [gregorian components:unitFlags 
-                                                    fromDate:[record readingDate]]; 
+        NSDateComponents *components = [gregorian components:unitFlags fromDate:[record readingDate]]; 
         [components setDay:1];
         self.referenceDate = [gregorian dateFromComponents:components];
         
+        
         NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
         dateFormatter.dateStyle = kCFDateFormatterShortStyle;
-        CPTTimeFormatter *timeFormatter = [[[CPTTimeFormatter alloc] initWithDateFormatter:dateFormatter] autorelease];
-        timeFormatter.referenceDate = self.referenceDate;
         
         CPTXYAxisSet *axisSet = (CPTXYAxisSet *)self.graph.axisSet;
         CPTXYAxis *x = axisSet.xAxis;
-        x.labelFormatter = timeFormatter;
-        
+//        CPTXYAxis *y = axisSet.yAxis;
+
         CPTXYPlotSpace *plotSpace = (CPTXYPlotSpace *)self.graph.defaultPlotSpace;
         
         NSDate *ending = [[self.dataSourceSortedReadings objectAtIndex:[self.dataSourceSortedReadings count]-1] readingDate];
         plotSpace.xRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0.0f) length:CPTDecimalFromInteger([[self lastDayOfMonthForDate:ending] timeIntervalSinceDate:self.referenceDate])];
+        
+        NSLog(@"recalculateGraphAxis: plotSpace.xRange.length is %i", [[NSDecimalNumber decimalNumberWithDecimal:plotSpace.xRange.length] intValue]);
         
         //
         // For the Y range, we want the lowest Diastolic or lowest Heartrate and the Highest Systolic
@@ -614,11 +612,48 @@ NSString *GraphDataPointWasSelectedNotification = @"GraphDataPointWasSelectedNot
         plotSpace.yRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(roundedLowValue) length:CPTDecimalFromFloat(highestSystolic - roundedLowValue + 20.0f)];
         
         //
-        // Cleanup the X Axis now
-        x.majorIntervalLength = CPTDecimalFromFloat(60*60*24 * 30);
-        x.minorTicksPerInterval = 0;
+        // Layout the X Axis labels
+        //
         x.orthogonalCoordinateDecimal = CPTDecimalFromInteger(roundedLowValue);
+        x.labelingPolicy = CPTAxisLabelingPolicyNone;
+        
+        NSMutableArray *customLabels = [NSMutableArray arrayWithCapacity:24];
+        NSMutableArray *customMajorTickLocations = [NSMutableArray arrayWithCapacity:24];
+        NSUInteger oneDay = 3600*24;
+        NSUInteger daysInRange = [[NSDecimalNumber decimalNumberWithDecimal:plotSpace.xRange.length] intValue] / oneDay;
+        
 
+        NSLog(@"[GraphViewController didChangePlotRangeForCoordinate] Will show months %ld", daysInRange); 
+        NSDate* currentDate = [[self.dataSourceSortedReadings objectAtIndex:0] readingDate];
+        NSDate* lastDate = [[self.dataSourceSortedReadings lastObject] readingDate];
+        components = [[NSDateComponents alloc] init];
+        [components setMonth:1];
+
+        while (NSOrderedAscending == [currentDate compare:lastDate])
+        {
+            NSTimeInterval interval = [currentDate timeIntervalSinceDate:self.referenceDate];
+            NSNumber* numMajorTickLocation = [NSNumber numberWithDouble:interval];
+            NSNumber* numMinorTickLocation = [NSNumber numberWithDouble:interval+14*oneDay];
+            NSDateComponents *monthComponents = [gregorian components:unitFlags fromDate:currentDate];
+            NSString *monthName = [[dateFormatter shortMonthSymbols] objectAtIndex:([monthComponents month]-1)];
+            CPTAxisLabel *newLabel = [[CPTAxisLabel alloc] initWithText:monthName textStyle:x.labelTextStyle];
+            newLabel.tickLocation = [numMinorTickLocation decimalValue];
+            newLabel.offset = x.labelOffset + x.majorTickLength;
+
+            currentDate = [gregorian dateByAddingComponents:components toDate:currentDate options:0];
+
+            [customLabels addObject:newLabel];
+            [customMajorTickLocations addObject:numMajorTickLocation];
+            [newLabel release];
+        }
+
+        // add a last major tick to close the range
+        [customMajorTickLocations addObject:[NSNumber numberWithDouble:[[self lastDayOfMonthForDate:currentDate] timeIntervalSinceDate:self.referenceDate]]];
+
+       
+        x.axisLabels = [NSSet setWithArray:customLabels];
+        x.majorTickLocations = [NSSet setWithArray:customMajorTickLocations];
+        //y.orthogonalCoordinateDecimal = [customMajorTickLocations objectAtIndex:0];
         [self.graph reloadData];
     }
 }
@@ -640,7 +675,6 @@ NSString *GraphDataPointWasSelectedNotification = @"GraphDataPointWasSelectedNot
 - (void)viewWillAppear
 {
     [self.backdropView setImage:[NSImage imageNamed:@"backdrop.png"]];
-    NSLog(@"[GraphViewController viewWillAppear]");
     [self.graph reloadData];
     [self.systolicGraph reloadData];
     [self.diastolicGraph reloadData];
@@ -650,15 +684,15 @@ NSString *GraphDataPointWasSelectedNotification = @"GraphDataPointWasSelectedNot
 
 - (void)swipeWithEvent:(NSEvent *)event 
 {
-    NSLog(@"Swipe event detected!");
+    //NSLog(@"Swipe event detected!");
 }
 - (void)beginGestureWithEvent:(NSEvent *)event 
 {
-    NSLog(@"beginGestureWithEvent event detected!");
+    //NSLog(@"beginGestureWithEvent event detected!");
 }
 - (void)endGestureWithEvent:(NSEvent *)event 
 {
-    NSLog(@"endGestureWithEvent event detected!");
+    //NSLog(@"endGestureWithEvent event detected!");
 }
 
 #pragma mark CPTPlotDataSource routines
@@ -694,15 +728,15 @@ NSString *GraphDataPointWasSelectedNotification = @"GraphDataPointWasSelectedNot
         switch (fieldEnum) {
             case CPTBarPlotFieldBarLocation:
                 num = (NSDecimalNumber *)[NSDecimalNumber numberWithInteger:index];
-                NSLog(@"systolicBarPlot CPTBarPlotFieldBarLocation: %d", [num intValue]);
+                //NSLog(@"systolicBarPlot CPTBarPlotFieldBarLocation: %d", [num intValue]);
                 break;
             case CPTBarPlotFieldBarTip:
                 num = [self.systolicFrequencyDistribution objectAtIndex:index];
-                NSLog(@"systolicBarPlot CPTBarPlotFieldBarTip: %d", [num intValue]);
+                //NSLog(@"systolicBarPlot CPTBarPlotFieldBarTip: %d", [num intValue]);
                 break;
             case CPTBarPlotFieldBarBase:
                 num = (NSDecimalNumber *)[NSDecimalNumber numberWithInteger:0];;
-                NSLog(@"systolicBarPlot CPTBarPlotFieldBarBase: %d", [num intValue]);
+                //NSLog(@"systolicBarPlot CPTBarPlotFieldBarBase: %d", [num intValue]);
                 break;
             default:
                 NSLog(@"systolicBarPlot unknown field enum %lu", fieldEnum);
@@ -714,15 +748,15 @@ NSString *GraphDataPointWasSelectedNotification = @"GraphDataPointWasSelectedNot
         switch (fieldEnum) {
             case CPTBarPlotFieldBarLocation:
                 num = (NSDecimalNumber *)[NSDecimalNumber numberWithInteger:index];
-                NSLog(@"diastolicBarPlot CPTBarPlotFieldBarLocation: %d", [num intValue]);
+                //NSLog(@"diastolicBarPlot CPTBarPlotFieldBarLocation: %d", [num intValue]);
                 break;
             case CPTBarPlotFieldBarTip:
                 num = [self.diastolicFrequencyDistribution objectAtIndex:index];
-                NSLog(@"diastolicBarPlot CPTBarPlotFieldBarTip: %d", [num intValue]);
+                //NSLog(@"diastolicBarPlot CPTBarPlotFieldBarTip: %d", [num intValue]);
                 break;
             case CPTBarPlotFieldBarBase:
                 num = (NSDecimalNumber *)[NSDecimalNumber numberWithInteger:0];;
-                NSLog(@"diastolicBarPlot CPTBarPlotFieldBarBase: %d", [num intValue]);
+                //NSLog(@"diastolicBarPlot CPTBarPlotFieldBarBase: %d", [num intValue]);
                 break;
             default:
                 NSLog(@"diastolicBarPlot unknown field enum %lu", fieldEnum);
@@ -897,7 +931,28 @@ NSString *GraphDataPointWasSelectedNotification = @"GraphDataPointWasSelectedNot
 
 -(void)plotSpace:(CPTPlotSpace *)space didChangePlotRangeForCoordinate:(CPTCoordinate)coordinate
 {
-    NSLog(@"[GraphViewController didChangePlotRangeForCoordinate] delegate %@", [space identifier]);    
+    NSLog(@"[GraphViewController didChangePlotRangeForCoordinate] delegate %@, coordinate=%i", space, coordinate); 
+    
+    //
+    // This happens when the date range is selected. We will get called for each of the 3 plot spaces
+    // Let's just process for the Main Graph
+    if ((space == self.graph.defaultPlotSpace) && (coordinate == CPTCoordinateX))
+    {
+//        NSInteger oneDay = 60*60*24;
+//        
+//        NSInteger daysInRange = [[NSDecimalNumber decimalNumberWithDecimal:((CPTXYPlotSpace *)space).xRange.length] intValue] / oneDay;
+//        
+//        if (daysInRange > 120)
+//        {
+//            // show quarters
+//            NSLog(@"[GraphViewController didChangePlotRangeForCoordinate] Will show quarters %ld", daysInRange); 
+//        }
+//        else
+//        {
+//            NSLog(@"[GraphViewController didChangePlotRangeForCoordinate] Will show months %ld", daysInRange); 
+//
+//        }
+    }
 }
 
 #pragma mark CPTScatterPlotDelegate methods
@@ -917,7 +972,7 @@ NSString *GraphDataPointWasSelectedNotification = @"GraphDataPointWasSelectedNot
 {
     //
     // The user has changed the date range on the date Picker
-    NSLog(@"[GraphViewController dateRangeSelectionChanged] delegate start:%@ end:%@", start, end);
+    //NSLog(@"[GraphViewController dateRangeSelectionChanged] delegate start:%@ end:%@", start, end);
     
     [self updateSortedReadings];
     NSPredicate *predicate = [NSPredicate

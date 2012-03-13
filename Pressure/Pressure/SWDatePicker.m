@@ -386,14 +386,38 @@
     NSBezierPath *path = [NSBezierPath bezierPathWithRect:self.bounds];
     NSSize monthSize = [self.monthImage size];
     NSSize monthHighlightedSize = [self.monthHightlightedImage size];
-    NSMutableDictionary *stringAttributes = nil;
+    NSMutableDictionary *stringAttributesBlack12Point = nil;
+    NSMutableDictionary *stringAttributesGray8Point = nil;
+    NSMutableDictionary *stringAttributesGray12Point = nil;
+    NSMutableDictionary *stringAttributesGray16Point = nil;
+    NSMutableDictionary *stringAttributesLightGray8Point = nil;
+
+    stringAttributesLightGray8Point = [NSMutableDictionary dictionaryWithCapacity:2];
+    [stringAttributesLightGray8Point setObject:[NSFont messageFontOfSize:8.0] forKey:NSFontAttributeName];
+    [stringAttributesLightGray8Point setObject:[NSColor lightGrayColor] forKey:NSForegroundColorAttributeName];
+
+    stringAttributesGray12Point = [NSMutableDictionary dictionaryWithCapacity:2];
+    [stringAttributesGray12Point setObject:[NSFont messageFontOfSize:12.0] forKey:NSFontAttributeName];
+    [stringAttributesGray12Point setObject:[NSColor grayColor] forKey:NSForegroundColorAttributeName];
+
+    stringAttributesGray8Point = [NSMutableDictionary dictionaryWithCapacity:2];
+    [stringAttributesGray8Point setObject:[NSFont messageFontOfSize:8.0] forKey:NSFontAttributeName];
+    [stringAttributesGray8Point setObject:[NSColor grayColor] forKey:NSForegroundColorAttributeName];
+
+    stringAttributesBlack12Point = [NSMutableDictionary dictionaryWithCapacity:2];
+    [stringAttributesBlack12Point setObject:[NSFont messageFontOfSize:12.0] forKey:NSFontAttributeName];
+    [stringAttributesBlack12Point setObject:[NSColor blackColor] forKey:NSForegroundColorAttributeName];
+
+    stringAttributesGray16Point = [NSMutableDictionary dictionaryWithCapacity:2];
+    [stringAttributesGray16Point setObject:[NSFont messageFontOfSize:16.0] forKey:NSFontAttributeName];
+    [stringAttributesGray16Point setObject:[NSColor grayColor] forKey:NSForegroundColorAttributeName];
 
     [colorToDraw set];
     [path fill];
     
    for( NSInteger i=0 ; i<self.maxMonths; i++ )
     {
-        NSLog(@"drawRect isSelectedIndex:%ld is %i", i, [self isSelectedIndex:i] );
+        //NSLog(@"drawRect isSelectedIndex:%ld is %i", i, [self isSelectedIndex:i] );
         if ([self shouldDrawMonthforIndex:i])
         {
             if ([self isSelectedIndex:i])
@@ -402,17 +426,11 @@
                                     fromRect:NSMakeRect(0.0, 0.0, monthHighlightedSize.width, monthHighlightedSize.height) 
                                    operation:NSCompositeSourceOver 
                                     fraction:1.0];
-                stringAttributes = [NSMutableDictionary dictionaryWithCapacity:2];
-                [stringAttributes setObject:[NSFont messageFontOfSize:12.0] forKey:NSFontAttributeName];
-                [stringAttributes setObject:[NSColor blackColor] forKey:NSForegroundColorAttributeName];
-                [[self stringForIndex:i] drawAtPoint:[self pointOfTextAtIndex:i highlighted:YES] withAttributes:stringAttributes];
+                [[self stringForIndex:i] drawAtPoint:[self pointOfTextAtIndex:i highlighted:YES] withAttributes:stringAttributesBlack12Point];
                 
                 if ([self shouldDisplayYearForIndex:i])
                 {
-                    stringAttributes = [NSMutableDictionary dictionaryWithCapacity:2];
-                    [stringAttributes setObject:[NSFont messageFontOfSize:8.0] forKey:NSFontAttributeName];
-                    [stringAttributes setObject:[NSColor grayColor] forKey:NSForegroundColorAttributeName];
-                    [[self yearStringForIndex:i] drawAtPoint:[self pointOfYearAtIndex:i highlighted:YES] withAttributes:stringAttributes];
+                    [[self yearStringForIndex:i] drawAtPoint:[self pointOfYearAtIndex:i highlighted:YES] withAttributes:stringAttributesGray8Point];
                 }
             }
             else
@@ -421,28 +439,19 @@
                                     fromRect:NSMakeRect(0.0, 0.0, monthSize.width, monthSize.height) 
                                    operation:NSCompositeSourceOver 
                                     fraction:1.0];
-                stringAttributes = [NSMutableDictionary dictionaryWithCapacity:2];
-                [stringAttributes setObject:[NSFont messageFontOfSize:12.0] forKey:NSFontAttributeName];
-                [stringAttributes setObject:[NSColor grayColor] forKey:NSForegroundColorAttributeName];
-                [[self stringForIndex:i] drawAtPoint:[self pointOfTextAtIndex:i highlighted:NO] withAttributes:stringAttributes];
+                [[self stringForIndex:i] drawAtPoint:[self pointOfTextAtIndex:i highlighted:NO] withAttributes:stringAttributesGray12Point];
 
                 if ([self shouldDisplayYearForIndex:i])
                 {
-                    stringAttributes = [NSMutableDictionary dictionaryWithCapacity:2];
-                    [stringAttributes setObject:[NSFont messageFontOfSize:8.0] forKey:NSFontAttributeName];
-                    [stringAttributes setObject:[NSColor lightGrayColor] forKey:NSForegroundColorAttributeName];
-                    [[self yearStringForIndex:i] drawAtPoint:[self pointOfYearAtIndex:i highlighted:NO] withAttributes:stringAttributes];
+                    [[self yearStringForIndex:i] drawAtPoint:[self pointOfYearAtIndex:i highlighted:NO] withAttributes:stringAttributesLightGray8Point];
                 }
             }
         }
     }
     
-    stringAttributes = [NSMutableDictionary dictionaryWithCapacity:2];
-    [stringAttributes setObject:[NSFont messageFontOfSize:16.0] forKey:NSFontAttributeName];
-    [stringAttributes setObject:[NSColor grayColor] forKey:NSForegroundColorAttributeName];
 
     self.dateRangeLabel = [self formattedDateString];
-    [[self dateRangeLabel] drawAtPoint:NSMakePoint(8.0f,40.0f) withAttributes:stringAttributes];
+    [[self dateRangeLabel] drawAtPoint:NSMakePoint(8.0f,40.0f) withAttributes:stringAttributesGray16Point];
 }
 
 #pragma mark NSControl Routines
@@ -463,7 +472,7 @@
         self.selectedEndDate = [self lastDayOfMonthForIndex:index];
         self.mouseDownIndex = index;
         
-        NSLog(@"mouseDown: index %ld, startDate %@, endDate %@", index, self.selectedStartDate, self.selectedEndDate);
+        //NSLog(@"mouseDown: index %ld, startDate %@, endDate %@", index, self.selectedStartDate, self.selectedEndDate);
     
         [self setNeedsDisplay];
     }
@@ -476,7 +485,7 @@
     NSInteger index = [self indexForPoint:pointInView];
     
     NSDate *temp = [self firstDayOfMonthForIndex:index];
-    NSLog(@"mouseDragged: index %ld, dateForIndex %@, startDate %@, endDate %@", index, temp, self.selectedStartDate, self.selectedEndDate);
+    //NSLog(@"mouseDragged: index %ld, dateForIndex %@, startDate %@, endDate %@", index, temp, self.selectedStartDate, self.selectedEndDate);
 
     if (index <= self.mouseDownIndex)
     {
