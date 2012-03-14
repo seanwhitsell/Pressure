@@ -222,7 +222,7 @@
     CGFloat y = 0.0f;
     
     x = self.bounds.size.width - size.width*(self.maxMonths - index);
-    y = 0.0f; //(self.bounds.size.height - size.height)/2.0;
+    y = 0.0f;
     
     return NSMakePoint(x,y); 
 }
@@ -234,7 +234,7 @@
     CGFloat y = 0.0f;
     
     x = self.bounds.size.width - size.width*(self.maxMonths - position) + 4;
-    y = 0.0f; //(self.bounds.size.height - size.height)/2.0;
+    y = 0.0f; 
     
     return NSMakePoint(x,y); 
 }
@@ -246,7 +246,7 @@
     CGFloat y = 0.0f;
     
     x = self.bounds.size.width - size.width*(self.maxMonths - position) + 4;
-    y = 10.0f; //(self.bounds.size.height - 20.0)/2.0;
+    y = 10.0f; 
     
     return NSMakePoint(x  ,y); 
 }

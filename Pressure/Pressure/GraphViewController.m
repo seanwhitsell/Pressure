@@ -57,8 +57,6 @@ NSString *GraphDataPointWasSelectedNotification = @"GraphDataPointWasSelectedNot
 - (void)updateSortedReadings;
 - (void)recalculateGraphAxis;
 - (void)recalculateDatePickerRange;
-- (CPTFill *)barFillForBarPlot:(CPTBarPlot *)barPlot recordIndex:(NSUInteger)index; 
-- (CPTLineStyle *)barLineStyleForBarPlot:(CPTBarPlot *)barPlot recordIndex:(NSUInteger)index; 
 - (NSDate*)firstDayOfMonthForDate:(NSDate*)aDate;
 - (NSDate*)lastDayOfMonthForDate:(NSDate*)aDate;
 @end
@@ -126,8 +124,8 @@ NSString *GraphDataPointWasSelectedNotification = @"GraphDataPointWasSelectedNot
         // Main Graph Title
         CPTMutableTextStyle *textStyle = [CPTMutableTextStyle textStyle];
         textStyle.color = [CPTColor darkGrayColor];
-        textStyle.fontSize = 18.0f;
-        textStyle.fontName = @"Helvetica";
+        textStyle.fontSize = 12.0f;
+        textStyle.fontName = [[NSFont messageFontOfSize:12.0f] fontName];
         mGraph.title = @"";
         mGraph.titleTextStyle = textStyle;
         mGraph.titleDisplacement = CGPointMake(0.0f, -20.0f);
@@ -158,11 +156,13 @@ NSString *GraphDataPointWasSelectedNotification = @"GraphDataPointWasSelectedNot
         
         x.axisLineCapMax = [[[CPTLineCap alloc] init] autorelease];
         x.axisLineCapMax.lineCapType = CPTLineCapTypeOpenArrow;
+        x.labelTextStyle = textStyle;
         
         CPTXYAxis *y = axisSet.yAxis;
         y.majorIntervalLength = CPTDecimalFromString(@"10");
         y.minorTicksPerInterval = 0;
         y.orthogonalCoordinateDecimal = CPTDecimalFromFloat(0.0f);
+        y.labelTextStyle = textStyle; 
         
         NSNumberFormatter *numberFormatter = [[[NSNumberFormatter alloc] init] autorelease];
         [numberFormatter setNumberStyle:NSNumberFormatterDecimalStyle];
@@ -201,7 +201,7 @@ NSString *GraphDataPointWasSelectedNotification = @"GraphDataPointWasSelectedNot
         mSystolicGraph.defaultPlotSpace.delegate = (id)self;
         mSystolicGraph.plotAreaFrame.paddingTop = 10.0;
         mSystolicGraph.plotAreaFrame.paddingLeft = 40.0;
-        mSystolicGraph.plotAreaFrame.paddingBottom = 20.0;
+        mSystolicGraph.plotAreaFrame.paddingBottom = 30.0;
         mSystolicGraph.plotAreaFrame.paddingRight = 10.0;
         
         // Systolic Graph Title
@@ -217,13 +217,15 @@ NSString *GraphDataPointWasSelectedNotification = @"GraphDataPointWasSelectedNot
         x.minorTicksPerInterval = 0;
         x.orthogonalCoordinateDecimal = CPTDecimalFromString(@"0");
         x.labelFormatter = numberFormatter;
-        
+        x.labelTextStyle = textStyle;
+
         y = axisSet.yAxis;
         y.majorIntervalLength = CPTDecimalFromInt(10);
         y.minorTicksPerInterval = 4;
         y.orthogonalCoordinateDecimal = CPTDecimalFromInt(0);
         y.labelFormatter = numberFormatter;
-        
+        y.labelTextStyle = textStyle;
+
         mSystolicBarPlot = [[CPTBarPlot alloc] initWithFrame:mSystolicGraph.bounds];
         mSystolicBarPlot.identifier = @"Systolic Bar Plot";
         mSystolicBarPlot.opacity = 0.8f;
@@ -231,9 +233,15 @@ NSString *GraphDataPointWasSelectedNotification = @"GraphDataPointWasSelectedNot
         mSystolicBarPlot.delegate = self;
         mSystolicBarPlot.barOffset = CPTDecimalFromFloat(0.5);
         mSystolicBarPlot.barCornerRadius = 6.0f;
+        mSystolicBarPlot.barWidth = CPTDecimalFromFloat(0.80f);
+        mSystolicBarPlot.barWidthsAreInViewCoordinates = NO;
+        mSystolicBarPlot.lineStyle = bloodPressureLineStyle;
+        mSystolicBarPlot.fill = [[[CPTFill alloc] initWithColor:pressureColor] autorelease];
+        
         CPTXYPlotSpace *barPlotSpace = (CPTXYPlotSpace *)mSystolicGraph.defaultPlotSpace;
         barPlotSpace.xRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0.0f) length:CPTDecimalFromInt(FrequencyDistributionWidth)];
         barPlotSpace.yRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0.0f) length:CPTDecimalFromFloat(100.0f)];
+        
         [mSystolicGraph addPlot:mSystolicBarPlot];
         
         //
@@ -245,7 +253,7 @@ NSString *GraphDataPointWasSelectedNotification = @"GraphDataPointWasSelectedNot
         mDiastolicGraph.defaultPlotSpace.delegate = (id)self;
         mDiastolicGraph.plotAreaFrame.paddingTop = 10.0;
         mDiastolicGraph.plotAreaFrame.paddingLeft = 40.0;
-        mDiastolicGraph.plotAreaFrame.paddingBottom = 20.0;
+        mDiastolicGraph.plotAreaFrame.paddingBottom = 30.0;
         mDiastolicGraph.plotAreaFrame.paddingRight = 10.0;
         
         // Diastolic Graph Title
@@ -261,12 +269,14 @@ NSString *GraphDataPointWasSelectedNotification = @"GraphDataPointWasSelectedNot
         x.minorTicksPerInterval = 0;
         x.orthogonalCoordinateDecimal = CPTDecimalFromString(@"0");
         x.labelFormatter = numberFormatter;
+        x.labelTextStyle = textStyle;
         
         y = axisSet.yAxis;
         y.majorIntervalLength = CPTDecimalFromInt(10);
         y.minorTicksPerInterval = 4;
         y.orthogonalCoordinateDecimal = CPTDecimalFromInt(0);
         y.labelFormatter = numberFormatter;
+        y.labelTextStyle = textStyle;
         
         mDiastolicBarPlot = [[CPTBarPlot alloc] initWithFrame:mDiastolicGraph.bounds];
         mDiastolicBarPlot.identifier = @"Diastolic Bar Plot";
@@ -275,6 +285,10 @@ NSString *GraphDataPointWasSelectedNotification = @"GraphDataPointWasSelectedNot
         mDiastolicBarPlot.delegate = self;
         mDiastolicBarPlot.barOffset = CPTDecimalFromFloat(0.5);
         mDiastolicBarPlot.barCornerRadius = 6.0f;
+        mDiastolicBarPlot.barWidth = CPTDecimalFromFloat(0.80f);
+        mDiastolicBarPlot.lineStyle = bloodPressureLineStyle;
+        mDiastolicBarPlot.fill = [[[CPTFill alloc] initWithColor:pressureColor] autorelease];
+
         barPlotSpace = (CPTXYPlotSpace *)mDiastolicGraph.defaultPlotSpace;
         barPlotSpace.xRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0.0f) length:CPTDecimalFromInt(FrequencyDistributionWidth)];
         barPlotSpace.yRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0.0f) length:CPTDecimalFromFloat(100.0f)];
@@ -390,7 +404,7 @@ NSString *GraphDataPointWasSelectedNotification = @"GraphDataPointWasSelectedNot
         NSInteger L = 0;
         NSInteger S = 0;
         NSInteger W = 0;
-        NSInteger highestValue = 0;
+        float highestValue = 0;
         CPTXYPlotSpace *barPlotSpace = nil;
         
         //
@@ -408,8 +422,6 @@ NSString *GraphDataPointWasSelectedNotification = @"GraphDataPointWasSelectedNot
             }
         }];
 
-        record = [readingsSortedBySystolicPressure objectAtIndex:0];
-
         K = FrequencyDistributionWidth;
         L = [[readingsSortedBySystolicPressure lastObject] systolicPressure];
         S = [[readingsSortedBySystolicPressure objectAtIndex:0] systolicPressure];
@@ -423,7 +435,6 @@ NSString *GraphDataPointWasSelectedNotification = @"GraphDataPointWasSelectedNot
             W++;
         }
         
-        //NSLog(@"recalculateFrequencyDistributionHistogram - L is %ld, S is %ld W is %ld", L,S,W);
         NSMutableArray *systolicFrequencyDistribution = [[NSMutableArray alloc] initWithCapacity:K];
         
         //
@@ -433,7 +444,8 @@ NSString *GraphDataPointWasSelectedNotification = @"GraphDataPointWasSelectedNot
             [systolicFrequencyDistribution insertObject:[NSNumber numberWithInt:0] atIndex:i];
         }
         
-        highestValue = 0;
+        //
+        // Put each value in a slot
         for (OmronDataRecord *record in readingsSortedBySystolicPressure)
         {
             //
@@ -446,19 +458,51 @@ NSString *GraphDataPointWasSelectedNotification = @"GraphDataPointWasSelectedNot
             value++;
             [systolicFrequencyDistribution replaceObjectAtIndex:index withObject:[NSNumber numberWithInt:value]];
             
-            if (value > highestValue)
+        }
+        
+        //
+        // calculate the percentage of values in each range
+        highestValue = 0;
+        for (int index=0; index<K; index++) 
+        {
+            NSNumber *value = [systolicFrequencyDistribution objectAtIndex:index];
+            NSLog(@"Systolic freq is %i", [value intValue]);
+            float percentage =  [value floatValue] / (int)[readingsSortedBySystolicPressure count];
+            percentage *= 100;
+            [systolicFrequencyDistribution replaceObjectAtIndex:index withObject:[NSNumber numberWithFloat:percentage]];
+
+            if (percentage > highestValue)
             {
-                highestValue = value;
+                highestValue = percentage;
             }
         }
         
         self.systolicFrequencyDistribution = systolicFrequencyDistribution;
         
-        //NSLog(@"Systolic Frequency Distribution is %@", self.systolicFrequencyDistribution);
-        
         barPlotSpace = (CPTXYPlotSpace*)self.systolicGraph.defaultPlotSpace;
-        barPlotSpace.yRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0.0f) length:CPTDecimalFromFloat(60.0f)];
         barPlotSpace.yRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0.0f) length:CPTDecimalFromFloat(highestValue + 5.0f)];
+        
+        //
+        // Put custom labels on the Major Ticks. This will show the range
+        NSMutableArray *customSystolicLabels = [NSMutableArray arrayWithCapacity:K];
+        NSMutableArray *customSystolicMajorTickLocations = [NSMutableArray arrayWithCapacity:K];
+        
+        CPTXYAxisSet *axisSet = (CPTXYAxisSet *)self.systolicGraph.axisSet;
+        CPTXYAxis *x = axisSet.xAxis;
+        
+        for (unsigned int i=0; i <= K; i++)
+        {
+            CPTAxisLabel *newLabel = [[CPTAxisLabel alloc] initWithText:[NSString stringWithFormat:@"%i", S+i*W] textStyle:x.labelTextStyle];
+            NSNumber* numMajorTickLocation = [NSNumber numberWithInt:i];
+            newLabel.tickLocation = [numMajorTickLocation decimalValue];
+            [customSystolicLabels addObject:newLabel];
+            [customSystolicMajorTickLocations addObject:numMajorTickLocation];
+            [newLabel release];
+        }
+        
+        x.axisLabels = [NSSet setWithArray:customSystolicLabels];
+        x.majorTickLocations = [NSSet setWithArray:customSystolicMajorTickLocations];
+
         [self.systolicGraph reloadData];
        
         //
@@ -501,7 +545,8 @@ NSString *GraphDataPointWasSelectedNotification = @"GraphDataPointWasSelectedNot
             [diastolicFrequencyDistribution insertObject:[NSNumber numberWithInt:0] atIndex:i];
         }
         
-        highestValue = 0;
+        //
+        // Put each value in a slot
         for (OmronDataRecord *record in readingsSortedByDiastolicPressure)
         {
             //
@@ -513,20 +558,50 @@ NSString *GraphDataPointWasSelectedNotification = @"GraphDataPointWasSelectedNot
             int value = [[diastolicFrequencyDistribution objectAtIndex:index] intValue];
             value++;
             [diastolicFrequencyDistribution replaceObjectAtIndex:index withObject:[NSNumber numberWithInt:value]];
-            
-            if (value > highestValue)
-            {
-                highestValue = value;
-            }
         }
         
+        //
+        // calculate the percentage of values in each range
+        highestValue = 0;
+        for (int index=0; index<K; index++) 
+        {
+            NSNumber *value = [diastolicFrequencyDistribution objectAtIndex:index];
+            NSLog(@"Diastolic freq is %i", [value intValue]);
+            float percentage =  [value floatValue] / (int)[readingsSortedBySystolicPressure count];
+            percentage *= 100;
+            [diastolicFrequencyDistribution replaceObjectAtIndex:index withObject:[NSNumber numberWithFloat:percentage]];
+            
+            if (percentage > highestValue)
+            {
+                highestValue = percentage;
+            }
+        }        
         self.diastolicFrequencyDistribution = diastolicFrequencyDistribution;
         
-        //NSLog(@"Diastolic Frequency Distribution is %@", self.diastolicFrequencyDistribution);
-        
         barPlotSpace = (CPTXYPlotSpace*)self.diastolicGraph.defaultPlotSpace;
-        barPlotSpace.yRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0.0f) length:CPTDecimalFromFloat(60.0f)];
         barPlotSpace.yRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0.0f) length:CPTDecimalFromFloat(highestValue + 5.0f)];
+        
+        //
+        // Put custom labels on the Major Ticks. This will show the range
+        NSMutableArray *customDiastolicLabels = [NSMutableArray arrayWithCapacity:K];
+        NSMutableArray *customDiastolicMajorTickLocations = [NSMutableArray arrayWithCapacity:K];
+        
+        CPTXYAxisSet *diastolicAxisSet = (CPTXYAxisSet *)self.diastolicGraph.axisSet;
+        x = diastolicAxisSet.xAxis;
+        
+        for (unsigned int i=0; i <= K; i++)
+        {
+            CPTAxisLabel *newLabel = [[CPTAxisLabel alloc] initWithText:[NSString stringWithFormat:@"%i", S+i*W] textStyle:x.labelTextStyle];
+            NSNumber* numMajorTickLocation = [NSNumber numberWithInt:i];
+            newLabel.tickLocation = [numMajorTickLocation decimalValue];
+            [customDiastolicLabels addObject:newLabel];
+            [customDiastolicMajorTickLocations addObject:numMajorTickLocation];
+            [newLabel release];
+        }
+        
+        x.axisLabels = [NSSet setWithArray:customDiastolicLabels];
+        x.majorTickLocations = [NSSet setWithArray:customDiastolicMajorTickLocations];
+        
         [self.diastolicGraph reloadData];
     }
 }
@@ -556,7 +631,6 @@ NSString *GraphDataPointWasSelectedNotification = @"GraphDataPointWasSelectedNot
         
         CPTXYAxisSet *axisSet = (CPTXYAxisSet *)self.graph.axisSet;
         CPTXYAxis *x = axisSet.xAxis;
-//        CPTXYAxis *y = axisSet.yAxis;
 
         CPTXYPlotSpace *plotSpace = (CPTXYPlotSpace *)self.graph.defaultPlotSpace;
         
@@ -853,15 +927,15 @@ NSString *GraphDataPointWasSelectedNotification = @"GraphDataPointWasSelectedNot
 
 #pragma mark CPTBarPlotDataSource optional routines
 
-- (CPTFill *)barFillForBarPlot:(CPTBarPlot *)barPlot recordIndex:(NSUInteger)index
-{
-    return [CPTFill fillWithColor:[CPTColor whiteColor]];
-}
-
-- (CPTLineStyle *)barLineStyleForBarPlot:(CPTBarPlot *)barPlot recordIndex:(NSUInteger)index
-{
-    return nil;
-}
+//- (CPTFill *)barFillForBarPlot:(CPTBarPlot *)barPlot recordIndex:(NSUInteger)index
+//{
+//    return [CPTFill fillWithColor:[CPTColor whiteColor]];
+//}
+//
+//- (CPTLineStyle *)barLineStyleForBarPlot:(CPTBarPlot *)barPlot recordIndex:(NSUInteger)index
+//{
+//    return nil;
+//}
 
 #pragma mark NSNotification Observers
 
