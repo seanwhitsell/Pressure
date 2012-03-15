@@ -35,6 +35,7 @@
 
 @property (nonatomic, readwrite, retain) OmronDataSource *dataSource;
 @property (nonatomic, readwrite, retain) NSArray *dataSourceSortedReadings;
+@property (nonatomic, readwrite, assign) NSInteger selectedRow;
 
 - (void)dataSyncOperationDidEnd:(NSNotification*)notif;
 - (void)dataSyncOperationDataAvailable:(NSNotification*)notif;
@@ -48,19 +49,25 @@
 @synthesize listView = mListView;
 @synthesize dataSource = mDataSource;
 @synthesize dataSourceSortedReadings = mDataSourceSortedReadings;
+@synthesize selectedRow = mSelectedRow;
 
 #pragma mark NSObject Lifecycle Routines
 
 - (id)initWithDatasource:(OmronDataSource*)aDataSource
 {
+	NSLog(@"<%p> %@", self, [NSString stringWithUTF8String:__func__]);
+
     [self init];
     mDataSource = aDataSource;
+    mSelectedRow = -1;
     
     return self;
 }
 
 - (id)init
 {
+	NSLog(@"<%p> %@", self, [NSString stringWithUTF8String:__func__]);
+
 	self = [super initWithNibName:@"ReadingViewController" bundle:nil];
 	if (self != nil)
 	{
@@ -82,6 +89,35 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
+#pragma mark Utility Routines
+- (void)selectAndPositionRecord:(OmronDataRecord*)aRecord
+{
+	NSLog(@"<%p> %@", self, [NSString stringWithUTF8String:__func__]);
+
+    for (unsigned int row = 0; row < [self.dataSourceSortedReadings count]; row++) 
+    {
+        OmronDataRecord *record = [self.dataSourceSortedReadings objectAtIndex:row];
+        
+        if (aRecord == record)
+        {
+            if ([self listView])
+            {
+                [self.listView scrollToRow:row-4];
+                [self.listView setSelectedRow:row];
+            }
+            else
+            {
+                //
+                // This is the first time that the ReadingViewController is being drawn
+                // and we have not awaken from the NIB.
+                //
+                // We will store the selected row and then set it in the AwakeFromNib routine
+                self.selectedRow = row;
+            }
+        }
+    }
+}
+
 #pragma mark NSViewController overrides
 
 - (void)awakeFromNib
@@ -92,6 +128,13 @@
     [self.listView setAllowsMultipleSelection:YES];
     [self.listView registerForDraggedTypes:[NSArray arrayWithObjects: NSStringPboardType, nil]];
     [self.listView reloadData];
+    
+    if (self.selectedRow > 0)
+    {
+        [self.listView scrollRowToVisible:self.selectedRow-4];
+        [self.listView setSelectedRow:self.selectedRow];
+    }
+
 }
 
 - (void)viewWillAppear
@@ -161,7 +204,7 @@
 
 - (PXListViewCell*)listView:(PXListView*)aListView cellForRow:(NSUInteger)row
 {
-    //NSLog(@"listView:cellForRow:%lu", row);
+	NSLog(@"<%p> %@", self, [NSString stringWithUTF8String:__func__]);
     
     OmronDataRecord *record = [self.dataSourceSortedReadings objectAtIndex:row];
     PressureReadingViewCell *cell = (PressureReadingViewCell*)[aListView dequeueCellWithReusableIdentifier:LISTVIEW_CELL_IDENTIFIER];

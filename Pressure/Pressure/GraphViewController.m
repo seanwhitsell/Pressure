@@ -221,7 +221,7 @@ NSString *GraphDataPointWasSelectedNotification = @"GraphDataPointWasSelectedNot
 
         y = axisSet.yAxis;
         y.majorIntervalLength = CPTDecimalFromInt(10);
-        y.minorTicksPerInterval = 4;
+        y.minorTicksPerInterval = 0;
         y.orthogonalCoordinateDecimal = CPTDecimalFromInt(0);
         y.labelFormatter = numberFormatter;
         y.labelTextStyle = textStyle;
@@ -236,6 +236,8 @@ NSString *GraphDataPointWasSelectedNotification = @"GraphDataPointWasSelectedNot
         mSystolicBarPlot.barWidth = CPTDecimalFromFloat(0.80f);
         mSystolicBarPlot.barWidthsAreInViewCoordinates = NO;
         mSystolicBarPlot.lineStyle = bloodPressureLineStyle;
+        mSystolicBarPlot.labelTextStyle = textStyle;
+        mSystolicBarPlot.labelOffset = -0.01f;
         mSystolicBarPlot.fill = [[[CPTFill alloc] initWithColor:pressureColor] autorelease];
         
         CPTXYPlotSpace *barPlotSpace = (CPTXYPlotSpace *)mSystolicGraph.defaultPlotSpace;
@@ -273,7 +275,7 @@ NSString *GraphDataPointWasSelectedNotification = @"GraphDataPointWasSelectedNot
         
         y = axisSet.yAxis;
         y.majorIntervalLength = CPTDecimalFromInt(10);
-        y.minorTicksPerInterval = 4;
+        y.minorTicksPerInterval = 0;
         y.orthogonalCoordinateDecimal = CPTDecimalFromInt(0);
         y.labelFormatter = numberFormatter;
         y.labelTextStyle = textStyle;
@@ -287,6 +289,8 @@ NSString *GraphDataPointWasSelectedNotification = @"GraphDataPointWasSelectedNot
         mDiastolicBarPlot.barCornerRadius = 6.0f;
         mDiastolicBarPlot.barWidth = CPTDecimalFromFloat(0.80f);
         mDiastolicBarPlot.lineStyle = bloodPressureLineStyle;
+        mDiastolicBarPlot.labelTextStyle = textStyle;
+        mDiastolicBarPlot.labelOffset = -0.01f;
         mDiastolicBarPlot.fill = [[[CPTFill alloc] initWithColor:pressureColor] autorelease];
 
         barPlotSpace = (CPTXYPlotSpace *)mDiastolicGraph.defaultPlotSpace;
@@ -925,6 +929,48 @@ NSString *GraphDataPointWasSelectedNotification = @"GraphDataPointWasSelectedNot
     return symbol;
 }
 
+-(CPTLayer *)dataLabelForPlot:(CPTPlot *)plot recordIndex:(NSUInteger)index
+{
+    CPTTextLayer *label = nil; 
+    NSString *labelText = nil;
+    NSDecimalNumber *num = [NSDecimalNumber zero];
+    
+    if (plot == self.systolicBarPlot)
+    {
+        num = [self.systolicFrequencyDistribution objectAtIndex:index];
+        labelText = [NSString stringWithFormat:@"%lu%%", [num intValue]];
+        label = [[CPTTextLayer alloc] initWithText:labelText];     
+        if ([num intValue] > 5)
+        {
+            //
+            // We only want to print a label on the inside if the Bar is greater than 5%, otherwise, it will be clipped
+            plot.labelOffset = -0.01f;
+        }
+        else
+        {
+            plot.labelOffset = 0.01f;
+        }
+    }
+    else if (plot == self.diastolicBarPlot)
+    {
+        num = [self.diastolicFrequencyDistribution objectAtIndex:index];
+        labelText = [NSString stringWithFormat:@"%lu%%", [num intValue]];
+        label = [[CPTTextLayer alloc] initWithText:labelText]; 
+        if ([num intValue] > 5)
+        {
+            //
+            // We only want to print a label on the inside if the Bar is greater than 5%, otherwise, it will be clipped
+            plot.labelOffset = -0.01f;
+        }
+        else
+        {
+            plot.labelOffset = 0.01f;
+        }
+    }
+    
+    return [label autorelease];
+}
+
 #pragma mark CPTBarPlotDataSource optional routines
 
 //- (CPTFill *)barFillForBarPlot:(CPTBarPlot *)barPlot recordIndex:(NSUInteger)index
@@ -1033,12 +1079,12 @@ NSString *GraphDataPointWasSelectedNotification = @"GraphDataPointWasSelectedNot
 
 -(void)scatterPlot:(CPTScatterPlot *)plot plotSymbolWasSelectedAtRecordIndex:(NSUInteger)index
 {
-    NSLog(@"[GraphViewController plotSymbolWasSelectedAtRecordIndex] delegate %@ at %lu", plot, index);
+    NSLog(@"[GraphViewController plotSymbolWasSelectedAtRecordIndex] delegate %@ at %lu which should be reading %@", plot, index, [self.dataSourceSortedReadings objectAtIndex:index]);
     
     //
     // The graph view starts with the oldest reading. Let's reverse the index
     // to select on the Reading View
-    [[NSNotificationCenter defaultCenter] postNotificationName:GraphDataPointWasSelectedNotification object:[NSNumber numberWithUnsignedInteger:[self.dataSourceSortedReadings count]-index]];
+    [[NSNotificationCenter defaultCenter] postNotificationName:GraphDataPointWasSelectedNotification object:[self.dataSourceSortedReadings objectAtIndex:index]];
 }
 
 #pragma mark SWDatePickerProtocol

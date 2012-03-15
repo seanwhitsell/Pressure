@@ -27,6 +27,7 @@
 #import "GraphViewController.h"
 #import "ReadingViewController.h"
 #import "OmronDataSource.h"
+#import "OmronDataRecord.h"
 
 @interface MainWindowController ()
 
@@ -138,20 +139,18 @@
 
 - (void)graphDataPointSelected:(NSNotification*)notif
 {
-    NSNumber* passedIndex = (NSNumber*)notif.object;
-    NSUInteger index = [passedIndex integerValue];
+    OmronDataRecord *record = (OmronDataRecord*)notif.object;
     
-    NSLog(@"Graph data point selected at %lu index", index);
+    NSLog(@"Graph data point  %@ ", record);
     
    //
     // The user has clicked on a Data Point on the Graph. Let's switch to the Readings View and select
     // the Reading that this symbol came from
     // I dont like the magic number "1", but it IS the index from the array created above.
     //
-    ReadingViewController *vc2 = [self.tabBarController.viewControllers objectAtIndex:1];
-    vc2.listView.selectedRow = index;
-    self.tabBarController.selectedViewController = vc2;
-
+    ReadingViewController *readingViewController = [self.tabBarController.viewControllers objectAtIndex:1];
+    [readingViewController selectAndPositionRecord:record];
+    self.tabBarController.selectedViewController = readingViewController;
 }
 
 - (void)toggleSync:(id)sender

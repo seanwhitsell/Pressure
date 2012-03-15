@@ -24,17 +24,20 @@
 
 @class PXListView;
 @class OmronDataSource;
+@class OmronDataRecord;
 
 @interface ReadingViewController : NSViewController <PXListViewDelegate>
 {
     OmronDataSource *mDataSource;
     PXListView *mListView;
     NSArray *mDataSourceSortedReadings;
+    NSInteger mSelectedRow;
 }
 
 @property (nonatomic, readonly, retain) OmronDataSource *dataSource;
 @property (nonatomic, readwrite, assign) IBOutlet PXListView *listView;
 
 - (id)initWithDatasource:(OmronDataSource*)aDataSource;
+- (void)selectAndPositionRecord:(OmronDataRecord*)record;
 
 @end
