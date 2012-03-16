@@ -24,6 +24,8 @@
 @property (nonatomic, readwrite, assign) NSInteger maxMonths;
 @property (nonatomic, readwrite, assign) NSInteger mouseDownIndex;
 @property (nonatomic, readwrite, retain) NSString *dateRangeLabel;
+@property (nonatomic, readwrite, assign) NSInteger hightlightMonthUnderMouse;
+@property (nonatomic, readwrite, retain) NSTrackingArea *trackingArea;
 
 - (NSInteger)maxMonths;
 - (NSInteger)indexForPoint:(NSPoint)point;
@@ -52,6 +54,8 @@
 @synthesize maxMonths = mMaxMonths;
 @synthesize mouseDownIndex = mMouseDownIndex;
 @synthesize dateRangeLabel = mDateRangeLabel;
+@synthesize hightlightMonthUnderMouse = mHightlightMonthUnderMouse;
+@synthesize trackingArea = mTrackingArea;
 
 #pragma mark Object Lifecycle Routines
 
@@ -68,6 +72,13 @@
         mSelectedEndDate = [[NSDate dateWithTimeIntervalSinceNow:0] retain];
         mMaxMonths = 0;
         mDelegate = nil;
+        
+        int opts = (NSTrackingMouseEnteredAndExited | NSTrackingMouseMoved | NSTrackingActiveAlways);
+        mTrackingArea = [ [NSTrackingArea alloc] initWithRect:[self bounds]
+                                                     options:opts
+                                                       owner:self
+                                                    userInfo:nil];
+        [self addTrackingArea:mTrackingArea];
     }
     
     return self;
@@ -182,24 +193,47 @@
     return date;
 }
 
-- (BOOL)shouldDisplayYearForIndex:(NSInteger)index
+
+- (BOOL)shouldDrawMonthforIndex:(NSInteger)index
 {
-    NSCalendar *gregorian = [[NSCalendar alloc] 
-                             initWithCalendarIdentifier:NSGregorianCalendar]; 
+    BOOL retval = YES;
     
-    NSUInteger unitFlags = NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit; 
-    
-    NSDateComponents *components = [gregorian components:unitFlags 
-                                                fromDate:[self firstDayOfMonthForIndex:index]]; 
-    
-    if ([components month] == 1)
+    NSPoint point = [self pointOfMonthAtIndex:index highlighted:YES];
+    if (point.x < 0.0f)
     {
-        //
-        // this is January, so, Yes, we want a year displayed
-        return YES;
+        retval = NO;
     }
     
-    return NO;
+    return retval;
+}
+
+- (BOOL)shouldDisplayYearForIndex:(NSInteger)index
+{
+    BOOL retval = NO;
+    
+    if (index == self.hightlightMonthUnderMouse)
+    {
+        retval = YES;
+    }
+    else
+    {
+        NSCalendar *gregorian = [[NSCalendar alloc] 
+                                 initWithCalendarIdentifier:NSGregorianCalendar]; 
+        
+        NSUInteger unitFlags = NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit; 
+        
+        NSDateComponents *components = [gregorian components:unitFlags 
+                                                    fromDate:[self firstDayOfMonthForIndex:index]]; 
+        
+        if ([components month] == 1)
+        {
+            //
+            // this is January, so, Yes, we want a year displayed
+            retval = YES;
+        }
+    }
+    
+    return retval;
 }
 
 - (NSString*)yearStringForIndex:(NSInteger)index
@@ -316,18 +350,25 @@
 {
     BOOL retval = NO;
     
-    NSDate *indexDate = [self firstDayOfMonthForIndex:index];
-    
-    //
-    // Let's see if the date is greater than the start date and less than the end date
-    //
-    if ((NSOrderedDescending == [indexDate compare:self.selectedStartDate]) ||
-        (NSOrderedSame == [indexDate compare:self.selectedStartDate]))
+    if (index == self.hightlightMonthUnderMouse)
     {
-        if ((NSOrderedAscending == [indexDate compare:self.selectedEndDate]) ||
-            (NSOrderedSame == [indexDate compare:self.selectedEndDate]))
+        retval = YES;
+    }
+    else
+    {
+        NSDate *indexDate = [self firstDayOfMonthForIndex:index];
+        
+        //
+        // Let's see if the date is greater than the start date and less than the end date
+        //
+        if ((NSOrderedDescending == [indexDate compare:self.selectedStartDate]) ||
+            (NSOrderedSame == [indexDate compare:self.selectedStartDate]))
         {
-            retval = YES;
+            if ((NSOrderedAscending == [indexDate compare:self.selectedEndDate]) ||
+                (NSOrderedSame == [indexDate compare:self.selectedEndDate]))
+            {
+                retval = YES;
+            }
         }
     }
     
@@ -363,19 +404,6 @@
     [dateFormatEnd release];
     
     return dateString;
-}
-
-- (BOOL)shouldDrawMonthforIndex:(NSInteger)index
-{
-    BOOL retval = YES;
-    
-    NSPoint point = [self pointOfMonthAtIndex:index highlighted:YES];
-    if (point.x < 0.0f)
-    {
-        retval = NO;
-    }
-    
-    return retval;
 }
 
 #pragma mark NSView Routines
@@ -417,7 +445,6 @@
     
    for( NSInteger i=0 ; i<self.maxMonths; i++ )
     {
-        //NSLog(@"drawRect isSelectedIndex:%ld is %i", i, [self isSelectedIndex:i] );
         if ([self shouldDrawMonthforIndex:i])
         {
             if ([self isSelectedIndex:i])
@@ -512,4 +539,34 @@
     }
 }
 
+- (void)mouseMoved:(NSEvent *)theEvent
+{
+	NSLog(@"<%p> %@", self, [NSString stringWithUTF8String:__func__]);
+    
+    NSPoint pointInView = [self convertPoint:[theEvent locationInWindow] fromView:nil];
+    NSInteger index = [self indexForPoint:pointInView];
+    
+    self.hightlightMonthUnderMouse = index;
+    [self setNeedsDisplay: YES];
+    
+}
+
+- (void)mouseEntered:(NSEvent*)theEvent
+{
+	NSLog(@"<%p> %@", self, [NSString stringWithUTF8String:__func__]);
+
+    NSPoint pointInView = [self convertPoint:[theEvent locationInWindow] fromView:nil];
+    NSInteger index = [self indexForPoint:pointInView];
+
+    self.hightlightMonthUnderMouse = index;
+    [self setNeedsDisplay: YES];
+}
+
+- (void)mouseExited:(NSEvent*)theEvent
+{
+	NSLog(@"<%p> %@", self, [NSString stringWithUTF8String:__func__]);
+
+    self.hightlightMonthUnderMouse = -1;
+    [self setNeedsDisplay: YES];
+}
 @end

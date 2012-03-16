@@ -51,6 +51,8 @@
     NSInteger mMaxMonths;
     NSInteger mMouseDownIndex;
     NSString *mDateRangeLabel;
+    NSInteger mHightlightMonthUnderMouse;
+    NSTrackingArea *mTrackingArea;
 }
 
 @property (nonatomic, readwrite, retain) NSDate *rangeStartDate;
