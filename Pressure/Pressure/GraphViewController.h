@@ -52,6 +52,8 @@ extern NSString *GraphDataPointWasSelectedNotification;
     NSImageView *mBackdropView;
     SWDatePicker *mDatePicker;
     NSTextField *mDateRangeLabel;
+    NSTextField *mAverageSystolicPressure;
+    NSTextField *mAverageDiastolicPressure;
 }
 
 @property (nonatomic, readonly, retain) OmronDataSource *dataSource;

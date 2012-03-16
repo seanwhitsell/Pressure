@@ -51,6 +51,8 @@ NSString *GraphDataPointWasSelectedNotification = @"GraphDataPointWasSelectedNot
 @property (nonatomic, readwrite, retain) CPTBarPlot *systolicBarPlot;
 @property (nonatomic, readwrite, retain) CPTBarPlot *diastolicBarPlot;
 @property (nonatomic, readwrite, retain) NSDate *referenceDate;
+@property (nonatomic, readwrite, retain) IBOutlet NSTextField *averageSystolicPressure;
+@property (nonatomic, readwrite, retain) IBOutlet NSTextField *averageDiastolicPressure;
 
 - (void)dataSyncOperationDidEnd:(NSNotification*)notif;
 - (void)dataSyncOperationDataAvailable:(NSNotification*)notif;
@@ -84,6 +86,8 @@ NSString *GraphDataPointWasSelectedNotification = @"GraphDataPointWasSelectedNot
 @synthesize diastolicFrequencyDistribution = mDiastolicFrequencyDistribution;
 @synthesize datePicker = mDatePicker;
 @synthesize dateRangeLabel = mDateRangeLabel;
+@synthesize averageSystolicPressure = mAverageSystolicPressure;
+@synthesize averageDiastolicPressure = mAverageDiastolicPressure;
 
 #pragma mark Object Lifecycle Routines
 
@@ -410,6 +414,8 @@ NSString *GraphDataPointWasSelectedNotification = @"GraphDataPointWasSelectedNot
         NSInteger W = 0;
         float highestValue = 0;
         CPTXYPlotSpace *barPlotSpace = nil;
+        NSInteger systolicPressureSum = 0;
+        NSInteger diastolicPressureSum = 0;
         
         //
         // SYSTOLIC
@@ -462,7 +468,10 @@ NSString *GraphDataPointWasSelectedNotification = @"GraphDataPointWasSelectedNot
             value++;
             [systolicFrequencyDistribution replaceObjectAtIndex:index withObject:[NSNumber numberWithInt:value]];
             
+            systolicPressureSum += systolicPressure;
         }
+        
+        self.averageSystolicPressure.stringValue = [NSString stringWithFormat:@"%ld", systolicPressureSum / readingsSortedBySystolicPressure.count];
         
         //
         // calculate the percentage of values in each range
@@ -562,8 +571,14 @@ NSString *GraphDataPointWasSelectedNotification = @"GraphDataPointWasSelectedNot
             int value = [[diastolicFrequencyDistribution objectAtIndex:index] intValue];
             value++;
             [diastolicFrequencyDistribution replaceObjectAtIndex:index withObject:[NSNumber numberWithInt:value]];
+            
+            //
+            // While we are looping over the Diastolic Pressures, let's add them all up to take an average
+            diastolicPressureSum += diastolicPressure;
         }
         
+        self.averageDiastolicPressure.stringValue = [NSString stringWithFormat:@"%ld", diastolicPressureSum / readingsSortedByDiastolicPressure.count];
+
         //
         // calculate the percentage of values in each range
         highestValue = 0;
