@@ -44,6 +44,7 @@ NSString *heartRateKey = @"heartRateKey";
 NSString *dataBankKey = @"dataBankKey";
 NSString *deviceVersionKey = @"deviceVersionKey";
 NSString *deviceSerialNumberKey = @"deviceSerialNumberKey";
+NSString *commentKey = @"commentKey";
 
 NSString *readingEntryEntityName = @"ReadingEntry";
 NSString *deviceInformationEntityName = @"DeviceInformation";
@@ -102,6 +103,28 @@ NSString *deviceInformationEntityName = @"DeviceInformation";
 }
 
 #pragma mark Public Operations
+
+- (void)saveUpdates
+{
+    NSManagedObjectContext *context = [self managedObjectContext];
+    NSError *error = nil;
+
+    if (![context commitEditing]) {
+        NSLog(@"%@: unable to commit editing before saving", [self class]);
+    }
+
+    if (![context save:&error])
+    {
+        NSLog(@"saveUpdates - Unresolved error %@, %@", error, [error userInfo]);
+    }
+    
+    
+}
+
+- (void)writeRecord:(OmronDataRecord*)record
+{
+    
+}
 
 - (void)cancelSync
 {
@@ -183,14 +206,7 @@ NSString *deviceInformationEntityName = @"DeviceInformation";
         
         for (NSManagedObject *object in [context executeFetchRequest:fetchRequest error:&error])
         {
-            OmronDataRecord *dataRecord = [[OmronDataRecord alloc] init];
-
-            dataRecord.systolicPressure = [(NSNumber*)[object valueForKey:systolicPressureKey] longValue];
-            dataRecord.diastolicPressure = [(NSNumber*)[object valueForKey:diastolicPressureKey] longValue];
-            dataRecord.heartRate = [(NSNumber*)[object valueForKey:heartRateKey] longValue];
-            dataRecord.readingDate = [object valueForKey:readingDateKey];
-            dataRecord.dataBank = [(NSNumber*)[object valueForKey:dataBankKey] longValue];
-
+            OmronDataRecord *dataRecord = [[OmronDataRecord alloc] initWithManagedObject:object];            
             [realData addObject:dataRecord];
             [self.readingsListDates addObject:dataRecord.readingDate];
         }
@@ -225,6 +241,7 @@ NSString *deviceInformationEntityName = @"DeviceInformation";
             int seconds = (24 * 3600) * ((365*2) - i);
             OmronDataRecord *dataRecord = [[OmronDataRecord alloc] init];
             dataRecord.readingDate = [[[NSDate alloc] initWithTimeIntervalSinceNow:-seconds] autorelease];
+            dataRecord.comment = [NSString stringWithString:@""];
             
             s = s + (4 - arc4random() % 10);
             d = d + (4 - arc4random() % 10);
@@ -255,13 +272,7 @@ NSString *deviceInformationEntityName = @"DeviceInformation";
         for (NSManagedObject *object in [context executeFetchRequest:fetchRequest error:&error])
         {
             OmronDataRecord *dataRecord = [[OmronDataRecord alloc] init];
-
-            dataRecord.systolicPressure = [(NSNumber*)[object valueForKey:systolicPressureKey] longValue];
-            dataRecord.diastolicPressure = [(NSNumber*)[object valueForKey:diastolicPressureKey] longValue];
-            dataRecord.heartRate = [(NSNumber*)[object valueForKey:heartRateKey] longValue];
-            dataRecord.readingDate = [object valueForKey:readingDateKey];
-            dataRecord.dataBank = [(NSNumber*)[object valueForKey:dataBankKey] longValue];
-
+            
             [realData addObject:dataRecord];
         }
         
@@ -390,7 +401,7 @@ NSString *deviceInformationEntityName = @"DeviceInformation";
                     i = i + 1;
                     continue;
                 }
-                NSLog(@"%.2d/%.2d/20%.2d %.2d:%.2d:%.2d SYS: %3d DIA: %3d PULSE: %3d", r.day, r.month, r.year, r.hour, r.minute, r.second, r.sys, r.dia, r.pulse);
+                NSLog(@"%.2d/%.2d/20%.2d %.2d:%.2d:%.2d SYS: %3d DIA: %3d PULSE: %3d", r.day, r.month, r.year, r.hour, r.minute, r.second, r.sys,r.dia, r.pulse);
                 
                 NSDateComponents *comps = [[NSDateComponents alloc] init];
                 [comps setDay:r.day];
@@ -423,6 +434,7 @@ NSString *deviceInformationEntityName = @"DeviceInformation";
                     [newManagedObject setValue:[NSNumber numberWithInt:r.dia] forKey:diastolicPressureKey];
                     [newManagedObject setValue:[NSNumber numberWithInt:r.pulse] forKey:heartRateKey];
                     [newManagedObject setValue:[NSNumber numberWithInt:bank] forKey:dataBankKey];
+                    [newManagedObject setValue:[NSString stringWithString:@""] forKey:commentKey];
                 }
             }
         }
@@ -537,7 +549,8 @@ NSString *deviceInformationEntityName = @"DeviceInformation";
     
     NSURL *url = [applicationFilesDirectory URLByAppendingPathComponent:@"Pressure.storedata"];
     NSPersistentStoreCoordinator *coordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:mom];
-    if (![coordinator addPersistentStoreWithType:NSXMLStoreType configuration:nil URL:url options:nil error:&error]) {
+    if (![coordinator addPersistentStoreWithType:NSXMLStoreType configuration:nil URL:url options:nil error:&error]) 
+    {
         [[NSApplication sharedApplication] presentError:error];
         return nil;
     }

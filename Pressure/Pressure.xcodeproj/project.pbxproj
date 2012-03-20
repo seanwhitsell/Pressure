@@ -54,9 +54,10 @@
 		DA4FE8B114BB5F260019B20F /* libusb-1.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DA4FE8B014BB5F260019B20F /* libusb-1.0.a */; };
 		DA4FE8BB14BB6A050019B20F /* Pressure.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = DA4FE8B914BB6A050019B20F /* Pressure.xcdatamodeld */; };
 		DA6A784E14C07F050048E771 /* NSDate+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = DA6A784D14C07F050048E771 /* NSDate+Helper.m */; };
+		DA78D246151762A900DCF616 /* Fonts in Resources */ = {isa = PBXBuildFile; fileRef = DA78D245151762A900DCF616 /* Fonts */; };
+		DA78D249151786B700DCF616 /* UserFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = DA78D248151786B700DCF616 /* UserFilter.m */; };
 		DAA6226A14BE92A000B91BFA /* Pressure.icns in Resources */ = {isa = PBXBuildFile; fileRef = DAA6226914BE92A000B91BFA /* Pressure.icns */; };
 		DAD1DAD114BD30FF00D3EB5F /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DAD1DAD014BD30FF00D3EB5F /* IOKit.framework */; };
-		DAFAA27E14C624500046875B /* LCDM2N__.TTF in Resources */ = {isa = PBXBuildFile; fileRef = DAFAA27D14C624500046875B /* LCDM2N__.TTF */; };
 		DAFB343914BE94AB006AC226 /* PXListView.m in Sources */ = {isa = PBXBuildFile; fileRef = DAFB342E14BE94AB006AC226 /* PXListView.m */; };
 		DAFB343A14BE94AB006AC226 /* PXListView+UserInteraction.m in Sources */ = {isa = PBXBuildFile; fileRef = DAFB343214BE94AB006AC226 /* PXListView+UserInteraction.m */; };
 		DAFB343B14BE94AB006AC226 /* PXListViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DAFB343514BE94AB006AC226 /* PXListViewCell.m */; };
@@ -165,6 +166,7 @@
 		DA1A34CA14BB36D00089F858 /* OmronDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OmronDataSource.m; sourceTree = "<group>"; };
 		DA1A34CB14BB36D00089F858 /* OmronDataSyncOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OmronDataSyncOperation.h; sourceTree = "<group>"; };
 		DA1A34CC14BB36D00089F858 /* OmronDataSyncOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OmronDataSyncOperation.m; sourceTree = "<group>"; };
+		DA1F35AF151761CA0082D599 /* LCDM2N__.TTF */ = {isa = PBXFileReference; lastKnownFileType = file; path = LCDM2N__.TTF; sourceTree = "<group>"; };
 		DA33174A14C10DFA00022170 /* OmronDataRecord.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OmronDataRecord.h; sourceTree = "<group>"; };
 		DA33174B14C10DFA00022170 /* OmronDataRecord.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OmronDataRecord.m; sourceTree = "<group>"; };
 		DA340FF5150A32C200CA5AED /* SWDatePicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWDatePicker.h; sourceTree = "<group>"; };
@@ -180,9 +182,11 @@
 		DA4FE8BA14BB6A050019B20F /* Pressure.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Pressure.xcdatamodel; sourceTree = "<group>"; };
 		DA6A784C14C07F050048E771 /* NSDate+Helper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+Helper.h"; sourceTree = "<group>"; };
 		DA6A784D14C07F050048E771 /* NSDate+Helper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Helper.m"; sourceTree = "<group>"; };
+		DA78D245151762A900DCF616 /* Fonts */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Fonts; path = Pressure/Fonts; sourceTree = "<group>"; };
+		DA78D2471517862A00DCF616 /* UserFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserFilter.h; sourceTree = "<group>"; };
+		DA78D248151786B700DCF616 /* UserFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserFilter.m; sourceTree = "<group>"; };
 		DAA6226914BE92A000B91BFA /* Pressure.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = Pressure.icns; sourceTree = "<group>"; };
 		DAD1DAD014BD30FF00D3EB5F /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = System/Library/Frameworks/IOKit.framework; sourceTree = SDKROOT; };
-		DAFAA27D14C624500046875B /* LCDM2N__.TTF */ = {isa = PBXFileReference; lastKnownFileType = file; path = LCDM2N__.TTF; sourceTree = "<group>"; };
 		DAFB342D14BE94AB006AC226 /* PXListView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXListView.h; sourceTree = "<group>"; };
 		DAFB342E14BE94AB006AC226 /* PXListView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PXListView.m; sourceTree = "<group>"; };
 		DAFB342F14BE94AB006AC226 /* PXListView+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PXListView+Private.h"; sourceTree = "<group>"; };
@@ -225,6 +229,7 @@
 		8F32EB1F14B56CD800122156 = {
 			isa = PBXGroup;
 			children = (
+				DA78D245151762A900DCF616 /* Fonts */,
 				DA4C98DB14C376EE0068793E /* Dependant Projects */,
 				8F32EB3514B56CD800122156 /* Pressure */,
 				8F32EB2E14B56CD800122156 /* Frameworks */,
@@ -275,8 +280,8 @@
 				8F4EAF0A14B6B42A00C9C31C /* Tabs */,
 				8F41AECD14B94DEF00F850D0 /* Main Window */,
 				8FFAB3B114B58F4800EAE31F /* Tab Bar */,
-				8FFAB3B014B58E2300EAE31F /* Images */,
 				DA4FE8BC14BB6AF60019B20F /* OmronDevice */,
+				DA1F35AC151760C70082D599 /* Resources */,
 				8F32EB3C14B56CD800122156 /* Supporting Files */,
 				DA340FF5150A32C200CA5AED /* SWDatePicker.h */,
 				DA340FF6150A32C200CA5AED /* SWDatePicker.m */,
@@ -287,13 +292,14 @@
 		8F32EB3C14B56CD800122156 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				DA4C990A14C7019C0068793E /* Fonts */,
 				DA6A784C14C07F050048E771 /* NSDate+Helper.h */,
 				DA6A784D14C07F050048E771 /* NSDate+Helper.m */,
 				DA4FE8B914BB6A050019B20F /* Pressure.xcdatamodeld */,
 				8F32EB3D14B56CD800122156 /* Pressure-Info.plist */,
 				8F32EB3E14B56CD800122156 /* Pressure-Prefix.pch */,
 				8F32EB3F14B56CD800122156 /* main.m */,
+				DA78D2471517862A00DCF616 /* UserFilter.h */,
+				DA78D248151786B700DCF616 /* UserFilter.m */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -369,7 +375,8 @@
 				8F41AED214B94FD000F850D0 /* Main Window */,
 				8F4EAF0614B6B18200C9C31C /* Tab Bar */,
 			);
-			path = Images;
+			name = Images;
+			path = Pressure/Images;
 			sourceTree = "<group>";
 		};
 		8FFAB3B114B58F4800EAE31F /* Tab Bar */ = {
@@ -393,6 +400,25 @@
 			name = "Tab Bar";
 			sourceTree = "<group>";
 		};
+		DA1F35AC151760C70082D599 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				DA1F35AE151761CA0082D599 /* Fonts */,
+				8FFAB3B014B58E2300EAE31F /* Images */,
+			);
+			name = Resources;
+			path = ..;
+			sourceTree = "<group>";
+		};
+		DA1F35AE151761CA0082D599 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				DA1F35AF151761CA0082D599 /* LCDM2N__.TTF */,
+			);
+			name = Fonts;
+			path = Pressure/Fonts;
+			sourceTree = "<group>";
+		};
 		DA4C98DB14C376EE0068793E /* Dependant Projects */ = {
 			isa = PBXGroup;
 			children = (
@@ -408,14 +434,6 @@
 				DA4C98E814C377130068793E /* UnitTests.octest */,
 			);
 			name = Products;
-			sourceTree = "<group>";
-		};
-		DA4C990A14C7019C0068793E /* Fonts */ = {
-			isa = PBXGroup;
-			children = (
-				DAFAA27D14C624500046875B /* LCDM2N__.TTF */,
-			);
-			name = Fonts;
 			sourceTree = "<group>";
 		};
 		DA4FE8BC14BB6AF60019B20F /* OmronDevice */ = {
@@ -527,6 +545,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DA78D246151762A900DCF616 /* Fonts in Resources */,
 				8F32EB3B14B56CD800122156 /* MainMenu.xib in Resources */,
 				8FFAB3AF14B58C6000EAE31F /* MainWindowController.xib in Resources */,
 				8FFAB3BA14B58F9500EAE31F /* TabBarController.xib in Resources */,
@@ -548,7 +567,6 @@
 				DAA6226A14BE92A000B91BFA /* Pressure.icns in Resources */,
 				DAFB355C14BEA109006AC226 /* ReadingViewController.xib in Resources */,
 				DAFB355E14BEA56A006AC226 /* PressureReadingViewCell.xib in Resources */,
-				DAFAA27E14C624500046875B /* LCDM2N__.TTF in Resources */,
 				DAFBB28914C8FCF90067CDFC /* backdrop.png in Resources */,
 				DAFBB28B14C904F20067CDFC /* List.icns in Resources */,
 				DAFBB28D14C905490067CDFC /* Stock.icns in Resources */,
@@ -592,6 +610,7 @@
 				DA33174C14C10DFA00022170 /* OmronDataRecord.m in Sources */,
 				8FD7477A14DE69F600E4E060 /* PXUserDefaults.m in Sources */,
 				DA340FF7150A32C200CA5AED /* SWDatePicker.m in Sources */,
+				DA78D249151786B700DCF616 /* UserFilter.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

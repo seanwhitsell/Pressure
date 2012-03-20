@@ -34,19 +34,23 @@
 @property (nonatomic, readonly, retain) TabBarController *tabBarController;
 @property (nonatomic, readwrite, retain) SyncButton *syncButton;
 @property (nonatomic, readwrite, retain) OmronDataSource *dataSource;
+@property (nonatomic, readwrite, assign) UserFilter userFilter;
 
 - (void)toggleSync:(id)sender;
 - (void)dataSyncOperationDidBegin:(NSNotification*)notif;
 - (void)dataSyncOperationDidEnd:(NSNotification*)notif;
 - (void)graphDataPointSelected:(NSNotification*)notif;
+- (void)clearAndSetMenuItem:(id)sender;
 
 @end
 
 @implementation MainWindowController
 
+@synthesize popupMenu = mPopupMenu;
 @synthesize syncButton = mSyncButton;
 @synthesize box = mBox;
 @synthesize dataSource = mDataSource;
+@synthesize userFilter = mUserFilter;
 
 - (id)init
 {
@@ -58,6 +62,7 @@
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(graphDataPointSelected:) name:GraphDataPointWasSelectedNotification object:nil];
         
         mDataSource = [[OmronDataSource alloc] init];
+        mUserFilter = userAOnly;
 	}
 	
 	return self;
@@ -153,6 +158,18 @@
     self.tabBarController.selectedViewController = readingViewController;
 }
 
+- (void)clearAndSetMenuItem:(id)sender
+{
+    for (NSMenuItem *item in [self.popupMenu itemArray])
+    {
+        [item setState:0];
+    }
+    
+    NSMenuItem *menu = (NSMenuItem*)sender;
+    
+    menu.state = 1;
+}
+
 - (void)toggleSync:(id)sender
 {
     if ([self.dataSource isSyncing])
@@ -163,6 +180,39 @@
     {
         [self.dataSource sync];
     }
+}
+
+- (IBAction)userAFilterSelected:(id)sender 
+{
+    NSLog(@"userAFilterSelected");
+    
+    [self clearAndSetMenuItem:sender];
+    
+    self.userFilter = userAOnly;
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:UserFilterDidChangeNotification object:[NSNumber numberWithInt:(int)self.userFilter]];
+}
+
+- (IBAction)userBFilterSelected:(id)sender 
+{
+    NSLog(@"userBFilterSelected");
+
+    [self clearAndSetMenuItem:sender];
+    
+    self.userFilter = userBOnly;
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:UserFilterDidChangeNotification object:[NSNumber numberWithInt:(int)self.userFilter]];
+}
+
+- (IBAction)userAandBFilterSelected:(id)sender 
+{
+    NSLog(@"userAandBFilterSelected");
+
+    [self clearAndSetMenuItem:sender];
+    
+    self.userFilter = userAandB;
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:UserFilterDidChangeNotification object:[NSNumber numberWithInt:(int)self.userFilter]];
 }
 
 @end

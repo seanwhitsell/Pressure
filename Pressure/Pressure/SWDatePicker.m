@@ -541,7 +541,7 @@
 
 - (void)mouseMoved:(NSEvent *)theEvent
 {
-	NSLog(@"<%p> %@", self, [NSString stringWithUTF8String:__func__]);
+//	NSLog(@"<%p> %@", self, [NSString stringWithUTF8String:__func__]);
     
     NSPoint pointInView = [self convertPoint:[theEvent locationInWindow] fromView:nil];
     NSInteger index = [self indexForPoint:pointInView];
@@ -553,7 +553,7 @@
 
 - (void)mouseEntered:(NSEvent*)theEvent
 {
-	NSLog(@"<%p> %@", self, [NSString stringWithUTF8String:__func__]);
+//	NSLog(@"<%p> %@", self, [NSString stringWithUTF8String:__func__]);
 
     NSPoint pointInView = [self convertPoint:[theEvent locationInWindow] fromView:nil];
     NSInteger index = [self indexForPoint:pointInView];
@@ -564,7 +564,7 @@
 
 - (void)mouseExited:(NSEvent*)theEvent
 {
-	NSLog(@"<%p> %@", self, [NSString stringWithUTF8String:__func__]);
+//	NSLog(@"<%p> %@", self, [NSString stringWithUTF8String:__func__]);
 
     self.hightlightMonthUnderMouse = -1;
     [self setNeedsDisplay: YES];

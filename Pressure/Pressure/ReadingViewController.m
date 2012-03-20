@@ -51,6 +51,7 @@
 @synthesize dataSourceSortedReadings = mDataSourceSortedReadings;
 @synthesize selectedRow = mSelectedRow;
 
+#pragma mark -
 #pragma mark NSObject Lifecycle Routines
 
 - (id)initWithDatasource:(OmronDataSource*)aDataSource
@@ -89,7 +90,9 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
+#pragma mark -
 #pragma mark Utility Routines
+
 - (void)selectAndPositionRecord:(OmronDataRecord*)aRecord
 {
 	NSLog(@"<%p> %@", self, [NSString stringWithUTF8String:__func__]);
@@ -118,6 +121,7 @@
     }
 }
 
+#pragma mark -
 #pragma mark NSViewController overrides
 
 - (void)awakeFromNib
@@ -159,6 +163,7 @@
 	NSLog(@"<%p> %@", self, [NSString stringWithUTF8String:__func__]);
 }    
 
+#pragma mark -
 #pragma mark NSNotification Observers
 
 - (void)dataSyncOperationDidEnd:(NSNotification*)notif
@@ -189,6 +194,18 @@
     [self.listView reloadData];
 }
 
+- (void)controlTextDidEndEditing:(NSNotification*)notif
+{
+    NSLog(@"controlTextDidEndEditing");
+    NSTextField* textField = (NSTextField *)[notif object];
+    
+    OmronDataRecord *record = (OmronDataRecord*)textField.delegate;
+    record.comment = textField.stringValue;
+    
+    [self.dataSource saveUpdates];
+}
+
+#pragma mark -
 #pragma mark PXListViewDelegate delelate implementation
 
 - (NSUInteger)numberOfRowsInListView:(PXListView*)aListView
@@ -221,6 +238,8 @@
                                prefixed:NO
                                alwaysDisplayTime:YES];
     [[cell readingDateLabel] setStringValue:displayString];
+    [[cell commentLabel] setStringValue:record.comment];
+    [[cell commentLabel] setDelegate:record];
     
     if ([record dataBank] == 0)
     {
@@ -230,6 +249,13 @@
     {
         [[cell databankName] setStringValue:@"Databank B"];
     }
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(controlTextDidEndEditing:)
+                                                 name:NSControlTextDidEndEditingNotification
+                                               object:cell.commentLabel];
+	NSLog(@"<%p> %@", self, cell.commentLabel);
+          
 	return cell;
 }
 

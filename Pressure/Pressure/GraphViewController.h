@@ -22,6 +22,7 @@
 #import <Cocoa/Cocoa.h>
 #import <CorePlot/CorePlot.h>
 #import "SWDatePicker.h"
+#import "UserFilter.h"
 
 extern NSString *GraphDataPointWasSelectedNotification;
 
@@ -54,6 +55,8 @@ extern NSString *GraphDataPointWasSelectedNotification;
     NSTextField *mDateRangeLabel;
     NSTextField *mAverageSystolicPressure;
     NSTextField *mAverageDiastolicPressure;
+    NSTextField *mAverageHeartRate;
+    UserFilter mUserFilter;
 }
 
 @property (nonatomic, readonly, retain) OmronDataSource *dataSource;

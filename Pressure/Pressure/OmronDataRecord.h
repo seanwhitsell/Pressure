@@ -21,15 +21,11 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "OmronDataSource.h"
 
-@interface OmronDataRecord : NSObject
+@interface OmronDataRecord : NSObject <NSTextFieldDelegate>
 {
-    NSDate *mReadingDate;
-    NSInteger mSystolicPressure;
-    NSInteger mDiastolicPressure;
-    NSInteger mHeartRate;
-    NSInteger mDataBank;
-    BOOL mExcludeFromGraph;
+    NSManagedObject *mObject;
 }
 
 @property (nonatomic, readwrite, retain) NSDate *readingDate;
@@ -38,5 +34,8 @@
 @property (nonatomic, readwrite, assign) NSInteger heartRate;
 @property (nonatomic, readwrite, assign) NSInteger dataBank;
 @property (nonatomic, readwrite, assign) BOOL excludeFromGraph;
+@property (nonatomic, readwrite, retain) NSString *comment;
+
+- (id)initWithManagedObject:(NSManagedObject*)object;
 
 @end

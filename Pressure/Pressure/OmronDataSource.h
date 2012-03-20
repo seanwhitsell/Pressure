@@ -39,6 +39,7 @@ extern NSString *heartRateKey;
 extern NSString *dataBankKey;
 extern NSString *deviceVersionKey;
 extern NSString *deviceSerialNumberKey;
+extern NSString *commentKey;
 
 /*
  
@@ -89,6 +90,8 @@ extern NSString *deviceSerialNumberKey;
  
  */
 
+@class OmronDataRecord;
+
 @interface OmronDataSource : NSObject
 {
     NSPersistentStoreCoordinator *myPersistentStoreCoordinator;
@@ -120,5 +123,11 @@ extern NSString *deviceSerialNumberKey;
 //
 // Calling this will generate OmronDataSyncDidEnd
 - (void)cancelSync;
+
+//
+// Save updates - Write to persistent store any updates to the Readings
+- (void)saveUpdates;
+
+- (void)writeRecord:(OmronDataRecord*)record;
 
 @end

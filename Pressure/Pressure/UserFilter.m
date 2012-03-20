@@ -6,4 +6,6 @@
 //  Copyright (c) 2012 Cisco Systems, Inc. All rights reserved.
 //
 
-#include <stdio.h>
+#include "UserFilter.h"
+
+NSString * const UserFilterDidChangeNotification = @"UserFilterDidChangeNotification";

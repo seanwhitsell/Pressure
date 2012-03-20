@@ -22,6 +22,12 @@
 
 #import "OmronDataRecord.h"
 
+@interface OmronDataRecord()
+
+@property (nonatomic, readwrite, retain) NSManagedObject *object;
+
+@end
+
 @implementation OmronDataRecord
 
 @synthesize readingDate = mReadingDate;
@@ -30,5 +36,91 @@
 @synthesize heartRate = mHeartRate;
 @synthesize dataBank = mDataBank;
 @synthesize excludeFromGraph = mExcludeFromGraph;
+@synthesize comment = mComment;
+@synthesize object = mObject;
+
+- (id)initWithManagedObject:(NSManagedObject*)object
+{
+    self = [super init];
+    if (self) 
+    {
+        mObject = object;
+    }
+    
+    return self;
+
+}
+
+- (NSDate *)readingDate
+{
+    return [self.object valueForKey:readingDateKey];
+}
+
+- (NSInteger)systolicPressure
+{
+    return [(NSNumber*)[self.object valueForKey:systolicPressureKey] longValue];
+}
+
+- (NSInteger)diastolicPressure
+{
+    return [(NSNumber*)[self.object valueForKey:diastolicPressureKey] longValue];
+}
+
+- (NSInteger)heartRate
+{
+    return [(NSNumber*)[self.object valueForKey:heartRateKey] longValue];
+}
+
+- (NSInteger)dataBank
+{
+    return [(NSNumber*)[self.object valueForKey:dataBankKey] longValue];
+}
+
+- (BOOL)excludeFromGraph
+{
+    return [(NSNumber*)[self.object valueForKey:excludeReadingKey] boolValue];
+}
+
+- (NSString *)comment
+{
+    return [NSString stringWithFormat:@"%@", [self.object valueForKey:commentKey]];
+}
+
+- (void)setReadingDate:(NSDate *)readingDate
+{
+    [self.object setValue:readingDate forKey:readingDateKey];
+}
+
+- (void)setSystolicPressure:(NSInteger)systolicPressure
+{
+    [self.object setValue:[NSNumber numberWithInteger:systolicPressure] forKey:systolicPressureKey];
+}
+ 
+- (void)setDiastolicPressure:(NSInteger)diastolicPressure
+{
+    [self.object setValue:[NSNumber numberWithInteger:diastolicPressure] forKey:diastolicPressureKey];    
+}
+
+- (void)setHeartRate:(NSInteger)heartRate
+{
+    [self.object setValue:[NSNumber numberWithInteger:heartRate] forKey:heartRateKey];
+   
+}
+
+- (void)setDataBank:(NSInteger)dataBank
+{
+    [self.object setValue:[NSNumber numberWithInteger:dataBank] forKey:dataBankKey];   
+}
+
+- (void)setExcludeFromGraph:(BOOL)excludeFromGraph
+{
+    [self.object setValue:[NSNumber numberWithBool:excludeFromGraph] forKey:excludeReadingKey];
+  
+}
+
+- (void)setComment:(NSString *)comment
+{
+    [self.object setValue:[NSString stringWithString:comment] forKey:commentKey];
+}
 
 @end

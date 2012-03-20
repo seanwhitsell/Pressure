@@ -24,7 +24,7 @@
 
 #import "PXListViewCell.h"
 
-@interface PressureReadingViewCell : PXListViewCell
+@interface PressureReadingViewCell : PXListViewCell <NSTextFieldDelegate>
 {
 	NSTextField *mSystolicPressureLabel;
 	NSTextField *mDiastolicPressureLabel;
@@ -32,6 +32,7 @@
     NSTextField *mHeartRateLabel;
     NSButton *mExcludeCheckBox;
     NSTextField *mDatabankName;
+    NSTextField *mCommentLabel;
 }
 
 @property (nonatomic, readwrite, retain) IBOutlet NSTextField *systolicPressureLabel;
@@ -40,5 +41,6 @@
 @property (nonatomic, readwrite, retain) IBOutlet NSTextField *heartRateLabel;
 @property (nonatomic, readwrite, retain) IBOutlet NSButton *excludeCheckBox;
 @property (nonatomic, readwrite, retain) IBOutlet NSTextField *databankName;
+@property (nonatomic, readwrite, retain) IBOutlet NSTextField *commentLabel;
 
 @end

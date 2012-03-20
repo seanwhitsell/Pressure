@@ -31,14 +31,16 @@
 @synthesize heartRateLabel = mHeartRateLabel;
 @synthesize excludeCheckBox = mExcludeCheckBox;
 @synthesize databankName = mDatabankName;
+@synthesize commentLabel = mCommentLabel;
 
 #pragma mark -
 #pragma mark Init/Dealloc
 
-- (id)initWithReusableIdentifier: (NSString*)identifier
+- (id)initWithReusableIdentifier:(NSString*)identifier
 {
 	if((self = [super initWithReusableIdentifier:identifier]))
 	{
+
 	}
 	
 	return self;
@@ -46,11 +48,14 @@
 
 - (void)dealloc
 {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    
 	[mSystolicPressureLabel release], mSystolicPressureLabel=nil;
 	[mDiastolicPressureLabel release], mDiastolicPressureLabel=nil;
 	[mReadingDateLabel release], mReadingDateLabel=nil;
     [mHeartRateLabel release], mHeartRateLabel=nil;
     [mDatabankName release], mDatabankName=nil;
+    [mCommentLabel release], mCommentLabel = nil;
     
 	[super dealloc];
 }
@@ -65,6 +70,7 @@
 	[self.readingDateLabel setStringValue:@""];
     [self.heartRateLabel setStringValue:@""];
     [self.databankName setStringValue:@""];
+    [self.commentLabel setStringValue:@""];
 }
 
 #pragma mark -
@@ -118,7 +124,6 @@
 		}
 	}
 }
-
 
 #pragma mark -
 #pragma mark Accessibility

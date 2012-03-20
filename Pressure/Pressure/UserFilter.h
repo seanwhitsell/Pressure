@@ -9,6 +9,12 @@
 #ifndef Pressure_UserFilter_h
 #define Pressure_UserFilter_h
 
+typedef enum _userFilter {
+    userAOnly,
+    userBOnly,
+    userAandB
+} UserFilter;
 
+extern NSString * const UserFilterDidChangeNotification;
 
 #endif

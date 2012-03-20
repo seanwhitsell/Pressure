@@ -27,6 +27,7 @@
 #import "OmronDataRecord.h"
 #import <CorePlot/CorePlot.h>
 #import <CorePlot/CPTPlot.h>
+#import "UserFilter.h"
 
 NSString *GraphDataPointWasSelectedNotification = @"GraphDataPointWasSelectedNotification";
 
@@ -53,9 +54,13 @@ NSString *GraphDataPointWasSelectedNotification = @"GraphDataPointWasSelectedNot
 @property (nonatomic, readwrite, retain) NSDate *referenceDate;
 @property (nonatomic, readwrite, retain) IBOutlet NSTextField *averageSystolicPressure;
 @property (nonatomic, readwrite, retain) IBOutlet NSTextField *averageDiastolicPressure;
+@property (nonatomic, readwrite, retain) IBOutlet NSTextField *averageHeartRate;
+
+@property (nonatomic, readwrite, assign) UserFilter userFilter;
 
 - (void)dataSyncOperationDidEnd:(NSNotification*)notif;
 - (void)dataSyncOperationDataAvailable:(NSNotification*)notif;
+- (void)userFilterDidChange:(NSNotification*)notif;
 - (void)updateSortedReadings;
 - (void)recalculateGraphAxis;
 - (void)recalculateDatePickerRange;
@@ -88,6 +93,8 @@ NSString *GraphDataPointWasSelectedNotification = @"GraphDataPointWasSelectedNot
 @synthesize dateRangeLabel = mDateRangeLabel;
 @synthesize averageSystolicPressure = mAverageSystolicPressure;
 @synthesize averageDiastolicPressure = mAverageDiastolicPressure;
+@synthesize averageHeartRate = mAverageHeartRate;
+@synthesize userFilter = mUserFilter;
 
 #pragma mark Object Lifecycle Routines
 
@@ -112,7 +119,12 @@ NSString *GraphDataPointWasSelectedNotification = @"GraphDataPointWasSelectedNot
                                                  selector:@selector(dataSyncOperationDataAvailable:) 
                                                      name:OmronDataSyncDataAvailableNotification 
                                                    object:nil];
-
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self 
+                                                 selector:@selector(userFilterDidChange:) 
+                                                     name:UserFilterDidChangeNotification 
+                                                   object:nil];
+        
         
         // Create Main Graph 
         mGraph = [[CPTXYGraph alloc] initWithFrame:self.view.bounds];
@@ -305,7 +317,6 @@ NSString *GraphDataPointWasSelectedNotification = @"GraphDataPointWasSelectedNot
         //
         // Date Picker
         mDatePicker.delegate = self;
-        
     }
 	
 	return self;
@@ -377,10 +388,10 @@ NSString *GraphDataPointWasSelectedNotification = @"GraphDataPointWasSelectedNot
 - (void)updateSortedReadings
 {
     // Table Reload
-    //NSLog(@"[GraphViewController updateSortedReadings]");
+    NSLog(@"[GraphViewController updateSortedReadings]");
     
     //
-    // Let's take the data and sort it by date. There is no guarantee that the readings are
+    // Let's take the data and sort it by date. There is no guarantee that the datasource.readings are
     // in any order
     //
     if ([self.dataSource.readings count] > 0)
@@ -391,11 +402,13 @@ NSString *GraphDataPointWasSelectedNotification = @"GraphDataPointWasSelectedNot
             return [first compare:second];
         }];
     }
+    
+
 }
 
 - (void)recalculateFrequencyDistributionHistogram
 {
-    if ([self.dataSource.readings count] > 0)
+    if ([self.dataSourceSortedReadings count] > 0)
     {
         //
         // We will have FrequencyDistributionWidth classes for the histogram. 
@@ -622,14 +635,24 @@ NSString *GraphDataPointWasSelectedNotification = @"GraphDataPointWasSelectedNot
         x.majorTickLocations = [NSSet setWithArray:customDiastolicMajorTickLocations];
         
         [self.diastolicGraph reloadData];
+        
+        //
+        // Calculate the Average Heartrate
+        NSUInteger summedHeartRate = 0;
+        for (OmronDataRecord *record in [self dataSourceSortedReadings])
+        {
+            summedHeartRate += [record heartRate];
+        }
+        self.averageHeartRate.stringValue = [NSString stringWithFormat:@"%ld", summedHeartRate / readingsSortedBySystolicPressure.count];
     }
+    
 }
 
 - (void)recalculateGraphAxis
 {
     //
     // We have the list ordered by date, let's get the date of the first
-    // record and set teh axis accordingly for the Pressure/Pulse plots
+    // record and set the axis accordingly for the Pressure/Pulse plots
     //
     if ([self.dataSourceSortedReadings count] > 0)
     {
@@ -650,7 +673,6 @@ NSString *GraphDataPointWasSelectedNotification = @"GraphDataPointWasSelectedNot
         
         CPTXYAxisSet *axisSet = (CPTXYAxisSet *)self.graph.axisSet;
         CPTXYAxis *x = axisSet.xAxis;
-
         CPTXYPlotSpace *plotSpace = (CPTXYPlotSpace *)self.graph.defaultPlotSpace;
         
         NSDate *ending = [[self.dataSourceSortedReadings objectAtIndex:[self.dataSourceSortedReadings count]-1] readingDate];
@@ -746,19 +768,27 @@ NSString *GraphDataPointWasSelectedNotification = @"GraphDataPointWasSelectedNot
        
         x.axisLabels = [NSSet setWithArray:customLabels];
         x.majorTickLocations = [NSSet setWithArray:customMajorTickLocations];
-        //y.orthogonalCoordinateDecimal = [customMajorTickLocations objectAtIndex:0];
-        [self.graph reloadData];
+
     }
+
 }
 
 - (void)recalculateDatePickerRange
 {
     self.datePicker.rangeStartDate = [self firstDayOfMonthForDate:[[self.dataSourceSortedReadings objectAtIndex:0] readingDate]];
     self.datePicker.rangeEndDate = [self lastDayOfMonthForDate:[NSDate date]];
-    self.datePicker.displayedStartDate = self.datePicker.rangeStartDate;
-    self.datePicker.displayedEndDate = self.datePicker.rangeEndDate;
-    self.datePicker.selectedStartDate = self.datePicker.rangeStartDate;
-    self.datePicker.selectedEndDate = self.datePicker.rangeEndDate;
+    
+    if (!self.datePicker.displayedStartDate)
+    {
+        self.datePicker.displayedStartDate = self.datePicker.rangeStartDate;
+        self.datePicker.selectedStartDate = self.datePicker.rangeStartDate;
+    }
+    
+    if (!self.datePicker.displayedEndDate)
+    {
+        self.datePicker.displayedEndDate = self.datePicker.rangeEndDate;
+        self.datePicker.selectedEndDate = self.datePicker.rangeEndDate;
+    }
     
     [self.datePicker setNeedsDisplay];
 }
@@ -986,18 +1016,6 @@ NSString *GraphDataPointWasSelectedNotification = @"GraphDataPointWasSelectedNot
     return [label autorelease];
 }
 
-#pragma mark CPTBarPlotDataSource optional routines
-
-//- (CPTFill *)barFillForBarPlot:(CPTBarPlot *)barPlot recordIndex:(NSUInteger)index
-//{
-//    return [CPTFill fillWithColor:[CPTColor whiteColor]];
-//}
-//
-//- (CPTLineStyle *)barLineStyleForBarPlot:(CPTBarPlot *)barPlot recordIndex:(NSUInteger)index
-//{
-//    return nil;
-//}
-
 #pragma mark NSNotification Observers
 
 - (void)dataSyncOperationDidEnd:(NSNotification*)notif
@@ -1008,16 +1026,112 @@ NSString *GraphDataPointWasSelectedNotification = @"GraphDataPointWasSelectedNot
     //
     [self updateSortedReadings];
     [self recalculateDatePickerRange];
+    
+    NSPredicate *predicate = [NSPredicate
+                              predicateWithFormat:@"(readingDate >= %@) AND (readingDate <= %@)",
+                              self.datePicker.displayedStartDate, self.datePicker.displayedEndDate];
+    self.dataSourceSortedReadings = [self.dataSourceSortedReadings filteredArrayUsingPredicate:predicate];
+
+    NSPredicate *userPredicate = nil;
+    if ((self.userFilter == userAOnly) || (self.userFilter == userBOnly))
+    {
+        //
+        // Take a shortcut with self.userFilter by casting it as an (int) to get 0 for UserA and 1 for UserB
+        //
+        userPredicate = [NSPredicate predicateWithFormat:@"dataBank == %i", (int)self.userFilter];
+        self.dataSourceSortedReadings = [self.dataSourceSortedReadings filteredArrayUsingPredicate:userPredicate];
+    }
+    else
+    {
+        // Otherwise, we do not filter by the User
+    }
+    
     [self recalculateFrequencyDistributionHistogram];
     [self recalculateGraphAxis];
+    
+    [self.graph reloadData];
 }
 
 - (void)dataSyncOperationDataAvailable:(NSNotification*)notif
 {
     [self updateSortedReadings];
     [self recalculateDatePickerRange];
+
+    NSPredicate *predicate = [NSPredicate
+                              predicateWithFormat:@"(readingDate >= %@) AND (readingDate <= %@)",
+                              self.datePicker.displayedStartDate, self.datePicker.displayedEndDate];
+    self.dataSourceSortedReadings = [self.dataSourceSortedReadings filteredArrayUsingPredicate:predicate];
+    
+    NSPredicate *userPredicate = nil;
+    if ((self.userFilter == userAOnly) || (self.userFilter == userBOnly))
+    {
+        //
+        // Take a shortcut with self.userFilter by casting it as an (int) to get 0 for UserA and 1 for UserB
+        //
+        userPredicate = [NSPredicate predicateWithFormat:@"dataBank == %i", (int)self.userFilter];
+        self.dataSourceSortedReadings = [self.dataSourceSortedReadings filteredArrayUsingPredicate:userPredicate];
+    }
+    else
+    {
+        // Otherwise, we do not filter by the User
+    }
+
     [self recalculateFrequencyDistributionHistogram];
     [self recalculateGraphAxis];
+    
+    [self.graph reloadData];
+}
+
+- (void)userFilterDidChange:(NSNotification*)notif
+{
+    //
+    // Receive the new filter value
+    self.userFilter = (UserFilter)[[notif object] intValue];
+    NSLog(@"Changing the userFilter to %i", self.userFilter);
+    
+    //
+    // Reset the array to the original, unsorted, unfiltered dataset
+    //
+    self.dataSourceSortedReadings = self.dataSource.readings;
+    
+    //
+    // Reset the date picker display to the full available range
+    self.datePicker.displayedStartDate = self.datePicker.rangeStartDate;
+    self.datePicker.displayedEndDate = self.datePicker.rangeEndDate;
+    
+    //
+    // Remove all but the ones in our date range
+    //
+    NSPredicate *predicate = [NSPredicate
+                              predicateWithFormat:@"(readingDate >= %@) AND (readingDate <= %@)",
+                              self.datePicker.rangeStartDate, self.datePicker.rangeEndDate];
+    self.dataSourceSortedReadings = [self.dataSourceSortedReadings filteredArrayUsingPredicate:predicate];
+    
+    //
+    // Remove all but the ones for our user(s)
+    //
+    NSPredicate *userPredicate = nil;
+    if ((self.userFilter == userAOnly) || (self.userFilter == userBOnly))
+    {
+        //
+        // Take a shortcut with self.userFilter by casting it as an (int) to get 0 for UserA and 1 for UserB
+        //
+        userPredicate = [NSPredicate predicateWithFormat:@"dataBank == %i", (int)self.userFilter];
+        self.dataSourceSortedReadings = [self.dataSourceSortedReadings filteredArrayUsingPredicate:userPredicate];
+    }
+    else
+    {
+        // Otherwise, we do not filter by the User
+    }
+    
+    //
+    // Recalculate and redisplay
+    //
+    [self recalculateFrequencyDistributionHistogram];
+    [self recalculateGraphAxis];
+    
+    [self.graph reloadData];
+
 }
 
 #pragma mark CPTPlotSpaceDelegate methods
@@ -1067,27 +1181,6 @@ NSString *GraphDataPointWasSelectedNotification = @"GraphDataPointWasSelectedNot
 -(void)plotSpace:(CPTPlotSpace *)space didChangePlotRangeForCoordinate:(CPTCoordinate)coordinate
 {
     NSLog(@"[GraphViewController didChangePlotRangeForCoordinate] delegate %@, coordinate=%i", space, coordinate); 
-    
-    //
-    // This happens when the date range is selected. We will get called for each of the 3 plot spaces
-    // Let's just process for the Main Graph
-    if ((space == self.graph.defaultPlotSpace) && (coordinate == CPTCoordinateX))
-    {
-//        NSInteger oneDay = 60*60*24;
-//        
-//        NSInteger daysInRange = [[NSDecimalNumber decimalNumberWithDecimal:((CPTXYPlotSpace *)space).xRange.length] intValue] / oneDay;
-//        
-//        if (daysInRange > 120)
-//        {
-//            // show quarters
-//            NSLog(@"[GraphViewController didChangePlotRangeForCoordinate] Will show quarters %ld", daysInRange); 
-//        }
-//        else
-//        {
-//            NSLog(@"[GraphViewController didChangePlotRangeForCoordinate] Will show months %ld", daysInRange); 
-//
-//        }
-    }
 }
 
 #pragma mark CPTScatterPlotDelegate methods
@@ -1107,18 +1200,43 @@ NSString *GraphDataPointWasSelectedNotification = @"GraphDataPointWasSelectedNot
 {
     //
     // The user has changed the date range on the date Picker
-    //NSLog(@"[GraphViewController dateRangeSelectionChanged] delegate start:%@ end:%@", start, end);
+    NSLog(@"[GraphViewController dateRangeSelectionChanged] delegate start:%@ end:%@", start, end);
     
-    [self updateSortedReadings];
+    //
+    // UpdateSortedReadings will go back to the original datasource and discard
+    //
+    // These need to be in this order. The recalculateFrequencyDistributionHistogram and recalculateGraphAxis
+    // depend on the recalculateDatePickerRange
+    //
+    self.dataSourceSortedReadings = self.dataSource.readings;
+
+    self.datePicker.selectedStartDate = start;
+    self.datePicker.selectedEndDate = end;
+
     NSPredicate *predicate = [NSPredicate
                               predicateWithFormat:@"(readingDate >= %@) AND (readingDate <= %@)",
                               start, end];
     self.dataSourceSortedReadings = [self.dataSourceSortedReadings filteredArrayUsingPredicate:predicate];
+    
+
+    NSPredicate *userPredicate = nil;
+    if ((self.userFilter == userAOnly) || (self.userFilter == userBOnly))
+    {
+        //
+        // Take a shortcut with self.userFilter by casting it as an (int) to get 0 for UserA and 1 for UserB
+        //
+        userPredicate = [NSPredicate predicateWithFormat:@"dataBank == %i", (int)self.userFilter];
+        self.dataSourceSortedReadings = [self.dataSourceSortedReadings filteredArrayUsingPredicate:userPredicate];
+    }
+    else
+    {
+        // Otherwise, we do not filter by the User
+    }
+    
     [self recalculateFrequencyDistributionHistogram];
     [self recalculateGraphAxis];
-
-
-
+    
+    [self.graph reloadData];
 }
 
 @end

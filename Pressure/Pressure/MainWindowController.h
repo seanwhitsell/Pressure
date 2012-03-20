@@ -19,6 +19,7 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import "UserFilter.h"
 
 @class SyncButton;
 @class TabBarController;
@@ -31,12 +32,16 @@
 	SyncButton *mSyncButton;
 	OmronDataSource *mDataSource;
 	NSBox *mBox;
+    NSMenu *mPopupMenu;
+    UserFilter mUserFilter;
 }
 
-@end
-
-@interface MainWindowController ()
-
 @property (nonatomic, readwrite, retain) IBOutlet NSBox *box;
+@property (nonatomic, readwrite, retain) IBOutlet NSMenu *popupMenu;
+@property (nonatomic, readonly, assign) UserFilter userFilter;
+
+- (IBAction)userAFilterSelected:(id)sender;
+- (IBAction)userBFilterSelected:(id)sender;
+- (IBAction)userAandBFilterSelected:(id)sender;
 
 @end

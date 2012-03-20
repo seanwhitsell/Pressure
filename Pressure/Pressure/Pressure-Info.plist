@@ -28,5 +28,9 @@
 	<string>NSApplication</string>
 	<key>ATSApplicationFontsPath</key>
 	<string>Fonts</string>
+	<key>UIAppFonts</key>
+	<array>
+		<string>LCDM2N__.ttf</string>
+	</array>
 </dict>
 </plist>
