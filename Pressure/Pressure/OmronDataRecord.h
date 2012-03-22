@@ -23,7 +23,7 @@
 #import <Foundation/Foundation.h>
 #import "OmronDataSource.h"
 
-@interface OmronDataRecord : NSObject <NSTextFieldDelegate>
+@interface OmronDataRecord : NSObject
 {
     NSManagedObject *mObject;
 }

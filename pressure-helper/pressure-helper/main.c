@@ -109,6 +109,96 @@ void DeviceNotification(void *refCon, io_service_t service, natural_t messageTyp
     kern_return_t   kr;
     MyPrivateData   *privateDataRef = (MyPrivateData *) refCon;
     
+    switch (messageType) {
+        case kIOMessageServiceIsTerminated:
+            fprintf(stderr, "kIOMessageServiceIsTerminated %i.\n", messageType);
+            break;
+        case kIOMessageServiceIsSuspended:  
+            fprintf(stderr, "kIOMessageServiceIsSuspended %i.\n", messageType);
+            break;
+        case kIOMessageServiceIsResumed:   
+            fprintf(stderr, "kIOMessageServiceIsResumed %i.\n", messageType);
+            break;
+        case kIOMessageServiceIsRequestingClose:
+            fprintf(stderr, "kIOMessageServiceIsRequestingClose %i.\n", messageType);
+            break;
+        case kIOMessageServiceIsAttemptingOpen:
+            fprintf(stderr, "kIOMessageServiceIsAttemptingOpen %i.\n", messageType);
+            break;
+        case kIOMessageServiceWasClosed:
+            fprintf(stderr, "kIOMessageServiceWasClosed %i.\n", messageType);
+            break;
+        case kIOMessageServiceBusyStateChange: 
+            fprintf(stderr, "kIOMessageServiceBusyStateChange %i.\n", messageType);
+            break;
+        case kIOMessageConsoleSecurityChange:
+            fprintf(stderr, "kIOMessageConsoleSecurityChange %i.\n", messageType);
+            break;
+        case kIOMessageServicePropertyChange: 
+            fprintf(stderr, "kIOMessageServicePropertyChange %i.\n", messageType);
+            break;
+        case kIOMessageCopyClientID: 
+            fprintf(stderr, "kIOMessageCopyClientID %i.\n", messageType);
+            break;
+        case kIOMessageSystemCapabilityChange: 
+            fprintf(stderr, "kIOMessageSystemCapabilityChange %i.\n", messageType);
+            break;
+        case kIOMessageDeviceSignaledWakeup:
+            fprintf(stderr, "kIOMessageDeviceSignaledWakeup %i.\n", messageType);
+            break;
+        case kIOMessageDeviceWillPowerOff:
+            fprintf(stderr, "kIOMessageDeviceWillPowerOff %i.\n", messageType);
+            break;
+        case kIOMessageDeviceHasPoweredOn:
+            fprintf(stderr, "kIOMessageDeviceHasPoweredOn %i.\n", messageType);
+            break;
+        case kIOMessageSystemWillPowerOff:
+            fprintf(stderr, "kIOMessageSystemWillPowerOff %i.\n", messageType);
+            break;
+        case kIOMessageSystemWillRestart:
+            fprintf(stderr, "kIOMessageSystemWillRestart %i.\n", messageType);
+            break;
+        case kIOMessageSystemPagingOff:
+            fprintf(stderr, "kIOMessageSystemPagingOff %i.\n", messageType);
+            break;
+        case kIOMessageCanSystemSleep:
+            fprintf(stderr, "kIOMessageCanSystemSleep %i.\n", messageType);
+            break;
+        case kIOMessageSystemWillNotSleep:
+            fprintf(stderr, "kIOMessageSystemWillNotSleep %i.\n", messageType);
+            break;
+        case kIOMessageSystemWillSleep: 
+            fprintf(stderr, "kIOMessageSystemWillSleep %i.\n", messageType);
+            break;
+        case kIOMessageSystemWillPowerOn:
+            fprintf(stderr, "kIOMessageSystemWillPowerOn %i.\n", messageType);
+            break;
+        case kIOMessageSystemHasPoweredOn:
+            fprintf(stderr, "kIOMessageSystemHasPoweredOn %i.\n", messageType);
+            break;
+        case kIOMessageCanDevicePowerOff:
+            fprintf(stderr, "kIOMessageCanDevicePowerOff %i.\n", messageType);
+            break;
+        case kIOMessageDeviceWillNotPowerOff:
+            fprintf(stderr, "kIOMessageDeviceWillNotPowerOff %i.\n", messageType);
+            break;
+        case kIOMessageSystemWillNotPowerOff:
+            fprintf(stderr, "kIOMessageSystemWillNotPowerOff %i.\n", messageType);
+            break;
+        case kIOMessageCanSystemPowerOff:
+            fprintf(stderr, "kIOMessageCanSystemPowerOff %i.\n", messageType);
+            break;
+        case kIOMessageDeviceWillPowerOn:
+            fprintf(stderr, "kIOMessageDeviceWillPowerOn %i.\n", messageType);
+            break;
+        case kIOMessageDeviceHasPoweredOff: 
+            fprintf(stderr, "kIOMessageDeviceHasPoweredOff %i.\n", messageType);
+            break;
+        default:
+            fprintf(stderr, "default %i.\n", messageType);
+            break;
+    }
+    
     if (messageType == kIOMessageServiceIsTerminated) {
         fprintf(stderr, "Device removed.\n");
         
@@ -162,7 +252,7 @@ void DeviceAdded(void *refCon, io_iterator_t iterator)
         
         //
         // Launch our application
-        system("open /Applications/Pressure.app");
+        system("open /Users/seanwhitsell/development/Pressure/Pressure/build/Debug/Pressure.app");
         
         // Add some app-specific information about this device.
         // Create a buffer to hold the data.

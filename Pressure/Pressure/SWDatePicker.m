@@ -120,7 +120,7 @@
 
 - (NSInteger)indexForPoint:(NSPoint)point
 {
-    NSInteger index = 0;
+    NSInteger index = -1;
     
     for( NSInteger i=0; i<self.maxMonths; i++ )
     {
@@ -553,13 +553,19 @@
 
 - (void)mouseEntered:(NSEvent*)theEvent
 {
-//	NSLog(@"<%p> %@", self, [NSString stringWithUTF8String:__func__]);
 
     NSPoint pointInView = [self convertPoint:[theEvent locationInWindow] fromView:nil];
     NSInteger index = [self indexForPoint:pointInView];
 
-    self.hightlightMonthUnderMouse = index;
-    [self setNeedsDisplay: YES];
+    if (index < 0)
+    {
+        // Mouse enter was outside of our valid months
+    }
+    else
+    {
+        self.hightlightMonthUnderMouse = index;
+        [self setNeedsDisplay: YES];
+    }
 }
 
 - (void)mouseExited:(NSEvent*)theEvent

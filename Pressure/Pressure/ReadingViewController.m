@@ -36,9 +36,11 @@
 @property (nonatomic, readwrite, retain) OmronDataSource *dataSource;
 @property (nonatomic, readwrite, retain) NSArray *dataSourceSortedReadings;
 @property (nonatomic, readwrite, assign) NSInteger selectedRow;
+@property (nonatomic, readwrite, assign) UserFilter userFilter;
 
 - (void)dataSyncOperationDidEnd:(NSNotification*)notif;
 - (void)dataSyncOperationDataAvailable:(NSNotification*)notif;
+- (void)userFilterDidChange:(NSNotification*)notif;
 
 @end
 
@@ -50,6 +52,7 @@
 @synthesize dataSource = mDataSource;
 @synthesize dataSourceSortedReadings = mDataSourceSortedReadings;
 @synthesize selectedRow = mSelectedRow;
+@synthesize userFilter = mUserFilter;
 
 #pragma mark -
 #pragma mark NSObject Lifecycle Routines
@@ -80,6 +83,12 @@
                                                  selector:@selector(dataSyncOperationDataAvailable:) 
                                                      name:OmronDataSyncDataAvailableNotification 
                                                    object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self 
+                                                 selector:@selector(userFilterDidChange:) 
+                                                     name:UserFilterDidChangeNotification 
+                                                   object:nil];
+        
+
 	}
 	
 	return self;
@@ -177,6 +186,20 @@
         return [second compare:first];
     }];
     
+    NSPredicate *userPredicate = nil;
+    if ((self.userFilter == userAOnly) || (self.userFilter == userBOnly))
+    {
+        //
+        // Take a shortcut with self.userFilter by casting it as an (int) to get 0 for UserA and 1 for UserB
+        //
+        userPredicate = [NSPredicate predicateWithFormat:@"dataBank == %i", (int)self.userFilter];
+        self.dataSourceSortedReadings = [self.dataSourceSortedReadings filteredArrayUsingPredicate:userPredicate];
+    }
+    else
+    {
+        // Otherwise, we do not filter by the User
+    }
+
     [self.listView reloadData];
 }
 
@@ -191,18 +214,64 @@
         return [second compare:first];
     }];
 
+    NSPredicate *userPredicate = nil;
+    if ((self.userFilter == userAOnly) || (self.userFilter == userBOnly))
+    {
+        //
+        // Take a shortcut with self.userFilter by casting it as an (int) to get 0 for UserA and 1 for UserB
+        //
+        userPredicate = [NSPredicate predicateWithFormat:@"dataBank == %i", (int)self.userFilter];
+        self.dataSourceSortedReadings = [self.dataSourceSortedReadings filteredArrayUsingPredicate:userPredicate];
+    }
+    else
+    {
+        // Otherwise, we do not filter by the User
+    }
+
     [self.listView reloadData];
 }
 
-- (void)controlTextDidEndEditing:(NSNotification*)notif
+- (void)excludeCheckBoxDidChange:(PressureReadingViewCell*)cell toValue:(BOOL)newValue
 {
-    NSLog(@"controlTextDidEndEditing");
-    NSTextField* textField = (NSTextField *)[notif object];
+    OmronDataRecord *record = (OmronDataRecord *)[[cell excludeCheckBox] tag];
     
-    OmronDataRecord *record = (OmronDataRecord*)textField.delegate;
-    record.comment = textField.stringValue;
+    record.excludeFromGraph = newValue;
+}
+
+- (void)commentDidChange:(PressureReadingViewCell*)cell toValue:(NSString*)newValue
+{
+    OmronDataRecord *record = (OmronDataRecord *)[[cell commentLabel] tag];
     
-    [self.dataSource saveUpdates];
+    record.comment = newValue;    
+}
+
+- (void)userFilterDidChange:(NSNotification*)notif
+{
+    //
+    // Receive the new filter value
+    self.userFilter = (UserFilter)[[notif object] intValue];
+    NSLog(@"Changing the userFilter to %i", self.userFilter);
+    
+    //
+    // Reset the array to the original, unsorted, unfiltered dataset
+    //
+    self.dataSourceSortedReadings = self.dataSource.readings;
+    
+    NSPredicate *userPredicate = nil;
+    if ((self.userFilter == userAOnly) || (self.userFilter == userBOnly))
+    {
+        //
+        // Take a shortcut with self.userFilter by casting it as an (int) to get 0 for UserA and 1 for UserB
+        //
+        userPredicate = [NSPredicate predicateWithFormat:@"dataBank == %i", (int)self.userFilter];
+        self.dataSourceSortedReadings = [self.dataSourceSortedReadings filteredArrayUsingPredicate:userPredicate];
+    }
+    else
+    {
+        // Otherwise, we do not filter by the User
+    }
+
+    [self.listView reloadData];
 }
 
 #pragma mark -
@@ -227,7 +296,7 @@
     PressureReadingViewCell *cell = (PressureReadingViewCell*)[aListView dequeueCellWithReusableIdentifier:LISTVIEW_CELL_IDENTIFIER];
 	
 	if(!cell) {
-		cell = [PressureReadingViewCell cellLoadedFromNibNamed:@"PressureReadingViewCell" reusableIdentifier:LISTVIEW_CELL_IDENTIFIER];
+		cell = [PressureReadingViewCell cellLoadedFromNibNamed:@"PressureReadingViewCell" reusableIdentifier:LISTVIEW_CELL_IDENTIFIER];  
 	}
 	
 	// Set up the new cell:
@@ -238,22 +307,26 @@
                                prefixed:NO
                                alwaysDisplayTime:YES];
     [[cell readingDateLabel] setStringValue:displayString];
+    
+    //
+    // we want to be able to reference the Record to update when we get the Notification that A
+    // NSTextField "controlTextDidendEditing". This gives us a handy reference
+    [cell setDelegate:self];
     [[cell commentLabel] setStringValue:record.comment];
-    [[cell commentLabel] setDelegate:record];
+    [[cell commentLabel] setTag:(NSInteger)record];
+    
+    [[cell excludeCheckBox] setState:record.excludeFromGraph];
+    [[cell excludeCheckBox] setTag:(NSInteger)record];
     
     if ([record dataBank] == 0)
     {
-        [[cell databankName] setStringValue:@"Databank A"];
+        [[cell databankName] setStringValue:@"User A"];
     }
     else
     {
-        [[cell databankName] setStringValue:@"Databank B"];
+        [[cell databankName] setStringValue:@"User B"];
     }
     
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(controlTextDidEndEditing:)
-                                                 name:NSControlTextDidEndEditingNotification
-                                               object:cell.commentLabel];
 	NSLog(@"<%p> %@", self, cell.commentLabel);
           
 	return cell;

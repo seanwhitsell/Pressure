@@ -21,10 +21,9 @@
 //
 
 #import <Foundation/Foundation.h>
-
 #import "PXListViewCell.h"
 
-@interface PressureReadingViewCell : PXListViewCell <NSTextFieldDelegate>
+@interface PressureReadingViewCell : PXListViewCell
 {
 	NSTextField *mSystolicPressureLabel;
 	NSTextField *mDiastolicPressureLabel;
@@ -33,6 +32,7 @@
     NSButton *mExcludeCheckBox;
     NSTextField *mDatabankName;
     NSTextField *mCommentLabel;
+    id mDelegate;
 }
 
 @property (nonatomic, readwrite, retain) IBOutlet NSTextField *systolicPressureLabel;
@@ -42,5 +42,16 @@
 @property (nonatomic, readwrite, retain) IBOutlet NSButton *excludeCheckBox;
 @property (nonatomic, readwrite, retain) IBOutlet NSTextField *databankName;
 @property (nonatomic, readwrite, retain) IBOutlet NSTextField *commentLabel;
+@property (nonatomic, readwrite, retain) id delegate;
+
+- (IBAction)checkBoxChanged:(id)sender;
+- (IBAction)commentChanged:(id)sender;
+@end
+
+@protocol PressureReadingViewCellDelegate <NSObject>
+@required
+- (void)excludeCheckBoxDidChange:(PressureReadingViewCell*)cell toValue:(BOOL)newValue;
+- (void)commentDidChange:(PressureReadingViewCell*)cell toValue:(NSString*)newValue;
 
 @end
+

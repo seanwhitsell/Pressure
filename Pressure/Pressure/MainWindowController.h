@@ -44,4 +44,6 @@
 - (IBAction)userBFilterSelected:(id)sender;
 - (IBAction)userAandBFilterSelected:(id)sender;
 
+- (void)applicationWillTerminate:(NSNotification*)notification;
+
 @end

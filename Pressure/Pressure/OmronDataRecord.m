@@ -53,7 +53,7 @@
 
 - (NSDate *)readingDate
 {
-    return [self.object valueForKey:readingDateKey];
+    return (NSDate *)[self.object valueForKey:readingDateKey];
 }
 
 - (NSInteger)systolicPressure

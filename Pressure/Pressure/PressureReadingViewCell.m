@@ -24,6 +24,8 @@
 #import <iso646.h>
 #import <objc/runtime.h>
 
+NSString *PressureReadingViewCellDidChangeNotification = @"PressureReadingViewCellDidChangeNotification";
+
 @implementation PressureReadingViewCell
 @synthesize systolicPressureLabel = mSystolicPressureLabel;
 @synthesize diastolicPressureLabel = mDiastolicPressureLabel;
@@ -32,6 +34,7 @@
 @synthesize excludeCheckBox = mExcludeCheckBox;
 @synthesize databankName = mDatabankName;
 @synthesize commentLabel = mCommentLabel;
+@synthesize delegate = mDelegate;
 
 #pragma mark -
 #pragma mark Init/Dealloc
@@ -71,6 +74,37 @@
     [self.heartRateLabel setStringValue:@""];
     [self.databankName setStringValue:@""];
     [self.commentLabel setStringValue:@""];
+}
+
+#pragma mark
+#pragma mark IBActions
+
+- (IBAction)checkBoxChanged:(id)sender
+{
+    //
+    // Tell our Delegate
+    if (self.delegate)
+    {
+        if (self.excludeCheckBox.state == NSOnState)
+        {
+            [self.delegate excludeCheckBoxDidChange:self toValue:YES];
+        }
+        else
+        {
+            [self.delegate excludeCheckBoxDidChange:self toValue:NO];
+        }
+    }
+}
+
+- (IBAction)commentChanged:(id)sender
+{
+    //
+    // Tell our Delegate
+    if (self.delegate)
+    {
+        [self.delegate commentDidChange:self toValue:self.commentLabel.stringValue];
+    }
+    
 }
 
 #pragma mark -

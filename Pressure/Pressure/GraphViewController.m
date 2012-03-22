@@ -55,7 +55,6 @@ NSString *GraphDataPointWasSelectedNotification = @"GraphDataPointWasSelectedNot
 @property (nonatomic, readwrite, retain) IBOutlet NSTextField *averageSystolicPressure;
 @property (nonatomic, readwrite, retain) IBOutlet NSTextField *averageDiastolicPressure;
 @property (nonatomic, readwrite, retain) IBOutlet NSTextField *averageHeartRate;
-
 @property (nonatomic, readwrite, assign) UserFilter userFilter;
 
 - (void)dataSyncOperationDidEnd:(NSNotification*)notif;
@@ -775,22 +774,33 @@ NSString *GraphDataPointWasSelectedNotification = @"GraphDataPointWasSelectedNot
 
 - (void)recalculateDatePickerRange
 {
-    self.datePicker.rangeStartDate = [self firstDayOfMonthForDate:[[self.dataSourceSortedReadings objectAtIndex:0] readingDate]];
-    self.datePicker.rangeEndDate = [self lastDayOfMonthForDate:[NSDate date]];
+    NSLog(@"recalculateDatePickerRange [self.dataSourceSortedReadings objectAtIndex:0]=%@, [[self.dataSourceSortedReadings objectAtIndex:0] readingDate]=%@", [self.dataSourceSortedReadings objectAtIndex:0], [[self.dataSourceSortedReadings objectAtIndex:0] readingDate]);
     
-    if (!self.datePicker.displayedStartDate)
+    if ([self.dataSourceSortedReadings objectAtIndex:0])
     {
-        self.datePicker.displayedStartDate = self.datePicker.rangeStartDate;
-        self.datePicker.selectedStartDate = self.datePicker.rangeStartDate;
+        self.datePicker.rangeStartDate = [self firstDayOfMonthForDate:[[self.dataSourceSortedReadings objectAtIndex:0] readingDate]];
+        self.datePicker.rangeEndDate = [self lastDayOfMonthForDate:[NSDate date]];
+        
+        NSLog(@"recalculateDatePickerRange rangeStartDate=%@, rangeEndDate=%@", self.datePicker.rangeStartDate, self.datePicker.rangeEndDate);
+        
+        if (!self.datePicker.displayedStartDate)
+        {
+            self.datePicker.displayedStartDate = self.datePicker.rangeStartDate;
+            self.datePicker.selectedStartDate = self.datePicker.rangeStartDate;
+        }
+        
+        if (!self.datePicker.displayedEndDate)
+        {
+            self.datePicker.displayedEndDate = self.datePicker.rangeEndDate;
+            self.datePicker.selectedEndDate = self.datePicker.rangeEndDate;
+        }
+        
+        [self.datePicker setNeedsDisplay];
     }
-    
-    if (!self.datePicker.displayedEndDate)
+    else
     {
-        self.datePicker.displayedEndDate = self.datePicker.rangeEndDate;
-        self.datePicker.selectedEndDate = self.datePicker.rangeEndDate;
+        NSLog(@"recalculateDatePickerRange - No data, not updating the Date Picker");
     }
-    
-    [self.datePicker setNeedsDisplay];
 }
 
 #pragma mark NSViewController methods

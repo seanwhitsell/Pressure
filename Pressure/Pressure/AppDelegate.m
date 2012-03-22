@@ -57,6 +57,7 @@
 - (void)applicationWillTerminate:(NSNotification *)notification
 {
 	[[PXUserDefaults sharedDefaults] setFirstLaunch:NO];
+    [self.mainWindowController applicationWillTerminate:notification];
 }
 
 #pragma mark - Private methods

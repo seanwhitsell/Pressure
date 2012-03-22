@@ -21,17 +21,20 @@
 
 #import <Cocoa/Cocoa.h>
 #import "PXListView.h"
+#import "PressureReadingViewCell.h"
+#import "UserFilter.h"
 
 @class PXListView;
 @class OmronDataSource;
 @class OmronDataRecord;
 
-@interface ReadingViewController : NSViewController <PXListViewDelegate>
+@interface ReadingViewController : NSViewController <PXListViewDelegate, PressureReadingViewCellDelegate>
 {
     OmronDataSource *mDataSource;
     PXListView *mListView;
     NSArray *mDataSourceSortedReadings;
     NSInteger mSelectedRow;
+    UserFilter mUserFilter;
 }
 
 @property (nonatomic, readonly, retain) OmronDataSource *dataSource;

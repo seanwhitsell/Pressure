@@ -89,7 +89,7 @@ NSString *deviceInformationEntityName = @"DeviceInformation";
     if (self != nil)
 	{
         myReadingsListDates = [[NSMutableArray alloc] initWithCapacity:10];
-        myUsingSampleData = [[PXUserDefaults sharedDefaults] usingSampleData];
+        myUsingSampleData = NO; //[[PXUserDefaults sharedDefaults] usingSampleData];
     }
     
     return self;
@@ -230,37 +230,37 @@ NSString *deviceInformationEntityName = @"DeviceInformation";
     
     if (retval && ([self.readings count] == 0))
     {
-        // We did not get any data, let's fake it
-        NSMutableArray *sampleData = [[NSMutableArray alloc] initWithCapacity:(365*2)];
-        int s = 130;
-        int d = 80;
-        int hr = 60;
-        for (int i=0; i<(365*2); i++)
-        {
-            // Get a date that is within the last 100 days
-            int seconds = (24 * 3600) * ((365*2) - i);
-            OmronDataRecord *dataRecord = [[OmronDataRecord alloc] init];
-            dataRecord.readingDate = [[[NSDate alloc] initWithTimeIntervalSinceNow:-seconds] autorelease];
-            dataRecord.comment = [NSString stringWithString:@""];
-            
-            s = s + (4 - arc4random() % 10);
-            d = d + (4 - arc4random() % 10);
-            hr = hr + (4 - arc4random() % 10);
-            
-            if (s < 100) s += (arc4random() % 5);
-            if (s > 150) s -= (arc4random() % 5);
-            if (d < 50)  d += (arc4random() % 5);
-            if (d > 100) d -= (arc4random() % 5);
-            if (hr < 50)  hr += (arc4random() % 5);
-            if (hr > 100) hr -= (arc4random() % 5);
-            
-            dataRecord.systolicPressure = s;
-            dataRecord.diastolicPressure = d;
-            dataRecord.heartRate = hr;
-            [sampleData addObject:dataRecord];
-        }
-        
-        self.readings = sampleData;
+//        // We did not get any data, let's fake it
+//        NSMutableArray *sampleData = [[NSMutableArray alloc] initWithCapacity:(365*2)];
+//        int s = 130;
+//        int d = 80;
+//        int hr = 60;
+//        for (int i=0; i<(365*2); i++)
+//        {
+//            // Get a date that is within the last 100 days
+//            int seconds = (24 * 3600) * ((365*2) - i);
+//            OmronDataRecord *dataRecord = [[OmronDataRecord alloc] init];
+//            dataRecord.readingDate = [[[NSDate alloc] initWithTimeIntervalSinceNow:-seconds] autorelease];
+//            dataRecord.comment = [NSString stringWithString:@""];
+//            
+//            s = s + (4 - arc4random() % 10);
+//            d = d + (4 - arc4random() % 10);
+//            hr = hr + (4 - arc4random() % 10);
+//            
+//            if (s < 100) s += (arc4random() % 5);
+//            if (s > 150) s -= (arc4random() % 5);
+//            if (d < 50)  d += (arc4random() % 5);
+//            if (d > 100) d -= (arc4random() % 5);
+//            if (hr < 50)  hr += (arc4random() % 5);
+//            if (hr > 100) hr -= (arc4random() % 5);
+//            
+//            dataRecord.systolicPressure = s;
+//            dataRecord.diastolicPressure = d;
+//            dataRecord.heartRate = hr;
+//            [sampleData addObject:dataRecord];
+//        }
+//        
+//        self.readings = sampleData;
     }
     else
     {
@@ -271,8 +271,7 @@ NSString *deviceInformationEntityName = @"DeviceInformation";
         
         for (NSManagedObject *object in [context executeFetchRequest:fetchRequest error:&error])
         {
-            OmronDataRecord *dataRecord = [[OmronDataRecord alloc] init];
-            
+            OmronDataRecord *dataRecord = [[OmronDataRecord alloc] initWithManagedObject:object];
             [realData addObject:dataRecord];
         }
         
@@ -344,10 +343,6 @@ NSString *deviceInformationEntityName = @"DeviceInformation";
 	else
 	{
 		NSLog(@"Device serial: %s\n", serialNumber);
-        
-        //
-        // We have found a device. We are no longer in SampleData mode.
-        [self setUsingSampleData:NO];
 	}
     
     NSManagedObjectContext *context = [self managedObjectContext];
@@ -518,11 +513,8 @@ NSString *deviceInformationEntityName = @"DeviceInformation";
         if ([error code] == NSFileReadNoSuchFileError) 
         {
             //
-            // This is a first-run scenario. There is no persistent store file. We will create one, but we 
-            // will also put the OmronDataSource in "SampleData" mode. We will stay in "SampleData" mode
-            // until a real device is connected.
-            [self setUsingSampleData:YES];
-            
+            // This is a first-run scenario. There is no persistent store file. We will create one
+            //
             ok = [fileManager createDirectoryAtPath:[applicationFilesDirectory path] withIntermediateDirectories:YES attributes:nil error:&error];
         }
         if (!ok) 

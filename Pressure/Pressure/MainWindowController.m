@@ -120,6 +120,11 @@
     [self.dataSource sync];
 }
 
+- (void)applicationWillTerminate:(NSNotification*)notification
+{
+    [self.dataSource saveUpdates];
+}
+
 #pragma mark - Private methods
 
 - (TabBarController *)tabBarController
