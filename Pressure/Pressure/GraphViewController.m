@@ -134,7 +134,7 @@ NSString *GraphDataPointWasSelectedNotification = @"GraphDataPointWasSelectedNot
         mGraph.plotAreaFrame.paddingTop = 30.0;
         mGraph.plotAreaFrame.paddingLeft = 40.0;
         mGraph.plotAreaFrame.paddingBottom = 60.0;
-        mGraph.plotAreaFrame.paddingRight = 30.0;
+        mGraph.plotAreaFrame.paddingRight = 20.0;
         
         // Main Graph Title
         CPTMutableTextStyle *textStyle = [CPTMutableTextStyle textStyle];
@@ -217,7 +217,7 @@ NSString *GraphDataPointWasSelectedNotification = @"GraphDataPointWasSelectedNot
         mSystolicGraph.plotAreaFrame.paddingTop = 10.0;
         mSystolicGraph.plotAreaFrame.paddingLeft = 40.0;
         mSystolicGraph.plotAreaFrame.paddingBottom = 30.0;
-        mSystolicGraph.plotAreaFrame.paddingRight = 10.0;
+        mSystolicGraph.plotAreaFrame.paddingRight = 20.0;
         
         // Systolic Graph Title
         mSystolicGraph.title = @"Systolic Frequency Distribution";
@@ -271,7 +271,7 @@ NSString *GraphDataPointWasSelectedNotification = @"GraphDataPointWasSelectedNot
         mDiastolicGraph.plotAreaFrame.paddingTop = 10.0;
         mDiastolicGraph.plotAreaFrame.paddingLeft = 40.0;
         mDiastolicGraph.plotAreaFrame.paddingBottom = 30.0;
-        mDiastolicGraph.plotAreaFrame.paddingRight = 10.0;
+        mDiastolicGraph.plotAreaFrame.paddingRight = 20.0;
         
         // Diastolic Graph Title
         mDiastolicGraph.title = @"Diastolic Frequency Distribution";
@@ -316,6 +316,8 @@ NSString *GraphDataPointWasSelectedNotification = @"GraphDataPointWasSelectedNot
         //
         // Date Picker
         mDatePicker.delegate = self;
+        
+
     }
 	
 	return self;
@@ -387,7 +389,7 @@ NSString *GraphDataPointWasSelectedNotification = @"GraphDataPointWasSelectedNot
 - (void)updateSortedReadings
 {
     // Table Reload
-    NSLog(@"[GraphViewController updateSortedReadings]");
+//    NSLog(@"[GraphViewController updateSortedReadings]");
     
     //
     // Let's take the data and sort it by date. There is no guarantee that the datasource.readings are
@@ -426,7 +428,6 @@ NSString *GraphDataPointWasSelectedNotification = @"GraphDataPointWasSelectedNot
         NSInteger W = 0;
         float highestValue = 0;
         CPTXYPlotSpace *barPlotSpace = nil;
-        NSInteger systolicPressureSum = 0;
         NSInteger diastolicPressureSum = 0;
         
         //
@@ -479,11 +480,12 @@ NSString *GraphDataPointWasSelectedNotification = @"GraphDataPointWasSelectedNot
             int value = [[systolicFrequencyDistribution objectAtIndex:index] intValue];
             value++;
             [systolicFrequencyDistribution replaceObjectAtIndex:index withObject:[NSNumber numberWithInt:value]];
-            
-            systolicPressureSum += systolicPressure;
         }
         
-        self.averageSystolicPressure.stringValue = [NSString stringWithFormat:@"%ld", systolicPressureSum / readingsSortedBySystolicPressure.count];
+        //
+        // Use Key Path builtin to show the average of the dataset
+        NSNumber *sysAverage = [self.dataSourceSortedReadings valueForKeyPath:@"@avg.systolicPressure"];
+        self.averageSystolicPressure.stringValue = [NSString stringWithFormat:@"%ld", [sysAverage intValue]];
         
         //
         // calculate the percentage of values in each range
@@ -491,7 +493,7 @@ NSString *GraphDataPointWasSelectedNotification = @"GraphDataPointWasSelectedNot
         for (int index=0; index<K; index++) 
         {
             NSNumber *value = [systolicFrequencyDistribution objectAtIndex:index];
-            NSLog(@"Systolic freq is %i", [value intValue]);
+//            NSLog(@"Systolic freq is %i", [value intValue]);
             float percentage =  [value floatValue] / (int)[readingsSortedBySystolicPressure count];
             percentage *= 100;
             [systolicFrequencyDistribution replaceObjectAtIndex:index withObject:[NSNumber numberWithFloat:percentage]];
@@ -597,7 +599,7 @@ NSString *GraphDataPointWasSelectedNotification = @"GraphDataPointWasSelectedNot
         for (int index=0; index<K; index++) 
         {
             NSNumber *value = [diastolicFrequencyDistribution objectAtIndex:index];
-            NSLog(@"Diastolic freq is %i", [value intValue]);
+//            NSLog(@"Diastolic freq is %i", [value intValue]);
             float percentage =  [value floatValue] / (int)[readingsSortedBySystolicPressure count];
             percentage *= 100;
             [diastolicFrequencyDistribution replaceObjectAtIndex:index withObject:[NSNumber numberWithFloat:percentage]];
@@ -674,10 +676,10 @@ NSString *GraphDataPointWasSelectedNotification = @"GraphDataPointWasSelectedNot
         CPTXYAxis *x = axisSet.xAxis;
         CPTXYPlotSpace *plotSpace = (CPTXYPlotSpace *)self.graph.defaultPlotSpace;
         
-        NSDate *ending = [[self.dataSourceSortedReadings objectAtIndex:[self.dataSourceSortedReadings count]-1] readingDate];
-        plotSpace.xRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0.0f) length:CPTDecimalFromInteger([[self lastDayOfMonthForDate:ending] timeIntervalSinceDate:self.referenceDate])];
+        NSDate *ending = [[self.dataSourceSortedReadings lastObject] readingDate];
+        plotSpace.xRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromInteger(0) length:CPTDecimalFromInteger([[self lastDayOfMonthForDate:ending] timeIntervalSinceDate:self.referenceDate])];
         
-        NSLog(@"recalculateGraphAxis: plotSpace.xRange.length is %i", [[NSDecimalNumber decimalNumberWithDecimal:plotSpace.xRange.length] intValue]);
+        NSLog(@"recalculateGraphAxis: plotSpace.xRange.location is %f lotSpace.xRange.length is %f",plotSpace.xRange.locationDouble , plotSpace.xRange.lengthDouble);
         
         //
         // For the Y range, we want the lowest Diastolic or lowest Heartrate and the Highest Systolic
@@ -726,18 +728,20 @@ NSString *GraphDataPointWasSelectedNotification = @"GraphDataPointWasSelectedNot
         plotSpace.yRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(roundedLowValue) length:CPTDecimalFromFloat(highestSystolic - roundedLowValue + 20.0f)];
         
         //
-        // Layout the X Axis labels
+        // Layout the Axis labels
         //
         x.orthogonalCoordinateDecimal = CPTDecimalFromInteger(roundedLowValue);
         x.labelingPolicy = CPTAxisLabelingPolicyNone;
         
+        axisSet.yAxis.orthogonalCoordinateDecimal = CPTDecimalFromInteger(0);
+        
         NSMutableArray *customLabels = [NSMutableArray arrayWithCapacity:24];
         NSMutableArray *customMajorTickLocations = [NSMutableArray arrayWithCapacity:24];
         NSUInteger oneDay = 3600*24;
-        NSUInteger daysInRange = [[NSDecimalNumber decimalNumberWithDecimal:plotSpace.xRange.length] intValue] / oneDay;
         
-
-        NSLog(@"[GraphViewController didChangePlotRangeForCoordinate] Will show months %ld", daysInRange); 
+//        NSUInteger daysInRange = [[NSDecimalNumber decimalNumberWithDecimal:plotSpace.xRange.length] intValue] / oneDay;
+//        NSLog(@"[GraphViewController didChangePlotRangeForCoordinate] Will show months %ld", daysInRange); 
+        
         NSDate* currentDate = [[self.dataSourceSortedReadings objectAtIndex:0] readingDate];
         NSDate* lastDate = [[self.dataSourceSortedReadings lastObject] readingDate];
         components = [[NSDateComponents alloc] init];
@@ -774,14 +778,14 @@ NSString *GraphDataPointWasSelectedNotification = @"GraphDataPointWasSelectedNot
 
 - (void)recalculateDatePickerRange
 {
-    NSLog(@"recalculateDatePickerRange [self.dataSourceSortedReadings objectAtIndex:0]=%@, [[self.dataSourceSortedReadings objectAtIndex:0] readingDate]=%@", [self.dataSourceSortedReadings objectAtIndex:0], [[self.dataSourceSortedReadings objectAtIndex:0] readingDate]);
+//    NSLog(@"recalculateDatePickerRange [self.dataSourceSortedReadings objectAtIndex:0]=%@, [[self.dataSourceSortedReadings objectAtIndex:0] readingDate]=%@", [self.dataSourceSortedReadings objectAtIndex:0], [[self.dataSourceSortedReadings objectAtIndex:0] readingDate]);
     
     if ([self.dataSourceSortedReadings objectAtIndex:0])
     {
         self.datePicker.rangeStartDate = [self firstDayOfMonthForDate:[[self.dataSourceSortedReadings objectAtIndex:0] readingDate]];
         self.datePicker.rangeEndDate = [self lastDayOfMonthForDate:[NSDate date]];
         
-        NSLog(@"recalculateDatePickerRange rangeStartDate=%@, rangeEndDate=%@", self.datePicker.rangeStartDate, self.datePicker.rangeEndDate);
+//        NSLog(@"recalculateDatePickerRange rangeStartDate=%@, rangeEndDate=%@", self.datePicker.rangeStartDate, self.datePicker.rangeEndDate);
         
         if (!self.datePicker.displayedStartDate)
         {
@@ -1097,7 +1101,7 @@ NSString *GraphDataPointWasSelectedNotification = @"GraphDataPointWasSelectedNot
     //
     // Receive the new filter value
     self.userFilter = (UserFilter)[[notif object] intValue];
-    NSLog(@"Changing the userFilter to %i", self.userFilter);
+//    NSLog(@"Changing the userFilter to %i", self.userFilter);
     
     //
     // Reset the array to the original, unsorted, unfiltered dataset
@@ -1148,49 +1152,49 @@ NSString *GraphDataPointWasSelectedNotification = @"GraphDataPointWasSelectedNot
 
 -(BOOL)plotSpace:(CPTPlotSpace*)space shouldScaleBy:(CGFloat)interactionScale aboutPoint:(CGPoint)interactionPoint
 {
-    NSLog(@"[GraphViewController shouldScaleBy] delegate");
+//    NSLog(@"[GraphViewController shouldScaleBy] delegate");
     return YES;
 }
 
 -(BOOL)plotSpace:(CPTPlotSpace *)space shouldHandlePointingDeviceDownEvent:(id)event atPoint:(CGPoint)point 
 {
-    NSLog(@"[GraphViewController shouldHandlePointingDeviceDownEvent] delegate");
+//    NSLog(@"[GraphViewController shouldHandlePointingDeviceDownEvent] delegate");
     return YES;
 }
 
 -(BOOL)plotSpace:(CPTPlotSpace *)space shouldHandlePointingDeviceDraggedEvent:(id)event atPoint:(CGPoint)point
 {
-    NSLog(@"[GraphViewController shouldHandlePointingDeviceDraggedEvent] delegate");
+//    NSLog(@"[GraphViewController shouldHandlePointingDeviceDraggedEvent] delegate");
     return YES;
 }
 
 -(BOOL)plotSpace:(CPTPlotSpace *)space shouldHandlePointingDeviceCancelledEvent:(id)event
 {
-    NSLog(@"[GraphViewController shouldHandlePointingDeviceCancelledEvent] delegate");
+//    NSLog(@"[GraphViewController shouldHandlePointingDeviceCancelledEvent] delegate");
    return YES;
 }
 
 -(BOOL)plotSpace:(CPTPlotSpace *)space shouldHandlePointingDeviceUpEvent:(id)event atPoint:(CGPoint)point
 {
-    NSLog(@"[GraphViewController shouldHandlePointingDeviceUpEvent] delegate - space %@ and point %f,%f", space, point.x, point.y);
+//    NSLog(@"[GraphViewController shouldHandlePointingDeviceUpEvent] delegate - space %@ and point %f,%f", space, point.x, point.y);
     return YES;
 }
 
 -(CGPoint)plotSpace:(CPTPlotSpace *)space willDisplaceBy:(CGPoint)proposedDisplacementVector
 {
-    NSLog(@"[GraphViewController willDisplaceBy] delegate");
+//    NSLog(@"[GraphViewController willDisplaceBy] delegate");
     return proposedDisplacementVector;
 }
 
 -(CPTPlotRange *)plotSpace:(CPTPlotSpace *)space willChangePlotRangeTo:(CPTPlotRange *)newRange forCoordinate:(CPTCoordinate)coordinate
 {
-    NSLog(@"[GraphViewController willChangePlotRangeTo] delegate %@", newRange);
+//    NSLog(@"[GraphViewController willChangePlotRangeTo] delegate %@", newRange);
     return newRange;
 }
 
 -(void)plotSpace:(CPTPlotSpace *)space didChangePlotRangeForCoordinate:(CPTCoordinate)coordinate
 {
-    NSLog(@"[GraphViewController didChangePlotRangeForCoordinate] delegate %@, coordinate=%i", space, coordinate); 
+//    NSLog(@"[GraphViewController didChangePlotRangeForCoordinate] delegate %@, coordinate=%i", space, coordinate); 
 }
 
 #pragma mark CPTScatterPlotDelegate methods

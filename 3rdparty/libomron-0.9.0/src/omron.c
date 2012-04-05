@@ -35,14 +35,14 @@ int omron_check_mode(omron_device* dev, omron_mode mode);
 
 #define DPRINTF(args, ...)	IF_DEBUG(printf(args))
 
-//static void hexdump(const unsigned char *data, int n_bytes)
-//{
-//	while (n_bytes--) {
-//		printf(" %02x", *(unsigned char*) data);
-//		data++;
-//	}
-//	printf("\n");
-//}
+static void hexdump(const unsigned char *data, int n_bytes)
+{
+	while (n_bytes--) {
+		printf(" %02x", *(unsigned char*) data);
+		data++;
+	}
+	printf("\n");
+}
 
 int bcd_to_int(unsigned char *data, int start, int length)
 {
@@ -212,8 +212,16 @@ int omron_check_mode(omron_device* dev, omron_mode mode)
 	ret = omron_set_mode(dev, mode);
 	if(ret == 0)
 	{
-		dev->device_mode = mode;
-		omron_send_clear(dev);
+        if (dev->device_mode == NULL_MODE)
+        {
+            dev->device_mode = mode;
+        }
+        else
+        {
+            dev->device_mode = mode;
+            omron_send_clear(dev);
+        }
+
 		return 0;
 	}
 	else
@@ -251,7 +259,7 @@ omron_dev_info_command(omron_device* dev,
 {
 	unsigned char* tmp = (unsigned char*)malloc(result_max_len+3);
 
-	omron_exchange_cmd(dev, BP_MODE, (int)strlen(cmd),
+	omron_exchange_cmd(dev, DEVICE_INFO_MODE, (int)strlen(cmd),
 			   (const unsigned char*) cmd,
 			   result_max_len+3, tmp);
 
@@ -270,12 +278,14 @@ OMRON_DECLSPEC int omron_get_device_version(omron_device* dev, unsigned char* da
 OMRON_DECLSPEC int omron_get_bp_profile(omron_device* dev, unsigned char* data)
 {
 	omron_dev_info_command(dev, "PRF00", data, 11);
+    data[11] = 0;
 	return 0;
 }
 
 OMRON_DECLSPEC int omron_get_device_serial(omron_device* dev, unsigned char* data)
 {
 	omron_dev_info_command(dev, "SRL00", data, 8);
+    data[8] = 0;
 	return 0;
 }
 

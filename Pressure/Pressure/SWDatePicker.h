@@ -21,6 +21,11 @@
 
 @protocol SWDatePickerProtocol;
 
+typedef enum {
+    SWDPJustifiedLeft,
+    SWDPJustifiedRight
+} SWDPJustifyDirection;
+
 // The DatePicker is a Control that will display a horizontal row
 // of Months spanning the displayedStartDate to the displayedEndDate
 //
@@ -53,6 +58,7 @@
     NSString *mDateRangeLabel;
     NSInteger mHightlightMonthUnderMouse;
     NSTrackingArea *mTrackingArea;
+    SWDPJustifyDirection mJustification;
 }
 
 @property (nonatomic, readwrite, retain) NSDate *rangeStartDate;
@@ -65,6 +71,7 @@
 @property (nonatomic, readwrite, retain) NSImage *monthHightlightedImage;
 @property (nonatomic, readwrite, retain) NSImage *monthSelectedImage;
 @property (nonatomic, readwrite, assign) id<SWDatePickerProtocol> delegate;
+@property (nonatomic, readwrite, assign) SWDPJustifyDirection justification;
 
 @end
 

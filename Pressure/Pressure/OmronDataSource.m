@@ -104,40 +104,6 @@ NSString *deviceInformationEntityName = @"DeviceInformation";
 
 #pragma mark Public Operations
 
-- (void)saveUpdates
-{
-    NSManagedObjectContext *context = [self managedObjectContext];
-    NSError *error = nil;
-
-    if (![context commitEditing]) {
-        NSLog(@"%@: unable to commit editing before saving", [self class]);
-    }
-
-    if (![context save:&error])
-    {
-        NSLog(@"saveUpdates - Unresolved error %@, %@", error, [error userInfo]);
-    }
-    
-    
-}
-
-- (void)writeRecord:(OmronDataRecord*)record
-{
-    
-}
-
-- (void)cancelSync
-{
-    //
-    // We will use this to post to the Main Thread
-    //
-    NSNotification *note;
-    
-    [self setSyncing:NO];
-    note = [NSNotification notificationWithName:OmronDataSyncDidEndNotification  object:nil userInfo:nil];
-    [[NSNotificationCenter defaultCenter] performSelectorOnMainThread:@selector(postNotification:) withObject:note waitUntilDone:YES];
-}
-
 - (void)sync
 {
     //
@@ -204,10 +170,18 @@ NSString *deviceInformationEntityName = @"DeviceInformation";
         //
         NSMutableArray *realData = [[NSMutableArray alloc] initWithCapacity:100];
         
+        //
+        // Clear the previous list of Reading Dates
+        [self.readingsListDates removeAllObjects];
+        
         for (NSManagedObject *object in [context executeFetchRequest:fetchRequest error:&error])
         {
             OmronDataRecord *dataRecord = [[OmronDataRecord alloc] initWithManagedObject:object];            
             [realData addObject:dataRecord];
+            
+            //
+            // This is an Array of the NSDates for all of the Existing Readings. We will use this
+            // when we get all of the data from the device to see if the record is "new" or not
             [self.readingsListDates addObject:dataRecord.readingDate];
         }
         
@@ -230,37 +204,6 @@ NSString *deviceInformationEntityName = @"DeviceInformation";
     
     if (retval && ([self.readings count] == 0))
     {
-//        // We did not get any data, let's fake it
-//        NSMutableArray *sampleData = [[NSMutableArray alloc] initWithCapacity:(365*2)];
-//        int s = 130;
-//        int d = 80;
-//        int hr = 60;
-//        for (int i=0; i<(365*2); i++)
-//        {
-//            // Get a date that is within the last 100 days
-//            int seconds = (24 * 3600) * ((365*2) - i);
-//            OmronDataRecord *dataRecord = [[OmronDataRecord alloc] init];
-//            dataRecord.readingDate = [[[NSDate alloc] initWithTimeIntervalSinceNow:-seconds] autorelease];
-//            dataRecord.comment = [NSString stringWithString:@""];
-//            
-//            s = s + (4 - arc4random() % 10);
-//            d = d + (4 - arc4random() % 10);
-//            hr = hr + (4 - arc4random() % 10);
-//            
-//            if (s < 100) s += (arc4random() % 5);
-//            if (s > 150) s -= (arc4random() % 5);
-//            if (d < 50)  d += (arc4random() % 5);
-//            if (d > 100) d -= (arc4random() % 5);
-//            if (hr < 50)  hr += (arc4random() % 5);
-//            if (hr > 100) hr -= (arc4random() % 5);
-//            
-//            dataRecord.systolicPressure = s;
-//            dataRecord.diastolicPressure = d;
-//            dataRecord.heartRate = hr;
-//            [sampleData addObject:dataRecord];
-//        }
-//        
-//        self.readings = sampleData;
     }
     else
     {
@@ -284,6 +227,33 @@ NSString *deviceInformationEntityName = @"DeviceInformation";
     [self setSyncing:NO];
     note = [NSNotification notificationWithName:OmronDataSyncDidEndNotification  object:nil userInfo:nil];
     [[NSNotificationCenter defaultCenter] performSelectorOnMainThread:@selector(postNotification:) withObject:note waitUntilDone:YES];
+}
+
+- (void)cancelSync
+{
+    //
+    // We will use this to post to the Main Thread
+    //
+    NSNotification *note;
+    
+    [self setSyncing:NO];
+    note = [NSNotification notificationWithName:OmronDataSyncDidEndNotification  object:nil userInfo:nil];
+    [[NSNotificationCenter defaultCenter] performSelectorOnMainThread:@selector(postNotification:) withObject:note waitUntilDone:YES];
+}
+
+- (void)saveUpdates
+{
+    NSManagedObjectContext *context = [self managedObjectContext];
+    NSError *error = nil;
+    
+    if (![context commitEditing]) {
+        NSLog(@"%@: unable to commit editing before saving", [self class]);
+    }
+    
+    if (![context save:&error])
+    {
+        NSLog(@"saveUpdates - Unresolved error %@, %@", error, [error userInfo]);
+    }
 }
 
 #pragma mark Private Work
@@ -335,7 +305,7 @@ NSString *deviceInformationEntityName = @"DeviceInformation";
 	}
     
     
-	ret = omron_get_bp_profile(device, serialNumber);
+	ret = omron_get_device_serial(device, serialNumber);
 	if(ret < 0)
 	{
 		NSLog(@"Cannot get device prf!\n");

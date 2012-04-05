@@ -56,6 +56,7 @@
 @synthesize dateRangeLabel = mDateRangeLabel;
 @synthesize hightlightMonthUnderMouse = mHightlightMonthUnderMouse;
 @synthesize trackingArea = mTrackingArea;
+@synthesize justification = mJustification;
 
 #pragma mark Object Lifecycle Routines
 
@@ -72,6 +73,7 @@
         mSelectedEndDate = [[NSDate dateWithTimeIntervalSinceNow:0] retain];
         mMaxMonths = 0;
         mDelegate = nil;
+        mJustification = SWDPJustifiedLeft;
         
         int opts = (NSTrackingMouseEnteredAndExited | NSTrackingMouseMoved | NSTrackingActiveAlways);
         mTrackingArea = [ [NSTrackingArea alloc] initWithRect:[self bounds]
@@ -255,7 +257,15 @@
     CGFloat x = 0.0f;
     CGFloat y = 0.0f;
     
-    x = self.bounds.size.width - size.width*(self.maxMonths - index);
+    if (self.justification == SWDPJustifiedLeft)
+    {
+        x = size.width*index;
+    }
+    else
+    {
+        x = self.bounds.size.width - size.width*(self.maxMonths - index);
+    }
+    
     y = 0.0f;
     
     return NSMakePoint(x,y); 
@@ -267,7 +277,15 @@
     CGFloat x = 0.0f;
     CGFloat y = 0.0f;
     
-    x = self.bounds.size.width - size.width*(self.maxMonths - position) + 4;
+    if (self.justification == SWDPJustifiedLeft)
+    {
+        x = size.width *  position + 4;
+    }
+    else
+    {
+        x = self.bounds.size.width - size.width*(self.maxMonths - position) + 4;
+    }
+    
     y = 0.0f; 
     
     return NSMakePoint(x,y); 
@@ -279,7 +297,15 @@
     CGFloat x = 0.0f;
     CGFloat y = 0.0f;
     
-    x = self.bounds.size.width - size.width*(self.maxMonths - position) + 4;
+    if (self.justification == SWDPJustifiedLeft)
+    {
+        x = size.width * position + 4;
+    }
+    else
+    {
+        x = self.bounds.size.width - size.width*(self.maxMonths - position) + 4;
+    }
+    
     y = 10.0f; 
     
     return NSMakePoint(x  ,y); 
@@ -478,7 +504,7 @@
     
 
     self.dateRangeLabel = [self formattedDateString];
-    [[self dateRangeLabel] drawAtPoint:NSMakePoint(8.0f,40.0f) withAttributes:stringAttributesGray16Point];
+    [[self dateRangeLabel] drawAtPoint:NSMakePoint(0.0f,45.0f) withAttributes:stringAttributesGray16Point];
 }
 
 #pragma mark NSControl Routines
@@ -493,15 +519,25 @@
         NSPoint pointInView = [self convertPoint:[theEvent locationInWindow] fromView:nil];
         NSInteger index = [self indexForPoint:pointInView];
         
-        //
-        // This will be the new Start Date.
-        self.selectedStartDate = [self firstDayOfMonthForIndex:index];
-        self.selectedEndDate = [self lastDayOfMonthForIndex:index];
-        self.mouseDownIndex = index;
+        if (index >= 0)
+        {
+            //
+            // This will be the new Start Date.
+            self.selectedStartDate = [self firstDayOfMonthForIndex:index];
+            self.selectedEndDate = [self lastDayOfMonthForIndex:index];
+            self.mouseDownIndex = index;
+            
+            NSLog(@"mouseDown: index %ld, startDate %@, endDate %@", index, self.selectedStartDate, self.selectedEndDate);
         
-        //NSLog(@"mouseDown: index %ld, startDate %@, endDate %@", index, self.selectedStartDate, self.selectedEndDate);
-    
-        [self setNeedsDisplay];
+            [self setNeedsDisplay];
+            
+            if(self.delegate && [self.delegate respondsToSelector:@selector(dateRangeSelectionChanged:selectedStartDate:selectedEndDate:)])
+            {
+                [self.delegate dateRangeSelectionChanged:self 
+                                       selectedStartDate:self.selectedStartDate 
+                                         selectedEndDate:self.selectedEndDate];
+            }
+        }
     }
     
 }
@@ -511,22 +547,32 @@
     NSPoint pointInView = [self convertPoint:[theEvent locationInWindow] fromView:nil];
     NSInteger index = [self indexForPoint:pointInView];
     
-    NSDate *temp = [self firstDayOfMonthForIndex:index];
-    //NSLog(@"mouseDragged: index %ld, dateForIndex %@, startDate %@, endDate %@", index, temp, self.selectedStartDate, self.selectedEndDate);
-
+//    NSLog(@"mouseDragged: index %ld, startDate %@, endDate %@, mouseDownIndex %ld", index, self.selectedStartDate, self.selectedEndDate, self.mouseDownIndex);
     if (index <= self.mouseDownIndex)
     {
         // We are dragging Left
-        self.selectedStartDate = temp;
+        self.selectedStartDate = [self firstDayOfMonthForIndex:index];;
+        [self setNeedsDisplay];
+        if(self.delegate && [self.delegate respondsToSelector:@selector(dateRangeSelectionChanged:selectedStartDate:selectedEndDate:)])
+        {
+            [self.delegate dateRangeSelectionChanged:self 
+                                   selectedStartDate:self.selectedStartDate 
+                                     selectedEndDate:self.selectedEndDate];
+        }
     }
-    else
+
     if (index >= self.mouseDownIndex)
     {
         // We are dragging Right
         self.selectedEndDate = [self lastDayOfMonthForIndex:index];
+        [self setNeedsDisplay];
+        if(self.delegate && [self.delegate respondsToSelector:@selector(dateRangeSelectionChanged:selectedStartDate:selectedEndDate:)])
+        {
+            [self.delegate dateRangeSelectionChanged:self 
+                                   selectedStartDate:self.selectedStartDate 
+                                     selectedEndDate:self.selectedEndDate];
+        }
     }
-
-    [self setNeedsDisplay];
 }
 
 -(void)mouseUp:(NSEvent *)theEvent

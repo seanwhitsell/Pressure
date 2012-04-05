@@ -128,6 +128,4 @@ extern NSString *commentKey;
 // Save updates - Write to persistent store any updates to the Readings
 - (void)saveUpdates;
 
-- (void)writeRecord:(OmronDataRecord*)record;
-
 @end

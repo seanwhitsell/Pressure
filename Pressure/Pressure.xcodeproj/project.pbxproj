@@ -796,6 +796,13 @@
 					"\"$(SRCROOT)\"",
 					"\"$(SRCROOT)/../3rdparty/libusb-1.0.8/lib\"",
 				);
+				OTHER_CFLAGS = (
+					"-DDEBUG",
+					"-Wnested-externs",
+					"-Wold-style-definition",
+					"-Wstrict-prototypes",
+					"-Wundeclared-selector",
+				);
 				PRODUCT_NAME = Pressure;
 			};
 			name = Debug;
@@ -814,6 +821,13 @@
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
 					"\"$(SRCROOT)/../3rdparty/libusb-1.0.8/lib\"",
+				);
+				OTHER_CFLAGS = (
+					"-DDEBUG",
+					"-Wnested-externs",
+					"-Wold-style-definition",
+					"-Wstrict-prototypes",
+					"-Wundeclared-selector",
 				);
 				PRODUCT_NAME = Pressure;
 			};
