@@ -1060,6 +1060,12 @@ NSString *GraphDataPointWasSelectedNotification = @"GraphDataPointWasSelectedNot
         // Otherwise, we do not filter by the User
     }
     
+    //
+    // Remove anything that the user wants taken out
+    //
+    NSPredicate *excludePredicate = [NSPredicate predicateWithFormat:@"excludeFromGraph == TRUE"];  
+    self.dataSourceSortedReadings = [self.dataSourceSortedReadings filteredArrayUsingPredicate:excludePredicate];
+    
     [self recalculateFrequencyDistributionHistogram];
     [self recalculateGraphAxis];
     
@@ -1090,6 +1096,12 @@ NSString *GraphDataPointWasSelectedNotification = @"GraphDataPointWasSelectedNot
         // Otherwise, we do not filter by the User
     }
 
+    //
+    // Remove anything that the user wants taken out
+    //
+    NSPredicate *excludePredicate = [NSPredicate predicateWithFormat:@"excludeFromGraph == TRUE"];  
+    self.dataSourceSortedReadings = [self.dataSourceSortedReadings filteredArrayUsingPredicate:excludePredicate];
+    
     [self recalculateFrequencyDistributionHistogram];
     [self recalculateGraphAxis];
     
@@ -1137,6 +1149,12 @@ NSString *GraphDataPointWasSelectedNotification = @"GraphDataPointWasSelectedNot
     {
         // Otherwise, we do not filter by the User
     }
+    
+    //
+    // Remove anything that the user wants taken out
+    //
+    NSPredicate *excludePredicate = [NSPredicate predicateWithFormat:@"excludeFromGraph == TRUE"];  
+    self.dataSourceSortedReadings = [self.dataSourceSortedReadings filteredArrayUsingPredicate:excludePredicate];
     
     //
     // Recalculate and redisplay

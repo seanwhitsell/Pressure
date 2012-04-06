@@ -3,12 +3,12 @@
 	<data>
 		<int key="IBDocument.SystemTarget">1070</int>
 		<string key="IBDocument.SystemVersion">11D50b</string>
-		<string key="IBDocument.InterfaceBuilderVersion">1938</string>
+		<string key="IBDocument.InterfaceBuilderVersion">2182</string>
 		<string key="IBDocument.AppKitVersion">1138.32</string>
 		<string key="IBDocument.HIToolboxVersion">568.00</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.CocoaPlugin</string>
-			<string key="NS.object.0">1938</string>
+			<string key="NS.object.0">2182</string>
 		</object>
 		<array key="IBDocument.IntegratedClassDependencies">
 			<string>NSView</string>
@@ -40,13 +40,13 @@
 			<object class="NSWindowTemplate" id="880057587">
 				<int key="NSWindowStyleMask">271</int>
 				<int key="NSWindowBacking">2</int>
-				<string key="NSWindowRect">{{283, 305}, {800, 700}}</string>
+				<string key="NSWindowRect">{{283, 305}, {800, 750}}</string>
 				<int key="NSWTFlags">1954021376</int>
 				<string key="NSWindowTitle">Pressure</string>
 				<string key="NSWindowClass">NSWindow</string>
 				<nil key="NSViewClass"/>
 				<nil key="NSUserInterfaceItemIdentifier"/>
-				<string key="NSWindowContentMinSize">{800, 700}</string>
+				<string key="NSWindowContentMinSize">{800, 750}</string>
 				<object class="NSView" key="NSWindowView" id="888190254">
 					<reference key="NSNextResponder"/>
 					<int key="NSvFlags">256</int>
@@ -54,7 +54,7 @@
 						<object class="NSBox" id="153202759">
 							<reference key="NSNextResponder" ref="888190254"/>
 							<int key="NSvFlags">10</int>
-							<string key="NSFrame">{{0, 267}, {800, 5}}</string>
+							<string key="NSFrame">{{0, 317}, {800, 5}}</string>
 							<reference key="NSSuperview" ref="888190254"/>
 							<reference key="NSNextKeyView" ref="578857686"/>
 							<string key="NSOffsets">{0, 0}</string>
@@ -93,12 +93,12 @@
 								<object class="NSView" id="22160069">
 									<reference key="NSNextResponder" ref="538766508"/>
 									<int key="NSvFlags">274</int>
-									<string key="NSFrameSize">{800, 668}</string>
+									<string key="NSFrameSize">{800, 718}</string>
 									<reference key="NSSuperview" ref="538766508"/>
 									<reference key="NSNextKeyView" ref="153202759"/>
 								</object>
 							</array>
-							<string key="NSFrame">{{0, 32}, {800, 668}}</string>
+							<string key="NSFrame">{{0, 32}, {800, 718}}</string>
 							<reference key="NSSuperview" ref="888190254"/>
 							<reference key="NSNextKeyView" ref="22160069"/>
 							<string key="NSOffsets">{0, 0}</string>
@@ -244,12 +244,12 @@
 							</object>
 						</object>
 					</array>
-					<string key="NSFrameSize">{800, 700}</string>
+					<string key="NSFrameSize">{800, 750}</string>
 					<reference key="NSSuperview"/>
 					<reference key="NSNextKeyView" ref="538766508"/>
 				</object>
 				<string key="NSScreenRect">{{0, 0}, {2560, 1418}}</string>
-				<string key="NSMinSize">{800, 722}</string>
+				<string key="NSMinSize">{800, 772}</string>
 				<string key="NSMaxSize">{10000000000000, 10000000000000}</string>
 				<string key="NSFrameAutosaveName">Pressure</string>
 				<bool key="NSWindowIsRestorable">YES</bool>
