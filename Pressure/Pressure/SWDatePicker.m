@@ -97,6 +97,8 @@
     mDisplayedEndDate = nil;
     mSelectedStartDate = nil;
     mSelectedEndDate = nil;
+    
+    [super dealloc];
 }
 
 #pragma mark Getters and Setters

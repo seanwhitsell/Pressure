@@ -100,6 +100,8 @@ NSString *deviceInformationEntityName = @"DeviceInformation";
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 
     [myReadingsListDates release]; myReadingsListDates = nil;
+    
+    [super dealloc];
 }
 
 #pragma mark Public Operations
