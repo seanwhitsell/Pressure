@@ -182,7 +182,7 @@
     // Table Reload
     NSLog(@"[ReadingViewController dataSyncOperationDidEnd] Data Source isSampleData %s", [mDataSource isSampleData] ? "yes":"no");
     
-    self.dataSourceSortedReadings = [self.dataSource.readings sortedArrayUsingComparator:^(id a, id b) {
+    self.dataSourceSortedReadings = [self.dataSource.omronDataRecords sortedArrayUsingComparator:^(id a, id b) {
         NSDate *first = [(OmronDataRecord*)a readingDate];
         NSDate *second = [(OmronDataRecord*)b readingDate];
         return [second compare:first];
@@ -210,7 +210,7 @@
     // Table Reload
     NSLog(@"[ReadingViewController dataSyncOperationDataAvailable] Data Source isSampleData %s", [mDataSource isSampleData] ? "yes":"no");
 
-    self.dataSourceSortedReadings = [self.dataSource.readings sortedArrayUsingComparator:^(id a, id b) {
+    self.dataSourceSortedReadings = [self.dataSource.omronDataRecords sortedArrayUsingComparator:^(id a, id b) {
         NSDate *first = [(OmronDataRecord*)a readingDate];
         NSDate *second = [(OmronDataRecord*)b readingDate];
         return [second compare:first];
@@ -257,7 +257,7 @@
     //
     // Reset the array to the original, unsorted, unfiltered dataset
     //
-    self.dataSourceSortedReadings = self.dataSource.readings;
+    self.dataSourceSortedReadings = self.dataSource.omronDataRecords;
     
     NSPredicate *userPredicate = nil;
     if ((self.userFilter == userAOnly) || (self.userFilter == userBOnly))

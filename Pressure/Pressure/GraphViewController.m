@@ -395,9 +395,9 @@ NSString *GraphDataPointWasSelectedNotification = @"GraphDataPointWasSelectedNot
     // Let's take the data and sort it by date. There is no guarantee that the datasource.readings are
     // in any order
     //
-    if ([self.dataSource.readings count] > 0)
+    if ([self.dataSource.omronDataRecords count] > 0)
     {
-        self.dataSourceSortedReadings = [self.dataSource.readings sortedArrayUsingComparator:^(id a, id b) {
+        self.dataSourceSortedReadings = [self.dataSource.omronDataRecords sortedArrayUsingComparator:^(id a, id b) {
             NSDate *first = [(OmronDataRecord*)a readingDate];
             NSDate *second = [(OmronDataRecord*)b readingDate];
             return [first compare:second];
@@ -1118,7 +1118,7 @@ NSString *GraphDataPointWasSelectedNotification = @"GraphDataPointWasSelectedNot
     //
     // Reset the array to the original, unsorted, unfiltered dataset
     //
-    self.dataSourceSortedReadings = self.dataSource.readings;
+    self.dataSourceSortedReadings = self.dataSource.omronDataRecords;
     
     //
     // Reset the date picker display to the full available range
@@ -1240,7 +1240,7 @@ NSString *GraphDataPointWasSelectedNotification = @"GraphDataPointWasSelectedNot
     // These need to be in this order. The recalculateFrequencyDistributionHistogram and recalculateGraphAxis
     // depend on the recalculateDatePickerRange
     //
-    self.dataSourceSortedReadings = self.dataSource.readings;
+    self.dataSourceSortedReadings = self.dataSource.omronDataRecords;
 
     self.datePicker.selectedStartDate = start;
     self.datePicker.selectedEndDate = end;

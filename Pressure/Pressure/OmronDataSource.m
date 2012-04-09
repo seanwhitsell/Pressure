@@ -76,7 +76,7 @@ NSString *deviceInformationEntityName = @"DeviceInformation";
 @synthesize managedObjectModel = myManagedObjectModel;
 @synthesize managedObjectContext = myManagedObjectContext;
 @synthesize deviceID = myDeviceID;
-@synthesize readings = myReadings;
+@synthesize omronDataRecords = myOmronDataRecords;
 @synthesize readingsListDates = myReadingsListDates;
 @synthesize deviceList = myDeviceList;
 @synthesize syncing = mySyncing;
@@ -187,7 +187,7 @@ NSString *deviceInformationEntityName = @"DeviceInformation";
             [self.readingsListDates addObject:dataRecord.readingDate];
         }
         
-        self.readings = realData;
+        self.omronDataRecords = realData;
     }       
     
     note = [NSNotification notificationWithName:OmronDataSyncDataAvailableNotification  object:nil userInfo:nil];
@@ -204,7 +204,7 @@ NSString *deviceInformationEntityName = @"DeviceInformation";
         retval = [self getOmronData];
     }
     
-    if (retval && ([self.readings count] == 0))
+    if (retval && ([self.omronDataRecords count] == 0))
     {
     }
     else
@@ -220,7 +220,7 @@ NSString *deviceInformationEntityName = @"DeviceInformation";
             [realData addObject:dataRecord];
         }
         
-        self.readings = realData;
+        self.omronDataRecords = realData;
         
     }
     //
@@ -384,7 +384,7 @@ NSString *deviceInformationEntityName = @"DeviceInformation";
                                                                 (__bridge CFDateRef)readingDate,
                                                                 (CFComparatorFunction)CFDateCompare,
                                                                 NULL);
-                if (index < [self.readings count])
+                if (index < [self.omronDataRecords count])
                 {
                     // Already in the list
                     NSLog(@"Record already in list");

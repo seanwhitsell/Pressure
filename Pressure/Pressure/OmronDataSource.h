@@ -98,7 +98,7 @@ extern NSString *commentKey;
     NSManagedObjectModel *myManagedObjectModel;
     NSManagedObjectContext *myManagedObjectContext;
     NSMutableArray *myDeviceList;
-    NSMutableArray *myReadings;
+    NSMutableArray *myOmronDataRecords;
     NSMutableArray *myReadingsListDates;
     NSString *myDeviceID;
     BOOL mySyncing;
@@ -109,7 +109,7 @@ extern NSString *commentKey;
 // These will not be guaranteed until after OmronDataSyncDidEnd
 //
 @property (atomic, readonly, retain) NSString *deviceID;
-@property (atomic, readwrite, retain) NSMutableArray *readings;
+@property (atomic, readwrite, retain) NSMutableArray *omronDataRecords;
 @property (atomic, readonly, getter = isSyncing) BOOL syncing;
 @property (atomic, readonly, getter = isSampleData) BOOL usingSampleData;
 
