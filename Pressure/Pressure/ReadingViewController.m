@@ -179,9 +179,7 @@
 
 - (void)dataSyncOperationDidEnd:(NSNotification*)notif
 {
-    // Table Reload
-    NSLog(@"[ReadingViewController dataSyncOperationDidEnd] Data Source isSampleData %s", [mDataSource isSampleData] ? "yes":"no");
-    
+    // Table Reload    
     self.dataSourceSortedReadings = [self.dataSource.omronDataRecords sortedArrayUsingComparator:^(id a, id b) {
         NSDate *first = [(OmronDataRecord*)a readingDate];
         NSDate *second = [(OmronDataRecord*)b readingDate];
@@ -208,8 +206,6 @@
 - (void)dataSyncOperationDataAvailable:(NSNotification*)notif
 {
     // Table Reload
-    NSLog(@"[ReadingViewController dataSyncOperationDataAvailable] Data Source isSampleData %s", [mDataSource isSampleData] ? "yes":"no");
-
     self.dataSourceSortedReadings = [self.dataSource.omronDataRecords sortedArrayUsingComparator:^(id a, id b) {
         NSDate *first = [(OmronDataRecord*)a readingDate];
         NSDate *second = [(OmronDataRecord*)b readingDate];

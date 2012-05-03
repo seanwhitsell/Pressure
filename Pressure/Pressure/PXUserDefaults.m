@@ -21,7 +21,7 @@
 #import "PXUserDefaults.h"
 
 static NSString *const kFirstLaunchKey = @"firstLaunch";
-static NSString *const kUsingSampleDataKey = @"usingSampleData";
+static NSString *const kNoDeviceKey = @"noDevice";
 
 @implementation PXUserDefaults
 
@@ -43,7 +43,7 @@ static NSString *const kUsingSampleDataKey = @"usingSampleData";
 	{
 		NSDictionary *defaults = [NSDictionary dictionaryWithObjectsAndKeys:
 								  [NSNumber numberWithBool:YES], kFirstLaunchKey,
-								  [NSNumber numberWithBool:YES], kUsingSampleDataKey,
+								  [NSNumber numberWithBool:YES], kNoDeviceKey,
 								  nil];
 		
 		[[NSUserDefaults standardUserDefaults] registerDefaults:defaults];
@@ -62,14 +62,14 @@ static NSString *const kUsingSampleDataKey = @"usingSampleData";
 	[[NSUserDefaults standardUserDefaults] setBool:firstLaunch forKey:kFirstLaunchKey];
 }
 
-- (BOOL)usingSampleData
+- (BOOL)noDevice
 {
-	return [[NSUserDefaults standardUserDefaults] boolForKey:kUsingSampleDataKey];
+	return [[NSUserDefaults standardUserDefaults] boolForKey:kNoDeviceKey];
 }
 
-- (void)setUsingSampleData:(BOOL)usingSampleData
+- (void)setNoDevice:(BOOL)noDevice
 {
-	[[NSUserDefaults standardUserDefaults] setBool:usingSampleData forKey:kUsingSampleDataKey];
+	[[NSUserDefaults standardUserDefaults] setBool:noDevice forKey:kNoDeviceKey];
 }
 
 @end

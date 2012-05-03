@@ -75,19 +75,7 @@ extern NSString *commentKey;
  
         // ... do something with the data here
      }
- 
- First User Experience:
- 
- Because the user may not have an Omron Device, there is a Sample Data interface. When the application is run, and there
- has never been a device connected to sync the data, the OmronDataSource will be in "SampleData" mode.
- 
-     if ([myDataSource isSampleData])
-     {
-        ...
-     }
- 
- This will allow the User Interface to indicate that the data that is being displayed is not "real" data.
- 
+  
  */
 
 @class OmronDataRecord;
@@ -102,7 +90,6 @@ extern NSString *commentKey;
     NSMutableArray *myReadingsListDates;
     NSString *myDeviceID;
     BOOL mySyncing;
-    BOOL myUsingSampleData;
 }
 
 //
@@ -111,7 +98,6 @@ extern NSString *commentKey;
 @property (atomic, readonly, retain) NSString *deviceID;
 @property (atomic, readwrite, retain) NSMutableArray *omronDataRecords;
 @property (atomic, readonly, getter = isSyncing) BOOL syncing;
-@property (atomic, readonly, getter = isSampleData) BOOL usingSampleData;
 
 //
 // Calling this will generate OmronDataSyncDidBegin and at some later point OmronDataSyncDidEnd

@@ -29,7 +29,7 @@
 
 // NOTE: These are KVC compliant, so you can use KVO to observe them.
 @property (nonatomic, readwrite, assign) BOOL firstLaunch;
-@property (nonatomic, readwrite, assign) BOOL usingSampleData;
+@property (nonatomic, readwrite, assign) BOOL noDevice;
 
 @end
 
@@ -37,7 +37,7 @@
 @interface NSApplication (PXUserDefaults)
 
 // NOTE: This is a convenience for binding to defaults in XIBs via NSApplication.
-// For example, you can bind to Application with key sharedDefaults.usingSampleData.
+// For example, you can bind to Application with key sharedDefaults.noDevice.
 - (PXUserDefaults *)sharedDefaults;
 
 @end

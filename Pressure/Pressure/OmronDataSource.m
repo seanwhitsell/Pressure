@@ -61,7 +61,6 @@ NSString *deviceInformationEntityName = @"DeviceInformation";
 @property (atomic, readwrite, retain) NSMutableArray *readingsListDates;
 @property (atomic, readwrite, retain) NSMutableArray *deviceList;
 @property (atomic, readwrite, assign) BOOL syncing;
-@property (atomic, readwrite, assign) BOOL usingSampleData;
 
 - (int)getOmronData;
 
@@ -80,7 +79,6 @@ NSString *deviceInformationEntityName = @"DeviceInformation";
 @synthesize readingsListDates = myReadingsListDates;
 @synthesize deviceList = myDeviceList;
 @synthesize syncing = mySyncing;
-@synthesize usingSampleData = myUsingSampleData;
 
 #pragma mark Object Lifecycle
 - (id)init
@@ -89,7 +87,6 @@ NSString *deviceInformationEntityName = @"DeviceInformation";
     if (self != nil)
 	{
         myReadingsListDates = [[NSMutableArray alloc] initWithCapacity:10];
-        myUsingSampleData = NO; //[[PXUserDefaults sharedDefaults] usingSampleData];
     }
     
     return self;
@@ -358,8 +355,6 @@ NSString *deviceInformationEntityName = @"DeviceInformation";
         {
             NSLog(@"Cannot get device prf!\n");
         }
-        
-        [[PXUserDefaults sharedDefaults] setUsingSampleData:NO];
         
         for(i = data_count - 1; i >= 0; --i)
         {
