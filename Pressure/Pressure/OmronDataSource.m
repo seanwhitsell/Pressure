@@ -282,6 +282,9 @@ NSString *deviceInformationEntityName = @"DeviceInformation";
 		NSLog(@"No omron 790ITs connected!\n");
         note = [NSNotification notificationWithName:OmronDeviceNotPresentNotification object:nil userInfo:nil];
         [[NSNotificationCenter defaultCenter] performSelectorOnMainThread:@selector(postNotification:) withObject:note waitUntilDone:YES];
+        
+        omron_delete(device);
+        
 		return 1;
 	}
 	NSLog(@"Found %d omron 790ITs\n", ret);

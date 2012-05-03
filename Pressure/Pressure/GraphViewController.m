@@ -508,6 +508,7 @@ NSString *GraphDataPointWasSelectedNotification = @"GraphDataPointWasSelectedNot
         }
         
         self.systolicFrequencyDistribution = systolicFrequencyDistribution;
+        [systolicFrequencyDistribution release];
         
         barPlotSpace = (CPTXYPlotSpace*)self.systolicGraph.defaultPlotSpace;
         barPlotSpace.yRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0.0f) length:CPTDecimalFromFloat(highestValue + 5.0f)];
@@ -609,8 +610,10 @@ NSString *GraphDataPointWasSelectedNotification = @"GraphDataPointWasSelectedNot
             {
                 highestValue = percentage;
             }
-        }        
+        }   
+        
         self.diastolicFrequencyDistribution = diastolicFrequencyDistribution;
+        [diastolicFrequencyDistribution release];
         
         barPlotSpace = (CPTXYPlotSpace*)self.diastolicGraph.defaultPlotSpace;
         barPlotSpace.yRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0.0f) length:CPTDecimalFromFloat(highestValue + 5.0f)];
