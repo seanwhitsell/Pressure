@@ -50,7 +50,7 @@
 
 @synthesize listView = mListView;
 @synthesize dataSource = mDataSource;
-@synthesize dataSourceSortedReadings = mDataSourceSortedReadings;
+@synthesize dataSourceSortedReadings = mReadings;
 @synthesize selectedRow = mSelectedRow;
 @synthesize userFilter = mUserFilter;
 
@@ -301,6 +301,7 @@
 		cell = [PressureReadingViewCell cellLoadedFromNibNamed:@"PressureReadingViewCell" reusableIdentifier:LISTVIEW_CELL_IDENTIFIER];  
 	}
 	
+    //
 	// Set up the new cell:
 	[[cell systolicPressureLabel] setStringValue:[NSString stringWithFormat:@"%i",record.systolicPressure]];
 	[[cell diastolicPressureLabel] setStringValue:[NSString stringWithFormat:@"%i",record.diastolicPressure]];

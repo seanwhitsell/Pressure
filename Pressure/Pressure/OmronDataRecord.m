@@ -48,7 +48,11 @@
     }
     
     return self;
+}
 
+- (void)dealloc
+{
+    [super dealloc];
 }
 
 - (NSDate *)readingDate

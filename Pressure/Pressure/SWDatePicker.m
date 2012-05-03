@@ -117,6 +117,8 @@
     
     mMaxMonths = [components month] + 1; 
     
+    [gregorian release];
+    
     return mMaxMonths;
 }
 
@@ -133,6 +135,14 @@
         {
             index=i+1;
         }
+    }
+    
+    //
+    // Special case: The point is outside the bounds on the right hand side
+    NSPoint p =[self pointOfMonthAtIndex:self.maxMonths highlighted:NO];
+    if (point.x > p.x)
+    {
+        index = -1;
     }
     
     //
@@ -159,6 +169,8 @@
     [components setMonth:(months + index)];
     [components setDay:1];
     date = [gregorian dateFromComponents:components];
+    
+    [gregorian release];
     
     return date;
 }
@@ -193,6 +205,8 @@
     // Now we create our "end date" from the last day of the month
     [components setDay:daysRange.length];
     date = [gregorian dateFromComponents:components];
+    
+    [gregorian release];
     
     return date;
 }
@@ -235,6 +249,9 @@
             // this is January, so, Yes, we want a year displayed
             retval = YES;
         }
+        
+        [gregorian release];
+        
     }
     
     return retval;
@@ -250,6 +267,8 @@
     NSDateComponents *components = [gregorian components:unitFlags 
                                                 fromDate:[self firstDayOfMonthForIndex:index]]; 
 
+    [gregorian release];
+    
     return [NSString stringWithFormat:@"%ld",[components year]];
 }
 
@@ -371,6 +390,8 @@
             break;
     }
     
+    [gregorian release];
+    
     return retval;
 }
 
@@ -430,6 +451,7 @@
     NSString *dateString = [NSString stringWithFormat:@"%@ - %@", [dateFormatStart stringFromDate:self.selectedStartDate], [dateFormatEnd stringFromDate:self.selectedEndDate]];  
     [dateFormatStart release];
     [dateFormatEnd release];
+    [gregorian release];    
     
     return dateString;
 }

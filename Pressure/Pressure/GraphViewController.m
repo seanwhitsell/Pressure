@@ -351,6 +351,8 @@ NSString *GraphDataPointWasSelectedNotification = @"GraphDataPointWasSelectedNot
     [components setDay:1];
     date = [gregorian dateFromComponents:components];
     
+    [gregorian release];
+    
     return date;
 }
 
@@ -382,6 +384,8 @@ NSString *GraphDataPointWasSelectedNotification = @"GraphDataPointWasSelectedNot
     // Now we create our "end date" from the last day of the month
     [components setDay:daysRange.length];
     date = [gregorian dateFromComponents:components];
+    
+    [gregorian release];
     
     return date;
 }
@@ -421,7 +425,6 @@ NSString *GraphDataPointWasSelectedNotification = @"GraphDataPointWasSelectedNot
         // We will create an array of 5 for our classes, calculate W, iterate over 
         // the data and increment the class that each data point calls into.
         //
-        OmronDataRecord *record = nil;
         NSInteger K = 0;
         NSInteger L = 0;
         NSInteger S = 0;
@@ -546,8 +549,6 @@ NSString *GraphDataPointWasSelectedNotification = @"GraphDataPointWasSelectedNot
                 return (NSComparisonResult)NSOrderedSame;
             }
         }];
-        
-        record = [readingsSortedByDiastolicPressure objectAtIndex:0];
         
         K = FrequencyDistributionWidth;
         L = [[readingsSortedByDiastolicPressure lastObject] diastolicPressure];
@@ -739,9 +740,6 @@ NSString *GraphDataPointWasSelectedNotification = @"GraphDataPointWasSelectedNot
         NSMutableArray *customMajorTickLocations = [NSMutableArray arrayWithCapacity:24];
         NSUInteger oneDay = 3600*24;
         
-//        NSUInteger daysInRange = [[NSDecimalNumber decimalNumberWithDecimal:plotSpace.xRange.length] intValue] / oneDay;
-//        NSLog(@"[GraphViewController didChangePlotRangeForCoordinate] Will show months %ld", daysInRange); 
-        
         NSDate* currentDate = [[self.dataSourceSortedReadings objectAtIndex:0] readingDate];
         NSDate* lastDate = [[self.dataSourceSortedReadings lastObject] readingDate];
         components = [[NSDateComponents alloc] init];
@@ -772,6 +770,8 @@ NSString *GraphDataPointWasSelectedNotification = @"GraphDataPointWasSelectedNot
         x.axisLabels = [NSSet setWithArray:customLabels];
         x.majorTickLocations = [NSSet setWithArray:customMajorTickLocations];
 
+        [components release];
+        [gregorian release];
     }
 
 }
@@ -811,6 +811,8 @@ NSString *GraphDataPointWasSelectedNotification = @"GraphDataPointWasSelectedNot
 
 - (void)viewWillAppear
 {
+    NSLog(@"<%p> %@", self, [NSString stringWithUTF8String:__func__]);
+
     [self.backdropView setImage:[NSImage imageNamed:@"backdrop.png"]];
     [self.graph reloadData];
     [self.systolicGraph reloadData];
@@ -992,7 +994,7 @@ NSString *GraphDataPointWasSelectedNotification = @"GraphDataPointWasSelectedNot
 {
     CPTTextLayer *label = nil; 
     NSString *labelText = nil;
-    NSDecimalNumber *num = [NSDecimalNumber zero];
+    NSDecimalNumber *num = nil;
     
     if (plot == self.systolicBarPlot)
     {

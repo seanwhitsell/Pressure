@@ -498,7 +498,7 @@
 		8F32EB2114B56CD800122156 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0420;
+				LastUpgradeCheck = 0430;
 			};
 			buildConfigurationList = 8F32EB2414B56CD800122156 /* Build configuration list for PBXProject "Pressure" */;
 			compatibilityVersion = "Xcode 3.2";

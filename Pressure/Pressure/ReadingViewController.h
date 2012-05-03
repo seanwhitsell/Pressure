@@ -24,15 +24,15 @@
 #import "PressureReadingViewCell.h"
 #import "UserFilter.h"
 
-@class PXListView;
 @class OmronDataSource;
 @class OmronDataRecord;
+@class PressureReadingViewCell;
 
 @interface ReadingViewController : NSViewController <PXListViewDelegate, PressureReadingViewCellDelegate>
 {
     OmronDataSource *mDataSource;
     PXListView *mListView;
-    NSArray *mDataSourceSortedReadings;
+    NSArray *mReadings;
     NSInteger mSelectedRow;
     UserFilter mUserFilter;
 }

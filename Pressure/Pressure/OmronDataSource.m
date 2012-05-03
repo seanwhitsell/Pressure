@@ -109,20 +109,20 @@ NSString *deviceInformationEntityName = @"DeviceInformation";
 - (void)sync
 {
     //
-    // We will use this to post to the Main Thread
-    //
-    NSNotification *note;
-    
-    //
     // If we are on the MainThread, let's kick off our background operation
     //
     if ([NSThread isMainThread])
     {
-        NSOperationQueue * queue = [[NSOperationQueue alloc] init];
-        OmronDataSyncOperation *syncOperation = [[OmronDataSyncOperation alloc] initWithDataSource:self];
+        NSOperationQueue * queue = [[[NSOperationQueue alloc] init] autorelease];
+        OmronDataSyncOperation *syncOperation = [[[OmronDataSyncOperation alloc] initWithDataSource:self] autorelease];
         [queue addOperation:syncOperation];
         return;
     }
+    
+    //
+    // We will use this to post to the Main Thread
+    //
+    NSNotification *note;
     
     //
     // Post notification on main thread
@@ -134,13 +134,13 @@ NSString *deviceInformationEntityName = @"DeviceInformation";
     // Let's try to retrieve our latest device information from the persistent store
     //
     NSManagedObjectContext *context = [self managedObjectContext];
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    NSFetchRequest *fetchRequest = [[[NSFetchRequest alloc] init] autorelease];
     NSError *error;
     NSEntityDescription *entity = [NSEntityDescription entityForName:deviceInformationEntityName inManagedObjectContext:context];
     [fetchRequest setEntity:entity];
     [fetchRequest setSortDescriptors: [NSArray arrayWithObject:
-                                       [[NSSortDescriptor alloc] initWithKey:deviceSerialNumberKey
-                                                                   ascending:YES]]];
+                                       [[[NSSortDescriptor alloc] initWithKey:deviceSerialNumberKey
+                                                                   ascending:YES] autorelease]]];
     
     //
     // Watch for a "cancel" before performing IO
@@ -161,8 +161,8 @@ NSString *deviceInformationEntityName = @"DeviceInformation";
     entity = [NSEntityDescription entityForName:readingEntryEntityName inManagedObjectContext:context];
     [fetchRequest setEntity:entity];
     [fetchRequest setSortDescriptors: [NSArray arrayWithObject:
-                                       [[NSSortDescriptor alloc] initWithKey:readingDateKey
-                                                                   ascending:YES]]];
+                                       [[[NSSortDescriptor alloc] initWithKey:readingDateKey
+                                                                   ascending:YES] autorelease]]];
     //
     // Watch for a "cancel"
     if (self.syncing)
@@ -170,7 +170,7 @@ NSString *deviceInformationEntityName = @"DeviceInformation";
         //
         // This is the data that was persisted from the last run. 
         //
-        NSMutableArray *realData = [[NSMutableArray alloc] initWithCapacity:100];
+        NSMutableArray *realData = [[[NSMutableArray alloc] initWithCapacity:100] autorelease];
         
         //
         // Clear the previous list of Reading Dates
@@ -178,7 +178,7 @@ NSString *deviceInformationEntityName = @"DeviceInformation";
         
         for (NSManagedObject *object in [context executeFetchRequest:fetchRequest error:&error])
         {
-            OmronDataRecord *dataRecord = [[OmronDataRecord alloc] initWithManagedObject:object];            
+            OmronDataRecord *dataRecord = [[[OmronDataRecord alloc] initWithManagedObject:object] autorelease];            
             [realData addObject:dataRecord];
             
             //
@@ -212,11 +212,11 @@ NSString *deviceInformationEntityName = @"DeviceInformation";
         //
         // Run the Fetch again, presuming that there was new data on the Device
         //
-        NSMutableArray *realData = [[NSMutableArray alloc] initWithCapacity:100];
+        NSMutableArray *realData = [[[NSMutableArray alloc] initWithCapacity:100] autorelease];
         
         for (NSManagedObject *object in [context executeFetchRequest:fetchRequest error:&error])
         {
-            OmronDataRecord *dataRecord = [[OmronDataRecord alloc] initWithManagedObject:object];
+            OmronDataRecord *dataRecord = [[[OmronDataRecord alloc] initWithManagedObject:object] autorelease];
             [realData addObject:dataRecord];
         }
         
@@ -403,6 +403,8 @@ NSString *deviceInformationEntityName = @"DeviceInformation";
                     [newManagedObject setValue:[NSNumber numberWithInt:bank] forKey:dataBankKey];
                     [newManagedObject setValue:[NSString stringWithString:@""] forKey:commentKey];
                 }
+                
+                [comps release];
             }
         }
     }
@@ -516,6 +518,7 @@ NSString *deviceInformationEntityName = @"DeviceInformation";
     if (![coordinator addPersistentStoreWithType:NSXMLStoreType configuration:nil URL:url options:nil error:&error]) 
     {
         [[NSApplication sharedApplication] presentError:error];
+        [coordinator release];
         return nil;
     }
     myPersistentStoreCoordinator = coordinator;

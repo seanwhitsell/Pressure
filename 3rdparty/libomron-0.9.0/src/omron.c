@@ -109,11 +109,10 @@ int omron_send_clear(omron_device* dev)
 	static const unsigned char zero[12]; /* = all zeroes */
 	//unsigned char input_report[9];
 	unsigned char input_report[8];
-	int read_result;
-	read_result = omron_read_data(dev, input_report);
+	omron_read_data(dev, input_report);
 	do {
 		omron_send_command(dev, sizeof(zero), zero);
-		read_result = omron_read_data(dev, input_report);
+		omron_read_data(dev, input_report);
 	} while (omron_check_success(input_report, 1) != 0);
 
 	return 0;
