@@ -131,6 +131,11 @@ NSString *deviceInformationEntityName = @"DeviceInformation";
     // Let's try to retrieve our latest device information from the persistent store
     //
     NSManagedObjectContext *context = [self managedObjectContext];
+    
+    if (!context)
+    {
+        return;
+    }
     NSFetchRequest *fetchRequest = [[[NSFetchRequest alloc] init] autorelease];
     NSError *error;
     NSEntityDescription *entity = [NSEntityDescription entityForName:deviceInformationEntityName inManagedObjectContext:context];
