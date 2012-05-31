@@ -520,7 +520,6 @@ NSString *deviceInformationEntityName = @"DeviceInformation";
     NSPersistentStoreCoordinator *coordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:mom];
     if (![coordinator addPersistentStoreWithType:NSXMLStoreType configuration:nil URL:url options:nil error:&error]) 
     {
-        [[NSApplication sharedApplication] presentError:error];
         [coordinator release];
         return nil;
     }
@@ -541,11 +540,6 @@ NSString *deviceInformationEntityName = @"DeviceInformation";
     
     NSPersistentStoreCoordinator *coordinator = [self persistentStoreCoordinator];
     if (!coordinator) {
-        NSMutableDictionary *dict = [NSMutableDictionary dictionary];
-        [dict setValue:@"Failed to initialize the store" forKey:NSLocalizedDescriptionKey];
-        [dict setValue:@"There was an error building up the data file." forKey:NSLocalizedFailureReasonErrorKey];
-        NSError *error = [NSError errorWithDomain:@"YOUR_ERROR_DOMAIN" code:9999 userInfo:dict];
-        [[NSApplication sharedApplication] presentError:error];
         return nil;
     }
     myManagedObjectContext = [[NSManagedObjectContext alloc] init];
