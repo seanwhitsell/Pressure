@@ -1,11 +1,6 @@
-#=================
-# build libusb
+Pressure
+========
 
-cd 3rdparty/libusb-0.1.12
-CFLAGS=-Wno-error ./configure -enable-static
-make
-cp .libs/libusb.a ../../lib/
+Pressure is an OSX application that reads the data from an Omron BP791IT. Specifically this model, because that is the one that I have.
 
-cd ../..
-#================
-cd 3rdparty/libomron-0.9.0/
+
