@@ -167,6 +167,7 @@
 		DA1A34CB14BB36D00089F858 /* OmronDataSyncOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OmronDataSyncOperation.h; sourceTree = "<group>"; };
 		DA1A34CC14BB36D00089F858 /* OmronDataSyncOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OmronDataSyncOperation.m; sourceTree = "<group>"; };
 		DA1F35AF151761CA0082D599 /* LCDM2N__.TTF */ = {isa = PBXFileReference; lastKnownFileType = file; path = LCDM2N__.TTF; sourceTree = "<group>"; };
+		DA2468341577AF2C006DF5D5 /* omron.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = omron.h; path = "../../3rdparty/libomron-0.9.0/include/libomron/omron.h"; sourceTree = "<group>"; };
 		DA33174A14C10DFA00022170 /* OmronDataRecord.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OmronDataRecord.h; sourceTree = "<group>"; };
 		DA33174B14C10DFA00022170 /* OmronDataRecord.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OmronDataRecord.m; sourceTree = "<group>"; };
 		DA340FF5150A32C200CA5AED /* SWDatePicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWDatePicker.h; sourceTree = "<group>"; };
@@ -439,6 +440,7 @@
 		DA4FE8BC14BB6AF60019B20F /* OmronDevice */ = {
 			isa = PBXGroup;
 			children = (
+				DA2468341577AF2C006DF5D5 /* omron.h */,
 				DA4FE8AC14BB5E3F0019B20F /* omron.c */,
 				DA4FE8AE14BB5E4B0019B20F /* omron_libusb.c */,
 				DA1A34C914BB36D00089F858 /* OmronDataSource.h */,

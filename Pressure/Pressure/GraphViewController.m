@@ -89,7 +89,7 @@ NSString *GraphDataPointWasSelectedNotification = @"GraphDataPointWasSelectedNot
 @synthesize systolicFrequencyDistribution = mSystolicFrequencyDistribution;
 @synthesize diastolicFrequencyDistribution = mDiastolicFrequencyDistribution;
 @synthesize datePicker = mDatePicker;
-@synthesize dateRangeLabel = mDateRangeLabel;
+@synthesize noDataFoundLabel;
 @synthesize averageSystolicPressure = mAverageSystolicPressure;
 @synthesize averageDiastolicPressure = mAverageDiastolicPressure;
 @synthesize averageHeartRate = mAverageHeartRate;
@@ -140,7 +140,7 @@ NSString *GraphDataPointWasSelectedNotification = @"GraphDataPointWasSelectedNot
         CPTMutableTextStyle *textStyle = [CPTMutableTextStyle textStyle];
         textStyle.color = [CPTColor darkGrayColor];
         textStyle.fontSize = 12.0f;
-        textStyle.fontName = [[NSFont messageFontOfSize:12.0f] fontName];
+        textStyle.fontName = [[NSFont labelFontOfSize:12.0f] fontName];
         mGraph.title = @"";
         mGraph.titleTextStyle = textStyle;
         mGraph.titleDisplacement = CGPointMake(0.0f, -20.0f);
@@ -392,9 +392,6 @@ NSString *GraphDataPointWasSelectedNotification = @"GraphDataPointWasSelectedNot
 
 - (void)updateSortedReadings
 {
-    // Table Reload
-//    NSLog(@"[GraphViewController updateSortedReadings]");
-    
     //
     // Let's take the data and sort it by date. There is no guarantee that the datasource.readings are
     // in any order
@@ -496,7 +493,7 @@ NSString *GraphDataPointWasSelectedNotification = @"GraphDataPointWasSelectedNot
         for (int index=0; index<K; index++) 
         {
             NSNumber *value = [systolicFrequencyDistribution objectAtIndex:index];
-//            NSLog(@"Systolic freq is %i", [value intValue]);
+
             float percentage =  [value floatValue] / (int)[readingsSortedBySystolicPressure count];
             percentage *= 100;
             [systolicFrequencyDistribution replaceObjectAtIndex:index withObject:[NSNumber numberWithFloat:percentage]];
@@ -564,7 +561,6 @@ NSString *GraphDataPointWasSelectedNotification = @"GraphDataPointWasSelectedNot
             W++;
         }
         
-        //NSLog(@"recalculateFrequencyDistributionHistogram - L is %ld, S is %ld W is %ld", L,S,W);
         NSMutableArray *diastolicFrequencyDistribution = [[NSMutableArray alloc] initWithCapacity:K];
         
         //
@@ -601,7 +597,7 @@ NSString *GraphDataPointWasSelectedNotification = @"GraphDataPointWasSelectedNot
         for (int index=0; index<K; index++) 
         {
             NSNumber *value = [diastolicFrequencyDistribution objectAtIndex:index];
-//            NSLog(@"Diastolic freq is %i", [value intValue]);
+
             float percentage =  [value floatValue] / (int)[readingsSortedBySystolicPressure count];
             percentage *= 100;
             [diastolicFrequencyDistribution replaceObjectAtIndex:index withObject:[NSNumber numberWithFloat:percentage]];
@@ -668,20 +664,20 @@ NSString *GraphDataPointWasSelectedNotification = @"GraphDataPointWasSelectedNot
         //
         NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar]; 
         NSUInteger unitFlags = NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit; 
-        NSDateComponents *components = [gregorian components:unitFlags fromDate:[record readingDate]]; 
-        [components setDay:1];
-        self.referenceDate = [gregorian dateFromComponents:components];
+        self.referenceDate = [self firstDayOfMonthForDate:[record readingDate]];
         
         
         NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
         dateFormatter.dateStyle = kCFDateFormatterShortStyle;
         
+        NSUInteger oneDay = 3600*24;
+
         CPTXYAxisSet *axisSet = (CPTXYAxisSet *)self.graph.axisSet;
         CPTXYAxis *x = axisSet.xAxis;
         CPTXYPlotSpace *plotSpace = (CPTXYPlotSpace *)self.graph.defaultPlotSpace;
         
         NSDate *ending = [[self.dataSourceSortedReadings lastObject] readingDate];
-        plotSpace.xRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromInteger(0) length:CPTDecimalFromInteger([[self lastDayOfMonthForDate:ending] timeIntervalSinceDate:self.referenceDate])];
+        plotSpace.xRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromInteger(0) length:CPTDecimalFromInteger([[self lastDayOfMonthForDate:ending] timeIntervalSinceDate:self.referenceDate] + oneDay)];
         
         NSLog(@"recalculateGraphAxis: plotSpace.xRange.location is %f lotSpace.xRange.length is %f",plotSpace.xRange.locationDouble , plotSpace.xRange.lengthDouble);
         
@@ -741,14 +737,14 @@ NSString *GraphDataPointWasSelectedNotification = @"GraphDataPointWasSelectedNot
         
         NSMutableArray *customLabels = [NSMutableArray arrayWithCapacity:24];
         NSMutableArray *customMajorTickLocations = [NSMutableArray arrayWithCapacity:24];
-        NSUInteger oneDay = 3600*24;
         
-        NSDate* currentDate = [[self.dataSourceSortedReadings objectAtIndex:0] readingDate];
+        NSDate* currentDate = self.referenceDate;
         NSDate* lastDate = [[self.dataSourceSortedReadings lastObject] readingDate];
-        components = [[NSDateComponents alloc] init];
+        lastDate = [self lastDayOfMonthForDate:lastDate];
+        NSDateComponents *components = [[NSDateComponents alloc] init];
         [components setMonth:1];
 
-        while (NSOrderedAscending == [currentDate compare:lastDate])
+        while ((NSOrderedAscending == [currentDate compare:lastDate]) || (NSOrderedSame == [currentDate compare:lastDate]))
         {
             NSTimeInterval interval = [currentDate timeIntervalSinceDate:self.referenceDate];
             NSNumber* numMajorTickLocation = [NSNumber numberWithDouble:interval];
@@ -757,7 +753,7 @@ NSString *GraphDataPointWasSelectedNotification = @"GraphDataPointWasSelectedNot
             NSString *monthName = [[dateFormatter shortMonthSymbols] objectAtIndex:([monthComponents month]-1)];
             CPTAxisLabel *newLabel = [[CPTAxisLabel alloc] initWithText:monthName textStyle:x.labelTextStyle];
             newLabel.tickLocation = [numMinorTickLocation decimalValue];
-            newLabel.offset = x.labelOffset + x.majorTickLength;
+            newLabel.offset = 0; 
 
             currentDate = [gregorian dateByAddingComponents:components toDate:currentDate options:0];
 
@@ -1079,6 +1075,7 @@ NSString *GraphDataPointWasSelectedNotification = @"GraphDataPointWasSelectedNot
 
 - (void)dataSyncOperationDataAvailable:(NSNotification*)notif
 {
+    [[self noDataFoundLabel] setHidden:YES];
     [self updateSortedReadings];
     [self recalculateDatePickerRange];
 
