@@ -1,0 +1,3 @@
+[submodule "3rdparty/core-plot"]
+	path = 3rdparty/core-plot
+	url = https://github.com/core-plot/core-plot.git
