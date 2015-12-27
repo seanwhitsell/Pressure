@@ -132,9 +132,9 @@
 		if (selectedViewController != nil)
 		{
 			// Add the view controller to the responder chain.
-			NSResponder *responder = [[selectedViewController view] nextResponder];
-			[selectedViewController setNextResponder:responder];
-			[[selectedViewController view] setNextResponder:selectedViewController];
+//			NSResponder *responder = [[selectedViewController view] nextResponder];
+//			[selectedViewController setNextResponder:responder];
+//			[[selectedViewController view] setNextResponder:selectedViewController];
 		}
 		
 		self.tabBar.selectedItem = selectedViewController.tabBarItem;
